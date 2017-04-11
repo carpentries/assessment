@@ -110,4 +110,4 @@ table(data$New.Information)
 
 Now let's take a look at learners' prior experience with the tools covered in the workshop they attended, and their knowledge and perception after the workshop.
 
-### Learners' Prior Experience and Knowledge Post-Workshop: Unix Shell
+### Learners' Prior Experience and Knowledge Post-Workshop: Unix Shell 
