@@ -66,8 +66,8 @@ A strength of Software Carpentry's ecosystem is its instructors and helpers. Lea
 * __Instructors.Clear.Answers__: Instructors gave clear answers to your questions.    
 * __Instructors.Enthusiastic__: Instructors were enthusiastic.    
 * __Helpers.Considerate__: Helpers were considerate.  
-* __Instructors.Considerate_: Instructors were considerate.           
-
+* __Instructors.Considerate__: Instructors were considerate.
+  
 ```{r echo=FALSE}
 cols_with_Often <- map_lgl(data, ~`%in%`("Often", .x))
 data_often <-  data[ , cols_with_Often]
