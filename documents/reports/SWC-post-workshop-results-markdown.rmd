@@ -108,6 +108,11 @@ Though some learners had prior knowledge of the tools covered in the workshop th
 table(data$New.Information)
 ```
 
-Now let's take a look at learners' prior experience with the tools covered in the workshop they attended, and their knowledge and perception after the workshop.
+Now let's take a look at learners' prior experience with the tools covered in the workshop they attended, and their knowledge and perception after the workshop. This section will be divided by tool:  
+* Unix shell  
+* Git  
+* Python  
+* R  
+* SQL  
 
 ### Learners' Prior Experience and Knowledge Post-Workshop: Unix Shell 
