@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Analysis of Software Carpentry's Post-Workshop Surveys
 __Author__: [Kari L. Jordan](https://github.com/kariljordan)
 __Contributor__: [Ben Marwick](https://github.com/benmarwick)
@@ -8,7 +13,7 @@ For nearly 20 years, Software Carpentry has developed material and trained instr
 A [PDF](https://github.com/carpentries/public-survey-info/blob/master/documents/surveys/2017-03-15-SwC-postworkshop-survey.pdf) of the survey questions, the data used in this analysis, and full R code are located on the [public-survey-info](https://github.com/carpentries/public-survey-info) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
 
 ```{r echo=FALSE}
-setwd ("/Users/kariljordan/Data_Carpentry/my-forked-repos/public-survey-info/documents/reports")
+setwd ("/Users/kariljordan/Data_Carpentry/fork/public-survey-info/documents/reports")
 
 data <- read.csv("swc_postworkshop_data_archived_scrubbedMarch2017.csv", na.strings = "")
 ```
