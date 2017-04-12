@@ -1,8 +1,8 @@
 #' ---
 #' title: "Analysis of Software Carpentry's Post-Workshop Surveys"
-#' author: "Kari L. Jordan, PhD"
+#' author: "Kari L. Jordan"
 #' contributor: Ben Marwick
-#' date: "March 7, 2017"
+#' date: "April 2017"
 #' ---
 
 # The following is an analysis of the post-workshop survey data collected for Software 
@@ -12,7 +12,7 @@
 getwd()
 
 # Set working directory
-setwd ("/Users/kariljordan/Data_Carpentry/workshop-survey-data/data/public_data/")
+setwd ("/Users/kariljordan/Data_Carpentry/fork/public-survey-info/data/public_data/")
 
 # Load CSV and assign to dataframe.
 data <- read.csv("swc_postworkshop_data_archived_scrubbedMarch2017.csv", na.strings = "")
@@ -50,9 +50,6 @@ ggplot(data_when_taking_survey_tally,
   ylab("n") +
   coord_flip() +
   theme_bw(base_size = 14) 
-
-# An alternate way to plot when learners are taking the survey.
-# plot(data$When.Taking.Survey)
 
 # Feedback about the workshop overall.
 # The amount of information covered at the workshop was reasonable for allotted time.
@@ -319,3 +316,4 @@ table(data$Gender)
 
 # Plot of gender
 plot(data$Gender)
+plot(data$Status)
