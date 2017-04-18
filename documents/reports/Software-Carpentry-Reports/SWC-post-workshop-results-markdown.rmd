@@ -11,19 +11,19 @@ A [PDF](https://github.com/carpentries/public-survey-info/blob/master/documents/
 library(likert)
 library(purrr)
 ```
-```{r eval=FALSE, purl=TRUE}
+```{r include=FALSE, purl=TRUE}
 download.file("https://raw.githubusercontent.com/carpentries/public-survey-info/master/data/public_data/swc_postworkshop_data_archived_scrubbedMarch2017.csv", "swc_postworkshop_data_archived_scrubbedMarch2017.csv")
 
 data <- read.csv("swc_postworkshop_data_archived_scrubbedMarch2017.csv", na.strings = "")
 ```
 ### Learner Demographics
 A host of initiatives have been developed and implemented globally to address gender disparities in computing. Software Carpentry's volunteer instructors have hosted hundreds of events since 1998, and the post-workshop survey data shows __parity__ in attendance of males compared to females.
-```{r eval=FALSE}
+```{r echo=FALSE}
 table(data$Gender)
 ```
 
 The majority of Software Carpentry learners are __Graduate Students__. A breakdown of Software Carpentry's learners by __status__ is provided below.
-```{r eval=FALSE}
+```{r echo=FALSE}
 table(data$Status)
 ```
 ### Learner Perception of Workshop Content and Atmosphere
@@ -38,7 +38,7 @@ Learners were asked to rate their level of agreement on a scale of 1 (Strongly D
 * __Information__: The amount of information covered at the workshop was reasonable for allotted time.   
 
 Learners have mixed feelings about the pace of the workshop they attended.
-```{r eval=FALSE}
+```{r echo=FALSE}
 table(data$Pace)
 ```
 
@@ -108,7 +108,7 @@ plot(data_little_likert) + ggtitle(title)
 
 Though some learners had prior knowledge of the tools covered in the workshop they attended, the majority had little to no knowledge of the topics covered, especially for SQL and Git. The following table shows a breakdown of how much information was new to learners attending a Software Carpentry workshop.
 
-```{r eval=FALSE}
+```{r echo=FALSE}
 table(data$New.Information)
 ```
 
