@@ -11,18 +11,19 @@ A [PDF](https://github.com/carpentries/public-survey-info/blob/master/documents/
 library(likert)
 library(purrr)
 ```
-```{r echo=FALSE, purl=TRUE}
+```{r eval=FALSE, purl=TRUE}
 download.file("https://raw.githubusercontent.com/carpentries/public-survey-info/master/data/public_data/swc_postworkshop_data_archived_scrubbedMarch2017.csv", "swc_postworkshop_data_archived_scrubbedMarch2017.csv")
 
 data <- read.csv("swc_postworkshop_data_archived_scrubbedMarch2017.csv", na.strings = "")
 ```
 ### Learner Demographics
 A host of initiatives have been developed and implemented globally to address gender disparities in computing. Software Carpentry's volunteer instructors have hosted hundreds of events since 1998, and the post-workshop survey data shows __parity__ in attendance of males compared to females.
-```{r echo=FALSE}
+```{r eval=FALSE}
 table(data$Gender)
 ```
+
 The majority of Software Carpentry learners are __Graduate Students__. A breakdown of Software Carpentry's learners by __status__ is provided below.
-```{r echo=FALSE}
+```{r eval=FALSE}
 table(data$Status)
 ```
 ### Learner Perception of Workshop Content and Atmosphere
@@ -37,15 +38,11 @@ Learners were asked to rate their level of agreement on a scale of 1 (Strongly D
 * __Information__: The amount of information covered at the workshop was reasonable for allotted time.   
 
 Learners have mixed feelings about the pace of the workshop they attended.
-```{r echo=FALSE}
+```{r eval=FALSE}
 table(data$Pace)
 ```
 
 Using the [Likert](http://jason.bryer.org/likert/) package, the following chart is an analysis of learner responses to the statements above. The code chunk is shown once here, and hidden for all subsequent plots.
-```{r echo=FALSE}
-library(likert)
-library(purrr)
-```
 ```{r}
 cols_with_Agree <- map_lgl(data, ~`%in%`("Agree", .x))
 data_agree <-  data[ , cols_with_Agree]
@@ -53,10 +50,13 @@ data_agree <-  data[ , cols_with_Agree]
 data_agree <- map_if(data_agree, 
                      is.character, 
                      as.factor)
-title <- "Figure 1: Learner Perception of Workshop Content & Atmosphere"
+
+title <- "Learner Perception of Workshop Content & Atmosphere"
 data_agree_likert <-  likert(as.data.frame(data_agree))
 theme_update(plot.title = element_text(hjust = 0.5))
+
 plot(data_agree_likert) + ggtitle(title)
+
 ```
 
 The data strongly suggests that Software Carpentry provides a welcoming environment for its learners where the material not only matches the workshop description, but is worth the time learners spend learning it. Learners acquire skills they are able to apply to their research or job function in the time alloted over the two-day period. Lastly, learners feel impressed to recommend the workshop to a friend or colleague.
@@ -108,7 +108,7 @@ plot(data_little_likert) + ggtitle(title)
 
 Though some learners had prior knowledge of the tools covered in the workshop they attended, the majority had little to no knowledge of the topics covered, especially for SQL and Git. The following table shows a breakdown of how much information was new to learners attending a Software Carpentry workshop.
 
-```{r echo=FALSE}
+```{r eval=FALSE}
 table(data$New.Information)
 ```
 
