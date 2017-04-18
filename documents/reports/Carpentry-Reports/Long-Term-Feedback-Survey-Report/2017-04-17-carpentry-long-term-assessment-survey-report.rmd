@@ -124,10 +124,7 @@ table(data$Recommended)
 ### Likert Items
 
 Using the [Likert](http://jason.bryer.org/likert/) package, the following chart is an analysis of learner responses to the statements above. The code chunk is shown once here, and hidden for all subsequent plots.
-```{r echo=FALSE}
-library(likert)
-library(purrr)
-```
+
 ```{r}
 cols_with_Agree <- map_lgl(data, ~`%in%`("Agree", .x))
 data_agree <-  data[ , cols_with_Agree]
@@ -135,9 +132,12 @@ data_agree <-  data[ , cols_with_Agree]
 data_agree <- map_if(data_agree, 
                      is.character, 
                      as.factor)
+
 title <- "xxxxx"
 data_agree_likert <-  likert(as.data.frame(data_agree))
 theme_update(plot.title = element_text(hjust = 0.5))
+
 plot(data_agree_likert) + ggtitle(title)
+
 ```
 
