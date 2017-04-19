@@ -51,12 +51,13 @@ ggplot(data_country_tally,
   ylab("") +
   coord_flip() + 
   ggtitle("Carpentry Workshop Respondents by Country") +
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(hjust = 0.5)) +
   theme_bw(base_size = 14)
 
 # Naupaka said I can use ggplot(iris)+geom_bar(aes(Species,Petal.Width,fill=Species),stat="summary",fun.y="mean")# +scale_fill_manual(values=c("green","blue","blue")) to change the color of just one
 #bar on the plot, but I can't figure out how right now.
 ```
+
 A large portion of Carpentry learners responding to the survey attended a workshop in the United States.
 
 What is the status of those responding?
@@ -80,7 +81,7 @@ data_position_tally <-
   xlab("") +
   ylab("") +
   ggtitle("Self-Reported Status of Carpentry Learners") +
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
 ```
 Majority graduate students.
@@ -138,7 +139,7 @@ ggplot(data_programming.usage.before.workshop_tally,
   xlab("") +
   ylab("") +
   ggtitle("Learner's Programming Usage Before Attending a Carpentry Workshop") +
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(hjust = 0.5)) +
   theme_bw(base_size = 14)
 ```
 ```{r echo=FALSE}
@@ -158,7 +159,7 @@ ggplot(data_programming.usage.since.workshop_tally,
   xlab("") +
   ylab("") +
   ggtitle("Learner's Programming Usage Since Attending a Carpentry Workshop") +
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(hjust = 0.5)) +
   theme_bw(base_size = 14)
 ```
 ```{r echo=FALSE}
@@ -179,7 +180,7 @@ ggplot(data_change.in.confidence_tally,
   xlab("") +
   ylab("") +
   ggtitle("Learner's Change in Confidence")+
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(hjust = 0.5)) +
   theme_bw(base_size = 14)
 ```
 How have the tools covered in Carpentry workhops helped learners in their research or work?
@@ -244,17 +245,26 @@ Using the [Likert](http://jason.bryer.org/likert/) package, the following chart 
 ```{r}
 cols_with_Agree <- map_lgl(data, ~`%in%`("Agree", .x))
 data_agree <-  data[ , cols_with_Agree]
-
-data_agree <- map_if(data_agree, 
-                     is.character, 
+ 
+order = c("Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree")
+ 
+print(class(data_agree))
+data_agree <- map_if(data_agree,
+                     is.character,
                      as.factor)
-
-title <- "Learner Perception of Carpentry Workshops"
+ 
+# my fix start
+for(i in seq_along(data_agree)) {
+                data_agree[[i]] <- factor(data_agree[[i]], levels=order)
+}
+# my fix end
+ 
+print(levels(data_agree))
+title <- "Learner Perception of Workshop Content & Atmosphere"
 data_agree_likert <-  likert(as.data.frame(data_agree))
 theme_update(plot.title = element_text(hjust = 0.5))
-
-plot(data_agree_likert) + ggtitle(title) +
-  theme(plot.title = element_text(hjust = 0.5))
+ 
+plot(data_agree_likert) + ggtitle(title)
 ```
 
 ```{r}
