@@ -4,7 +4,7 @@ __Published__: April 2017
 
 THIS IS JUST A DRAFT
 
-A [PDF](https://github.com/carpentries/public-survey-info/blob/master/documents/surveys/2017-04-17-carpentry-long-term-feedback-survey.pdf) of the survey questions, the data used in this analysis, and full R code are located on the [public-survey-info](https://github.com/carpentries/public-survey-info) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
+A [PDF](https://github.com/carpentries/public-survey-info/blob/master/documents/surveys/2017-04-17-carpentry-long-term-feedback-survey.pdf) of the survey questions, the data used in this analysis, and .RMD file are located in the [long-term feedback survey report](https://github.com/carpentries/public-survey-info/tree/master/documents/reports/Carpentry-Reports/Long-Term-Feedback-Survey-Report) folder on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
 
 ```{r include=FALSE}
 # install.packages("ggmap", type = "source")
@@ -31,11 +31,10 @@ download.file("https://raw.githubusercontent.com/carpentries/public-survey-info/
 data <- read.csv("2017-04-17-carpentry-long-term-assessment-survey-data-public.csv", na.strings = "")
 ```
 ### Learner Demographics
-
+Here is a breakdown of our respondents by the Country where they attended a Carpentry workshop.
 ```{r echo=FALSE}
 table(data$Country)
-```
-```{r echo=FALSE}
+
 data_country_tally <- 
   data %>% 
   group_by(Country) %>% 
