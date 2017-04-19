@@ -12,12 +12,13 @@ A [PDF](https://github.com/carpentries/public-survey-info/blob/master/documents/
 # install.packages("purrr")
 # install.packages("mapproj")
 # install.packages("ggmap")
+# install.packages("ggplot2")
+library(ggmap)
 library(likert)
 library(purrr)
-library(ggmap)
 library(mapproj)
 library(ggplot2)
-# update.packages(repos = "https://cloud.r-project.org")
+update.packages(repos = "https://cloud.r-project.org")
 ```
 ```{r echo=FALSE, purl=TRUE}
 download.file("https://raw.githubusercontent.com/carpentries/public-survey-info/master/data/public_data/2017-04-17-carpentry-long-term-assessment-survey-data-public.csv", "2017-04-17-carpentry-long-term-assessment-survey-data-public.csv")
@@ -50,6 +51,9 @@ ggplot(data_country_tally,
 A large portion of Carpentry learners responding to the survey attended a workshop in the United States.
 ```{r echo=FALSE}
 table(data$Position)
+```
+```{r echo=FALSE}
+table(data$Country)
 ```
 ```{r echo=FALSE}
 data_position_tally <- 
