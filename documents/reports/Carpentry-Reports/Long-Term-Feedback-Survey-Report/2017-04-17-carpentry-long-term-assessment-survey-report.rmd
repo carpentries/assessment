@@ -6,7 +6,7 @@ THIS IS JUST A DRAFT
 
 A [PDF](https://github.com/carpentries/public-survey-info/blob/master/documents/surveys/2017-04-17-carpentry-long-term-feedback-survey.pdf) of the survey questions, the data used in this analysis, and full R code are located on the [public-survey-info](https://github.com/carpentries/public-survey-info) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
 
-```{r echo=FALSE}
+```{r include=FALSE}
 # install.packages("ggmap", type = "source")
 # install.packages("likert")
 # install.packages("purrr")
@@ -21,6 +21,8 @@ library(ggmap)
 library(mapproj)
 library(ggplot2)
 library(knitr)
+library(RColorBrewer)
+display.brewer.all()
 update.packages(repos = "https://cloud.r-project.org")
 ```
 ```{r echo=FALSE, purl=TRUE}
@@ -44,43 +46,48 @@ data_country_tally <-
 ggplot(data_country_tally, 
        aes(reorder(Country, n),
            n)) +
-  geom_col() +
+  geom_bar(stat = "identity", fill = "blue") +
+  theme_classic() +
   xlab("") +
   ylab("") +
-  coord_flip() +
+  coord_flip() + 
   ggtitle("")
   theme_bw(base_size = 14)
 ```
 A large portion of Carpentry learners responding to the survey attended a workshop in the United States.
+
+What is the status of those responding?
 ```{r echo=FALSE}
 table(data$Position)
 ```
 ```{r echo=FALSE}
-data_position_tally <- 
+data_position_tally <-
   data %>% 
   group_by(Position) %>% 
   tally() %>% 
   filter(!is.na(Position)) %>% 
   arrange(desc(n))
 
-ggplot(data_position_tally, 
+  ggplot(data_position_tally, 
        aes(reorder(Position, n),
            n)) +
-  geom_col() +
+  geom_bar(stat = "identity", fill="blue") +
+  theme_classic() +
   xlab("") +
   ylab("") +
-  ggtitle("Self-Reported Status of Carpentry Learners")
-  theme_bw(base_size = 14)
+  ggtitle("Self-Reported Status of Carpentry Learners") +
+  theme_classic(base_size = 14)
 ```
 Majority graduate students.
 ```{r echo=FALSE}
 table(data$Position.Other)
 ```
+How many workshops have respondents attended?
 ```{r echo=FALSE}
 table(data$How.Many.Workshops)
 ```
 Behaviors Adopted Since Attending a Carpentry Workshop
-```{r echo=FALSE}
+```{r include=FALSE}
 table(data$Behaviors.Adopted)
 table(data$Column25)
 table(data$Column26)
@@ -110,10 +117,40 @@ behaviors
 ```
 Programming Usage before a Carpentry Workshop
 ```{r echo=FALSE}
-table(data$Programming.Usage.Before.Workshop)
+data_programming.usage.before.workshop_tally <- 
+  data %>% 
+  group_by(Programming.Usage.Before.Workshop) %>% 
+  tally() %>% 
+  filter(!is.na(Programming.Usage.Before.Workshop)) %>% 
+  arrange(desc(n))
+
+ggplot(data_programming.usage.before.workshop_tally, 
+       aes(reorder(Programming.Usage.Before.Workshop, n),
+           n)) +
+  geom_bar(stat = "identity", fill="blue") +
+  theme_classic() +
+  xlab("") +
+  ylab("") +
+  ggtitle("Learner's Programming Usage Before Attending a Carpentry Workshop")
+  theme_bw(base_size = 14)
 ```
 ```{r echo=FALSE}
-table(data$Programming.Usage.Since.Workshop)
+data_programming.usage.since.workshop_tally <- 
+  data %>% 
+  group_by(Programming.Usage.Since.Workshop) %>% 
+  tally() %>% 
+  filter(!is.na(Programming.Usage.Since.Workshop)) %>% 
+  arrange(desc(n))
+
+ggplot(data_programming.usage.since.workshop_tally, 
+       aes(reorder(Programming.Usage.Since.Workshop, n),
+           n)) +
+  geom_bar(stat = "identity", fill = "blue") +
+  theme_classic() +
+  xlab("") +
+  ylab("") +
+  ggtitle("Learner's Programming Usage Since Attending a Carpentry Workshop")
+  theme_bw(base_size = 14)
 ```
 ```{r echo=FALSE}
 table(data$Change.In.Confidence)
@@ -127,59 +164,65 @@ data_change.in.confidence_tally <-
 ggplot(data_change.in.confidence_tally, 
        aes(reorder(Change.In.Confidence, n),
            n)) +
-  geom_col() +
+  geom_bar(stat = "identity", fill = "blue") +
+  theme_classic() +
   xlab("") +
   ylab("") +
   ggtitle("Learner's Change in Confidence")
   theme_bw(base_size = 14)
 ```
-```{r echo=FALSE}
+How have the tools covered in Carpentry workhops helped learners in their research or work?
+```{r include=FALSE}
 table(data$How.Tools.Learned.Help)
-```
-```{r echo=FALSE}
 table(data$Column34)
-```
-```{r echo=FALSE}
 table(data$Column34)
-```
-```{r echo=FALSE}
 table(data$Column35)
-```
-```{r echo=FALSE}
 table(data$Column36)
-```
-```{r echo=FALSE}
 table(data$Column37)
 ```
 ```{r echo=FALSE}
+career <- matrix(c(245,217,217,203,28,61),ncol=1,byrow=TRUE)
+colnames(career) <-("How Have the Tools Covered Helped Your Work?")
+rownames(career) <-c("They are improving my overall efficiency.",
+                        "They are improving my ability to analyze data.",
+                        "They are improving my ability to analyze data.",
+                        "They are improving my ability to manage data.",
+                        "The tools I learned have not helped me with my work.",
+                        "I am not using the tools I learned.")
+career <- as.table(career)
+career
+```
+
+Has participating in a Carpentry workshop contributed to academic writing?
+```{r echo=FALSE}
 table(data$Contributed.To.Writing)
 ```
-
-```{r echo=FALSE}
+How have learners been involved with the Carpentries since attending a workshop?
+```{r include=FALSE}
 table(data$Carpentry.Involvement)
-```
-```{r echo=FALSE}
 table(data$Column45)
-```
-```{r echo=FALSE}
 table(data$Column46)
-```
-```{r echo=FALSE}
 table(data$Column47)
-```
-```{r echo=FALSE}
 table(data$Column48)
-```
-```{r echo=FALSE}
 table(data$Column49)
-```
-```{r echo=FALSE}
 table(data$Column50)
-```
-```{r echo=FALSE}
 table(data$Column51)
 ```
-
+```{r echo=FALSE}
+involvement <- matrix(c(120,18,31,26,6,12,11,18),ncol=1,byrow=TRUE)
+colnames(involvement) <-("Involvement Since Attending a Carpentry Workshop")
+rownames(involvement) <-c("Subscribed to the newsletter.",
+                        "Attended at least one community call.",
+                        "Became a workshop helper.",
+                        "Became a Carpentry instructor.",
+                        "Joined a committee.",
+                        "Joined a mentoring group.",
+                        "Participated in a Twitter chat.",
+                        "Contributed to a Carpentry lesson.")
+involvement <- as.table(involvement)
+involvement
+```
+Have learners recommended Carpentry workshops?
 ```{r echo=FALSE}
 table(data$Recommended)
 ```
