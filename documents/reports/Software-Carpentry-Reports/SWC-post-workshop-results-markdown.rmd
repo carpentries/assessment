@@ -25,6 +25,7 @@ table(data$Gender)
 The majority of Software Carpentry learners are __Graduate Students__. A breakdown of Software Carpentry's learners by __status__ is provided below.
 ```{r echo=FALSE}
 table(data$Status)
+plot(data$Status)
 ```
 ### Learner Perception of Workshop Content and Atmosphere
 Software Carpentry has developed an interactive instructional approach that includes direct instruction (i.e. explicit teaching and demonstrations), indirect instruction (i.e. problem solving and discovery), and experiential learning.
@@ -44,17 +45,27 @@ table(data$Pace)
 
 Using the [Likert](http://jason.bryer.org/likert/) package, the following chart is an analysis of learner responses to the statements above. The code chunk is shown once here, and hidden for all subsequent plots.
 ```{r}
+
 cols_with_Agree <- map_lgl(data, ~`%in%`("Agree", .x))
 data_agree <-  data[ , cols_with_Agree]
-
-data_agree <- map_if(data_agree, 
-                     is.character, 
+ 
+order = c("Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree")
+ 
+print(class(data_agree))
+data_agree <- map_if(data_agree,
+                     is.character,
                      as.factor)
+ 
+# Thanks [Elizabeth Wickes](hhttps://github.com/elliewix) for the tip!
+for(i in seq_along(data_agree)) {
+                data_agree[[i]] <- factor(data_agree[[i]], levels=order)
+}
 
+print(levels(data_agree))
 title <- "Learner Perception of Workshop Content & Atmosphere"
 data_agree_likert <-  likert(as.data.frame(data_agree))
 theme_update(plot.title = element_text(hjust = 0.5))
-
+ 
 plot(data_agree_likert) + ggtitle(title)
 
 ```
@@ -79,6 +90,9 @@ data_often <-  data[ , cols_with_Often]
 data_often <- map_if(data_often, 
                      is.character, 
                      as.factor)
+for(i in seq_along(data_agree)) {
+                data_agree[[i]] <- factor(data_agree[[i]], levels=order)
+}
 title <- "Figure 2: Learner Perception of Workshop Instructors and Helpers"
 data_often_likert <-  likert(as.data.frame(data_often))
 plot(data_often_likert) + ggtitle(title)
@@ -94,18 +108,20 @@ Software Carpentry workshops are self-organized, and each workshop includes the 
 
 Learners were asked to indicate their level of knowledge of the Unix shell, R, Python, Git, and SQL prior to attending a Software Carpentry workshop.
 
-```{r echo=FALSE}
+```{r}
 cols_with_Little <- map_lgl(data, ~`%in%`("Little or no knowledge of topic", .x))
 data_little <-  data[ , cols_with_Little]
 
 data_little <- map_if(data_little, 
                       is.character, 
                       as.factor)
+for(i in seq_along(data_agree)) {
+                data_agree[[i]] <- factor(data_agree[[i]], levels=order)
+}
 title <- "Figure 3: Learner Self-Reported Knowledge of Tools Covered"
 data_little_likert <-  likert(as.data.frame(data_little))
 plot(data_little_likert) + ggtitle(title)
 ```
-
 Though some learners had prior knowledge of the tools covered in the workshop they attended, the majority had little to no knowledge of the topics covered, especially for SQL and Git. The following table shows a breakdown of how much information was new to learners attending a Software Carpentry workshop.
 
 ```{r echo=FALSE}

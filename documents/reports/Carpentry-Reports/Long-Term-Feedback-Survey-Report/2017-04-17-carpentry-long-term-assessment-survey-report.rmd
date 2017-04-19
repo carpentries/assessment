@@ -88,9 +88,6 @@ table(data$Column37)
 ```{r echo=FALSE}
 table(data$Contributed.To.Writing)
 ```
-```{r echo=FALSE}
-table(data$Column34)
-```
 
 ```{r echo=FALSE}
 table(data$Carpentry.Involvement)
@@ -120,7 +117,6 @@ table(data$Column51)
 ```{r echo=FALSE}
 table(data$Recommended)
 ```
-
 ### Likert Items
 
 Using the [Likert](http://jason.bryer.org/likert/) package, the following chart is an analysis of learner responses to the statements above. The code chunk is shown once here, and hidden for all subsequent plots.
@@ -132,8 +128,10 @@ data_agree <-  data[ , cols_with_Agree]
 data_agree <- map_if(data_agree, 
                      is.character, 
                      as.factor)
-
-title <- "xxxxx"
+for(i in seq_along(data_agree)) {
+                data_agree[[i]] <- factor(data_agree[[i]], levels=order)
+}
+title <- "Learner Perception of Carpentry Workshops."
 data_agree_likert <-  likert(as.data.frame(data_agree))
 theme_update(plot.title = element_text(hjust = 0.5))
 
