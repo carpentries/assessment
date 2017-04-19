@@ -6,23 +6,25 @@ THIS IS JUST A DRAFT
 
 A [PDF](https://github.com/carpentries/public-survey-info/blob/master/documents/surveys/2017-04-17-carpentry-long-term-feedback-survey.pdf) of the survey questions, the data used in this analysis, and full R code are located on the [public-survey-info](https://github.com/carpentries/public-survey-info) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
 
-```{r}
+```{r echo=FALSE}
 # install.packages("ggmap", type = "source")
 # install.packages("likert")
 # install.packages("purrr")
 # install.packages("mapproj")
 # install.packages("ggmap")
 # install.packages("dplyr")
+# install.packages("knitr")
 library(dplyr)
 library(likert)
 library(purrr)
 library(ggmap)
 library(mapproj)
 library(ggplot2)
+library(knitr)
 update.packages(repos = "https://cloud.r-project.org")
 ```
 ```{r echo=FALSE, purl=TRUE}
-download.file("https://raw.githubusercontent.com/carpentries/public-survey-info/master/data/public_data/2017-04-17-carpentry-long-term-assessment-survey-data-public.csv", "2017-04-17-carpentry-long-term-assessment-survey-data-public.csv")
+download.file("https://raw.githubusercontent.com/carpentries/public-survey-info/master/documents/reports/Carpentry-Reports/Long-Term-Feedback-Survey-Report/2017-04-17-carpentry-long-term-assessment-survey-data-public.csv", "2017-04-17-carpentry-long-term-assessment-survey-data-public.csv")
 
 data <- read.csv("2017-04-17-carpentry-long-term-assessment-survey-data-public.csv", na.strings = "")
 ```
@@ -69,8 +71,6 @@ ggplot(data_position_tally,
   ylab("") +
   ggtitle("Self-Reported Status of Carpentry Learners")
   theme_bw(base_size = 14)
-# There is one data point in the CSV with the word "response" that needs to be
-# removed.
 ```
 Majority graduate students.
 ```{r echo=FALSE}
@@ -79,33 +79,36 @@ table(data$Position.Other)
 ```{r echo=FALSE}
 table(data$How.Many.Workshops)
 ```
+Behaviors Adopted Since Attending a Carpentry Workshop
 ```{r echo=FALSE}
 table(data$Behaviors.Adopted)
-```
-```{r echo=FALSE}
 table(data$Column25)
-```
-```{r echo=FALSE}
 table(data$Column26)
-```
-```{r echo=FALSE}
 table(data$Column27)
-```
-```{r echo=FALSE}
 table(data$Column28)
-```
-```{r echo=FALSE}
 table(data$Column29)
-```
-```{r echo=FALSE}
 table(data$Column30)
-```
-```{r echo=FALSE}
 table(data$Column31)
-```
-```{r echo=FALSE}
 table(data$Column32)
 ```
+
+```{r echo=FALSE}
+# This is an attempt to make a table of the count of behaviors adopted.
+behaviors <- matrix(c(198,74,119,111,260,169,185,119,122),ncol=1,byrow=TRUE)
+colnames(behaviors) <-("Behaviors Adopted Since Attending a Carpentry Workshop")
+rownames(behaviors) <-c("Improving data management and project organization.",
+                        "Developing a data management and analysis plan.",
+                        "Using databases, scripts and queries to manage large data sets.",
+                        "Transforming step-by-step workflows into scripts or functions.",
+                        "Using programming languages like R or Python, or the command line to automate repetitive tasks.",
+                        "Reusing code.",
+                        "Using version control to manage code.",
+                        "Using version control to collaborate online (in public or private repositories).",
+                        "Sharing code or data publicly on places like GitHub or FigShare.")
+behaviors <- as.table(behaviors)
+behaviors
+```
+Programming Usage before a Carpentry Workshop
 ```{r echo=FALSE}
 table(data$Programming.Usage.Before.Workshop)
 ```
@@ -114,6 +117,21 @@ table(data$Programming.Usage.Since.Workshop)
 ```
 ```{r echo=FALSE}
 table(data$Change.In.Confidence)
+data_change.in.confidence_tally <- 
+  data %>% 
+  group_by(Change.In.Confidence) %>% 
+  tally() %>% 
+  filter(!is.na(Change.In.Confidence)) %>% 
+  arrange(desc(n))
+
+ggplot(data_change.in.confidence_tally, 
+       aes(reorder(Change.In.Confidence, n),
+           n)) +
+  geom_col() +
+  xlab("") +
+  ylab("") +
+  ggtitle("Learner's Change in Confidence")
+  theme_bw(base_size = 14)
 ```
 ```{r echo=FALSE}
 table(data$How.Tools.Learned.Help)
@@ -176,15 +194,16 @@ data_agree <-  data[ , cols_with_Agree]
 data_agree <- map_if(data_agree, 
                      is.character, 
                      as.factor)
-for(i in seq_along(data_agree)) {
-                data_agree[[i]] <- factor(data_agree[[i]], levels=order)
-}
+# This code worked yesterday to order the likert items and now it's not working.
+#for(i in seq_along(data_agree)) {
+#                data_agree[[i]] <- factor(data_agree[[i]], levels=order)
+#}
+
 title <- "Learner Perception of Carpentry Workshops"
 data_agree_likert <-  likert(as.data.frame(data_agree))
 theme_update(plot.title = element_text(hjust = 0.5))
 
 plot(data_agree_likert) + ggtitle(title)
-
 ```
 
 ```{r}
