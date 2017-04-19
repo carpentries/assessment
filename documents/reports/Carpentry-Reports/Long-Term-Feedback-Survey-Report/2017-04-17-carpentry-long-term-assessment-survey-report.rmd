@@ -5,13 +5,19 @@ __Published__: April 2017
 THIS IS JUST A DRAFT
 
 A [PDF](https://github.com/carpentries/public-survey-info/blob/master/documents/surveys/2017-04-17-carpentry-long-term-feedback-survey.pdf) of the survey questions, the data used in this analysis, and full R code are located on the [public-survey-info](https://github.com/carpentries/public-survey-info) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
+
 ```{r}
-install.packages("ggmap", type = "source")
+# install.packages("ggmap", type = "source")
+# install.packages("likert")
+# install.packages("purrr")
+# install.packages("mapproj")
+# install.packages("ggmap")
 library(likert)
 library(purrr)
 library(ggmap)
 library(mapproj)
-update.packages()
+library(ggplot2)
+# update.packages(repos = "https://cloud.r-project.org")
 ```
 ```{r echo=FALSE, purl=TRUE}
 download.file("https://raw.githubusercontent.com/carpentries/public-survey-info/master/data/public_data/2017-04-17-carpentry-long-term-assessment-survey-data-public.csv", "2017-04-17-carpentry-long-term-assessment-survey-data-public.csv")
@@ -59,7 +65,6 @@ ggplot(data_position_tally,
   geom_col() +
   xlab("") +
   ylab("") +
-  coord_flip() +
   ggtitle("Self-Reported Status of Carpentry Learners")
   theme_bw(base_size = 14)
 # There is one data point in the CSV with the word "response" that needs to be
@@ -182,6 +187,6 @@ plot(data_agree_likert) + ggtitle(title)
 
 ```{r}
 # In what country did you attend a Carpentry workshop? 
-map <- get_map(location = 'Europe', zoom = 4)
-ggmap(map)
+#map <- get_map(location = 'Europe', zoom = 4)
+#ggmap(map)
 ```
