@@ -46,13 +46,17 @@ data_country_tally <-
 ggplot(data_country_tally, 
        aes(reorder(Country, n),
            n)) +
-  geom_bar(stat = "identity", fill = "blue") +
+  geom_bar(stat = "identity", fill = "orange") +
   theme_classic() +
   xlab("") +
   ylab("") +
   coord_flip() + 
-  ggtitle("")
+  ggtitle("Carpentry Workshop Respondents by Country") +
+  theme(plot.title = element_text(hjust = 0.5))
   theme_bw(base_size = 14)
+
+# Naupaka said I can use ggplot(iris)+geom_bar(aes(Species,Petal.Width,fill=Species),stat="summary",fun.y="mean")# +scale_fill_manual(values=c("green","blue","blue")) to change the color of just one
+#bar on the plot, but I can't figure out how right now.
 ```
 A large portion of Carpentry learners responding to the survey attended a workshop in the United States.
 
@@ -71,11 +75,13 @@ data_position_tally <-
   ggplot(data_position_tally, 
        aes(reorder(Position, n),
            n)) +
-  geom_bar(stat = "identity", fill="blue") +
+  geom_bar(stat = "identity", fill="orange") +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
   theme_classic() +
   xlab("") +
   ylab("") +
   ggtitle("Self-Reported Status of Carpentry Learners") +
+  theme(plot.title = element_text(hjust = 0.5))
   theme_classic(base_size = 14)
 ```
 Majority graduate students.
@@ -127,11 +133,13 @@ data_programming.usage.before.workshop_tally <-
 ggplot(data_programming.usage.before.workshop_tally, 
        aes(reorder(Programming.Usage.Before.Workshop, n),
            n)) +
-  geom_bar(stat = "identity", fill="blue") +
+  geom_bar(stat = "identity", fill="orange") +
+   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
   theme_classic() +
   xlab("") +
   ylab("") +
-  ggtitle("Learner's Programming Usage Before Attending a Carpentry Workshop")
+  ggtitle("Learner's Programming Usage Before Attending a Carpentry Workshop") +
+  theme(plot.title = element_text(hjust = 0.5))
   theme_bw(base_size = 14)
 ```
 ```{r echo=FALSE}
@@ -145,11 +153,13 @@ data_programming.usage.since.workshop_tally <-
 ggplot(data_programming.usage.since.workshop_tally, 
        aes(reorder(Programming.Usage.Since.Workshop, n),
            n)) +
-  geom_bar(stat = "identity", fill = "blue") +
+  geom_bar(stat = "identity", fill = "orange") +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
   theme_classic() +
   xlab("") +
   ylab("") +
-  ggtitle("Learner's Programming Usage Since Attending a Carpentry Workshop")
+  ggtitle("Learner's Programming Usage Since Attending a Carpentry Workshop") +
+  theme(plot.title = element_text(hjust = 0.5))
   theme_bw(base_size = 14)
 ```
 ```{r echo=FALSE}
@@ -164,11 +174,13 @@ data_change.in.confidence_tally <-
 ggplot(data_change.in.confidence_tally, 
        aes(reorder(Change.In.Confidence, n),
            n)) +
-  geom_bar(stat = "identity", fill = "blue") +
+  geom_bar(stat = "identity", fill = "orange") +
+   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
   theme_classic() +
   xlab("") +
   ylab("") +
-  ggtitle("Learner's Change in Confidence")
+  ggtitle("Learner's Change in Confidence")+
+  theme(plot.title = element_text(hjust = 0.5))
   theme_bw(base_size = 14)
 ```
 How have the tools covered in Carpentry workhops helped learners in their research or work?
@@ -237,16 +249,13 @@ data_agree <-  data[ , cols_with_Agree]
 data_agree <- map_if(data_agree, 
                      is.character, 
                      as.factor)
-# This code worked yesterday to order the likert items and now it's not working.
-#for(i in seq_along(data_agree)) {
-#                data_agree[[i]] <- factor(data_agree[[i]], levels=order)
-#}
 
 title <- "Learner Perception of Carpentry Workshops"
 data_agree_likert <-  likert(as.data.frame(data_agree))
 theme_update(plot.title = element_text(hjust = 0.5))
 
-plot(data_agree_likert) + ggtitle(title)
+plot(data_agree_likert) + ggtitle(title) +
+  theme(plot.title = element_text(hjust = 0.5))
 ```
 
 ```{r}
