@@ -21,7 +21,23 @@ A host of initiatives have been developed and implemented globally to address ge
 ```{r echo=FALSE}
 table(data$Gender)
 ```
+```{r echo=FALSE}
+data_gender_tally <- 
+  data %>% 
+  group_by(Gender) %>% 
+  tally() %>% 
+  filter(!is.na(Gender)) %>% 
+  arrange(desc(n))
 
+ggplot(data_gender_tally, 
+       aes(reorder(Gender, n),
+           n)) +
+  geom_col() +
+  xlab("") +
+  ylab("") +
+  ggtitle("SWC Workshop Attendees by Gender")
+  theme_bw(base_size = 14)
+```
 The majority of Software Carpentry learners are __Graduate Students__. A breakdown of Software Carpentry's learners by __status__ is provided below.
 ```{r echo=FALSE}
 table(data$Status)
@@ -45,7 +61,6 @@ table(data$Pace)
 
 Using the [Likert](http://jason.bryer.org/likert/) package, the following chart is an analysis of learner responses to the statements above. The code chunk is shown once here, and hidden for all subsequent plots.
 ```{r}
-
 cols_with_Agree <- map_lgl(data, ~`%in%`("Agree", .x))
 data_agree <-  data[ , cols_with_Agree]
  
