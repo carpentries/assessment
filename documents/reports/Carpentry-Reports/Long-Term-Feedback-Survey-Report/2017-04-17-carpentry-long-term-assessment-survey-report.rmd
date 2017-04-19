@@ -6,8 +6,12 @@ THIS IS JUST A DRAFT
 
 A [PDF](https://github.com/carpentries/public-survey-info/blob/master/documents/surveys/2017-04-17-carpentry-long-term-feedback-survey.pdf) of the survey questions, the data used in this analysis, and full R code are located on the [public-survey-info](https://github.com/carpentries/public-survey-info) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
 ```{r}
+install.packages("ggmap", type = "source")
 library(likert)
 library(purrr)
+library(ggmap)
+library(mapproj)
+update.packages()
 ```
 ```{r echo=FALSE, purl=TRUE}
 download.file("https://raw.githubusercontent.com/carpentries/public-survey-info/master/data/public_data/2017-04-17-carpentry-long-term-assessment-survey-data-public.csv", "2017-04-17-carpentry-long-term-assessment-survey-data-public.csv")
@@ -19,10 +23,47 @@ data <- read.csv("2017-04-17-carpentry-long-term-assessment-survey-data-public.c
 ```{r echo=FALSE}
 table(data$Country)
 ```
-
+```{r echo=FALSE}
+data_country_tally <- 
+  data %>% 
+  group_by(Country) %>% 
+  tally() %>% 
+  filter(!is.na(Country)) %>% 
+  arrange(desc(n))
+# How do I change the color of just the South Africa bar?
+ggplot(data_country_tally, 
+       aes(reorder(Country, n),
+           n)) +
+  geom_col() +
+  xlab("") +
+  ylab("") +
+  coord_flip() +
+  ggtitle("")
+  theme_bw(base_size = 14)
+```
 A large portion of Carpentry learners responding to the survey attended a workshop in the United States.
 ```{r echo=FALSE}
 table(data$Position)
+```
+```{r echo=FALSE}
+data_position_tally <- 
+  data %>% 
+  group_by(Position) %>% 
+  tally() %>% 
+  filter(!is.na(Position)) %>% 
+  arrange(desc(n))
+
+ggplot(data_position_tally, 
+       aes(reorder(Position, n),
+           n)) +
+  geom_col() +
+  xlab("") +
+  ylab("") +
+  coord_flip() +
+  ggtitle("Self-Reported Status of Carpentry Learners")
+  theme_bw(base_size = 14)
+# There is one data point in the CSV with the word "response" that needs to be
+# removed.
 ```
 Majority graduate students.
 ```{r echo=FALSE}
@@ -131,7 +172,7 @@ data_agree <- map_if(data_agree,
 for(i in seq_along(data_agree)) {
                 data_agree[[i]] <- factor(data_agree[[i]], levels=order)
 }
-title <- "Learner Perception of Carpentry Workshops."
+title <- "Learner Perception of Carpentry Workshops"
 data_agree_likert <-  likert(as.data.frame(data_agree))
 theme_update(plot.title = element_text(hjust = 0.5))
 
@@ -139,3 +180,8 @@ plot(data_agree_likert) + ggtitle(title)
 
 ```
 
+```{r}
+# In what country did you attend a Carpentry workshop? 
+map <- get_map(location = 'Europe', zoom = 4)
+ggmap(map)
+```
