@@ -85,18 +85,25 @@ ggplot(data_country_tally,
 
 # Breakdown of Respondents by Position
 ```{r}
+# Set the order I want the factor levels to be
+position = c("Undergraduate Student", "Graduate Student", "Postdoc", "Faculty", "Industry", "Academic Research Staff", "Other Academic Staff", "Other (please specify)")
+position = factor(position)
+
+data$Position = factor(data$Position, levels = position)
+
+# Tally
 data_Position_tally <- 
   data %>% 
   group_by(Position) %>% 
   tally() %>% 
-  filter(!is.na(Position)) %>% 
-  arrange(desc(n))
+  filter(!is.na(Position)) 
 
+# Nice Table
 kable(data_Position_tally)
 
-  ggplot(data_Position_tally, 
-       aes(reorder(Position, n),
-           n)) +
+# Bar Plot
+ggplot(data_Position_tally, 
+       aes(Position, n)) +
   geom_bar(stat = "identity", fill="orange") +
   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
   theme_classic() +
