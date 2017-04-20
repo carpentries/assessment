@@ -50,15 +50,15 @@ data_country_tally <-
   filter(!is.na(Country)) %>% 
   arrange(desc(n))
 
-# Use this plot to show all countries
-# ggplot(data_country_tally, 
+# #Use this plot to show all countries
+# ggplot(data_country_tally,
 #       aes(reorder(Country, n),
 #           n)) +
 #  geom_bar(stat = "identity", fill = "orange") +
 #  theme_classic() +
 #  xlab("") +
 #  ylab("") +
-#  coord_flip() + 
+#  coord_flip() +
 #  ggtitle("Carpentry Workshop Respondents by Country") +
 #  theme(plot.title = element_text(hjust = 0.5)) +
 #  theme_bw(base_size = 14)
@@ -70,9 +70,7 @@ country_colors[levels(data$Country) == "South Africa"] <- "blue"
 ggplot(data_country_tally, 
        aes(reorder(Country, n), 
            n)) + 
-  geom_bar(aes(Country, 
-               n, 
-               fill = Country),
+  geom_bar(aes(fill = Country),
            stat = "summary", 
            fun.y = "mean") + 
            theme_classic() +
