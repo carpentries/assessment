@@ -1,10 +1,12 @@
-# Analysis of Carpentry Long-Term Feedback Survey
+# Analysis of the Carpentry's Long-Term Feedback Survey
 __Author__: [Kari L. Jordan](https://github.com/kariljordan)
 __Published__: April 2017
 
-THIS IS JUST A DRAFT
+Data and Software Carpentry launched a [long-term assessment survey](https://www.surveymonkey.com/r/carpentrieslongtermassessment) in March 2017. The goal of this survey is to hear from our learners about what has transpired in their work and career since completing a Carpentry workshop. Read our about our long-term assessment strategy on our [blog](http://www.datacarpentry.org/blog/long-term-assessment-strategy/) and see how the community was involved with the development of this survey.
 
-A [PDF](https://github.com/carpentries/public-survey-info/blob/master/documents/surveys/2017-04-17-carpentry-long-term-feedback-survey.pdf) of the survey questions, the data used in this analysis, and .RMD file are located in the [long-term feedback survey report](https://github.com/carpentries/public-survey-info/tree/master/documents/reports/Carpentry-Reports/Long-Term-Feedback-Survey-Report) folder on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
+A [PDF](https://github.com/carpentries/public-survey-info/blob/master/documents/surveys/2017-04-17-carpentry-long-term-feedback-survey.pdf) of the survey questions, the data used in this analysis, and the .RMD file are located in the [long-term feedback survey report](https://github.com/carpentries/public-survey-info/tree/master/documents/reports/Carpentry-Reports/Long-Term-Feedback-Survey-Report) folder on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
+
+As of April 20, 2017, 510 learners have responded to the survey. Not all respondents answered each of the 26 questions.
 
 ```{r include=FALSE}
 # install.packages("ggmap", type = "source")
@@ -31,48 +33,66 @@ download.file("https://raw.githubusercontent.com/carpentries/public-survey-info/
 data <- read.csv("2017-04-17-carpentry-long-term-assessment-survey-data-public.csv", na.strings = "")
 ```
 ### Learner Demographics
-Here is a breakdown of our respondents by the Country where they attended a Carpentry workshop.
+Provided below is a breakdown of our respondents by the Country where they attended a Carpentry workshop. A large portion of Carpentry learners responding to the survey attended a workshop in the United States. Additionally, a large number of our learners are **Graduate Students**.
+
 ```{r echo=FALSE}
 table(data$Country)
-
+```
+```{r echo=FALSE}
 data_country_tally <- 
   data %>% 
   group_by(Country) %>% 
   tally() %>% 
   filter(!is.na(Country)) %>% 
   arrange(desc(n))
-# How do I change the color of just the South Africa bar?
+
+# Use this plot to show all countries
+# ggplot(data_country_tally, 
+#       aes(reorder(Country, n),
+#           n)) +
+#  geom_bar(stat = "identity", fill = "orange") +
+#  theme_classic() +
+#  xlab("") +
+#  ylab("") +
+#  coord_flip() + 
+#  ggtitle("Carpentry Workshop Respondents by Country") +
+#  theme(plot.title = element_text(hjust = 0.5)) +
+#  theme_bw(base_size = 14)
+
+# Thank you Naupaka for this tip! 
+country_colors <- rep("orange", length(levels(data$Country)))
+country_colors[levels(data$Country) == "South Africa"] <- "blue"
+
 ggplot(data_country_tally, 
-       aes(reorder(Country, n),
-           n)) +
-  geom_bar(stat = "identity", fill = "orange") +
-  theme_classic() +
-  xlab("") +
-  ylab("") +
-  coord_flip() + 
+       aes(reorder(Country, n), 
+           n)) + 
+  geom_bar(aes(Country, 
+               n, 
+               fill = Country),
+           stat = "summary", 
+           fun.y = "mean") + 
+           theme_classic() +
+           xlab("") +
+           ylab("") +
+           coord_flip() +
   ggtitle("Carpentry Workshop Respondents by Country") +
   theme(plot.title = element_text(hjust = 0.5)) +
-  theme_bw(base_size = 14)
-
-# Naupaka said I can use ggplot(iris)+geom_bar(aes(Species,Petal.Width,fill=Species),stat="summary",fun.y="mean")# +scale_fill_manual(values=c("green","blue","blue")) to change the color of just one
-#bar on the plot, but I can't figure out how right now.
+  theme_bw(base_size = 14) +
+  scale_fill_manual(values = country_colors, guide = FALSE)
 ```
 
-A large portion of Carpentry learners responding to the survey attended a workshop in the United States.
-
-What is the status of those responding?
+# Breakdown of Respondents by Position
 ```{r echo=FALSE}
-table(data$Position)
-```
-```{r echo=FALSE}
-data_position_tally <-
+data_Position_tally <- 
   data %>% 
   group_by(Position) %>% 
   tally() %>% 
   filter(!is.na(Position)) %>% 
   arrange(desc(n))
 
-  ggplot(data_position_tally, 
+kable(data_Position_tally)
+
+  ggplot(data_Position_tally, 
        aes(reorder(Position, n),
            n)) +
   geom_bar(stat = "identity", fill="orange") +
@@ -80,20 +100,28 @@ data_position_tally <-
   theme_classic() +
   xlab("") +
   ylab("") +
-  ggtitle("Self-Reported Status of Carpentry Learners") +
+  ggtitle("Majority of Learners are Graduate Students") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
 ```
-Majority graduate students.
-```{r echo=FALSE}
+
+```{r include=FALSE}
 table(data$Position.Other)
 ```
-How many workshops have respondents attended?
+## Number of Workshops Attended
 ```{r echo=FALSE}
-table(data$How.Many.Workshops)
+data_workshops_tally <-
+  data %>% 
+  group_by(How.Many.Workshops) %>% 
+  tally() %>% 
+  filter(!is.na(How.Many.Workshops)) %>% 
+  arrange(desc(n))
+kable(data_workshops_tally)
 ```
-Behaviors Adopted Since Attending a Carpentry Workshop
+
 ```{r include=FALSE}
+# These commands were used to get a count
+# of the behaviors adopted.
 table(data$Behaviors.Adopted)
 table(data$Column25)
 table(data$Column26)
@@ -104,11 +132,12 @@ table(data$Column30)
 table(data$Column31)
 table(data$Column32)
 ```
+# Behaviors Adopted Post-Workshop
+We asked our learners to identify the behaviors they adopted as a result of completing a Carpentry workshop. We are happy to report that more than half of the respondents who answered this question (n=395) have improved their data management and project organization practices, used programming languages for automation, and used version control to manage code.
 
 ```{r echo=FALSE}
-# This is an attempt to make a table of the count of behaviors adopted.
 behaviors <- matrix(c(198,74,119,111,260,169,185,119,122),ncol=1,byrow=TRUE)
-colnames(behaviors) <-("Behaviors Adopted Since Attending a Carpentry Workshop")
+colnames(behaviors) <-("Behaviors Adopted")
 rownames(behaviors) <-c("Improving data management and project organization.",
                         "Developing a data management and analysis plan.",
                         "Using databases, scripts and queries to manage large data sets.",
@@ -118,17 +147,18 @@ rownames(behaviors) <-c("Improving data management and project organization.",
                         "Using version control to manage code.",
                         "Using version control to collaborate online (in public or private repositories).",
                         "Sharing code or data publicly on places like GitHub or FigShare.")
-behaviors <- as.table(behaviors)
-behaviors
+
+kable(behaviors)
 ```
-Programming Usage before a Carpentry Workshop
+
+# Programming Usage Pre-Carpentry Workshop
 ```{r echo=FALSE}
 data_programming.usage.before.workshop_tally <- 
   data %>% 
   group_by(Programming.Usage.Before.Workshop) %>% 
   tally() %>% 
   filter(!is.na(Programming.Usage.Before.Workshop)) %>% 
-  arrange(desc(n))
+  arrange()
 
 ggplot(data_programming.usage.before.workshop_tally, 
        aes(reorder(Programming.Usage.Before.Workshop, n),
@@ -142,6 +172,8 @@ ggplot(data_programming.usage.before.workshop_tally,
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_bw(base_size = 14)
 ```
+
+# Programming Post-Carpentry Workshop
 ```{r echo=FALSE}
 data_programming.usage.since.workshop_tally <- 
   data %>% 
@@ -158,12 +190,21 @@ ggplot(data_programming.usage.since.workshop_tally,
   theme_classic() +
   xlab("") +
   ylab("") +
-  ggtitle("Learner's Programming Usage Since Attending a Carpentry Workshop") +
+  ggtitle("Learners Use Programming More Post-Workshop") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_bw(base_size = 14)
 ```
+
+# Change in Confidence Post-Carpentry Workshop
 ```{r echo=FALSE}
-table(data$Change.In.Confidence)
+data_confidence_tally <-
+  data %>% 
+  group_by(Change.In.Confidence) %>% 
+  tally() %>% 
+  filter(!is.na(Change.In.Confidence)) %>% 
+  arrange(desc(n))
+kable(data_confidence_tally)
+
 data_change.in.confidence_tally <- 
   data %>% 
   group_by(Change.In.Confidence) %>% 
@@ -179,11 +220,12 @@ ggplot(data_change.in.confidence_tally,
   theme_classic() +
   xlab("") +
   ylab("") +
-  ggtitle("Learner's Change in Confidence")+
+  ggtitle("Learners are More Confident Post-Workshop")+
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_bw(base_size = 14)
 ```
-How have the tools covered in Carpentry workhops helped learners in their research or work?
+
+# Usage of Tools for Research and/or Work
 ```{r include=FALSE}
 table(data$How.Tools.Learned.Help)
 table(data$Column34)
@@ -201,15 +243,23 @@ rownames(career) <-c("They are improving my overall efficiency.",
                         "They are improving my ability to manage data.",
                         "The tools I learned have not helped me with my work.",
                         "I am not using the tools I learned.")
-career <- as.table(career)
-career
+
+kable(career)
 ```
 
-Has participating in a Carpentry workshop contributed to academic writing?
+# Have Tools Learned Contributed to Academic Writing?
 ```{r echo=FALSE}
-table(data$Contributed.To.Writing)
+data_writing_tally <- 
+  data %>% 
+  group_by(Contributed.To.Writing) %>% 
+  tally() %>% 
+  filter(!is.na(Contributed.To.Writing)) %>% 
+  arrange(desc(n))
+
+kable(data_writing_tally)
 ```
-How have learners been involved with the Carpentries since attending a workshop?
+
+# Involvement in the Carpentries Post-Workshop
 ```{r include=FALSE}
 table(data$Carpentry.Involvement)
 table(data$Column45)
@@ -231,18 +281,25 @@ rownames(involvement) <-c("Subscribed to the newsletter.",
                         "Joined a mentoring group.",
                         "Participated in a Twitter chat.",
                         "Contributed to a Carpentry lesson.")
-involvement <- as.table(involvement)
-involvement
+kable(involvement)
+
 ```
-Have learners recommended Carpentry workshops?
+
+# Are Learners Recommending Carpentry Workshops?
 ```{r echo=FALSE}
-table(data$Recommended)
+data_recommended_tally <-
+  data %>% 
+  group_by(Recommended) %>% 
+  tally() %>% 
+  filter(!is.na(Recommended)) %>% 
+  arrange(desc(n))
+
+kable(data_recommended_tally)
 ```
-### Likert Items
 
+# Learner Perception of Workshop Atmosphere
 Using the [Likert](http://jason.bryer.org/likert/) package, the following chart is an analysis of learner responses to the statements above. The code chunk is shown once here, and hidden for all subsequent plots.
-
-```{r}
+```{r echo=FALSE}
 cols_with_Agree <- map_lgl(data, ~`%in%`("Agree", .x))
 data_agree <-  data[ , cols_with_Agree]
  
@@ -253,14 +310,13 @@ data_agree <- map_if(data_agree,
                      is.character,
                      as.factor)
  
-# my fix start
+# Thanks Elizabeth for the tip!
 for(i in seq_along(data_agree)) {
                 data_agree[[i]] <- factor(data_agree[[i]], levels=order)
 }
-# my fix end
  
 print(levels(data_agree))
-title <- "Learner Perception of Workshop Content & Atmosphere"
+title <- "Workshops are Welcoming & Useful"
 data_agree_likert <-  likert(as.data.frame(data_agree))
 theme_update(plot.title = element_text(hjust = 0.5))
  
