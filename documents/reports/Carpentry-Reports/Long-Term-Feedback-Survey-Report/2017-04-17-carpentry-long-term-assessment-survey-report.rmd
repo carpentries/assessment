@@ -97,18 +97,16 @@ position = factor(position)
 
 data$Position = factor(data$Position, levels = position)
 
-# Tally
-data_Position_tally <- 
+data_position_tally <- 
   data %>% 
   group_by(Position) %>% 
   tally() %>% 
   filter(!is.na(Position)) 
+  arrange(Position)
 
-# Nice Table
-kable(data_Position_tally)
+kable(data_position_tally)
 
-# Bar Plot
-ggplot(data_Position_tally, 
+ggplot(data_position_tally, 
        aes(Position, n)) +
   geom_bar(stat = "identity", fill="orange") +
   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
