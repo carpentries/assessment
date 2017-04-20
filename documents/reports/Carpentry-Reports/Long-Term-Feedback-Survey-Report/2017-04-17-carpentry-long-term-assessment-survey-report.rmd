@@ -31,7 +31,7 @@ library(RColorBrewer)
 display.brewer.all()
 update.packages(repos = "https://cloud.r-project.org")
 ```
-```{r echo=FALSE, purl=TRUE}
+```{r purl=TRUE}
 download.file("https://raw.githubusercontent.com/carpentries/public-survey-info/master/documents/reports/Carpentry-Reports/Long-Term-Feedback-Survey-Report/2017-04-17-carpentry-long-term-assessment-survey-data-public.csv", "2017-04-17-carpentry-long-term-assessment-survey-data-public.csv")
 
 data <- read.csv("2017-04-17-carpentry-long-term-assessment-survey-data-public.csv", na.strings = "")
@@ -39,7 +39,7 @@ data <- read.csv("2017-04-17-carpentry-long-term-assessment-survey-data-public.c
 ### Learner Demographics
 Provided below is a breakdown of our respondents by the Country where they attended a Carpentry workshop. A large portion of Carpentry learners responding to the survey attended a workshop in the United States. Additionally, a large number of our learners are **Graduate Students**.
 
-```{r echo=FALSE}
+```{r}
 table(data$Country)
 ```
 ```{r echo=FALSE}
@@ -86,7 +86,7 @@ ggplot(data_country_tally,
 ```
 
 # Breakdown of Respondents by Position
-```{r echo=FALSE}
+```{r}
 data_Position_tally <- 
   data %>% 
   group_by(Position) %>% 
@@ -113,7 +113,7 @@ kable(data_Position_tally)
 table(data$Position.Other)
 ```
 ## Number of Workshops Attended
-```{r echo=FALSE}
+```{r}
 data_workshops_tally <-
   data %>% 
   group_by(How.Many.Workshops) %>% 
@@ -139,7 +139,7 @@ table(data$Column32)
 # Behaviors Adopted Post-Workshop
 We asked our learners to identify the behaviors they adopted as a result of completing a Carpentry workshop. We are happy to report that more than half of the respondents who answered this question (n=395) have improved their data management and project organization practices, used programming languages for automation, and used version control to manage code.
 
-```{r echo=FALSE}
+```{r}
 behaviors <- matrix(c(198,74,119,111,260,169,185,119,122),ncol=1,byrow=TRUE)
 colnames(behaviors) <-("Behaviors Adopted")
 rownames(behaviors) <-c("Improving data management and project organization.",
@@ -156,7 +156,7 @@ kable(behaviors)
 ```
 
 # Programming Usage Pre-Carpentry Workshop
-```{r echo=FALSE}
+```{r}
 data_programming.usage.before.workshop_tally <- 
   data %>% 
   group_by(Programming.Usage.Before.Workshop) %>% 
@@ -178,7 +178,7 @@ ggplot(data_programming.usage.before.workshop_tally,
 ```
 
 # Programming Post-Carpentry Workshop
-```{r echo=FALSE}
+```{r}
 data_programming.usage.since.workshop_tally <- 
   data %>% 
   group_by(Programming.Usage.Since.Workshop) %>% 
@@ -200,7 +200,7 @@ ggplot(data_programming.usage.since.workshop_tally,
 ```
 
 # Change in Confidence Post-Carpentry Workshop
-```{r echo=FALSE}
+```{r}
 data_confidence_tally <-
   data %>% 
   group_by(Change.In.Confidence) %>% 
@@ -238,7 +238,7 @@ table(data$Column35)
 table(data$Column36)
 table(data$Column37)
 ```
-```{r echo=FALSE}
+```{r}
 career <- matrix(c(245,217,217,203,28,61),ncol=1,byrow=TRUE)
 colnames(career) <-("How Have the Tools Covered Helped Your Work?")
 rownames(career) <-c("They are improving my overall efficiency.",
@@ -252,7 +252,7 @@ kable(career)
 ```
 
 # Have Tools Learned Contributed to Academic Writing?
-```{r echo=FALSE}
+```{r}
 data_writing_tally <- 
   data %>% 
   group_by(Contributed.To.Writing) %>% 
@@ -274,7 +274,7 @@ table(data$Column49)
 table(data$Column50)
 table(data$Column51)
 ```
-```{r echo=FALSE}
+```{r}
 involvement <- matrix(c(120,18,31,26,6,12,11,18),ncol=1,byrow=TRUE)
 colnames(involvement) <-("Involvement Since Attending a Carpentry Workshop")
 rownames(involvement) <-c("Subscribed to the newsletter.",
@@ -290,7 +290,7 @@ kable(involvement)
 ```
 
 # Are Learners Recommending Carpentry Workshops?
-```{r echo=FALSE}
+```{r}
 data_recommended_tally <-
   data %>% 
   group_by(Recommended) %>% 
@@ -303,7 +303,7 @@ kable(data_recommended_tally)
 
 # Learner Perception of Workshop Atmosphere
 Using the [Likert](http://jason.bryer.org/likert/) package, the following chart is an analysis of learner responses to the statements above. The code chunk is shown once here, and hidden for all subsequent plots.
-```{r echo=FALSE}
+```{r}
 cols_with_Agree <- map_lgl(data, ~`%in%`("Agree", .x))
 data_agree <-  data[ , cols_with_Agree]
  
