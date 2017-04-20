@@ -2,6 +2,10 @@
 __Author__: [Kari L. Jordan](https://github.com/kariljordan)
 __Published__: April 2017
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
 Data and Software Carpentry launched a [long-term assessment survey](https://www.surveymonkey.com/r/carpentrieslongtermassessment) in March 2017. The goal of this survey is to hear from our learners about what has transpired in their work and career since completing a Carpentry workshop. Read our about our long-term assessment strategy on our [blog](http://www.datacarpentry.org/blog/long-term-assessment-strategy/) and see how the community was involved with the development of this survey.
 
 A [PDF](https://github.com/carpentries/public-survey-info/blob/master/documents/surveys/2017-04-17-carpentry-long-term-feedback-survey.pdf) of the survey questions, the data used in this analysis, and the .RMD file are located in the [long-term feedback survey report](https://github.com/carpentries/public-survey-info/tree/master/documents/reports/Carpentry-Reports/Long-Term-Feedback-Survey-Report) folder on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
