@@ -18,17 +18,24 @@ As of April 20, 2017, 510 learners have responded to the survey. Not all respond
 # install.packages("purrr")
 # install.packages("mapproj")
 # install.packages("ggmap")
+<<<<<<< HEAD
+# install.packages("ggplot2")
+library(ggmap)
+=======
 # install.packages("dplyr")
 # install.packages("knitr")
 library(dplyr)
+>>>>>>> fd7635e3af9813e83d8b7afd9366a6e36670dac6
 library(likert)
 library(purrr)
-library(ggmap)
 library(mapproj)
 library(ggplot2)
+<<<<<<< HEAD
+=======
 library(knitr)
 library(RColorBrewer)
 display.brewer.all()
+>>>>>>> fd7635e3af9813e83d8b7afd9366a6e36670dac6
 update.packages(repos = "https://cloud.r-project.org")
 ```
 ```{r purl=TRUE}
@@ -82,6 +89,17 @@ ggplot(data_country_tally,
   theme_bw(base_size = 14) +
   scale_fill_manual(values = country_colors, guide = FALSE)
 ```
+<<<<<<< HEAD
+A large portion of Carpentry learners responding to the survey attended a workshop in the United States.
+```{r echo=FALSE}
+table(data$Position)
+```
+```{r echo=FALSE}
+table(data$Country)
+```
+```{r echo=FALSE}
+data_position_tally <- 
+=======
 
 # Breakdown of Respondents by Position
 ```{r}
@@ -93,6 +111,7 @@ data$Position = factor(data$Position, levels = position)
 
 # Tally
 data_Position_tally <- 
+>>>>>>> fd7635e3af9813e83d8b7afd9366a6e36670dac6
   data %>% 
   group_by(Position) %>% 
   tally() %>% 
