@@ -45,7 +45,7 @@ table(data$Country)
 ```
 ```{r echo=FALSE}
 data_country_tally <- 
-  data %>% 
+  data %>%
   group_by(Country) %>% 
   tally() %>% 
   filter(!is.na(Country)) %>% 
@@ -64,7 +64,7 @@ data_country_tally <-
 #  theme(plot.title = element_text(hjust = 0.5)) +
 #  theme_bw(base_size = 14)
 
-# Thank you Naupaka for this tip! 
+# Thank you Naupaka for the tips on changing colors! 
 country_colors <- rep("orange", length(levels(data$Country)))
 country_colors[levels(data$Country) == "South Africa"] <- "blue"
 
@@ -84,15 +84,9 @@ ggplot(data_country_tally,
   scale_fill_manual(values = country_colors, guide = FALSE)
 ```
 
-A large portion of Carpentry learners responding to the survey attended a workshop in the United States.
+# Breakdown of Respondents by Position
 ```{r echo=FALSE}
-table(data$Position)
-```
-```{r echo=FALSE}
-table(data$Country)
-```
-```{r echo=FALSE}
-data_position_tally <- position = c("Undergraduate Student", "Graduate Student", "Postdoc", "Faculty", "Industry", "Academic Research Staff", "Other Academic Staff", "Other (please specify)")
+position = c("Undergraduate Student", "Graduate Student", "Postdoc", "Faculty", "Industry", "Academic Research Staff", "Other Academic Staff", "Other (please specify)")
 position = factor(position)
 
 data$Position = factor(data$Position, levels = position)
@@ -102,7 +96,6 @@ data_position_tally <-
   group_by(Position) %>% 
   tally() %>% 
   filter(!is.na(Position)) 
-  arrange(Position)
 
 kable(data_position_tally)
 
@@ -123,12 +116,13 @@ table(data$Position.Other)
 ```
 ## Number of Workshops Attended
 ```{r}
-data_workshops_tally <-
+#How do I change the label for this table?
+data_workshops_tally <- 
   data %>% 
   group_by(How.Many.Workshops) %>% 
   tally() %>% 
-  filter(!is.na(How.Many.Workshops)) %>% 
-  arrange(desc(n))
+  filter(!is.na(How.Many.Workshops)) 
+
 kable(data_workshops_tally)
 ```
 
@@ -165,47 +159,59 @@ kable(behaviors)
 ```
 
 # Programming Usage Pre-Carpentry Workshop
-```{r}
-data_programming.usage.before.workshop_tally <- 
+```{r echo=FALSE}
+programming = c("I had not been using tools like these.", "Less than once per year.", "Several times per year.", "Monthly.", "Weekly.", "Daily.")
+programming = factor(programming)
+
+data$Programming.Usage.Before.Workshop = factor(data$Programming.Usage.Before.Workshop, levels = programming)
+
+data_usage_tally <- 
   data %>% 
   group_by(Programming.Usage.Before.Workshop) %>% 
   tally() %>% 
-  filter(!is.na(Programming.Usage.Before.Workshop)) %>% 
-  arrange()
+  filter(!is.na(Programming.Usage.Before.Workshop)) 
 
-ggplot(data_programming.usage.before.workshop_tally, 
-       aes(reorder(Programming.Usage.Before.Workshop, n),
-           n)) +
+#Change title
+kable(data_usage_tally)
+
+ggplot(data_usage_tally, 
+       aes(Programming.Usage.Before.Workshop, n)) +
   geom_bar(stat = "identity", fill="orange") +
-   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-  theme_classic() +
-  xlab("") +
-  ylab("") +
-  ggtitle("Learner's Programming Usage Before Attending a Carpentry Workshop") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_bw(base_size = 14)
-```
-
-# Programming Post-Carpentry Workshop
-```{r}
-data_programming.usage.since.workshop_tally <- 
-  data %>% 
-  group_by(Programming.Usage.Since.Workshop) %>% 
-  tally() %>% 
-  filter(!is.na(Programming.Usage.Since.Workshop)) %>% 
-  arrange(desc(n))
-
-ggplot(data_programming.usage.since.workshop_tally, 
-       aes(reorder(Programming.Usage.Since.Workshop, n),
-           n)) +
-  geom_bar(stat = "identity", fill = "orange") +
   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
   theme_classic() +
   xlab("") +
   ylab("") +
-  ggtitle("Learners Use Programming More Post-Workshop") +
+  ggtitle("Programming Usage Pre-Workshop Varies") +
   theme(plot.title = element_text(hjust = 0.5)) +
-  theme_bw(base_size = 14)
+  theme_classic(base_size = 14)
+```
+
+# Programming Post-Carpentry Workshop
+```{r echo=FALSE}
+programming = c("I have not been using tools like these.", "Less than once per year.", "Several times per year.", "Monthly.", "Weekly.", "Daily.")
+programming = factor(programming)
+
+data$Programming.Usage.Since.Workshop = factor(data$Programming.Usage.Since.Workshop, levels = programming)
+
+data_usage_tally <- 
+  data %>% 
+  group_by(Programming.Usage.Since.Workshop) %>% 
+  tally() %>% 
+  filter(!is.na(Programming.Usage.Since.Workshop)) 
+
+#Change title
+kable(data_usage_tally)
+
+ggplot(data_usage_tally, 
+       aes(Programming.Usage.Since.Workshop, n)) +
+  geom_bar(stat = "identity", fill="orange") +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("") +
+  ylab("") +
+  ggtitle("Respondents' Programming Usage Increased") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
 ```
 
 # Change in Confidence Post-Carpentry Workshop
@@ -312,12 +318,14 @@ kable(data_recommended_tally)
 
 # Learner Perception of Workshop Atmosphere
 Using the [Likert](http://jason.bryer.org/likert/) package, the following chart is an analysis of learner responses to the statements above. The code chunk is shown once here, and hidden for all subsequent plots.
-```{r}
+
+```{r echo=FALSE}
 cols_with_Agree <- map_lgl(data, ~`%in%`("Agree", .x))
 data_agree <-  data[ , cols_with_Agree]
 
 order = c("Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree")
- 
+
+# How do I get the [1] data.frame not to show on the output? 
 print(class(data_agree))
 data_agree <- map_if(data_agree,
                      is.character,
@@ -327,12 +335,12 @@ data_agree <- map_if(data_agree,
 for(i in seq_along(data_agree)) {
                 data_agree[[i]] <- factor(data_agree[[i]], levels=order)
 }
- 
+
 print(levels(data_agree))
 title <- "Workshops are Welcoming & Useful"
-data_agree_likert <-  likert(as.data.frame(data_agree))
+data_agree_likert <-  likert(as.data.frame(data_agree)) 
 theme_update(plot.title = element_text(hjust = 0.5))
- 
+
 plot(data_agree_likert) + ggtitle(title)
 ```
 
