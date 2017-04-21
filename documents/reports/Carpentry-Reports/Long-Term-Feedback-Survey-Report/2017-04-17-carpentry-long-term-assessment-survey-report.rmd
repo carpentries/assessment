@@ -137,7 +137,39 @@ data_howlong_tally <-
 
 kable(data_howlong_tally)
 ```
+# Tools Covered
+```{r include=FALSE}
+# These commands were used to get a count
+# of the tools covered in the respondents workshop.
+table(data$Content)
+table(data$Column14)
+table(data$Column15)
+table(data$Column16)
+table(data$Column17)
+table(data$Column18)
+table(data$Column19)
+table(data$Column20)
+table(data$Column21)
+table(data$Column22)
+```
+```{r}
+tools <- matrix(c(11,362,5,3,28,289,186,20,134,274),ncol=1,byrow=TRUE)
+colnames(tools) <-("Tools Covered")
+rownames(tools) <-c("Cloud Computing",
+                        "Git",
+                        "MATLAB",
+                        "Mercurial",
+                        "OpenRefine",
+                        "Python",
+                        "R",
+                        "Spreadsheets",
+                        "SQL",
+                        "Unix Shell")
 
+kable(tools)
+```
+
+# Behaviors Adopted Post-Workshop
 ```{r include=FALSE}
 # These commands were used to get a count
 # of the behaviors adopted.
@@ -151,7 +183,7 @@ table(data$Column30)
 table(data$Column31)
 table(data$Column32)
 ```
-# Behaviors Adopted Post-Workshop
+
 We asked our learners to identify the behaviors they adopted as a result of completing a Carpentry workshop. We are happy to report that more than half of the respondents who answered this question (n=395) have improved their data management and project organization practices, used programming languages for automation, and used version control to manage code.
 
 ```{r}
