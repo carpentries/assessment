@@ -292,7 +292,6 @@ ggplot(data_change.in.confidence_tally,
 ```{r include=FALSE}
 table(data$How.Tools.Learned.Help)
 table(data$Column34)
-table(data$Column34)
 table(data$Column35)
 table(data$Column36)
 table(data$Column37)
@@ -301,7 +300,6 @@ table(data$Column37)
 career <- matrix(c(245,217,217,203,28,61),ncol=1,byrow=TRUE)
 colnames(career) <-("How Have the Tools Covered Helped Your Work?")
 rownames(career) <-c("They are improving my overall efficiency.",
-                        "They are improving my ability to analyze data.",
                         "They are improving my ability to analyze data.",
                         "They are improving my ability to manage data.",
                         "The tools I learned have not helped me with my work.",
