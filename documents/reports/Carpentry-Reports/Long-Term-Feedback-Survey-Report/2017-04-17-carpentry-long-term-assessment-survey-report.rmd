@@ -6,7 +6,7 @@ __Published__: April 2017
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Data and Software Carpentry launched a [long-term assessment survey](https://www.surveymonkey.com/r/carpentrieslongtermassessment) in March 2017. The goal of this survey is to hear from our learners about what has transpired in their work and career since completing a Carpentry workshop. Read our about our long-term assessment strategy on our [blog](http://www.datacarpentry.org/blog/long-term-assessment-strategy/) and see how the community was involved with the development of this survey.
+Data and Software Carpentry launched a [long-term assessment survey](https://www.surveymonkey.com/r/carpentrieslongtermassessment) in March 2017. The goal of this survey is to hear from our respondents about what has transpired in their work and career since completing a Carpentry workshop. Read our about our long-term assessment strategy on our [blog](http://www.datacarpentry.org/blog/long-term-assessment-strategy/) and see how the community was involved with the development of this survey.
 
 A [PDF](https://github.com/carpentries/public-survey-info/blob/master/documents/surveys/2017-04-17-carpentry-long-term-feedback-survey.pdf) of the survey questions, the data used in this analysis, and the .RMD file are located in the [long-term feedback survey report](https://github.com/carpentries/public-survey-info/tree/master/documents/reports/Carpentry-Reports/Long-Term-Feedback-Survey-Report) folder on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
 
@@ -38,7 +38,7 @@ download.file("https://raw.githubusercontent.com/carpentries/public-survey-info/
 data <- read.csv("2017-04-17-carpentry-long-term-assessment-survey-data-public.csv", na.strings = "")
 ```
 ### Respondent Demographics
-Provided below is a breakdown of our respondents by the Country where they attended a Carpentry workshop. A large portion of Carpentry learners responding to the survey attended a workshop in the United States. Additionally, a large number of our learners are **Graduate Students**.
+Provided below is a breakdown of our respondents by the Country where they attended a Carpentry workshop. A large portion of Carpentry learners responding to the survey attended a workshop in the United States. Additionally, a large number of our respondents are **Graduate Students**.
 
 ```{r}
 table(data$Country)
@@ -106,7 +106,7 @@ ggplot(data_position_tally,
   theme_classic() +
   xlab("") +
   ylab("") +
-  ggtitle("Majority of Learners are Graduate Students") +
+  ggtitle("Majority of Respondents are Graduate Students") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
 ```
@@ -168,40 +168,6 @@ rownames(tools) <-c("Cloud Computing",
 
 kable(tools)
 ```
-
-# Behaviors Adopted Post-Workshop
-```{r include=FALSE}
-# These commands were used to get a count
-# of the behaviors adopted.
-table(data$Behaviors.Adopted)
-table(data$Column25)
-table(data$Column26)
-table(data$Column27)
-table(data$Column28)
-table(data$Column29)
-table(data$Column30)
-table(data$Column31)
-table(data$Column32)
-```
-
-We asked our learners to identify the behaviors they adopted as a result of completing a Carpentry workshop. We are happy to report that more than half of the respondents who answered this question (n=395) have improved their data management and project organization practices, used programming languages for automation, and used version control to manage code.
-
-```{r}
-behaviors <- matrix(c(198,74,119,111,260,169,185,119,122),ncol=1,byrow=TRUE)
-colnames(behaviors) <-("Behaviors Adopted")
-rownames(behaviors) <-c("Improving data management and project organization.",
-                        "Developing a data management and analysis plan.",
-                        "Using databases, scripts and queries to manage large data sets.",
-                        "Transforming step-by-step workflows into scripts or functions.",
-                        "Using programming languages like R or Python, or the command line to automate repetitive tasks.",
-                        "Reusing code.",
-                        "Using version control to manage code.",
-                        "Using version control to collaborate online (in public or private repositories).",
-                        "Sharing code or data publicly on places like GitHub or FigShare.")
-
-kable(behaviors)
-```
-
 # Programming Usage Pre-Carpentry Workshop
 ```{r echo=FALSE}
 programming = c("I had not been using tools like these.", "Less than once per year.", "Several times per year.", "Monthly.", "Weekly.", "Daily.")
@@ -258,6 +224,40 @@ ggplot(data_usage_tally,
   theme_classic(base_size = 14)
 ```
 
+# Behaviors Adopted Post-Workshop
+```{r include=FALSE}
+# These commands were used to get a count
+# of the behaviors adopted.
+table(data$Behaviors.Adopted)
+table(data$Column25)
+table(data$Column26)
+table(data$Column27)
+table(data$Column28)
+table(data$Column29)
+table(data$Column30)
+table(data$Column31)
+table(data$Column32)
+```
+
+We asked respondents to identify the behaviors they adopted as a result of completing a Carpentry workshop. We are happy to report that more than half of the respondents who answered this question (n=395) have improved their data management and project organization practices, used programming languages for automation, and used version control to manage code.
+
+```{r}
+behaviors <- matrix(c(198,74,119,111,260,169,185,119,122),ncol=1,byrow=TRUE)
+colnames(behaviors) <-("Behaviors Adopted")
+rownames(behaviors) <-c("Improving data management and project organization.",
+                        "Developing a data management and analysis plan.",
+                        "Using databases, scripts and queries to manage large data sets.",
+                        "Transforming step-by-step workflows into scripts or functions.",
+                        "Using programming languages like R or Python, or the command line to automate repetitive tasks.",
+                        "Reusing code.",
+                        "Using version control to manage code.",
+                        "Using version control to collaborate online (in public or private repositories).",
+                        "Sharing code or data publicly on places like GitHub or FigShare.")
+
+kable(behaviors)
+```
+
+
 # Change in Confidence Post-Carpentry Workshop
 ```{r}
 data_confidence_tally <-
@@ -283,7 +283,7 @@ ggplot(data_change.in.confidence_tally,
   theme_classic() +
   xlab("") +
   ylab("") +
-  ggtitle("Learners are More Confident Post-Workshop")+
+  ggtitle("Respondents are More Confident Post-Workshop")+
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_bw(base_size = 14)
 ```
@@ -348,7 +348,7 @@ kable(involvement)
 
 ```
 
-# Are Learners Recommending Carpentry Workshops?
+# Did Respondents Recommending Carpentry Workshops?
 ```{r}
 data_recommended_tally <-
   data %>% 
