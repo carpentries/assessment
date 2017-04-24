@@ -168,6 +168,7 @@ rownames(tools) <-c("Cloud Computing",
 
 kable(tools)
 ```
+
 # Programming Usage Pre-Carpentry Workshop
 ```{r echo=FALSE}
 programming = c("I had not been using tools like these.", "Less than once per year.", "Several times per year.", "Monthly.", "Weekly.", "Daily.")
@@ -289,7 +290,7 @@ ggplot(data_change.in.confidence_tally,
 ```
 
 # Usage of Tools for Research and/or Work
-```{r echo=FALSE}
+```{r include=FALSE}
 table(data$How.Tools.Learned.Help)
 table(data$Column34)
 table(data$Column35)
@@ -347,7 +348,7 @@ kable(involvement)
 
 ```
 
-# Did Respondents Recommending Carpentry Workshops?
+# Did Respondents Recommend Carpentry Workshops?
 ```{r}
 data_recommended_tally <-
   data %>% 
