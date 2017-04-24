@@ -52,36 +52,36 @@ data_country_tally <-
   arrange(desc(n))
 
 # #Use this plot to show all countries
-# ggplot(data_country_tally,
-#       aes(reorder(Country, n),
-#           n)) +
-#  geom_bar(stat = "identity", fill = "orange") +
-#  theme_classic() +
-#  xlab("") +
-#  ylab("") +
-#  coord_flip() +
-#  ggtitle("Carpentry Workshop Respondents by Country") +
-#  theme(plot.title = element_text(hjust = 0.5)) +
-#  theme_bw(base_size = 14)
-
-# Thank you Naupaka for the tips on changing colors! 
-country_colors <- rep("orange", length(levels(data$Country)))
-country_colors[levels(data$Country) == "South Africa"] <- "blue"
-
-ggplot(data_country_tally, 
-       aes(reorder(Country, n), 
-           n)) + 
-  geom_bar(aes(fill = Country),
-           stat = "summary", 
-           fun.y = "mean") + 
-           theme_classic() +
-           xlab("") +
-           ylab("") +
-           coord_flip() +
+ggplot(data_country_tally,
+       aes(reorder(Country, n),
+           n)) +
+  geom_bar(stat = "identity", fill = "orange") +
+  theme_classic() +
+  xlab("") +
+  ylab("") +
+  coord_flip() +
   ggtitle("Carpentry Workshop Respondents by Country") +
   theme(plot.title = element_text(hjust = 0.5)) +
-  theme_bw(base_size = 14) +
-  scale_fill_manual(values = country_colors, guide = FALSE)
+  theme_bw(base_size = 14)
+
+# Thank you Naupaka for the tips on changing colors! 
+# country_colors <- rep("orange", length(levels(data$Country)))
+# country_colors[levels(data$Country) == "South Africa"] <- "blue"
+
+# ggplot(data_country_tally, 
+#       aes(reorder(Country, n), 
+#           n)) + 
+#  geom_bar(aes(fill = Country),
+#           stat = "summary", 
+#           fun.y = "mean") + 
+#           theme_classic() +
+#           xlab("") +
+#           ylab("") +
+#           coord_flip() +
+#  ggtitle("Carpentry Workshop Respondents by Country") +
+#  theme(plot.title = element_text(hjust = 0.5)) +
+#  theme_bw(base_size = 14) +
+#  scale_fill_manual(values = country_colors, guide = FALSE)
 ```
 
 # Breakdown of Respondents by Position
@@ -289,7 +289,7 @@ ggplot(data_change.in.confidence_tally,
 ```
 
 # Usage of Tools for Research and/or Work
-```{r include=FALSE}
+```{r echo=FALSE}
 table(data$How.Tools.Learned.Help)
 table(data$Column34)
 table(data$Column35)
@@ -297,8 +297,9 @@ table(data$Column36)
 table(data$Column37)
 ```
 ```{r}
-career <- matrix(c(245,217,217,203,28,61),ncol=1,byrow=TRUE)
+career <- matrix(c(245,217,203,28,61),ncol=1,byrow=TRUE)
 colnames(career) <-("How Have the Tools Covered Helped Your Work?")
+
 rownames(career) <-c("They are improving my overall efficiency.",
                         "They are improving my ability to analyze data.",
                         "They are improving my ability to manage data.",
@@ -385,7 +386,24 @@ theme_update(plot.title = element_text(hjust = 0.5))
 
 plot(data_agree_likert) + ggtitle(title)
 ```
+```{r echo=FALSE}
+table(data$Which.of.the.following.learning.activities.for.data.management.and.analysis)
+table(data$Column45)
+table(data$Column46)
+table(data$Column47)
+table(data$Column48)
+table(data$Column49)
+table(data$Column50)
+table(data$Column51)
 
+
+
+
+
+
+
+
+```
 ```{r}
 # In what country did you attend a Carpentry workshop? 
 #map <- get_map(location = 'Europe', zoom = 4)
