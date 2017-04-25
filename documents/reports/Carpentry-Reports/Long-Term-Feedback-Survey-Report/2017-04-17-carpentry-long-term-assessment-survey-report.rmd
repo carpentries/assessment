@@ -168,6 +168,7 @@ rownames(tools) <-c("Cloud Computing",
 
 kable(tools)
 ```
+
 # Programming Usage Pre-Carpentry Workshop
 ```{r echo=FALSE}
 programming = c("I had not been using tools like these.", "Less than once per year.", "Several times per year.", "Monthly.", "Weekly.", "Daily.")
@@ -289,7 +290,7 @@ ggplot(data_change.in.confidence_tally,
 ```
 
 # Usage of Tools for Research and/or Work
-```{r echo=FALSE}
+```{r include=FALSE}
 table(data$How.Tools.Learned.Help)
 table(data$Column34)
 table(data$Column35)
@@ -347,7 +348,7 @@ kable(involvement)
 
 ```
 
-# Did Respondents Recommending Carpentry Workshops?
+# Did Respondents Recommend Carpentry Workshops?
 ```{r}
 data_recommended_tally <-
   data %>% 
@@ -386,26 +387,27 @@ theme_update(plot.title = element_text(hjust = 0.5))
 
 plot(data_agree_likert) + ggtitle(title)
 ```
-```{r echo=FALSE}
-table(data$Which.of.the.following.learning.activities.for.data.management.and.analysis)
-table(data$Column45)
-table(data$Column46)
-table(data$Column47)
-table(data$Column48)
-table(data$Column49)
-table(data$Column50)
-table(data$Column51)
 
 
-
-
-
-
-
-
+```{r include=FALSE}
+table(data$Activities)
+table(data$Column53)
+table(data$Column54)
+table(data$Column55)
+table(data$Column56)
+table(data$Column57)
 ```
+# Learning Activities
+Which of the following learning activities (for data management and analysis) have respondents participated in since completing a Carpentry workshop?
 ```{r}
-# In what country did you attend a Carpentry workshop? 
-#map <- get_map(location = 'Europe', zoom = 4)
-#ggmap(map)
+activities <- matrix(c(39,45,35,24,68,127),ncol=1,byrow=TRUE)
+colnames(activities) <-("Involvement Since Attending a Carpentry Workshop")
+rownames(activities) <-c("Participated in an in-person short course.",
+                        "Participated in an online short course.",
+                        "Participated in a Meetup",
+                        "Participated in a semester long course.",
+                        "Used self-guided Carpentry lesson material.",
+                        "Used non-Carpentry self-guided material.")
+kable(activities)
 ```
+

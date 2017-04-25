@@ -3,11 +3,16 @@ __Author__: [Kari L. Jordan](https://github.com/kariljordan)
 __Contributors__: [Ben Marwick](https://github.com/benmarwick), and [Tracy Teal](https://github.com/tkteal)
 __Published__: April 2017
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
 For nearly 20 years, Software Carpentry has developed material and trained instructors to teach computing skills to researchers in science, medicine, engineering, and other disciplines. This report is an analysis of the post-workshop survey responses collected for Software Carpentry's workshops from March 2015 through March 2017. In this two year period, 3265 responses were collected.
 
 A [PDF](https://github.com/carpentries/public-survey-info/blob/master/documents/surveys/2017-03-15-SwC-postworkshop-survey.pdf) of the survey questions, the data used in this analysis, and full R code are located on the [public-survey-info](https://github.com/carpentries/public-survey-info) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
 
-```{r}
+```{r include=FALSE}
+# install.packages("likert")
+# install.packages("purrr")
 library(likert)
 library(purrr)
 ```
@@ -19,25 +24,30 @@ data <- read.csv("swc_postworkshop_data_archived_scrubbedMarch2017.csv", na.stri
 ### Learner Demographics
 A host of initiatives have been developed and implemented globally to address gender disparities in computing. Software Carpentry's volunteer instructors have hosted hundreds of events since 1998, and the post-workshop survey data shows __parity__ in attendance of males compared to females.
 ```{r echo=FALSE}
-table(data$Gender)
-```
-```{r echo=FALSE}
+gender = c("Male", "Female", "Other", "Prefer not to say.")
+gender = factor(gender)
+
+data$Gender = factor(data$Gender, levels = gender)
+
 data_gender_tally <- 
   data %>% 
   group_by(Gender) %>% 
   tally() %>% 
-  filter(!is.na(Gender)) %>% 
-  arrange(desc(n))
+  filter(!is.na(Gender)
+
+kable(data_gender_tally)
 
 ggplot(data_gender_tally, 
        aes(reorder(Gender, n),
            n)) +
-  geom_col() +
+  geom_bar(stat = "identity", fill = "orange") +
+  theme_classic() +
   xlab("") +
   ylab("") +
-  ggtitle("SWC Workshop Attendees by Gender")
+  ggtitle("SWC Workshop Attendees by Gender") +
   theme_bw(base_size = 14)
 ```
+
 The majority of Software Carpentry learners are __Graduate Students__. A breakdown of Software Carpentry's learners by __status__ is provided below.
 ```{r echo=FALSE}
 table(data$Status)
