@@ -21,9 +21,9 @@ download.file("https://raw.githubusercontent.com/carpentries/public-survey-info/
 
 data <- read.csv("swc_postworkshop_data_archived_scrubbedMarch2017.csv", na.strings = "")
 ```
-### Learner Demographics
+### Respondent Demographics
 A host of initiatives have been developed and implemented globally to address gender disparities in computing. Software Carpentry's volunteer instructors have hosted hundreds of events since 1998, and the post-workshop survey data shows __parity__ in attendance of males compared to females.
-```{r echo=FALSE}
+```{r}
 data_gender_tally <- 
   data %>% 
   group_by(Gender) %>% 
@@ -59,7 +59,7 @@ ggplot(data_status_tally,
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
 ```
-### Learner Perception of Workshop Content and Atmosphere
+### Respondent Perception of Workshop Content and Atmosphere
 Software Carpentry has developed an interactive instructional approach that includes direct instruction (i.e. explicit teaching and demonstrations), indirect instruction (i.e. problem solving and discovery), and experiential learning.
 
 Learners were asked to rate their level of agreement on a scale of 1 (Strongly Disagree) to 5 (Strongly Agree) for the following statements regarding the atmosphere and content of the workshop they attended:  
@@ -113,7 +113,7 @@ plot(data_agree_likert) + ggtitle(title)
 
 The data strongly suggests that Software Carpentry provides a welcoming environment for its learners where the material not only matches the workshop description, but is worth the time learners spend learning it. Learners acquire skills they are able to apply to their research or job function in the time alloted over the two-day period. Lastly, learners feel impressed to recommend the workshop to a friend or colleague.
 
-### Learner Perception of Workshop Instructors and Helpers
+### Respondent Perception of Workshop Instructors and Helpers
 A strength of Software Carpentry's ecosystem is its instructors and helpers. Learners who responded to Software Carpentry's post-workshop survey were asked to rate how they felt instructors and helpers worked as a team based on the following criteria:  
 * __Instructors.Communicators__: Instructors were good communicators.    
 * __Helpers.Clear.Answers__: Helpers gave clear answers to your questions.    
@@ -128,13 +128,17 @@ A strength of Software Carpentry's ecosystem is its instructors and helpers. Lea
 cols_with_Often <- map_lgl(data, ~`%in%`("Often", .x))
 data_often <-  data[ , cols_with_Often]
 
+order = c("Never", "Rarely", "Sometimes", "Often", "All of the time")
+
+print(class(data_often))
 data_often <- map_if(data_often, 
                      is.character, 
                      as.factor)
-for(i in seq_along(data_agree)) {
-                data_agree[[i]] <- factor(data_agree[[i]], levels=order)
+
+for(i in seq_along(data_often)) {
+                data_often[[i]] <- factor(data_often[[i]], levels=order)
 }
-title <- "Figure 2: Learner Perception of Workshop Instructors and Helpers"
+title <- "Respondent Perception of Instructors & Helpers"
 data_often_likert <-  likert(as.data.frame(data_often))
 plot(data_often_likert) + ggtitle(title)
 ```
