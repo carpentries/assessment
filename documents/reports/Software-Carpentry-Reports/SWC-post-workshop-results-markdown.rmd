@@ -24,11 +24,6 @@ data <- read.csv("swc_postworkshop_data_archived_scrubbedMarch2017.csv", na.stri
 ### Learner Demographics
 A host of initiatives have been developed and implemented globally to address gender disparities in computing. Software Carpentry's volunteer instructors have hosted hundreds of events since 1998, and the post-workshop survey data shows __parity__ in attendance of males compared to females.
 ```{r echo=FALSE}
-gender = c("Female", "Male", "Other")
-gender = factor(gender)
-
-data$Gender = factor(data$Gender, levels = gender)
-
 data_gender_tally <- 
   data %>% 
   group_by(Gender) %>% 
@@ -36,24 +31,33 @@ data_gender_tally <-
   filter(!is.na(Gender)) 
 
 kable(data_gender_tally)
-
-ggplot(data_gender_tally, 
-       aes(Gender, n),
-           n) +
-  geom_bar(stat = "identity", fill = "orange") +
-  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-  theme_classic() +
-  xlab("") +
-  ylab("") +
-  ggtitle("SWC Workshop Attendees by Gender") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
 ```
 
 The majority of Software Carpentry learners are __Graduate Students__. A breakdown of Software Carpentry's learners by __status__ is provided below.
 ```{r echo=FALSE}
-table(data$Status)
-plot(data$Status)
+status = c("Undergraduate Student", "Graduate Student", "Post-Doctoral Researcher", "Faculty", "Research Staff (including research programmer)", "Support Staff (including technical support)", "Librarian/Archivist", "Commercial Software Developer", "Other")
+status = factor(status)
+
+data$Status = factor(data$Status, levels = status)
+
+data_status_tally <- 
+  data %>% 
+  group_by(Status) %>% 
+  tally() %>% 
+  filter(!is.na(Status)) 
+
+kable(data_status_tally)
+
+ggplot(data_status_tally, 
+       aes(Status, n)) +
+  geom_bar(stat = "identity", fill="orange") +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("") +
+  ylab("") +
+  ggtitle("Breakdown of Respondents by Status") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
 ```
 ### Learner Perception of Workshop Content and Atmosphere
 Software Carpentry has developed an interactive instructional approach that includes direct instruction (i.e. explicit teaching and demonstrations), indirect instruction (i.e. problem solving and discovery), and experiential learning.
@@ -69,6 +73,16 @@ Learners were asked to rate their level of agreement on a scale of 1 (Strongly D
 Learners have mixed feelings about the pace of the workshop they attended.
 ```{r echo=FALSE}
 table(data$Pace)
+```
+```{r}
+pace <- matrix(c(1101,876,616,137,140),ncol=1,byrow=TRUE)
+colnames(pace) <-("Respondents Perception of Workshop Pace")
+rownames(pace) <-c("Just right",
+                        "Slightly fast",
+                        "Slightly slow",
+                        "Too fast",
+                        "Too slow")
+kable(pace)
 ```
 
 Using the [Likert](http://jason.bryer.org/likert/) package, the following chart is an analysis of learner responses to the statements above. The code chunk is shown once here, and hidden for all subsequent plots.
