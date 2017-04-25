@@ -24,26 +24,28 @@ data <- read.csv("swc_postworkshop_data_archived_scrubbedMarch2017.csv", na.stri
 ### Learner Demographics
 A host of initiatives have been developed and implemented globally to address gender disparities in computing. Software Carpentry's volunteer instructors have hosted hundreds of events since 1998, and the post-workshop survey data shows __parity__ in attendance of males compared to females.
 ```{r echo=FALSE}
-gender = c("Male", "Female", "Other", "Prefer not to say."")
+gender = c("Male", "Female", "Other", "Prefer not to say.")
 gender = factor(gender)
+
+data$Gender = factor(data$Gender, levels = gender)
 
 data_gender_tally <- 
   data %>% 
   group_by(Gender) %>% 
   tally() %>% 
-  filter(!is.na(Gender)) %>% 
-  arrange(Gender)
+  filter(!is.na(Gender)
+
+kable(data_gender_tally)
 
 ggplot(data_gender_tally, 
        aes(reorder(Gender, n),
            n)) +
-  geom_col() +
+  geom_bar(stat = "identity", fill = "orange") +
+  theme_classic() +
   xlab("") +
   ylab("") +
   ggtitle("SWC Workshop Attendees by Gender") +
   theme_bw(base_size = 14)
-
-kable(data_gender_tally)
 ```
 
 The majority of Software Carpentry learners are __Graduate Students__. A breakdown of Software Carpentry's learners by __status__ is provided below.
