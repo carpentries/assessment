@@ -367,16 +367,26 @@ data_recommended_tally <-
 
 kable(data_recommended_tally)
 ```
+```{r include=FALSE}
+data_likelyrecommend_tally <-
+  data %>% 
+  group_by(Likely.To.Recommend) %>% 
+  tally() %>% 
+  filter(!is.na(Likely.To.Recommend)) %>% 
+  arrange(desc(n))
 
+kable(data_likelyrecommend_tally)
+```
 # Learner Perception of Workshop Atmosphere
 Respondents were asked to reflect on ways in which completing a Carpentry workshop may have impacted them by rating their level of agreement (1-Strongly disagree to 5-Strongly agree) with the following statements:  
-+ I have used skills I learned at the workshop to advance my career.  
-+ I have been motivated to seek more knowledge about the tools I learned at the workshop.  
-+ I have made my analyses more reproducible as a result of completing the workshop.  
-+ I have received professional recognition for my work as a result of using the tools I learned at the workshop.  
-+ I have improved my coding practices as a result of completing the workshop.  
-+ My research productivity has improved as a result of completing the workshop.  
-+ I have gained confidence in working with data as a result of completing the workshop.  
+* I have used skills I learned at the workshop to advance my career.  
+* I have been motivated to seek more knowledge about the tools I learned at the workshop.  
+* I have made my analyses more reproducible as a result of completing the workshop.  
+* I have received professional recognition for my work as a result of using the tools I learned at the workshop.  
+* I have improved my coding practices as a result of completing the workshop.  
+* My research productivity has improved as a result of completing the workshop.  
+* I have gained confidence in working with data as a result of completing the workshop.  
+
 Using the [Likert](http://jason.bryer.org/likert/) package, the following plot is an analysis of learner responses to the statements above. We see an overwhelmingly positive indication that respondents left their workshop feeling motivated to seek more knowledge and having gained confidence in working with data. Additionally, more than 80% of respondents improved their coding practices, made their analyses reproducible, improved their research producitvity, and believe the skills they learned helped them advance their career. Fourty percent of our respondents have received professional recognition as a result of using the tools they learned in a Carpentry workshop.
 
 ```{r echo=TRUE}
@@ -414,10 +424,10 @@ table(data$Column56)
 table(data$Column57)
 ```
 # Learning Activities
-Which of the following learning activities (for data management and analysis) have respondents participated in since completing a Carpentry workshop?
+Another outcome we hope to see is that learners continue on in their learning once they've completed a workshop. This can take many forms including participating in short-courses (in-peson and online) and using self-guided material. We asked respondents to tell us which learning activities (for data management and analysis) they've participated in since completing a Carpentry workshop. The majority of respondents have used non-Carpentry self-guided material, though 68 responded having used Carpentry self-guided material. Additionally, we see participation in meetups and in-person short courses.
 ```{r}
-activities <- matrix(c(39,45,35,24,68,127),ncol=1,byrow=TRUE)
-colnames(activities) <-("Involvement Since Attending a Carpentry Workshop")
+activities <- matrix(c(59,45,35,24,68,127),ncol=1,byrow=TRUE)
+colnames(activities) <-("Ongoing Learning Post-Workshop")
 rownames(activities) <-c("Participated in an in-person short course.",
                         "Participated in an online short course.",
                         "Participated in a Meetup",
@@ -426,4 +436,5 @@ rownames(activities) <-c("Participated in an in-person short course.",
                         "Used non-Carpentry self-guided material.")
 kable(activities)
 ```
+# Summary
 
