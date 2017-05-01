@@ -374,7 +374,7 @@ $(document).ready(function () {
 </div>
 <div id="behaviors-adopted-post-workshop" class="section level1">
 <h1>Behaviors Adopted Post-Workshop</h1>
-<p>We asked respondents to identify the behaviors they adopted as a result of completing a Carpentry workshop. We are happy to report that more than half of the respondents who answered this question (n=395) have improved their data management and project organization practices, used programming languages for automation, and used version control to manage code.</p>
+<p>We asked respondents to identify the behaviors they adopted as a result of completing a Carpentry workshop. We are happy to report that more than half of the respondents who answered this question (n=395) have improved their data management and project organization practices, used programming languages for automation, and used version control to manage code. Additionally, respondents are <em>more confident</em> now than before they took a Carpentry workshop.</p>
 <table>
 <thead>
 <tr class="header">
@@ -450,6 +450,7 @@ $(document).ready(function () {
 </div>
 <div id="usage-of-tools-for-research-andor-work" class="section level1">
 <h1>Usage of Tools for Research and/or Work</h1>
+<p>We identified specific outcomes that learners may experience after taking a Carpentry workshop that are directly related to their research and/or work. Respondents have identified that the tools they learned improved their overall efficiency, and ability to manage and analyze data. Only 28 respondents said the tools they learned have not helped them, and 61 respondents have not been using the tools that were covered in their workshop.</p>
 <table>
 <thead>
 <tr class="header">
@@ -483,6 +484,7 @@ $(document).ready(function () {
 </div>
 <div id="have-tools-learned-contributed-to-academic-writing" class="section level1">
 <h1>Have Tools Learned Contributed to Academic Writing?</h1>
+<p>Another possible outcome of attending a Carpentry workshop is that the tools learned may contribute to academic writing (i.e. grant proposal, journal article). 118 respondents said that the tools they learned contributed to their academic writing.</p>
 <table>
 <thead>
 <tr class="header">
@@ -508,6 +510,7 @@ $(document).ready(function () {
 </div>
 <div id="involvement-in-the-carpentries-post-workshop" class="section level1">
 <h1>Involvement in the Carpentries Post-Workshop</h1>
+<p>Another outcome of attending a Carpentry workshop is that learners become involved with Software and/or Data Carpentry by way of joining a mentoring group, becoming a workshop helper, or even becoming an instructor. The table provided below shows how respondents have been involved with the Carpentries since completing a workshop. Respondents were asked to check all that apply.</p>
 <table>
 <thead>
 <tr class="header">
@@ -553,6 +556,7 @@ $(document).ready(function () {
 </div>
 <div id="did-respondents-recommend-carpentry-workshops" class="section level1">
 <h1>Did Respondents Recommend Carpentry Workshops?</h1>
+<p>We value our learners because when they have successful experiences in our workshops, they share their experience with others. We asked respondents if they had already recommended our workshop, and 298 said yes!</p>
 <table>
 <thead>
 <tr class="header">
@@ -578,7 +582,15 @@ $(document).ready(function () {
 </div>
 <div id="learner-perception-of-workshop-atmosphere" class="section level1">
 <h1>Learner Perception of Workshop Atmosphere</h1>
-<p>Using the <a href="http://jason.bryer.org/likert/">Likert</a> package, the following chart is an analysis of learner responses to the statements above.</p>
+<p>Respondents were asked to reflect on ways in which completing a Carpentry workshop may have impacted them by rating their level of agreement (1-Strongly disagree to 5-Strongly agree) with the following statements:<br />
+* I have used skills I learned at the workshop to advance my career.<br />
+* I have been motivated to seek more knowledge about the tools I learned at the workshop.<br />
+* I have made my analyses more reproducible as a result of completing the workshop.<br />
+* I have received professional recognition for my work as a result of using the tools I learned at the workshop.<br />
+* I have improved my coding practices as a result of completing the workshop.<br />
+* My research productivity has improved as a result of completing the workshop.<br />
+* I have gained confidence in working with data as a result of completing the workshop.<br />
+Using the <a href="http://jason.bryer.org/likert/">Likert</a> package, the following plot is an analysis of learner responses to the statements above. We see an overwhelmingly positive indication that respondents left their workshop feeling motivated to seek more knowledge and having gained confidence in working with data. Additionally, more than 80% of respondents improved their coding practices, made their analyses reproducible, improved their research producitvity, and believe the skills they learned helped them advance their career. Fourty percent of our respondents have received professional recognition as a result of using the tools they learned in a Carpentry workshop.</p>
 <pre class="r"><code>cols_with_Agree &lt;- map_lgl(data, ~`%in%`(&quot;Agree&quot;, .x))
 data_agree &lt;-  data[ , cols_with_Agree]
 
