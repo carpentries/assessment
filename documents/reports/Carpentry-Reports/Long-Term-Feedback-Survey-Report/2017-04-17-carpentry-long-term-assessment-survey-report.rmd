@@ -244,7 +244,7 @@ data %>%
   tally() %>%
   filter(!is.na(value)) %>%
   mutate(value = factor(value, levels = programming)) %>%
-  ggplot(aes(x = value, y = n/sum(n), fill = key)) +
+  ggplot(aes(x = value, y = 100 * (n/sum(n)), fill = key)) +
     geom_bar(stat = "identity", position = "dodge") +
     scale_x_discrete(labels = function(x) lapply(strwrap(x,
                                                          width = 10,
