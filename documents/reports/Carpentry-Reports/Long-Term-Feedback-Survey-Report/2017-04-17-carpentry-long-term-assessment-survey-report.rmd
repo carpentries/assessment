@@ -137,6 +137,7 @@ data_howlong_tally <-
 
 kable(data_howlong_tally)
 ```
+
 # What Tools Were Covered at Your Workshop?
 From the table below we see that a large majority of respondents learned Git, Python, and Unix Shell. On the low end were Spreadsheets (20), Cloud Computing (11), MATLAB (5), and Mercurial (3).
 ```{r include=FALSE}
@@ -436,5 +437,11 @@ rownames(activities) <-c("Participated in an in-person short course.",
                         "Used non-Carpentry self-guided material.")
 kable(activities)
 ```
+
 # Summary
+This initial look at how Carpentry workshops have impacted learners long-term has been extremely insightful. In general, our workshops are helping learners improve their efficiency with managing and analyzing data. Learners are taking advantage of online resources to improve their skills, and becoming involved with our community.
+
+We will take another look at this data to compare responses of learners having taken a workshop more than a year ago versus those having taken a workshop 0 to 6 months ago and 6 months to 1 year ago. Additionally, every 6 months we will collect data using this survey from new learners to see how they're doing!
+
+Thank you for reading this report.
 
