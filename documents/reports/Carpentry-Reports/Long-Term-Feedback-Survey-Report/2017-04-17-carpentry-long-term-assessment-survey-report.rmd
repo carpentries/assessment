@@ -21,6 +21,8 @@ As of April 20, 2017, 510 learners have responded to the survey. Not all respond
 # install.packages("dplyr")
 # install.packages("knitr")
 # install.packages("RColorBrewer")
+# install.packages("tidyr")
+library(tidyr)
 library(ggmap)
 library(likert)
 library(purrr)
@@ -232,8 +234,6 @@ ggplot(data_usage_tally,
 
 ```{r}
 #Attempt to make a grouped bar plot of programming usage pre- and post-workshop
-
-library("tidyr")
 
 # Fix so pre- and post- responses match
 levels(data$Programming.Usage.Before.Workshop)[2] <- "I have not been using tools like these."
