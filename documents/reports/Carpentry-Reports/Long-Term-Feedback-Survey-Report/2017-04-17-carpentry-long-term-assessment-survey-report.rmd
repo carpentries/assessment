@@ -1,6 +1,6 @@
 # Analysis of the Carpentry's Long-Term Feedback Survey
 __Author__: [Kari L. Jordan](https://github.com/kariljordan)
-__Published__: April 2017
+__Published__: May 2017
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -137,7 +137,8 @@ data_howlong_tally <-
 
 kable(data_howlong_tally)
 ```
-# Tools Covered
+# What Tools Were Covered at Your Workshop?
+From the table below we see that a large majority of respondents learned Git, Python, and Unix Shell. On the low end were Spreadsheets (20), Cloud Computing (11), MATLAB (5), and Mercurial (3).
 ```{r include=FALSE}
 # These commands were used to get a count
 # of the tools covered in the respondents workshop.
@@ -170,6 +171,9 @@ kable(tools)
 ```
 
 # Programming Usage Pre-Carpentry Workshop
+A goal for this assessment is to understand respondents programming usage before attending the workshop compared to after. Our hope is that the workshop they attended influenced their usage of programming tools.
+
+The plots below show that respondents usage of the programming tools increased after the workshop.
 ```{r echo=FALSE}
 programming = c("I had not been using tools like these.", "Less than once per year.", "Several times per year.", "Monthly.", "Weekly.", "Daily.")
 programming = factor(programming)
@@ -240,7 +244,7 @@ table(data$Column31)
 table(data$Column32)
 ```
 
-We asked respondents to identify the behaviors they adopted as a result of completing a Carpentry workshop. We are happy to report that more than half of the respondents who answered this question (n=395) have improved their data management and project organization practices, used programming languages for automation, and used version control to manage code.
+We asked respondents to identify the behaviors they adopted as a result of completing a Carpentry workshop. We are happy to report that more than half of the respondents who answered this question (n=395) have improved their data management and project organization practices, used programming languages for automation, and used version control to manage code. Additionally, respondents are *more confident* now than before they took a Carpentry workshop.
 
 ```{r}
 behaviors <- matrix(c(198,74,119,111,260,169,185,119,122),ncol=1,byrow=TRUE)
@@ -290,6 +294,7 @@ ggplot(data_change.in.confidence_tally,
 ```
 
 # Usage of Tools for Research and/or Work
+We identified specific outcomes that learners may experience after taking a Carpentry workshop that are directly related to their research and/or work. Respondents have identified that the tools they learned improved their overall efficiency, and ability to manage and analyze data. Only 28 respondents said the tools they learned have not helped them, and 61 respondents have not been using the tools that were covered in their workshop. 
 ```{r include=FALSE}
 table(data$How.Tools.Learned.Help)
 table(data$Column34)
@@ -311,6 +316,7 @@ kable(career)
 ```
 
 # Have Tools Learned Contributed to Academic Writing?
+Another possible outcome of attending a Carpentry workshop is that the tools learned may contribute to academic writing (i.e. grant proposal, journal article). 118 respondents said that the tools they learned contributed to their academic writing.
 ```{r}
 data_writing_tally <- 
   data %>% 
@@ -323,6 +329,7 @@ kable(data_writing_tally)
 ```
 
 # Involvement in the Carpentries Post-Workshop
+Another outcome of attending a Carpentry workshop is that learners become involved with Software and/or Data Carpentry by way of joining a mentoring group, becoming a workshop helper, or even becoming an instructor. The table provided below shows how respondents have been involved with the Carpentries since completing a workshop. Respondents were asked to check all that apply.
 ```{r include=FALSE}
 table(data$Carpentry.Involvement)
 table(data$Column45)
@@ -349,6 +356,7 @@ kable(involvement)
 ```
 
 # Did Respondents Recommend Carpentry Workshops?
+We value our learners because when they have successful experiences in our workshops, they share their experience with others. We asked respondents if they had already recommended our workshop, and 298 said yes!
 ```{r}
 data_recommended_tally <-
   data %>% 
