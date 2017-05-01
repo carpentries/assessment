@@ -232,6 +232,34 @@ ggplot(data_usage_tally,
 ```{r}
 #Attempt to make a grouped bar plot of programming usage pre- and post-workshop
 
+library("tidyr")
+
+# Fix so pre- and post- responses match
+levels(data$Programming.Usage.Before.Workshop)[2] <- "I have not been using tools like these."
+
+data %>%
+  select(Programming.Usage.Before.Workshop, Programming.Usage.Since.Workshop) %>%
+  gather() %>%
+  group_by(key, value) %>%
+  tally() %>%
+  filter(!is.na(value)) %>%
+  mutate(value = factor(value, levels = programming)) %>%
+  ggplot(aes(x = value, y = 100 * (n/sum(n)), fill = key)) +
+    geom_bar(stat = "identity", position = "dodge") +
+    scale_x_discrete(labels = function(x) lapply(strwrap(x,
+                                                         width = 10,
+                                                         simplify = FALSE),
+                                                 paste,
+                                                 collapse = "\n")) +
+    theme_classic() +
+    xlab("") +
+    ylab("Percent of respondants") +
+    scale_fill_discrete(name = "",
+                        labels = c("Before workshop", "After workshop")) +
+    ggtitle("Respondents' Programming Usage Increased") +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme_classic(base_size = 14)
+
 #First get percentage of total for each category
 kable(data_usage_tally)
 
