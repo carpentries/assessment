@@ -1,6 +1,5 @@
 # Analysis of Software Carpentry's Post-Workshop Surveys
 __Author__: [Kari L. Jordan](https://github.com/kariljordan)
-__Contributors__: [Ben Marwick](https://github.com/benmarwick), and [Tracy Teal](https://github.com/tkteal)
 __Published__: April 2017
 
 ```{r setup, include=FALSE}
@@ -106,6 +105,7 @@ rownames(balance) <-c("Too much lecture",
                         "Too much hands-on")
 kable(balance)
 ```
+
 Learners were asked to rate their level of agreement on a scale of 1 (Strongly Disagree) to 5 (Strongly Agree) for the following statements regarding the atmosphere and content of the workshop they attended:  
 * __Atmosphere__: The overall atmosphere of the workshop was welcoming.     
 * __Recommend__: I would recommend this workshop to a friend/colleague.     
@@ -213,3 +213,7 @@ Now let's take a look at learners' prior experience with the tools covered in th
 * SQL  
 
 ### Learners' Prior Experience and Knowledge Post-Workshop: Unix Shell 
+
+
+
+__Contributors__: [Ben Marwick](https://github.com/benmarwick), and [Tracy Teal](https://github.com/tkteal)
