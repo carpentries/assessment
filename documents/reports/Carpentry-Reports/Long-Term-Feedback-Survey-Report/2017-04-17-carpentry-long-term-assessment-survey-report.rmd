@@ -369,7 +369,15 @@ kable(data_recommended_tally)
 ```
 
 # Learner Perception of Workshop Atmosphere
-Using the [Likert](http://jason.bryer.org/likert/) package, the following chart is an analysis of learner responses to the statements above.
+Respondents were asked to reflect on ways in which completing a Carpentry workshop may have impacted them by rating their level of agreement (1-Strongly disagree to 5-Strongly agree) with the following statements:  
++ I have used skills I learned at the workshop to advance my career.  
++ I have been motivated to seek more knowledge about the tools I learned at the workshop.  
++ I have made my analyses more reproducible as a result of completing the workshop.  
++ I have received professional recognition for my work as a result of using the tools I learned at the workshop.  
++ I have improved my coding practices as a result of completing the workshop.  
++ My research productivity has improved as a result of completing the workshop.  
++ I have gained confidence in working with data as a result of completing the workshop.  
+Using the [Likert](http://jason.bryer.org/likert/) package, the following plot is an analysis of learner responses to the statements above. We see an overwhelmingly positive indication that respondents left their workshop feeling motivated to seek more knowledge and having gained confidence in working with data. Additionally, more than 80% of respondents improved their coding practices, made their analyses reproducible, improved their research producitvity, and believe the skills they learned helped them advance their career. Fourty percent of our respondents have received professional recognition as a result of using the tools they learned in a Carpentry workshop.
 
 ```{r echo=TRUE}
 cols_with_Agree <- map_lgl(data, ~`%in%`("Agree", .x))
