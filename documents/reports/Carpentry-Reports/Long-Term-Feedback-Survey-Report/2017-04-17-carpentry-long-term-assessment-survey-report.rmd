@@ -173,11 +173,12 @@ rownames(tools) <-c("Cloud Computing",
 kable(tools)
 ```
 
-# Programming Usage Pre-Carpentry Workshop
-A goal for this assessment is to understand respondents programming usage before attending the workshop compared to after. Our hope is that the workshop they attended influenced their usage of programming tools.
+# Programming Usage Pre- and Post Workshop
+A goal for this assessment is to understand respondents programming usage before attending a Carpentry workshop compared to after. Our hope is that the workshop they attended influenced their usage of the programming tools covered during their workshop.
 
-The plots below show that respondents usage of the programming tools increased after the workshop.
-```{r echo=FALSE}
+The plot below shows that respondents usage of the programming tools increased after the workshop. ADD MORE TEXT.
+```{r include=FALSE}
+# Programming Usage Pre-Carpentry Workshop
 programming = c("I had not been using tools like these.", "Less than once per year.", "Several times per year.", "Monthly.", "Weekly.", "Daily.")
 programming = factor(programming)
 
@@ -204,8 +205,8 @@ ggplot(data_usage_tally,
   theme_classic(base_size = 14)
 ```
 
+```{r include=FALSE}
 # Programming Post-Carpentry Workshop
-```{r echo=FALSE}
 programming = c("I have not been using tools like these.", "Less than once per year.", "Several times per year.", "Monthly.", "Weekly.", "Daily.")
 programming = factor(programming)
 
@@ -231,11 +232,33 @@ ggplot(data_usage_tally,
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
 ```
+```{r}
+#Test code to change axes to percentage
+data %>%
+  select(Programming.Usage.Since.Workshop) %>%
+  gather() %>%
+  group_by(key, value) %>%
+  tally() %>%
+  filter(!is.na(value)) %>%
+  mutate(value = factor(value, levels = programming)) %>%
+  ggplot(aes(x = value, y = 100 * (n/sum(n)), fill = key)) +
+    geom_bar(stat = "identity", position = "dodge") +
+    scale_x_discrete(labels = function(x) lapply(strwrap(x,
+                                                         width = 10,
+                                                         simplify = FALSE),
+                                                 paste,
+                                                 collapse = "\n")) +
+    theme_classic() +
+    xlab("") +
+    ylab("% respondants") +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme_classic(base_size = 14)
+```
 
 ```{r}
 #Attempt to make a grouped bar plot of programming usage pre- and post-workshop
 
-# Fix so pre- and post- responses match
+# Fix so pre- and post-responses match
 levels(data$Programming.Usage.Before.Workshop)[2] <- "I have not been using tools like these."
 
 data %>%
