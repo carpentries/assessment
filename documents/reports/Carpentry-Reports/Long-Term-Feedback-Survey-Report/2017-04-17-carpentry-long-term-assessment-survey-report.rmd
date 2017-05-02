@@ -425,6 +425,7 @@ data_likelyrecommend_tally <-
 
 kable(data_likelyrecommend_tally)
 ```
+
 # Learner Perception of Workshop Atmosphere
 Respondents were asked to reflect on ways in which completing a Carpentry workshop may have impacted them by rating their level of agreement (1-Strongly disagree to 5-Strongly agree) with the following statements:  
 * I have used skills I learned at the workshop to advance my career.  
