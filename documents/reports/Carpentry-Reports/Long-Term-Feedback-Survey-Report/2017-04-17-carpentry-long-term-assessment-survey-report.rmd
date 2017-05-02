@@ -176,7 +176,7 @@ kable(tools)
 # Programming Usage Pre- and Post Workshop
 A goal for this assessment is to understand respondents programming usage before attending a Carpentry workshop compared to after. Our hope is that the workshop they attended influenced their usage of the programming tools covered during their workshop.
 
-The plot below shows that respondents usage of the programming tools increased after the workshop. ADD MORE TEXT.
+Twenty percent of the learners who responded to our survey had not been using the tools they learned in our workshop before completing a workshop, and nearly 30% responded having used the tools on a daily basis before completing a workshop. Post-workshop
 ```{r include=FALSE}
 # Programming Usage Pre-Carpentry Workshop [Absolute Plot]
 programming = c("I had not been using tools like these.", "Less than once per year.", "Several times per year.", "Monthly.", "Weekly.", "Daily.")
@@ -213,7 +213,7 @@ data %>%
   filter(!is.na(Programming.Usage.Before.Workshop)) %>%
   mutate(Programming.Usage.Before.Workshop = factor(Programming.Usage.Before.Workshop, levels = programming)) %>%
   ggplot(aes(x = Programming.Usage.Before.Workshop, y = 100 * (n/sum(n)))) +
-    geom_bar(stat = "identity", position = "dodge", fill = "orange", na.rm = TRUE ) +
+    geom_bar(stat = "identity", position = "dodge", fill = "orange", na.rm = TRUE) +
     scale_x_discrete(labels = function(x) lapply(strwrap(x,
                                                          width = 10,
                                                          simplify = FALSE),
@@ -291,7 +291,7 @@ data %>%
   filter(!is.na(value)) %>%
   mutate(value = factor(value, levels = programming)) %>%
   ggplot(aes(x = value, y = 100 * (n/sum(n)), fill = key)) +
-    geom_bar(stat = "identity", position = "dodge") +
+    geom_bar(stat = "identity", position = "dodge", na.rm = TRUE) +
     scale_x_discrete(labels = function(x) lapply(strwrap(x,
                                                          width = 10,
                                                          simplify = FALSE),
