@@ -179,108 +179,109 @@ A goal for this assessment is to understand respondents programming usage before
 Twenty percent of the learners who responded to our survey had not been using the tools they learned in our workshop before completing a workshop, and nearly 30% responded having used the tools on a daily basis before completing a workshop. Post-workshop
 ```{r include=FALSE}
 # Programming Usage Pre-Carpentry Workshop [Absolute Plot]
-programming = c("I had not been using tools like these.", "Less than once per year.", "Several times per year.", "Monthly.", "Weekly.", "Daily.")
-programming = factor(programming)
+# programming = c("I had not been using tools like these.", "Less than once per year.", "Several times per year.", "Monthly.", "Weekly.", "Daily.")
+# programming = factor(programming)
 
-data$Programming.Usage.Before.Workshop = factor(data$Programming.Usage.Before.Workshop, levels = programming)
+# Do not include the next line when you take the comments out.
+# data$Programming.Usage.Before.Workshop = factor(data$Programming.Usage.Before.Workshop, levels = programming)
 
-data_usage_tally <- 
-  data %>% 
-  group_by(Programming.Usage.Before.Workshop) %>% 
-  tally() %>% 
-  filter(!is.na(Programming.Usage.Before.Workshop)) 
+# data_usage_tally <- 
+#  data %>% 
+#  group_by(Programming.Usage.Before.Workshop) %>% 
+#  tally() %>% 
+#  filter(!is.na(Programming.Usage.Before.Workshop)) 
 
-#Change title
-kable(data_usage_tally)
+# kable(data_usage_tally)
 
-ggplot(data_usage_tally, 
-       aes(Programming.Usage.Before.Workshop, n)) +
-  geom_bar(stat = "identity", fill="orange") +
-  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-  theme_classic() +
-  xlab("") +
-  ylab("") +
-  ggtitle("Programming Usage Pre-Workshop Varies") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
+# ggplot(data_usage_tally, 
+#       aes(Programming.Usage.Before.Workshop, n)) +
+#  geom_bar(stat = "identity", fill="orange") +
+#  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+#  theme_classic() +
+#  xlab("") +
+#  ylab("") +
+#  ggtitle("Programming Usage Pre-Workshop Varies") +
+#  theme(plot.title = element_text(hjust = 0.5)) +
+#  theme_classic(base_size = 14)
 ```
 ```{r}
 #Programming Pre-Carpentry Workshop [Percentage Plot]
-data %>%
-  select(Programming.Usage.Before.Workshop) %>%
-  group_by(Programming.Usage.Before.Workshop) %>%
-  tally() %>%
-  filter(!is.na(Programming.Usage.Before.Workshop)) %>%
-  mutate(Programming.Usage.Before.Workshop = factor(Programming.Usage.Before.Workshop, levels = programming)) %>%
-  ggplot(aes(x = Programming.Usage.Before.Workshop, y = 100 * (n/sum(n)))) +
-    geom_bar(stat = "identity", position = "dodge", fill = "orange", na.rm = TRUE) +
-    scale_x_discrete(labels = function(x) lapply(strwrap(x,
-                                                         width = 10,
-                                                         simplify = FALSE),
-                                                 paste,
-                                                 collapse = "\n")) +
-    theme_classic() +
-    xlab("") +
-    ylab("% respondents") +
-    ggtitle("Programming Usage Pre-Workshop Varies") +
-    theme(plot.title = element_text(hjust = 0.5)) +
-    theme_classic(base_size = 14)
-    
+# data %>%
+#  select(Programming.Usage.Before.Workshop) %>%
+#  group_by(Programming.Usage.Before.Workshop) %>%
+#  tally() %>%
+#  filter(!is.na(Programming.Usage.Before.Workshop)) %>%
+#  mutate(Programming.Usage.Before.Workshop = factor(Programming.Usage.Before.Workshop, levels = programming)) %>%
+#  ggplot(aes(x = Programming.Usage.Before.Workshop, y = 100 * (n/sum(n)))) +
+#    geom_bar(stat = "identity", position = "dodge", fill = "orange", na.rm = TRUE) +
+#    scale_x_discrete(labels = function(x) lapply(strwrap(x,
+#                                                         width = 10,
+#                                                         simplify = FALSE),
+#                                                 paste,
+#                                                 collapse = "\n")) +
+#    theme_classic() +
+#    xlab("") +
+#    ylab("% respondents") +
+#    ggtitle("Programming Usage Pre-Workshop Varies") +
+#    theme(plot.title = element_text(hjust = 0.5)) +
+#    theme_classic(base_size = 14)
 ```    
 ```{r include=FALSE}
 # Programming Usage Post-Carpentry Workshop [Absolute Plot]
-programming = c("I have not been using tools like these.", "Less than once per year.", "Several times per year.", "Monthly.", "Weekly.", "Daily.")
-programming = factor(programming)
+# programming = c("I have not been using tools like these.", "Less than once per year.", "Several times per year.", "Monthly.", "Weekly.", "Daily.")
+# programming = factor(programming)
 
-data$Programming.Usage.Since.Workshop = factor(data$Programming.Usage.Since.Workshop, levels = programming)
+#data$Programming.Usage.Since.Workshop = factor(data$Programming.Usage.Since.Workshop, levels = programming)
 
-data_usage_tally <- 
-  data %>% 
-  group_by(Programming.Usage.Since.Workshop) %>% 
-  tally() %>% 
-  filter(!is.na(Programming.Usage.Since.Workshop)) 
+# data_usage_tally <- 
+#  data %>% 
+#  group_by(Programming.Usage.Since.Workshop) %>% 
+#  tally() %>% 
+#  filter(!is.na(Programming.Usage.Since.Workshop)) 
 
-#Change title
-kable(data_usage_tally)
+# kable(data_usage_tally)
 
-ggplot(data_usage_tally, 
-       aes(Programming.Usage.Since.Workshop, n)) +
-  geom_bar(stat = "identity", fill="orange") +
-  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-  theme_classic() +
-  xlab("") +
-  ylab("") +
-  ggtitle("Respondents' Programming Usage Increased") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
+# ggplot(data_usage_tally, 
+#       aes(Programming.Usage.Since.Workshop, n)) +
+#  geom_bar(stat = "identity", fill="orange") +
+#  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+#  theme_classic() +
+#  xlab("") +
+#  ylab("") +
+#  ggtitle("Respondents' Programming Usage Increased") +
+#  theme(plot.title = element_text(hjust = 0.5)) +
+#  theme_classic(base_size = 14)
 ```
 ```{r}
 #Programming Usage Post-Carpentry Workshop [Percentage Plot]
-data %>%
-  select(Programming.Usage.Since.Workshop) %>%
-  group_by(Programming.Usage.Since.Workshop) %>%
-  tally() %>%
-  filter(!is.na(Programming.Usage.Since.Workshop)) %>%
-  mutate(Programming.Usage.Since.Workshop = factor(Programming.Usage.Since.Workshop, levels = programming)) %>%
-  ggplot(aes(x = Programming.Usage.Since.Workshop, y = 100 * (n/sum(n)))) +
-    geom_bar(stat = "identity", position = "dodge", fill = "orange", na.rm = TRUE ) +
-    scale_x_discrete(labels = function(x) lapply(strwrap(x,
-                                                         width = 10,
-                                                         simplify = FALSE),
-                                                 paste,
-                                                 collapse = "\n")) +
-    theme_classic() +
-    xlab("") +
-    ylab("% respondents") +
-    ggtitle("Respondents' Programming Usage Increased") +
-    theme(plot.title = element_text(hjust = 0.5)) +
-    theme_classic(base_size = 14)
+# data %>%
+#  select(Programming.Usage.Since.Workshop) %>%
+#  group_by(Programming.Usage.Since.Workshop) %>%
+#  tally() %>%
+#  filter(!is.na(Programming.Usage.Since.Workshop)) %>%
+#  mutate(Programming.Usage.Since.Workshop = factor(Programming.Usage.Since.Workshop, levels = programming)) %>%
+#  ggplot(aes(x = Programming.Usage.Since.Workshop, y = 100 * (n/sum(n)))) +
+#    geom_bar(stat = "identity", position = "dodge", fill = "orange", na.rm = TRUE ) +
+#    scale_x_discrete(labels = function(x) lapply(strwrap(x,
+#                                                         width = 10,
+#                                                         simplify = FALSE),
+#                                                 paste,
+#                                                 collapse = "\n")) +
+#    theme_classic() +
+#    xlab("") +
+#    ylab("% respondents") +
+#    ggtitle("Respondents' Programming Usage Increased") +
+#    theme(plot.title = element_text(hjust = 0.5)) +
+#    theme_classic(base_size = 14)
 ```
 
 ```{r}
 #Attempt to make a grouped bar plot of programming usage pre- and post-workshop
+programming <- c("I have not been using tools like these.", "Less than once per year.", "Several times per year.", "Monthly.", "Weekly.", "Daily.")
+programming <- factor(programming)
 
 # Fix so pre- and post-responses match
+data_paired_plot <- data
 levels(data$Programming.Usage.Before.Workshop)[2] <- "I have not been using tools like these."
 
 data %>%
