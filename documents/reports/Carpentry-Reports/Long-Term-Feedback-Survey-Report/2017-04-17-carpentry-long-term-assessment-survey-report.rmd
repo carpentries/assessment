@@ -178,7 +178,7 @@ A goal for this assessment is to understand respondents programming usage before
 
 The plot below shows that respondents usage of the programming tools increased after the workshop. ADD MORE TEXT.
 ```{r include=FALSE}
-# Programming Usage Pre-Carpentry Workshop
+# Programming Usage Pre-Carpentry Workshop [Absolute Plot]
 programming = c("I had not been using tools like these.", "Less than once per year.", "Several times per year.", "Monthly.", "Weekly.", "Daily.")
 programming = factor(programming)
 
@@ -204,9 +204,31 @@ ggplot(data_usage_tally,
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
 ```
-
+```{r}
+#Programming Pre-Carpentry Workshop [Percentage Plot]
+data %>%
+  select(Programming.Usage.Before.Workshop) %>%
+  group_by(Programming.Usage.Before.Workshop) %>%
+  tally() %>%
+  filter(!is.na(Programming.Usage.Before.Workshop)) %>%
+  mutate(Programming.Usage.Before.Workshop = factor(Programming.Usage.Before.Workshop, levels = programming)) %>%
+  ggplot(aes(x = Programming.Usage.Before.Workshop, y = 100 * (n/sum(n)))) +
+    geom_bar(stat = "identity", position = "dodge", fill = "orange", na.rm = TRUE ) +
+    scale_x_discrete(labels = function(x) lapply(strwrap(x,
+                                                         width = 10,
+                                                         simplify = FALSE),
+                                                 paste,
+                                                 collapse = "\n")) +
+    theme_classic() +
+    xlab("") +
+    ylab("% respondents") +
+    ggtitle("Programming Usage Pre-Workshop Varies") +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme_classic(base_size = 14)
+    
+```    
 ```{r include=FALSE}
-# Programming Post-Carpentry Workshop
+# Programming Usage Post-Carpentry Workshop [Absolute Plot]
 programming = c("I have not been using tools like these.", "Less than once per year.", "Several times per year.", "Monthly.", "Weekly.", "Daily.")
 programming = factor(programming)
 
@@ -233,16 +255,15 @@ ggplot(data_usage_tally,
   theme_classic(base_size = 14)
 ```
 ```{r}
-#Test code to change axes to percentage
+#Programming Usage Post-Carpentry Workshop [Percentage Plot]
 data %>%
   select(Programming.Usage.Since.Workshop) %>%
-  gather() %>%
-  group_by(key, value) %>%
+  group_by(Programming.Usage.Since.Workshop) %>%
   tally() %>%
-  filter(!is.na(value)) %>%
-  mutate(value = factor(value, levels = programming)) %>%
-  ggplot(aes(x = value, y = 100 * (n/sum(n)), fill = key)) +
-    geom_bar(stat = "identity", position = "dodge") +
+  filter(!is.na(Programming.Usage.Since.Workshop)) %>%
+  mutate(Programming.Usage.Since.Workshop = factor(Programming.Usage.Since.Workshop, levels = programming)) %>%
+  ggplot(aes(x = Programming.Usage.Since.Workshop, y = 100 * (n/sum(n)))) +
+    geom_bar(stat = "identity", position = "dodge", fill = "orange", na.rm = TRUE ) +
     scale_x_discrete(labels = function(x) lapply(strwrap(x,
                                                          width = 10,
                                                          simplify = FALSE),
@@ -250,7 +271,8 @@ data %>%
                                                  collapse = "\n")) +
     theme_classic() +
     xlab("") +
-    ylab("% respondants") +
+    ylab("% respondents") +
+    ggtitle("Respondents' Programming Usage Increased") +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14)
 ```
