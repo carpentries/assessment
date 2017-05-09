@@ -50,13 +50,16 @@ data_country_tally <-
   data %>%
   group_by(Country) %>% 
   tally() %>% 
-  filter(!is.na(Country)) %>% 
-  arrange()
+  filter(!is.na(Country)) %>%
+  arrange(desc(n))
 
 # Use this plot to show all countries
 ggplot(data_country_tally,
-       aes(x = Country, y = 100 * (n/sum(n))))  +
-   geom_bar(stat = "identity", fill = "orange") +
+       aes(x = Country, y = 100 * (n/sum(n)), 
+                   n))  +
+   geom_bar(stat = "identity", fill = "orange") + 
+   #I tried using the line below to addd frequency count labels to     # the bars, but it isn't working.
+   #geom_text(stat='', aes(label=..count..), vjust=-1)
    theme_classic() +
    xlab("Country") +
    ylab("% Respondents") +
@@ -98,67 +101,40 @@ data_position_tally <-
   tally() %>% 
   filter(!is.na(Position)) 
 
-kable(data_position_tally)
+# kable(data_position_tally)
 
 ggplot(data_position_tally, 
-       aes(Position, n)) +
+       aes(Position, y = 100 * (n/sum(n)),
+           n)) +
   geom_bar(stat = "identity", fill="orange") +
+  geom_text(aes(label=n), size= 4) +
   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
   theme_classic() +
-  xlab("") +
-  ylab("") +
+  xlab("Status") +
+  ylab("% Respondents") +
   ggtitle("Majority of Respondents are Graduate Students") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
 ```
-```{r}
-#Attempt to make a bar plot of respondent's position with percentages
-position = c("Undergraduate Student", "Graduate Student", "Postdoc", "Faculty", "Industry", "Academic Research Staff", "Other Academic Staff", "Other (please specify)")
-position = factor(position)
 
-# Fix so pre- and post-responses match
-# data_paired_plot <- data
-# levels(data$Programming.Usage.Before.Workshop)[2] <- "I have not been using tools like these."
-
-# data$Position = factor(data$Position, levels = position)
-
-data_position_tally <- 
-  data %>% 
-  group_by(Position) %>% 
-  tally() %>% 
-  filter(!is.na(Position)) %>%
-  mutate(position = factor(position, levels = position)) %>%
-  ggplot(aes(x))
- 
-  # ggplot(aes(x = position, y = 100 * (n/sum(n)), fill = key)) +
-  #   geom_bar(stat = "identity", position = "dodge", na.rm = TRUE) 
-    # scale_x_discrete(labels = function(x) lapply(strwrap(x,
-                                                        # width = 10,
-                                                        # simplify = FALSE),
-                                                 # paste,
-                                                 # collapse = "\n")) +
-  #  theme_classic() +
-  #  xlab("") +
-  #  ylab("% respondents") +
-  #  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-  # theme_classic() +
-  # ggtitle("Majority of Respondents are Graduate Students") +
-  # theme(plot.title = element_text(hjust = 0.5)) +
-  # theme_classic(base_size = 14)
-```
 ```{r include=FALSE}
-table(data$Position.Other)
+# If interested in seeing the open-ended responses for Position: Other, run this code.
+data_position_other_tally <- 
+  data %>% 
+  group_by(Position.Other) %>% 
+  tally() %>% 
+  filter(!is.na(Position.Other))
+kable(data_position_other_tally)
 ```
 ## Number of Workshops Attended 
 ```{r}
-#How do I change the label for this table?
 data_workshops_tally <- 
   data %>% 
   group_by(How.Many.Workshops) %>% 
   tally() %>% 
   filter(!is.na(How.Many.Workshops)) 
 
-kable(data_workshops_tally)
+kable(data_workshops_tally, format = "markdown", row.names = FALSE, col.names = c("Count", "n"), caption = "Number of Workshops Attended")
 ```
 
 # How Long Ago Did Respondents Take a Workshop
@@ -170,7 +146,7 @@ data_howlong_tally <-
   tally() %>% 
   filter(!is.na(How.Long.Ago)) 
 
-kable(data_howlong_tally)
+kable(data_howlong_tally, format = "markdown", row.names = FALSE, col.names = c("Time", "n"), caption = "How Long Ago Did Respondents Complete a Workshop?")
 ```
 
 # What Tools Were Covered at Your Workshop?
@@ -203,7 +179,7 @@ rownames(tools) <-c("Cloud Computing",
                         "SQL",
                         "Unix Shell")
 
-kable(tools)
+kable(tools, format = "markdown")
 ```
 
 # Programming Usage Pre- and Post Workshop
@@ -211,6 +187,10 @@ A goal for this assessment is to understand respondents programming usage before
 
 Twenty percent of the learners who responded to our survey had not been using the tools they learned in our workshop before completing a workshop, and nearly 30% responded having used the tools on a daily basis before completing a workshop. Post-workshop
 ```{r include=FALSE}
+# Fix so pre- and post-responses match
+# data_paired_plot <- data
+# levels(data$Programming.Usage.Before.Workshop)[2] <- "I have not been using tools like these."
+
 # Programming Usage Pre-Carpentry Workshop [Absolute Plot]
 # programming = c("I had not been using tools like these.", "Less than once per year.", "Several times per year.", "Monthly.", "Weekly.", "Daily.")
 # programming = factor(programming)
