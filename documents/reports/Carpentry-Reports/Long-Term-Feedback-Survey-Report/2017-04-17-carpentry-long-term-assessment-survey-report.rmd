@@ -420,6 +420,8 @@ ggplot(data_change.in.confidence_tally,
 # Usage of Tools for Research and/or Work
 We identified specific outcomes that learners may experience after taking a Carpentry workshop that are directly related to their research and/or work. Respondents have identified that the tools they learned improved their overall efficiency, and ability to manage and analyze data. Only 28 respondents said the tools they learned have not helped them, and 61 respondents have not been using the tools that were covered in their workshop. 
 ```{r include=FALSE}
+# I want to present these numbers as percentages, so I added up the count and divided by the number
+# of respondents. I'm sure there's a better way to do this without doing so much math, so ideas are welcomed.
 table(data$How.Tools.Learned.Help)
 table(data$Column34)
 table(data$Column35)
@@ -449,7 +451,7 @@ data_writing_tally <-
   filter(!is.na(Contributed.To.Writing)) %>% 
   arrange(desc(n))
 
-kable(data_writing_tally)
+kable(data_writing_tally, format = "markdown", row.names = FALSE, col.names = c("Tools Helped Writing", "n"))
 ```
 
 # Involvement in the Carpentries Post-Workshop
@@ -539,8 +541,7 @@ theme_update(plot.title = element_text(hjust = 0.5))
 plot(data_agree_likert) + ggtitle(title)
 ```
 
-
-```{r include=FALSE}
+```{r include=FALSE}  
 table(data$Activities)
 table(data$Column53)
 table(data$Column54)
@@ -548,6 +549,8 @@ table(data$Column55)
 table(data$Column56)
 table(data$Column57)
 ```
+
+
 # Learning Activities
 Another outcome we hope to see is that learners continue on in their learning once they've completed a workshop. This can take many forms including participating in short-courses (in-peson and online) and using self-guided material. We asked respondents to tell us which learning activities (for data management and analysis) they've participated in since completing a Carpentry workshop. The majority of respondents have used non-Carpentry self-guided material, though 68 responded having used Carpentry self-guided material. Additionally, we see participation in meetups and in-person short courses.
 ```{r}
@@ -559,13 +562,11 @@ rownames(activities) <-c("Participated in an in-person short course.",
                         "Participated in a semester long course.",
                         "Used self-guided Carpentry lesson material.",
                         "Used non-Carpentry self-guided material.")
-kable(activities)
+kable(activities, format = "markdown")
 ```
 
 # Summary
 This initial look at how Carpentry workshops have impacted learners long-term has been extremely insightful. In general, our workshops are helping learners improve their efficiency with managing and analyzing data. Learners are taking advantage of online resources to improve their skills, and becoming involved with our community.
 
 We will take another look at this data to compare responses of learners having taken a workshop more than a year ago versus those having taken a workshop 0 to 6 months ago and 6 months to 1 year ago. Additionally, every 6 months we will collect data using this survey from new learners to see how they're doing!
-
-Thank you for reading this report.
 
