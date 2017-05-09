@@ -68,7 +68,7 @@ ggplot(data_country_tally,
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_bw(base_size = 14)
 
-kable(data_country_tally, format = "markdown", row.names = FALSE, col.names = c("Country", "# Respondents"))
+# kable(data_country_tally, format = "markdown", row.names = FALSE, col.names = c("Country", "# Respondents"))
 
 # Thank you Naupaka for the tips on changing colors! 
 # country_colors <- rep("orange", length(levels(data$Country)))
@@ -385,31 +385,34 @@ rownames(behaviors) <-c("Improving data management and project organization.",
 
 kable(behaviors)
 ```
-
-
+ 
 # Change in Confidence Post-Carpentry Workshop
 ```{r}
+confidence = c("I'm less confident now.", "I'm equally confident now.", "I'm more confident now.")
+confidence = factor(confidence)
+
+data$Change.In.Confidence = factor(data$Change.In.Confidence, levels = confidence)
+
 data_change.in.confidence_tally <- 
   data %>% 
   group_by(Change.In.Confidence) %>% 
   tally() %>% 
-  filter(!is.na(Change.In.Confidence)) %>% 
-  arrange(desc(n))
+  filter(!is.na(Change.In.Confidence))
 
 # kable(data_confidence_tally)
 
 ggplot(data_change.in.confidence_tally, 
        aes(Change.In.Confidence, y = 100 * (n/sum(n)),
            n)) +
-  geom_bar(stat = "identity", fill = "orange") +
+   geom_bar(stat = "identity", fill = "orange") +
    geom_text(aes(label=n), size= 4) +
    scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-  theme_classic() +
-  xlab("Change in Confidence") +
-  ylab("% Respondents") +
-  ggtitle("Respondents are More Confident Post-Workshop") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_bw(base_size = 14)
+   theme_classic() +
+   xlab("Change in Confidence") +
+   ylab("% Respondents") +
+   ggtitle("Respondents are More Confident Post-Workshop") +
+   theme(plot.title = element_text(hjust = 0.5)) +
+   theme_bw(base_size = 14)
 ```
 
 # Usage of Tools for Research and/or Work
