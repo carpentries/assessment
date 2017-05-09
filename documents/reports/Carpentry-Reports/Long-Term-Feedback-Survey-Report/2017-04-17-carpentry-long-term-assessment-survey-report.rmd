@@ -337,6 +337,7 @@ data %>%
   mutate(value = factor(value, levels = programming)) %>%
   ggplot(aes(x = value, y = 100 * (n/sum(n)), fill = key)) +
     geom_bar(stat = "identity", position = "dodge", na.rm = TRUE) +
+  geom_text(aes(label=n), size= 4) +
     scale_x_discrete(labels = function(x) lapply(strwrap(x,
                                                          width = 10,
                                                          simplify = FALSE),
@@ -347,7 +348,7 @@ data %>%
     ylab("Percent of respondants") +
     scale_fill_discrete(name = "",
                         labels = c("Before workshop", "After workshop")) +
-    ggtitle("Respondents' Programming Usage Increased") +
+    ggtitle("Respondents' Programming Usage Increased Post Workshop") +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14)
 ```
