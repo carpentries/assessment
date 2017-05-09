@@ -51,17 +51,16 @@ data_country_tally <-
   group_by(Country) %>% 
   tally() %>% 
   filter(!is.na(Country)) %>% 
-  arrange(desc(n))
+  arrange()
 
-# #Use this plot to show all countries
+# Use this plot to show all countries
 ggplot(data_country_tally,
-       aes(reorder(Country, n),
-           n)) +
-  geom_bar(stat = "identity", fill = "orange") +
-  theme_classic() +
-  xlab("") +
-  ylab("") +
-  coord_flip() +
+       aes(x = Country, y = 100 * (n/sum(n))))  +
+   geom_bar(stat = "identity", fill = "orange") +
+   theme_classic() +
+   xlab("Country") +
+   ylab("% Respondents") +
+   coord_flip() +
   ggtitle("Carpentry Workshop Respondents by Country") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_bw(base_size = 14)
@@ -121,7 +120,7 @@ position = factor(position)
 # data_paired_plot <- data
 # levels(data$Programming.Usage.Before.Workshop)[2] <- "I have not been using tools like these."
 
-data$Position = factor(data$Position, levels = position)
+# data$Position = factor(data$Position, levels = position)
 
 data_position_tally <- 
   data %>% 
@@ -129,8 +128,10 @@ data_position_tally <-
   tally() %>% 
   filter(!is.na(Position)) %>%
   mutate(position = factor(position, levels = position)) %>%
-  ggplot(aes(x = position, y = 100 * (n/sum(n)), fill = key)) # +
-    # geom_bar(stat = "identity", position = "dodge", na.rm = TRUE) +
+  ggplot(aes(x))
+ 
+  # ggplot(aes(x = position, y = 100 * (n/sum(n)), fill = key)) +
+  #   geom_bar(stat = "identity", position = "dodge", na.rm = TRUE) 
     # scale_x_discrete(labels = function(x) lapply(strwrap(x,
                                                         # width = 10,
                                                         # simplify = FALSE),
