@@ -58,8 +58,8 @@ ggplot(data_country_tally,
        aes(x = Country, y = 100 * (n/sum(n)), 
                    n))  +
    geom_bar(stat = "identity", fill = "orange") + 
-   #I tried using the line below to addd frequency count labels to     # the bars, but it isn't working.
-   #geom_text(stat='', aes(label=..count..), vjust=-1)
+   # Remove comment from line below to add counts to countries on bar plot
+   # geom_text(aes(label=n), size= 4) +
    theme_classic() +
    xlab("Country") +
    ylab("% Respondents") +
@@ -67,6 +67,8 @@ ggplot(data_country_tally,
   ggtitle("Carpentry Workshop Respondents by Country") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_bw(base_size = 14)
+
+kable(data_country_tally, format = "markdown", row.names = FALSE, col.names = c("Country", "# Respondents"))
 
 # Thank you Naupaka for the tips on changing colors! 
 # country_colors <- rep("orange", length(levels(data$Country)))
@@ -101,7 +103,8 @@ data_position_tally <-
   tally() %>% 
   filter(!is.na(Position)) 
 
-# kable(data_position_tally)
+# Use the line below to include a table (remove #)
+# kable(data_position_tally, format = "markdown", row.names = FALSE, col.names = c("Position", "# Respondents"))
 
 ggplot(data_position_tally, 
        aes(Position, y = 100 * (n/sum(n)),
@@ -124,29 +127,57 @@ data_position_other_tally <-
   group_by(Position.Other) %>% 
   tally() %>% 
   filter(!is.na(Position.Other))
-kable(data_position_other_tally)
+kable(data_position_other_tally, format = "markdown", row.names = FALSE, col.names = c("Position", "# Respondents"))
 ```
 ## Number of Workshops Attended 
 ```{r}
-data_workshops_tally <- 
-  data %>% 
-  group_by(How.Many.Workshops) %>% 
-  tally() %>% 
-  filter(!is.na(How.Many.Workshops)) 
+# Use the code below to include a table of the number of workshops respondents attended
+# data_workshops_tally <- 
+#  data %>% 
+#  group_by(How.Many.Workshops) %>% 
+#  tally() %>% 
+#  filter(!is.na(How.Many.Workshops)) 
 
-kable(data_workshops_tally, format = "markdown", row.names = FALSE, col.names = c("Count", "n"), caption = "Number of Workshops Attended")
+#kable(data_workshops_tally, format = "markdown", row.names = FALSE, col.names = c("# Wrkshps", "n"), caption = "Number of Workshops Attended")
+
+ggplot(data_workshops_tally, 
+       aes(How.Many.Workshops, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="orange") +
+  geom_text(aes(label=n), size= 4) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("# Workshops Attended") +
+  ylab("% Respondents") +
+  ggtitle("Majority of Respondents Attended One Carpentry Workshop") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
 ```
 
 # How Long Ago Did Respondents Take a Workshop
 ```{r}
+# Use the code below to include a table of how long ago respondents attended a workshop
+# data_howlong_tally <- 
+#  data %>% 
+#  group_by(How.Long.Ago) %>% 
+#  tally() %>% 
+#  filter(!is.na(How.Long.Ago)) 
 
-data_howlong_tally <- 
-  data %>% 
-  group_by(How.Long.Ago) %>% 
-  tally() %>% 
-  filter(!is.na(How.Long.Ago)) 
+#kable(data_howlong_tally, format = "markdown", row.names = FALSE, col.names = c("Time", "n"), caption = "How Long Ago Did Respondents Complete a Workshop?")
 
-kable(data_howlong_tally, format = "markdown", row.names = FALSE, col.names = c("Time", "n"), caption = "How Long Ago Did Respondents Complete a Workshop?")
+
+ggplot(data_howlong_tally, 
+       aes(How.Long.Ago, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="orange") +
+  geom_text(aes(label=n), size= 4) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Time Since Attending Carpentry Workshop") +
+  ylab("% Respondents") +
+  ggtitle("Majority of Respondents Attended Workshop Over a Year Ago") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
 ```
 
 # What Tools Were Covered at Your Workshop?
