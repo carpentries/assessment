@@ -42,7 +42,7 @@ data <- read.csv("2017-04-17-carpentry-long-term-assessment-survey-data-public.c
 ### Respondent Demographics
 Provided below is a breakdown of our respondents by the Country where they attended a Carpentry workshop. A large portion of Carpentry learners responding to the survey attended a workshop in the United States. Additionally, a large number of our respondents are **Graduate Students**.
 
-```{r}
+```{r include=FALSE}
 table(data$Country)
 ```
 ```{r echo=FALSE}
@@ -50,21 +50,25 @@ data_country_tally <-
   data %>%
   group_by(Country) %>% 
   tally() %>% 
-  filter(!is.na(Country)) %>% 
+  filter(!is.na(Country)) %>%
   arrange(desc(n))
 
-# #Use this plot to show all countries
+# Use this plot to show all countries
 ggplot(data_country_tally,
-       aes(reorder(Country, n),
-           n)) +
-  geom_bar(stat = "identity", fill = "orange") +
-  theme_classic() +
-  xlab("") +
-  ylab("") +
-  coord_flip() +
+       aes(x = Country, y = 100 * (n/sum(n)), 
+                   n))  +
+   geom_bar(stat = "identity", fill = "orange") + 
+   # Remove comment from line below to add counts to countries on bar plot
+   # geom_text(aes(label=n), size= 4) +
+   theme_classic() +
+   xlab("Country") +
+   ylab("% Respondents") +
+   coord_flip() +
   ggtitle("Carpentry Workshop Respondents by Country") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_bw(base_size = 14)
+
+# kable(data_country_tally, format = "markdown", row.names = FALSE, col.names = c("Country", "# Respondents"))
 
 # Thank you Naupaka for the tips on changing colors! 
 # country_colors <- rep("orange", length(levels(data$Country)))
@@ -99,45 +103,81 @@ data_position_tally <-
   tally() %>% 
   filter(!is.na(Position)) 
 
-kable(data_position_tally)
+# Use the line below to include a table (remove #)
+# kable(data_position_tally, format = "markdown", row.names = FALSE, col.names = c("Position", "# Respondents"))
 
 ggplot(data_position_tally, 
-       aes(Position, n)) +
+       aes(Position, y = 100 * (n/sum(n)),
+           n)) +
   geom_bar(stat = "identity", fill="orange") +
+  geom_text(aes(label=n), size= 4) +
   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
   theme_classic() +
-  xlab("") +
-  ylab("") +
+  xlab("Status") +
+  ylab("% Respondents") +
   ggtitle("Majority of Respondents are Graduate Students") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
 ```
 
 ```{r include=FALSE}
-table(data$Position.Other)
+# If interested in seeing the open-ended responses for Position: Other, run this code.
+data_position_other_tally <- 
+  data %>% 
+  group_by(Position.Other) %>% 
+  tally() %>% 
+  filter(!is.na(Position.Other))
+kable(data_position_other_tally, format = "markdown", row.names = FALSE, col.names = c("Position", "# Respondents"))
 ```
 ## Number of Workshops Attended 
 ```{r}
-#How do I change the label for this table?
-data_workshops_tally <- 
+# Use the code below to include a table of the number of workshops respondents attended
+ data_workshops_tally <- 
   data %>% 
   group_by(How.Many.Workshops) %>% 
   tally() %>% 
   filter(!is.na(How.Many.Workshops)) 
 
-kable(data_workshops_tally)
+#kable(data_workshops_tally, format = "markdown", row.names = FALSE, col.names = c("# Wrkshps", "n"), caption = "Number of Workshops Attended")
+
+ggplot(data_workshops_tally, 
+       aes(How.Many.Workshops, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="orange") +
+  geom_text(aes(label=n), size= 4) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("# Workshops Attended") +
+  ylab("% Respondents") +
+  ggtitle("Majority of Respondents Attended One Carpentry Workshop") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
 ```
 
 # How Long Ago Did Respondents Take a Workshop
 ```{r}
-
-data_howlong_tally <- 
+ data_howlong_tally <- 
   data %>% 
   group_by(How.Long.Ago) %>% 
   tally() %>% 
   filter(!is.na(How.Long.Ago)) 
 
-kable(data_howlong_tally)
+# Use the code below to include a table of how long ago respondents attended a workshop
+#kable(data_howlong_tally, format = "markdown", row.names = FALSE, col.names = c("Time", "n"), caption = "How Long Ago Did Respondents Complete a Workshop?")
+
+
+ggplot(data_howlong_tally, 
+       aes(How.Long.Ago, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="orange") +
+  geom_text(aes(label=n), size= 4) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Time Since Attending Carpentry Workshop") +
+  ylab("% Respondents") +
+  ggtitle("Majority of Respondents Attended Workshop Over a Year Ago") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
 ```
 
 # What Tools Were Covered at Your Workshop?
@@ -170,7 +210,7 @@ rownames(tools) <-c("Cloud Computing",
                         "SQL",
                         "Unix Shell")
 
-kable(tools)
+kable(tools, format = "markdown")
 ```
 
 # Programming Usage Pre- and Post Workshop
@@ -178,6 +218,10 @@ A goal for this assessment is to understand respondents programming usage before
 
 Twenty percent of the learners who responded to our survey had not been using the tools they learned in our workshop before completing a workshop, and nearly 30% responded having used the tools on a daily basis before completing a workshop. Post-workshop
 ```{r include=FALSE}
+# Fix so pre- and post-responses match
+# data_paired_plot <- data
+# levels(data$Programming.Usage.Before.Workshop)[2] <- "I have not been using tools like these."
+
 # Programming Usage Pre-Carpentry Workshop [Absolute Plot]
 # programming = c("I had not been using tools like these.", "Less than once per year.", "Several times per year.", "Monthly.", "Weekly.", "Daily.")
 # programming = factor(programming)
@@ -293,6 +337,7 @@ data %>%
   mutate(value = factor(value, levels = programming)) %>%
   ggplot(aes(x = value, y = 100 * (n/sum(n)), fill = key)) +
     geom_bar(stat = "identity", position = "dodge", na.rm = TRUE) +
+  geom_text(aes(label=n), size= 4) +
     scale_x_discrete(labels = function(x) lapply(strwrap(x,
                                                          width = 10,
                                                          simplify = FALSE),
@@ -303,7 +348,7 @@ data %>%
     ylab("Percent of respondants") +
     scale_fill_discrete(name = "",
                         labels = c("Before workshop", "After workshop")) +
-    ggtitle("Respondents' Programming Usage Increased") +
+    ggtitle("Respondents' Programming Usage Increased Post Workshop") +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14)
 ```
@@ -340,41 +385,41 @@ rownames(behaviors) <-c("Improving data management and project organization.",
 
 kable(behaviors)
 ```
-
-
+ 
 # Change in Confidence Post-Carpentry Workshop
 ```{r}
-data_confidence_tally <-
-  data %>% 
-  group_by(Change.In.Confidence) %>% 
-  tally() %>% 
-  filter(!is.na(Change.In.Confidence)) %>% 
-  arrange(desc(n))
-kable(data_confidence_tally)
+confidence = c("I'm less confident now.", "I'm equally confident now.", "I'm more confident now.")
+confidence = factor(confidence)
+
+data$Change.In.Confidence = factor(data$Change.In.Confidence, levels = confidence)
 
 data_change.in.confidence_tally <- 
   data %>% 
   group_by(Change.In.Confidence) %>% 
   tally() %>% 
-  filter(!is.na(Change.In.Confidence)) %>% 
-  arrange(desc(n))
+  filter(!is.na(Change.In.Confidence))
+
+# kable(data_confidence_tally)
 
 ggplot(data_change.in.confidence_tally, 
-       aes(reorder(Change.In.Confidence, n),
+       aes(Change.In.Confidence, y = 100 * (n/sum(n)),
            n)) +
-  geom_bar(stat = "identity", fill = "orange") +
+   geom_bar(stat = "identity", fill = "orange") +
+   geom_text(aes(label=n), size= 4) +
    scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-  theme_classic() +
-  xlab("") +
-  ylab("") +
-  ggtitle("Respondents are More Confident Post-Workshop")+
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_bw(base_size = 14)
+   theme_classic() +
+   xlab("Change in Confidence") +
+   ylab("% Respondents") +
+   ggtitle("Respondents are More Confident Post-Workshop") +
+   theme(plot.title = element_text(hjust = 0.5)) +
+   theme_bw(base_size = 14)
 ```
 
 # Usage of Tools for Research and/or Work
 We identified specific outcomes that learners may experience after taking a Carpentry workshop that are directly related to their research and/or work. Respondents have identified that the tools they learned improved their overall efficiency, and ability to manage and analyze data. Only 28 respondents said the tools they learned have not helped them, and 61 respondents have not been using the tools that were covered in their workshop. 
 ```{r include=FALSE}
+# I want to present these numbers as percentages, so I added up the count and divided by the number
+# of respondents. I'm sure there's a better way to do this without doing so much math, so ideas are welcomed.
 table(data$How.Tools.Learned.Help)
 table(data$Column34)
 table(data$Column35)
@@ -404,7 +449,7 @@ data_writing_tally <-
   filter(!is.na(Contributed.To.Writing)) %>% 
   arrange(desc(n))
 
-kable(data_writing_tally)
+kable(data_writing_tally, format = "markdown", row.names = FALSE, col.names = c("Tools Helped Writing", "n"))
 ```
 
 # Involvement in the Carpentries Post-Workshop
@@ -469,7 +514,7 @@ Respondents were asked to reflect on ways in which completing a Carpentry worksh
 
 Using the [Likert](http://jason.bryer.org/likert/) package, the following plot is an analysis of learner responses to the statements above. We see an overwhelmingly positive indication that respondents left their workshop feeling motivated to seek more knowledge and having gained confidence in working with data. Additionally, more than 80% of respondents improved their coding practices, made their analyses reproducible, improved their research producitvity, and believe the skills they learned helped them advance their career. Fourty percent of our respondents have received professional recognition as a result of using the tools they learned in a Carpentry workshop.
 
-```{r echo=TRUE}
+```{r echo=FALSE}
 cols_with_Agree <- map_lgl(data, ~`%in%`("Agree", .x))
 data_agree <-  data[ , cols_with_Agree]
 
@@ -494,8 +539,7 @@ theme_update(plot.title = element_text(hjust = 0.5))
 plot(data_agree_likert) + ggtitle(title)
 ```
 
-
-```{r include=FALSE}
+```{r include=FALSE}  
 table(data$Activities)
 table(data$Column53)
 table(data$Column54)
@@ -503,6 +547,8 @@ table(data$Column55)
 table(data$Column56)
 table(data$Column57)
 ```
+
+
 # Learning Activities
 Another outcome we hope to see is that learners continue on in their learning once they've completed a workshop. This can take many forms including participating in short-courses (in-peson and online) and using self-guided material. We asked respondents to tell us which learning activities (for data management and analysis) they've participated in since completing a Carpentry workshop. The majority of respondents have used non-Carpentry self-guided material, though 68 responded having used Carpentry self-guided material. Additionally, we see participation in meetups and in-person short courses.
 ```{r}
@@ -514,13 +560,11 @@ rownames(activities) <-c("Participated in an in-person short course.",
                         "Participated in a semester long course.",
                         "Used self-guided Carpentry lesson material.",
                         "Used non-Carpentry self-guided material.")
-kable(activities)
+kable(activities, format = "markdown")
 ```
 
 # Summary
 This initial look at how Carpentry workshops have impacted learners long-term has been extremely insightful. In general, our workshops are helping learners improve their efficiency with managing and analyzing data. Learners are taking advantage of online resources to improve their skills, and becoming involved with our community.
 
 We will take another look at this data to compare responses of learners having taken a workshop more than a year ago versus those having taken a workshop 0 to 6 months ago and 6 months to 1 year ago. Additionally, every 6 months we will collect data using this survey from new learners to see how they're doing!
-
-Thank you for reading this report.
 
