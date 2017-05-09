@@ -132,11 +132,11 @@ kable(data_position_other_tally, format = "markdown", row.names = FALSE, col.nam
 ## Number of Workshops Attended 
 ```{r}
 # Use the code below to include a table of the number of workshops respondents attended
-# data_workshops_tally <- 
-#  data %>% 
-#  group_by(How.Many.Workshops) %>% 
-#  tally() %>% 
-#  filter(!is.na(How.Many.Workshops)) 
+ data_workshops_tally <- 
+  data %>% 
+  group_by(How.Many.Workshops) %>% 
+  tally() %>% 
+  filter(!is.na(How.Many.Workshops)) 
 
 #kable(data_workshops_tally, format = "markdown", row.names = FALSE, col.names = c("# Wrkshps", "n"), caption = "Number of Workshops Attended")
 
@@ -156,13 +156,13 @@ ggplot(data_workshops_tally,
 
 # How Long Ago Did Respondents Take a Workshop
 ```{r}
-# Use the code below to include a table of how long ago respondents attended a workshop
-# data_howlong_tally <- 
-#  data %>% 
-#  group_by(How.Long.Ago) %>% 
-#  tally() %>% 
-#  filter(!is.na(How.Long.Ago)) 
+ data_howlong_tally <- 
+  data %>% 
+  group_by(How.Long.Ago) %>% 
+  tally() %>% 
+  filter(!is.na(How.Long.Ago)) 
 
+# Use the code below to include a table of how long ago respondents attended a workshop
 #kable(data_howlong_tally, format = "markdown", row.names = FALSE, col.names = c("Time", "n"), caption = "How Long Ago Did Respondents Complete a Workshop?")
 
 
@@ -389,14 +389,6 @@ kable(behaviors)
 
 # Change in Confidence Post-Carpentry Workshop
 ```{r}
-data_confidence_tally <-
-  data %>% 
-  group_by(Change.In.Confidence) %>% 
-  tally() %>% 
-  filter(!is.na(Change.In.Confidence)) %>% 
-  arrange(desc(n))
-kable(data_confidence_tally)
-
 data_change.in.confidence_tally <- 
   data %>% 
   group_by(Change.In.Confidence) %>% 
@@ -404,15 +396,18 @@ data_change.in.confidence_tally <-
   filter(!is.na(Change.In.Confidence)) %>% 
   arrange(desc(n))
 
+# kable(data_confidence_tally)
+
 ggplot(data_change.in.confidence_tally, 
-       aes(reorder(Change.In.Confidence, n),
+       aes(Change.In.Confidence, y = 100 * (n/sum(n)),
            n)) +
   geom_bar(stat = "identity", fill = "orange") +
+   geom_text(aes(label=n), size= 4) +
    scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
   theme_classic() +
-  xlab("") +
-  ylab("") +
-  ggtitle("Respondents are More Confident Post-Workshop")+
+  xlab("Change in Confidence") +
+  ylab("% Respondents") +
+  ggtitle("Respondents are More Confident Post-Workshop") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_bw(base_size = 14)
 ```
@@ -516,7 +511,7 @@ Respondents were asked to reflect on ways in which completing a Carpentry worksh
 
 Using the [Likert](http://jason.bryer.org/likert/) package, the following plot is an analysis of learner responses to the statements above. We see an overwhelmingly positive indication that respondents left their workshop feeling motivated to seek more knowledge and having gained confidence in working with data. Additionally, more than 80% of respondents improved their coding practices, made their analyses reproducible, improved their research producitvity, and believe the skills they learned helped them advance their career. Fourty percent of our respondents have received professional recognition as a result of using the tools they learned in a Carpentry workshop.
 
-```{r echo=TRUE}
+```{r echo=FALSE}
 cols_with_Agree <- map_lgl(data, ~`%in%`("Agree", .x))
 data_agree <-  data[ , cols_with_Agree]
 
