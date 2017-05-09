@@ -42,7 +42,7 @@ data <- read.csv("2017-04-17-carpentry-long-term-assessment-survey-data-public.c
 ### Respondent Demographics
 Provided below is a breakdown of our respondents by the Country where they attended a Carpentry workshop. A large portion of Carpentry learners responding to the survey attended a workshop in the United States. Additionally, a large number of our respondents are **Graduate Students**.
 
-```{r}
+```{r include=FALSE}
 table(data$Country)
 ```
 ```{r echo=FALSE}
@@ -129,23 +129,21 @@ data_position_tally <-
   tally() %>% 
   filter(!is.na(Position)) %>%
   mutate(position = factor(position, levels = position)) %>%
-  ggplot(aes(x = position, y = 100 * (n/sum(n)), fill = key)) +
-    geom_bar(stat = "identity", position = "dodge", na.rm = TRUE) +
-    scale_x_discrete(labels = function(x) lapply(strwrap(x,
-                                                         width = 10,
-                                                         simplify = FALSE),
-                                                 paste,
-                                                 collapse = "\n")) +
-    theme_classic() +
-    xlab("") +
-    ylab("Percent of respondants") +
-    scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-  theme_classic() +
-  xlab("") +
-  ylab("% respondents") +
-  ggtitle("Majority of Respondents are Graduate Students") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
+  ggplot(aes(x = position, y = 100 * (n/sum(n)), fill = key)) # +
+    # geom_bar(stat = "identity", position = "dodge", na.rm = TRUE) +
+    # scale_x_discrete(labels = function(x) lapply(strwrap(x,
+                                                        # width = 10,
+                                                        # simplify = FALSE),
+                                                 # paste,
+                                                 # collapse = "\n")) +
+  #  theme_classic() +
+  #  xlab("") +
+  #  ylab("% respondents") +
+  #  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  # theme_classic() +
+  # ggtitle("Majority of Respondents are Graduate Students") +
+  # theme(plot.title = element_text(hjust = 0.5)) +
+  # theme_classic(base_size = 14)
 ```
 ```{r include=FALSE}
 table(data$Position.Other)
