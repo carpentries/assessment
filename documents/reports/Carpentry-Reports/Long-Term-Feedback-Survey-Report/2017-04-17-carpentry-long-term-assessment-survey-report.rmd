@@ -461,7 +461,51 @@ ggplot(stdres,
 A chi-square test indicates that there is a significant difference in the frequencies of the pre- and post-workshop responses about programming use (chi-squared = `r round(unname(pre_and_post_test_result$statistic), 3)`, df = `r unname(pre_and_post_test_result$parameter)`, p-value = `r round(unname(pre_and_post_test_result$p.value), 5)`). The chi-squared standardized residuals for the post-workshop values show that significantly more respondents do programming daily after the workshop than expected if the workshop had no effect. Similarly, significantly fewer respondents program less than once per year after the workshop.
 
 # Workshop Impact
-## Behaviors Adopted
+Respondents were asked to reflect on ways in which completing a Carpentry workshop may have impacted them by rating their level of agreement (1-Strongly disagree to 5-Strongly agree) with the following statements:  
+* I have used skills I learned at the workshop to advance my career.  
+* I have been motivated to seek more knowledge about the tools I learned at the workshop.  
+* I have made my analyses more reproducible as a result of completing the workshop.  
+* I have received professional recognition for my work as a result of using the tools I learned at the workshop.  
+* I have improved my coding practices as a result of completing the workshop.  
+* My research productivity has improved as a result of completing the workshop.  
+* I have gained confidence in working with data as a result of completing the workshop.  
+
+Using the [Likert](http://jason.bryer.org/likert/) package, the following plot is an analysis of learner responses to the statements above. We see an overwhelmingly positive indication that respondents left their workshop feeling motivated to seek more knowledge and having gained confidence in working with data. Additionally, more than 80% of respondents improved their coding practices, made their analyses reproducible, improved their research producitvity, and believe the skills they learned helped them advance their career. Fourty percent of our respondents have received professional recognition as a result of using the tools they learned in a Carpentry workshop.
+
+```{r echo=FALSE}
+cols_with_Agree <- map_lgl(data, ~`%in%`("Agree", .x))
+data_agree <-  data[ , cols_with_Agree]
+
+order = c("Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree")
+
+# How do I get the [1] data.frame not to show on the output? 
+print(class(data_agree))
+data_agree <- map_if(data_agree,
+                     is.character,
+                     as.factor)
+
+# Elizabeth's tip on factors
+for(i in seq_along(data_agree)) {
+                data_agree[[i]] <- factor(data_agree[[i]], levels=order)
+}
+
+print(levels(data_agree))
+title <- "Workshops are Welcoming & Useful"
+data_agree_likert <-  likert(as.data.frame(data_agree)) 
+theme_update(plot.title = element_text(hjust = 0.5))
+
+plot(data_agree_likert) + ggtitle(title)
+```
+
+```{r include=FALSE}  
+table(data$Activities)
+table(data$Column53)
+table(data$Column54)
+table(data$Column55)
+table(data$Column56)
+table(data$Column57)
+```
+### Behaviors Adopted
 ```{r}
 # Responses are in columns 'Behaviors-Adopted' through 'Column32'
 # Use 'gather' to go from wide to long format
@@ -491,7 +535,7 @@ We asked respondents to identify the behaviors they adopted as a result of compl
 kable(Behaviors) # Use caption = "Behaviors Adopted by Respondents" to add a caption
 ```
 
-## Change in Confidence 
+### Change in Confidence 
 Our goal is for learners to leave a workshop having an increase in their confidence to use the tools they learned. More than 75% of the respondents are more confident now in using the tools they learned than they were before attending a Carpentry workshop.
 ```{r}
 confidence = c("I'm less confident now.", "I'm equally confident now.", "I'm more confident now.")
@@ -521,7 +565,7 @@ ggplot(data_change.in.confidence_tally,
    theme_bw(base_size = 14)
 ```
 
-## Usage of Tools for Research and/or Work
+### Usage of Tools for Research and/or Work
 We identified specific outcomes that learners may experience after completing a Carpentry workshop that are directly related to their research and/or work. Respondents have identified that the tools they learned improved their overall efficiency, and ability to manage and analyze data.  
 
 ```{r}
@@ -560,7 +604,7 @@ not_using  <- how_help[how_help$How.Tools.Learned.Help == 'Column37', ]$n
 
 Only (`r not_helped`) respondents said the tools they learned have not helped them, and (`r not_using`) respondents have not been using the tools that were covered in their workshop.
 
-## Contributions to Academic Writing
+### Contributions to Academic Writing
 Another possible outcome of attending a Carpentry workshop is that the tools learned may contribute to academic writing (i.e. grant proposal, journal article). 118 respondents said that the tools they learned contributed to their academic writing.
 ```{r}
 data_writing_tally <- 
@@ -572,7 +616,7 @@ data_writing_tally <-
 
 kable(data_writing_tally, format = "markdown", row.names = FALSE, col.names = c("Tools Helped Writing", "n"))
 ```
-## Continuous Learning
+### Continuous Learning
 ```{r}
 Learning_Activities <- 
 data %>%
@@ -620,7 +664,7 @@ kable(Carpentry_Involvement,
       caption = "How respondents became involved")
 ```
 
-## Recommending Carpentry Workshops?
+## Recommending Carpentry Workshops
 ```{r include=FALSE}
 data_recommended_tally <-
   data %>% 
@@ -643,52 +687,6 @@ data_likelyrecommend_tally <-
   arrange(desc(n))
 
 # kable(data_likelyrecommend_tally)
-```
-
-# Perception of Workshop Atmosphere
-Respondents were asked to reflect on ways in which completing a Carpentry workshop may have impacted them by rating their level of agreement (1-Strongly disagree to 5-Strongly agree) with the following statements:  
-* I have used skills I learned at the workshop to advance my career.  
-* I have been motivated to seek more knowledge about the tools I learned at the workshop.  
-* I have made my analyses more reproducible as a result of completing the workshop.  
-* I have received professional recognition for my work as a result of using the tools I learned at the workshop.  
-* I have improved my coding practices as a result of completing the workshop.  
-* My research productivity has improved as a result of completing the workshop.  
-* I have gained confidence in working with data as a result of completing the workshop.  
-
-Using the [Likert](http://jason.bryer.org/likert/) package, the following plot is an analysis of learner responses to the statements above. We see an overwhelmingly positive indication that respondents left their workshop feeling motivated to seek more knowledge and having gained confidence in working with data. Additionally, more than 80% of respondents improved their coding practices, made their analyses reproducible, improved their research producitvity, and believe the skills they learned helped them advance their career. Fourty percent of our respondents have received professional recognition as a result of using the tools they learned in a Carpentry workshop.
-
-```{r echo=FALSE}
-cols_with_Agree <- map_lgl(data, ~`%in%`("Agree", .x))
-data_agree <-  data[ , cols_with_Agree]
-
-order = c("Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree")
-
-# How do I get the [1] data.frame not to show on the output? 
-print(class(data_agree))
-data_agree <- map_if(data_agree,
-                     is.character,
-                     as.factor)
-
-# Elizabeth's tip on factors
-for(i in seq_along(data_agree)) {
-                data_agree[[i]] <- factor(data_agree[[i]], levels=order)
-}
-
-print(levels(data_agree))
-title <- "Workshops are Welcoming & Useful"
-data_agree_likert <-  likert(as.data.frame(data_agree)) 
-theme_update(plot.title = element_text(hjust = 0.5))
-
-plot(data_agree_likert) + ggtitle(title)
-```
-
-```{r include=FALSE}  
-table(data$Activities)
-table(data$Column53)
-table(data$Column54)
-table(data$Column55)
-table(data$Column56)
-table(data$Column57)
 ```
 
 
