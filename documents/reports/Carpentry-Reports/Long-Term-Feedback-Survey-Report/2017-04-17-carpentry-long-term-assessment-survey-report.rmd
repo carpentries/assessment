@@ -621,7 +621,6 @@ kable(Carpentry_Involvement,
 ```
 
 ## Recommending Carpentry Workshops?
-We value our learners because when they have successful experiences in our workshops, they share their experience with others. We asked respondents if they had already recommended our workshop, and 298 said yes!
 ```{r include=FALSE}
 data_recommended_tally <-
   data %>% 
