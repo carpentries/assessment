@@ -460,7 +460,7 @@ ggplot(stdres,
 
 ```
 
-A chi-square test indicates that there is a significant difference in the frequencies of the pre- and post-workshop responses about programming use (chi-squared = `r round(unname(pre_and_post_test_result$statistic), 3)`, df = `r unname(pre_and_post_test_result$parameter)`, p-value = `r round(unname(pre_and_post_test_result$p.value), 5)`). The chi-squared standardized residuals for the post-workshop values show that significantly more respondents do programming daily after the workshop than expected if the workshop had no effect. Similarly, significantly fewer respondents program less than once per year after the workshop.
+A chi-square test indicates that there is a significant difference in the frequencies of the pre- and post-workshop responses about programming use. The chi-squared standardized residuals for the post-workshop values show that significantly more respondents do programming daily after the workshop than expected if the workshop had no effect. Similarly, significantly fewer respondents program less than once per year after the workshop.
 
 # Workshop Impact
 Respondents were asked to reflect on ways in which completing a Carpentry workshop may have impacted them by rating their level of agreement (1-Strongly disagree to 5-Strongly agree) with the following statements:  
@@ -477,6 +477,7 @@ Using the [Likert](http://jason.bryer.org/likert/) package, the following plot i
 ```{r echo=FALSE}
 # Jonah's fix to include the correct levels. Variable was renamed to 'levels' because
 # 'order' is the name of a function in R
+
 cols_with_Agree <- map_lgl(data, ~`%in%`("Agree", .x))
 data_agree <-  data[ , cols_with_Agree]
 
