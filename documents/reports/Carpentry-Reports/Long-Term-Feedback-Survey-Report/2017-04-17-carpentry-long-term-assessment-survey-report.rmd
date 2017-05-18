@@ -62,6 +62,10 @@ Improved_Coding_Practices
 #Gained Confidence with Data
 Gained_Confidence_Data <- round(prop.table(table(data$Gained.Confidence.With.Data))* 100)
 Gained_Confidence_Data
+
+#Recommend our Workshops
+Recommended <- round(prop.table(table(data$Recommended))* 100)
+Recommended
 ```
 # Highlights
 Provided below are a few higlights from our data.
@@ -72,6 +76,7 @@ Provided below are a few higlights from our data.
 + `r Made_Analyses_Reproducible[1] + Made_Analyses_Reproducible[4]`% of our respondents have made their analyses more reprodicible as a result of completing a Carpentry workshop.
 + `r Improved_Coding_Practices[1] + Improved_Coding_Practices[4]`% of our respondents have improved their coding practices as a result of participating in a Carpentry workshop.
 + `r Gained_Confidence_Data[1] + Gained_Confidence_Data[4]`% of our respondents have gained confidence in working with data as a result of completing the workshop.
++ `r Recommended[3]`% of respondents have recommended our workshops to a friend or colleague.
 
 # Respondent Demographics
 ```{r}
@@ -738,7 +743,7 @@ data_likelyrecommend_tally <-
 ```
 
 # Summary
-We value our learners because when they have successful experiences in our workshops, they share their experience with others. We asked respondents if they had already recommended our workshop, and `r said_yes` said yes!
+We value our learners because when they have successful experiences in our workshops, they share their experience with others. We asked respondents if they had already recommended our workshop, and `r Recommended[3]`% said yes!
 
 This initial look at how Carpentry workshops have impacted learners long-term has been extremely insightful. In general, our workshops are helping learners improve their efficiency with managing and analyzing data. Learners are taking advantage of online resources to improve their skills, and becoming involved with our community.
 
