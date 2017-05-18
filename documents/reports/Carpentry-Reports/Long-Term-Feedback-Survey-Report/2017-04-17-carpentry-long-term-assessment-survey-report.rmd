@@ -319,7 +319,7 @@ Mercurial <-  workshop_tools[workshop_tools$Content == 'Mercurial', ]$n
 ```
 
 A large majority of respondents learned Git (n = `r Git`), Python (n = `r Python`), and Unix Shell (n = `r Unix_Shell`). On the low end were Spreadsheets (n = `r Spreadsheets`), Cloud Computing (n = `r Cloud_Computing`), MATLAB (n = `r MATLAB`), and Mercurial (n = `r Mercurial`). OpenRefine, Spreadsheets, and Cloud Computing being on the low end is an indicator that the majority of our respondents attended a Software Carpentry workshop. This makes sense as Software Carpentry has offered more workshops than Data Carpentry.
-```{r}
+```{r include=FALSE}
 # Data for in-line text on programming usage
 Programming_Usage_Before <- round(prop.table(table(data$Programming.Usage.Before)) * 100)
 Programming_Usage_Before
@@ -329,9 +329,11 @@ Programming_Usage_Since <- round(prop.table(table(data$Programming.Usage.Since.W
 Programming_Usage_Since
 ```
 ### Programming Usage Pre- and Post Workshop
-A goal for this assessment is to understand respondents' programming usage before attending a Carpentry workshop compared to after. Our hope is that the workshop they attended influenced their usage of the programming tools covered during their workshop.
+A goal for this assessment is to understand respondents' programming usage before attending a Carpentry workshop compared to after. Our hope is that the workshop they attended influenced their usage of the programming tools they learned.
 
 `r Programming_Usage_Before[2]`% of the learners who responded to our survey had not been using the tools covered in their Carpentry workshop before completing. This decreased to `r Programming_Usage_Since[2]`% post-Carpentry workshop.
+
+The plot below is a comparison of respondents' usage of the tools covered in their workshop before completing the workshop versus after.
 
 ```{r include=FALSE}
 # Naupaka's tip so pre- and post-responses match
@@ -621,7 +623,7 @@ title <- "Workshops are Welcoming & Useful"
 # data_agree_likert <-  likert(as.data.frame(data_agree)) 
  theme_update(plot.title = element_text(hjust = 0.5))
 
-plot(data_agree_likert) + ggtitle(title)
+plot(data_agree_likert) + ggtitle(title) 
 ```
 
 ```{r include=FALSE}  
@@ -722,11 +724,21 @@ data %>%
   arrange(desc(n)) %>% 
   rename(`How.Tools.Learned.Help` = how_help)
 
-kable(how_help) # Use caption = "How the tools helped respondents" to add caption
-
 # Grab data to use in-line
 not_helped <- how_help[how_help$How.Tools.Learned.Help == 'Column36', ]$n
 not_using  <- how_help[how_help$How.Tools.Learned.Help == 'Column37', ]$n
+
+tools_helped <- 
+data %>%
+  select(`How.Tools.Learned.Help`:Column37) %>% 
+  gather(col, tools_helped) %>% 
+  group_by(tools_helped) %>% 
+  tally() %>% 
+  filter(!is.na(tools_helped)) %>% 
+  arrange(desc(n)) %>%
+  rename(`How Tools Covered Have Helped` = tools_helped)
+
+kable(tools_helped)
 ```
 
 Only (`r not_helped`) respondents said the tools they learned have not helped them, and (`r not_using`) respondents have not been using the tools that were covered in their workshop.
@@ -741,7 +753,7 @@ data_writing_tally <-
   filter(!is.na(Contributed.To.Writing)) %>% 
   arrange(desc(n))
 
-kable(data_writing_tally, format = "markdown", row.names = FALSE, col.names = c("Tools Helped Writing", "n"))
+kable(data_writing_tally, format = "markdown", row.names = FALSE, col.names = c("Are Tools Helping with Writing?", "n"))
 ```
 ### Continuous Learning
 ```{r}
@@ -761,20 +773,22 @@ self <- Learning_Activities %>% filter(`Learning Activities` == "Used self-guide
 ```
 One of our primary outcomes is that learners continue on in their learning once they've completed a workshop. This can take many forms including participating in short-courses (in-person and online) and using self-guided material. We asked respondents to tell us which learning activities (for data management and analysis) they've participated in since completing a Carpentry workshop. The majority of respondents have used non-Carpentry self-guided material, though `r self` responded having used Carpentry self-guided material. Additionally, we see participation in meetups and in-person short courses.
 ```{r}
-activities <- matrix(c(59,45,35,24,68,127),ncol=1,byrow=TRUE)
-colnames(activities) <-("Continuous Learning Post-Workshop")
-rownames(activities) <-c("Participated in an in-person short course.",
-                        "Participated in an online short course.",
-                        "Participated in a Meetup",
-                        "Participated in a semester long course.",
-                        "Used self-guided Carpentry lesson material.",
-                        "Used non-Carpentry self-guided material.")
-kable(activities, format = "markdown")
+# Data in columns 'Activities' through Column57
+Continuous_Learning <- 
+data %>%
+  select(`Activities`:Column57) %>% 
+  gather(col, Continuous_Learning) %>% 
+  group_by(Continuous_Learning) %>% 
+  tally() %>% 
+  filter(!is.na(Continuous_Learning)) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Continuous Learning Post-Workshop` = Continuous_Learning)
+
+kable(Continuous_Learning) 
 ```
 
 ## Involvement in the Carpentries 
 Another outcome of attending a Carpentry workshop is that learners become involved with Software and/or Data Carpentry by way of joining a mentoring group, becoming a workshop helper, or even becoming an instructor. The table provided below shows how respondents have been involved with the Carpentries since completing a workshop. Respondents were asked to check all that apply.
-
 
 ```{r}
 # Data in columns 'Carpentry.Involvement through Column51
