@@ -1,9 +1,3 @@
----
-output:
-  word_document: default
-  pdf_document: default
-  html_document: default
----
 # Analysis of the Carpentry's Long-Term Feedback Survey
 [Kari L. Jordan](https://github.com/kariljordan)  
 __May 2017__
@@ -28,13 +22,13 @@ library(readr)
 ```
 
 # Introduction
-Data and Software Carpentry launched a [long-term assessment survey](https://www.surveymonkey.com/r/carpentrieslongtermassessment) in March 2017. The goal of this survey is to hear from our respondents about what has transpired in their work and career since completing a Carpentry workshop. Read our about our long-term assessment strategy on our [blog](http://www.datacarpentry.org/blog/long-term-assessment-strategy/) and see how the community was involved with the development of this survey.
+Data and Software Carpentry launched a [long-term assessment survey](https://www.surveymonkey.com/r/carpentrieslongtermassessment) in March 2017. The goal of this survey was to hear from our learners about what has transpired in their work and career since completing a Carpentry workshop. Read our about our long-term assessment strategy on our [blog](http://www.datacarpentry.org/blog/long-term-assessment-strategy/) and see how the community was involved with the development of this survey.
 
-A [PDF](https://github.com/carpentries/public-survey-info/blob/master/documents/surveys/2017-04-17-carpentry-long-term-feedback-survey.pdf) of the survey questions, the data used in this analysis, and the .RMD file are located in the [long-term feedback survey report](https://github.com/carpentries/public-survey-info/tree/master/documents/reports/Carpentry-Reports/Long-Term-Feedback-Survey-Report) folder on GitHub. We have already received several pull requests from community members interested in this data. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings. 
+A [PDF](https://github.com/carpentries/public-survey-info/blob/master/documents/surveys/2017-04-17-carpentry-long-term-feedback-survey.pdf) of the survey questions and the data used in this analysis are located in the [long-term feedback survey report](https://github.com/carpentries/public-survey-info/tree/master/documents/reports/Carpentry-Reports/Long-Term-Feedback-Survey-Report) folder on GitHub. We have already received several pull requests from community members interested in this data. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings. 
 
-This analysis includes 510 responses to the long-term feedback survey. Not all respondents answered each of the 26 questions.
+This analysis includes 510 responses. Not all respondents answered each of the 26 questions.
 
-```{r}
+```{r include=FALSE}
 data <- read.csv("https://raw.githubusercontent.com/carpentries/public-survey-info/master/documents/reports/Carpentry-Reports/Long-Term-Feedback-Survey-Report/2017-04-17-carpentry-long-term-assessment-survey-data-public.csv", na.strings = "")
 ```
 ```{r include=FALSE}
@@ -74,7 +68,7 @@ Recommended <- round(prop.table(table(data$Recommended))* 100)
 Recommended
 ```
 # Highlights
-Provided below are a few highlights from our data.
+Provided below are a few highlights from the data.
 
 + `r Confidence_Change[3]`% of our respondents reported being more confident in the tools that were covered during their Carpentry workshop compared to before the workshop. 
 + Respondents daily programming usage increased from `r Programming_Usage_Before[6]`% to `r Programming_Usage_Since[6]`% post-Carpentry workshop.
@@ -112,12 +106,15 @@ ggplot(data_position_tally,
   ggtitle("Majority of Respondents were Graduate Students") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
-
+```
+```{r include=FALSE}
 # Use code below for in-line text.
-Graduate_Student<- data_position_tally[data_position_tally$Position == 'Graduate Student', ]$n
+# Graduate_Student<- data_position_tally[data_position_tally$Position == 'Graduate Student', ]$n
+Graduate_Student <- round(prop.table(table(data$Position))* 100)
+Graduate_Student
 ```
 
-Carpentry workshops are open to individuals from all backgrounds and fields. Attendees vary from students (undergraduate and graduate) and faculty to staff and industry. The majority of our learners responding to the survey were graduate students (n = `r Graduate_Student`). 
+Carpentry workshops are open to individuals from all backgrounds and fields. Attendees vary from students (undergraduate and graduate) and faculty to staff and persons working in industry. `r Graduate_Student[2]`% of our respondents were graduate students. 
  
 ```{r}
 data_country_tally <- 
@@ -172,7 +169,13 @@ Australia <- data_country_tally[data_country_tally$Country == 'Australia', ]$n
 #  scale_fill_manual(values = country_colors, guide = FALSE)
 ```
 
-Provided is a breakdown of our respondents by the Country where they attended a Carpentry workshop. A large portion of Carpentry learners responding to the survey attended a workshop in the United States (n = `r USA`), followed by the UK (n = `r UK`), Canada (n = `r Canada`), and Australia (n = `r Australia`).
+```{r include=FALSE}
+# Use code below for in-line text.
+# Country<- data_country_tally[data_country_tally$Country == 'Country', ]$n
+Country <- round(prop.table(table(data$Country))* 100)
+Country
+```
+Provided is a breakdown of our respondents by the Country where they attended a Carpentry workshop. A large portion of Carpentry learners responding to the survey attended a workshop in the United States (`r Country[22]`%), followed by Canada (`r Country[3]`%) the UK (`r Country[21]`%), and Australia (`r Country[1]`%).
 
 ```{r include=FALSE}
 # If interested in seeing the open-ended responses for Position: Other, run this code.
@@ -186,9 +189,32 @@ kable(data_position_other_tally, format = "markdown", row.names = FALSE, col.nam
 
 The Carpentries continue to endeavor to improve our workshop content and operations. We were therefore interested in knowing how many workshops respondents attended, and how long it has been since respondents completed a workshop. If there are spikes in the trends of our data, knowing when respondents completed a workshop will help us pinpoint whether or not our changes are related to learner responses in the data.
 
-We found that nearly 75% of respondents participated in a Carpentry workshop more than one year ago, and the majority of respondents have attended only one Carpentry workshop. 
+```{r include=FALSE}
+# If interested in seeing the open-ended responses for Position: Other, run this code.
+data_position_other_tally <- 
+  data %>% 
+  group_by(Position.Other) %>% 
+  tally() %>% 
+  filter(!is.na(Position.Other))
+kable(data_position_other_tally, format = "markdown", row.names = FALSE, col.names = c("Position", "# Respondents"))
+```
+Nearly 75% of respondents participated in a Carpentry workshop more than one year ago, and the majority of respondents have attended only one Carpentry workshop. 
 
-The majority of respondents attending a workshop more than one year ago speaks to their level of involvement with the Carpentries. It can be difficult, in survey research, to collect responses from participants a year later. It is great to see that learners are still receptive to our e-mail communication and have taken time to complete our survey.
+```{r include=FALSE}
+Carpentry_Involvement <- 
+data %>%
+  select(`Carpentry.Involvement`:Column51) %>% 
+  gather(col, Carpentry_Involvement) %>% 
+  group_by(Carpentry_Involvement) %>% 
+  tally() %>% 
+  filter(!is.na(Carpentry_Involvement)) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Involvement Since Attending a Carpentry Workshop` = Carpentry_Involvement)
+
+Carpentry_Involvement[1,2]
+```
+
+The majority of respondents attending a workshop more than one year ago speaks to their level of involvement with the Carpentries (`r Carpentry_Involvement[1,2]` responded having subscribed to the Carpentries newsletter). It can be difficult, in survey research, to collect responses from participants a year later. It is great to see that learners are still receptive to our e-mail communication and have taken time to complete our survey.
 
 ```{r}
  data_howlong_tally <- 
@@ -537,6 +563,16 @@ data_agree <-  data[ , cols_with_Agree]
 
 levels = c("Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree")
 
+# Beth's tip to both order the factors based on levels and unify the factors
+# I don't know exactly how to use this yet or where to place it. Will come back to it.
+# factorfunction <- function(mydata, factlevel){
+#  factor(mydata, 
+#         levels=factlevel, 
+#         ordered = TRUE)
+#    fct_unify(mydata, 
+#              levels=factlevel) 
+# }
+# End tip 
 data_agree_likert <- likert(data.frame(lapply(data_agree, factor, levels, ordered=TRUE)))
 
 # print(class(data_agree))
