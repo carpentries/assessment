@@ -241,7 +241,7 @@ ggplot(data_workshops_tally,
 ```
 
 ### Workshop Content
-Data Carpentry's [lessons](http://www.datacarpentry.org/lessons/) include data organization in Spreadsheets, data cleaning with OpenRefine, data management with SQL, and data analysis and visualiztion in R and Python.
+Data Carpentry's [lessons](http://www.datacarpentry.org/lessons/) include data organization in Spreadsheets, data cleaning with OpenRefine, data management with SQL, and data analysis and visualization in R and Python.
 
 Software Carpentry's [lessons](https://software-carpentry.org) include the Unix Shell, version control with Git and Mercurial, programming with Python, R, and MATLAB, databases with SQL, and Automation and Make.
 ```{r}
@@ -526,7 +526,7 @@ Respondents were asked to reflect on ways in which completing a Carpentry worksh
 + My research productivity has improved as a result of completing the workshop.   
 + I have gained confidence in working with data as a result of completing the workshop.   
 
-The following plot was created using the [Likert](http://jason.bryer.org/likert/) package, and presents an analysis of learner responses to the statements above. We see an overwhelmingly positive indication that respondents left their workshop feeling motivated to seek more knowledge and having gained confidence in working with data. Additionally, more than 80% of respondents improved their coding practices, made their analyses reproducible, improved their research producitvity, and believe the skills they learned helped them advance their career. Fourty percent of our respondents have received professional recognition as a result of using the tools they learned in a Carpentry workshop.
+The following plot was created using the [Likert](http://jason.bryer.org/likert/) package, and presents an analysis of learner responses to the statements above. We see an overwhelmingly positive indication that respondents left their workshop feeling motivated to seek more knowledge and having gained confidence in working with data. Additionally, more than 80% of respondents improved their coding practices, made their analyses reproducible, improved their research productivity, and believe the skills they learned helped them advance their career. Forty percent of our respondents have received professional recognition as a result of using the tools they learned in a Carpentry workshop.
 
 ```{r echo=FALSE}
 # Jonah's fix to include the correct levels. Variable was renamed to 'levels' because
@@ -691,7 +691,7 @@ self <- Learning_Activities %>% filter(`Learning Activities` == "Used self-guide
   collect() %>% 
   .[["n"]]
 ```
-One of our primary outcomes is that learners continue on in their learning once they've completed a workshop. This can take many forms including participating in short-courses (in-peson and online) and using self-guided material. We asked respondents to tell us which learning activities (for data management and analysis) they've participated in since completing a Carpentry workshop. The majority of respondents have used non-Carpentry self-guided material, though `r self` responded having used Carpentry self-guided material. Additionally, we see participation in meetups and in-person short courses.
+One of our primary outcomes is that learners continue on in their learning once they've completed a workshop. This can take many forms including participating in short-courses (in-person and online) and using self-guided material. We asked respondents to tell us which learning activities (for data management and analysis) they've participated in since completing a Carpentry workshop. The majority of respondents have used non-Carpentry self-guided material, though `r self` responded having used Carpentry self-guided material. Additionally, we see participation in meetups and in-person short courses.
 ```{r}
 activities <- matrix(c(59,45,35,24,68,127),ncol=1,byrow=TRUE)
 colnames(activities) <-("Continuous Learning Post-Workshop")
