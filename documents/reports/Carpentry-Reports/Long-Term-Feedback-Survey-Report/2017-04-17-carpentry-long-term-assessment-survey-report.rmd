@@ -31,25 +31,28 @@ This analysis includes 510 responses to the long-term feedback survey. Not all r
 ```{r}
 data <- read.csv("https://raw.githubusercontent.com/carpentries/public-survey-info/master/documents/reports/Carpentry-Reports/Long-Term-Feedback-Survey-Report/2017-04-17-carpentry-long-term-assessment-survey-data-public.csv", na.strings = "")
 ```
-```{r include=FALSE}
+```{r}
 # Kari's code for highlights in the data
 # Use prop.table() to calculate percentages on a single column.
 
 #Change in Confidence
-Confidence_Change <- prop.table(table(data$Change.In.Confidence)) * 100
+Confidence_Change <- round(prop.table(table(data$Change.In.Confidence)) * 100)
+Confidence_Change[3]
 
 #Programming Usage Before Workshop
-Programming_Usage_Before <- prop.table(table(data$Programming.Usage.Before.Workshop)) * 100
+Programming_Usage_Before <- round(prop.table(table(data$Programming.Usage.Before.Workshop)) * 100)
+Programming_Usage_Before[6]
 
 #Programming Usage Since Workshop
-Programming_Usage_Since <- prop.table(table(data$Programming.Usage.Since.Workshop)) * 100
+Programming_Usage_Since <- round(prop.table(table(data$Programming.Usage.Since.Workshop)) * 100)
+Programming_Usage_Since[6]
+
 
 ```
 # Key Highlights
 
-(`r Confidence_Change`)
-(`r Programming_Usage_Before)
-(`r Programming_Usage_Since)
++ `r Confidence_Change[3]`% of our respondents reported being more confident in the tools that were covered during their Carpentry workshop compared to before the workshop. 
++ Respondents daily programming usage increased from `r Programming_Usage_Before[6]`% to `r Programming_Usage_Since[6]`% post-Carpentry workshop.
 
 # Respondent Demographics
 ```{r}
@@ -483,16 +486,17 @@ ggplot(stdres,
 A chi-square test indicates that there is a significant difference in the frequencies of the pre- and post-workshop responses about programming use. The chi-squared standardized residuals for the post-workshop values show that significantly more respondents do programming daily after the workshop than expected if the workshop had no effect. Similarly, significantly fewer respondents program less than once per year after the workshop.
 
 # Workshop Impact
-Respondents were asked to reflect on ways in which completing a Carpentry workshop may have impacted them by rating their level of agreement (1-Strongly disagree to 5-Strongly agree) with the following statements:  
-* I have used skills I learned at the workshop to advance my career.  
-* I have been motivated to seek more knowledge about the tools I learned at the workshop.  
-* I have made my analyses more reproducible as a result of completing the workshop.  
-* I have received professional recognition for my work as a result of using the tools I learned at the workshop.  
-* I have improved my coding practices as a result of completing the workshop.  
-* My research productivity has improved as a result of completing the workshop.  
-* I have gained confidence in working with data as a result of completing the workshop.  
+Respondents were asked to reflect on ways in which completing a Carpentry workshop may have impacted them by rating their level of agreement (1-Strongly disagree to 5-Strongly agree) with the following statements: 
 
-Using the [Likert](http://jason.bryer.org/likert/) package, the following plot is an analysis of learner responses to the statements above. We see an overwhelmingly positive indication that respondents left their workshop feeling motivated to seek more knowledge and having gained confidence in working with data. Additionally, more than 80% of respondents improved their coding practices, made their analyses reproducible, improved their research producitvity, and believe the skills they learned helped them advance their career. Fourty percent of our respondents have received professional recognition as a result of using the tools they learned in a Carpentry workshop.
++ I have used skills I learned at the workshop to advance my career.    
++ I have been motivated to seek more knowledge about the tools I learned at the workshop.   
++ I have made my analyses more reproducible as a result of completing the workshop.   
++ I have received professional recognition for my work as a result of using the tools I learned at the workshop.   
++ I have improved my coding practices as a result of completing the workshop.   
++ My research productivity has improved as a result of completing the workshop.   
++ I have gained confidence in working with data as a result of completing the workshop.   
+
+The following plot was created using the [Likert](http://jason.bryer.org/likert/) package, and presents an analysis of learner responses to the statements above. We see an overwhelmingly positive indication that respondents left their workshop feeling motivated to seek more knowledge and having gained confidence in working with data. Additionally, more than 80% of respondents improved their coding practices, made their analyses reproducible, improved their research producitvity, and believe the skills they learned helped them advance their career. Fourty percent of our respondents have received professional recognition as a result of using the tools they learned in a Carpentry workshop.
 
 ```{r echo=FALSE}
 # Jonah's fix to include the correct levels. Variable was renamed to 'levels' because
