@@ -190,7 +190,7 @@ ggplot(data_workshops_tally,
 ### Workshop Content
 Data Carpentry's [lessons](http://www.datacarpentry.org/lessons/) include data organization in Spreadsheets, data cleaning with OpenRefine, data management with SQL, and data analysis and visualiztion in R and Python.
 
-Software Carpentry's [lessons](https://software-carpentry.org) include the Unix Shell, version control with Git and Mercurial, programming with Python, R, and MATLAB, databases with SQL, Automation and Make, and Instructor Training. The long-term feedback survey did not include questions for learners who participated in instructor training.
+Software Carpentry's [lessons](https://software-carpentry.org) include the Unix Shell, version control with Git and Mercurial, programming with Python, R, and MATLAB, databases with SQL, and Automation and Make.
 ```{r}
 # Responses are in columns 'Content' through 'Column22'
 # Ben's tip to use 'gather' to go from wide to long format
@@ -214,12 +214,14 @@ MATLAB <-  workshop_tools[workshop_tools$Content == 'MATLAB', ]$n
 Mercurial <-  workshop_tools[workshop_tools$Content == 'Mercurial', ]$n
 ```
 
-From the table below we see that a large majority of respondents learned Git, Python, and Unix Shell. On the low end were Spreadsheets (`r Spreadsheets`), Cloud Computing (`r Cloud_Computing`), MATLAB (`r MATLAB`), and Mercurial (`r Mercurial`).
+From the table we see that a large majority of respondents learned Git, Python, and Unix Shell. On the low end were Spreadsheets (`r Spreadsheets`), Cloud Computing (`r Cloud_Computing`), MATLAB (`r MATLAB`), and Mercurial (`r Mercurial`).
 
 ### Programming Usage Pre- and Post Workshop
 A goal for this assessment is to understand respondents' programming usage before attending a Carpentry workshop compared to after. Our hope is that the workshop they attended influenced their usage of the programming tools covered during their workshop.
 
+##### CHANGE#####
 Twenty percent of the learners who responded to our survey had not been using the tools they learned in our workshop before completing a workshop, but nearly 30% responded having used the tools on a daily basis before completing a workshop.
+combine less than once per year 
 ```{r include=FALSE}
 # Naupaka's tip so pre- and post-responses match
 data_paired_plot <- data
@@ -461,7 +463,53 @@ ggplot(stdres,
 A chi-square test indicates that there is a significant difference in the frequencies of the pre- and post-workshop responses about programming use (chi-squared = `r round(unname(pre_and_post_test_result$statistic), 3)`, df = `r unname(pre_and_post_test_result$parameter)`, p-value = `r round(unname(pre_and_post_test_result$p.value), 5)`). The chi-squared standardized residuals for the post-workshop values show that significantly more respondents do programming daily after the workshop than expected if the workshop had no effect. Similarly, significantly fewer respondents program less than once per year after the workshop.
 
 # Workshop Impact
-## Behaviors Adopted
+Respondents were asked to reflect on ways in which completing a Carpentry workshop may have impacted them by rating their level of agreement (1-Strongly disagree to 5-Strongly agree) with the following statements:  
+* I have used skills I learned at the workshop to advance my career.  
+* I have been motivated to seek more knowledge about the tools I learned at the workshop.  
+* I have made my analyses more reproducible as a result of completing the workshop.  
+* I have received professional recognition for my work as a result of using the tools I learned at the workshop.  
+* I have improved my coding practices as a result of completing the workshop.  
+* My research productivity has improved as a result of completing the workshop.  
+* I have gained confidence in working with data as a result of completing the workshop.  
+
+Using the [Likert](http://jason.bryer.org/likert/) package, the following plot is an analysis of learner responses to the statements above. We see an overwhelmingly positive indication that respondents left their workshop feeling motivated to seek more knowledge and having gained confidence in working with data. Additionally, more than 80% of respondents improved their coding practices, made their analyses reproducible, improved their research producitvity, and believe the skills they learned helped them advance their career. Fourty percent of our respondents have received professional recognition as a result of using the tools they learned in a Carpentry workshop.
+
+```{r echo=FALSE}
+# Jonah's fix to include the correct levels. Variable was renamed to 'levels' because
+# 'order' is the name of a function in R
+cols_with_Agree <- map_lgl(data, ~`%in%`("Agree", .x))
+data_agree <-  data[ , cols_with_Agree]
+
+levels = c("Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree")
+
+data_agree_likert <- likert(data.frame(lapply(data_agree, factor, levels, ordered=TRUE)))
+
+# print(class(data_agree))
+# data_agree <- map_if(data_agree,
+#                     is.character,
+#                     as.factor)
+
+# Elizabeth's tip on factors
+# for(i in seq_along(data_agree)) {
+#                data_agree[[i]] <- factor(data_agree[[i]], levels=order)}
+
+# print(levels(data_agree))
+title <- "Workshops are Welcoming & Useful"
+# data_agree_likert <-  likert(as.data.frame(data_agree)) 
+ theme_update(plot.title = element_text(hjust = 0.5))
+
+plot(data_agree_likert) + ggtitle(title)
+```
+
+```{r include=FALSE}  
+table(data$Activities)
+table(data$Column53)
+table(data$Column54)
+table(data$Column55)
+table(data$Column56)
+table(data$Column57)
+```
+### Behaviors Adopted
 ```{r}
 # Responses are in columns 'Behaviors-Adopted' through 'Column32'
 # Use 'gather' to go from wide to long format
@@ -491,7 +539,7 @@ We asked respondents to identify the behaviors they adopted as a result of compl
 kable(Behaviors) # Use caption = "Behaviors Adopted by Respondents" to add a caption
 ```
 
-## Change in Confidence 
+### Change in Confidence 
 Our goal is for learners to leave a workshop having an increase in their confidence to use the tools they learned. More than 75% of the respondents are more confident now in using the tools they learned than they were before attending a Carpentry workshop.
 ```{r}
 confidence = c("I'm less confident now.", "I'm equally confident now.", "I'm more confident now.")
@@ -521,7 +569,7 @@ ggplot(data_change.in.confidence_tally,
    theme_bw(base_size = 14)
 ```
 
-## Usage of Tools for Research and/or Work
+### Usage of Tools for Research and/or Work
 We identified specific outcomes that learners may experience after completing a Carpentry workshop that are directly related to their research and/or work. Respondents have identified that the tools they learned improved their overall efficiency, and ability to manage and analyze data.  
 
 ```{r}
@@ -560,7 +608,7 @@ not_using  <- how_help[how_help$How.Tools.Learned.Help == 'Column37', ]$n
 
 Only (`r not_helped`) respondents said the tools they learned have not helped them, and (`r not_using`) respondents have not been using the tools that were covered in their workshop.
 
-## Contributions to Academic Writing
+### Contributions to Academic Writing
 Another possible outcome of attending a Carpentry workshop is that the tools learned may contribute to academic writing (i.e. grant proposal, journal article). 118 respondents said that the tools they learned contributed to their academic writing.
 ```{r}
 data_writing_tally <- 
@@ -572,7 +620,7 @@ data_writing_tally <-
 
 kable(data_writing_tally, format = "markdown", row.names = FALSE, col.names = c("Tools Helped Writing", "n"))
 ```
-## Continuous Learning
+### Continuous Learning
 ```{r}
 Learning_Activities <- 
 data %>%
@@ -588,7 +636,7 @@ self <- Learning_Activities %>% filter(`Learning Activities` == "Used self-guide
   collect() %>% 
   .[["n"]]
 ```
-Another outcome we hope to see is that learners continue on in their learning once they've completed a workshop. This can take many forms including participating in short-courses (in-peson and online) and using self-guided material. We asked respondents to tell us which learning activities (for data management and analysis) they've participated in since completing a Carpentry workshop. The majority of respondents have used non-Carpentry self-guided material, though `r self` responded having used Carpentry self-guided material. Additionally, we see participation in meetups and in-person short courses.
+One of our primary outcomes is that learners continue on in their learning once they've completed a workshop. This can take many forms including participating in short-courses (in-peson and online) and using self-guided material. We asked respondents to tell us which learning activities (for data management and analysis) they've participated in since completing a Carpentry workshop. The majority of respondents have used non-Carpentry self-guided material, though `r self` responded having used Carpentry self-guided material. Additionally, we see participation in meetups and in-person short courses.
 ```{r}
 activities <- matrix(c(59,45,35,24,68,127),ncol=1,byrow=TRUE)
 colnames(activities) <-("Continuous Learning Post-Workshop")
@@ -616,11 +664,10 @@ data %>%
   arrange(desc(n)) %>% 
   rename(`Involvement Since Attending a Carpentry Workshop` = Carpentry_Involvement)
 
-kable(Carpentry_Involvement,
-      caption = "How respondents became involved")
+kable(Carpentry_Involvement) # Use caption = "How respondents became involved" to add caption
 ```
 
-## Recommending Carpentry Workshops?
+
 ```{r include=FALSE}
 data_recommended_tally <-
   data %>% 
@@ -633,7 +680,7 @@ said_yes <- data_recommended_tally[data_recommended_tally$Recommended == "Yes.",
 
 # kable(data_recommended_tally)
 ```
-We value our learners because when they have successful experiences in our workshops, they share their experience with others. We asked respondents if they had already recommended our workshop, and `r said_yes` said yes!
+
 ```{r include=FALSE}
 data_likelyrecommend_tally <-
   data %>% 
@@ -645,55 +692,12 @@ data_likelyrecommend_tally <-
 # kable(data_likelyrecommend_tally)
 ```
 
-# Perception of Workshop Atmosphere
-Respondents were asked to reflect on ways in which completing a Carpentry workshop may have impacted them by rating their level of agreement (1-Strongly disagree to 5-Strongly agree) with the following statements:  
-* I have used skills I learned at the workshop to advance my career.  
-* I have been motivated to seek more knowledge about the tools I learned at the workshop.  
-* I have made my analyses more reproducible as a result of completing the workshop.  
-* I have received professional recognition for my work as a result of using the tools I learned at the workshop.  
-* I have improved my coding practices as a result of completing the workshop.  
-* My research productivity has improved as a result of completing the workshop.  
-* I have gained confidence in working with data as a result of completing the workshop.  
-
-Using the [Likert](http://jason.bryer.org/likert/) package, the following plot is an analysis of learner responses to the statements above. We see an overwhelmingly positive indication that respondents left their workshop feeling motivated to seek more knowledge and having gained confidence in working with data. Additionally, more than 80% of respondents improved their coding practices, made their analyses reproducible, improved their research producitvity, and believe the skills they learned helped them advance their career. Fourty percent of our respondents have received professional recognition as a result of using the tools they learned in a Carpentry workshop.
-
-```{r echo=FALSE}
-cols_with_Agree <- map_lgl(data, ~`%in%`("Agree", .x))
-data_agree <-  data[ , cols_with_Agree]
-
-order = c("Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree")
-
-# How do I get the [1] data.frame not to show on the output? 
-print(class(data_agree))
-data_agree <- map_if(data_agree,
-                     is.character,
-                     as.factor)
-
-# Elizabeth's tip on factors
-for(i in seq_along(data_agree)) {
-                data_agree[[i]] <- factor(data_agree[[i]], levels=order)
-}
-
-print(levels(data_agree))
-title <- "Workshops are Welcoming & Useful"
-data_agree_likert <-  likert(as.data.frame(data_agree)) 
-theme_update(plot.title = element_text(hjust = 0.5))
-
-plot(data_agree_likert) + ggtitle(title)
-```
-
-```{r include=FALSE}  
-table(data$Activities)
-table(data$Column53)
-table(data$Column54)
-table(data$Column55)
-table(data$Column56)
-table(data$Column57)
-```
-
-
 # Summary
+We value our learners because when they have successful experiences in our workshops, they share their experience with others. We asked respondents if they had already recommended our workshop, and `r said_yes` said yes!
+
 This initial look at how Carpentry workshops have impacted learners long-term has been extremely insightful. In general, our workshops are helping learners improve their efficiency with managing and analyzing data. Learners are taking advantage of online resources to improve their skills, and becoming involved with our community.
 
-We will take another look at this data to compare responses of learners having taken a workshop more than a year ago versus those having taken a workshop 0 to 6 months ago and 6 months to 1 year ago. Additionally, every 6 months we will collect data using this survey from new learners to see how they're doing!
+We will take another look at this data to compare responses of learners having taken a workshop more than a year ago versus those having taken a workshop 0 to 6 months ago and 6 months to 1 year ago. Additionally, every 6 months we will collect data using this survey from new learners to see how they're doing.
+
+OpenRefine, Spreadsheets, and Cloud Computing being low indicate the we had low responses from Data Carpentry.
 
