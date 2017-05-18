@@ -31,6 +31,26 @@ This analysis includes 510 responses to the long-term feedback survey. Not all r
 ```{r}
 data <- read.csv("https://raw.githubusercontent.com/carpentries/public-survey-info/master/documents/reports/Carpentry-Reports/Long-Term-Feedback-Survey-Report/2017-04-17-carpentry-long-term-assessment-survey-data-public.csv", na.strings = "")
 ```
+```{r include=FALSE}
+# Kari's code for highlights in the data
+# Use prop.table() to calculate percentages on a single column.
+
+#Change in Confidence
+Confidence_Change <- prop.table(table(data$Change.In.Confidence)) * 100
+
+#Programming Usage Before Workshop
+Programming_Usage_Before <- prop.table(table(data$Programming.Usage.Before.Workshop)) * 100
+
+#Programming Usage Since Workshop
+Programming_Usage_Since <- prop.table(table(data$Programming.Usage.Since.Workshop)) * 100
+
+```
+# Key Highlights
+
+(`r Confidence_Change`)
+(`r Programming_Usage_Before)
+(`r Programming_Usage_Since)
+
 # Respondent Demographics
 ```{r}
 position = c("Undergraduate Student", "Graduate Student", "Postdoc", "Faculty", "Industry", "Academic Research Staff", "Other Academic Staff", "Other (please specify)")
@@ -655,6 +675,7 @@ Another outcome of attending a Carpentry workshop is that learners become involv
 
 
 ```{r}
+# Data in columns 'Carpentry.Involvement through Column51
 Carpentry_Involvement <- 
 data %>%
   select(`Carpentry.Involvement`:Column51) %>% 
