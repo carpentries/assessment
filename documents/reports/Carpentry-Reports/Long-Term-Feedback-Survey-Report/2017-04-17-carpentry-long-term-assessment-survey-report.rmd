@@ -190,7 +190,7 @@ ggplot(data_workshops_tally,
 ### Workshop Content
 Data Carpentry's [lessons](http://www.datacarpentry.org/lessons/) include data organization in Spreadsheets, data cleaning with OpenRefine, data management with SQL, and data analysis and visualiztion in R and Python.
 
-Software Carpentry's [lessons](https://software-carpentry.org) include the Unix Shell, version control with Git and Mercurial, programming with Python, R, and MATLAB, databases with SQL, Automation and Make, and Instructor Training. The long-term feedback survey did not include questions for learners who participated in instructor training.
+Software Carpentry's [lessons](https://software-carpentry.org) include the Unix Shell, version control with Git and Mercurial, programming with Python, R, and MATLAB, databases with SQL, and Automation and Make.
 ```{r}
 # Responses are in columns 'Content' through 'Column22'
 # Ben's tip to use 'gather' to go from wide to long format
@@ -214,12 +214,14 @@ MATLAB <-  workshop_tools[workshop_tools$Content == 'MATLAB', ]$n
 Mercurial <-  workshop_tools[workshop_tools$Content == 'Mercurial', ]$n
 ```
 
-From the table below we see that a large majority of respondents learned Git, Python, and Unix Shell. On the low end were Spreadsheets (`r Spreadsheets`), Cloud Computing (`r Cloud_Computing`), MATLAB (`r MATLAB`), and Mercurial (`r Mercurial`).
+From the table we see that a large majority of respondents learned Git, Python, and Unix Shell. On the low end were Spreadsheets (`r Spreadsheets`), Cloud Computing (`r Cloud_Computing`), MATLAB (`r MATLAB`), and Mercurial (`r Mercurial`).
 
 ### Programming Usage Pre- and Post Workshop
 A goal for this assessment is to understand respondents' programming usage before attending a Carpentry workshop compared to after. Our hope is that the workshop they attended influenced their usage of the programming tools covered during their workshop.
 
+##### CHANGE#####
 Twenty percent of the learners who responded to our survey had not been using the tools they learned in our workshop before completing a workshop, but nearly 30% responded having used the tools on a daily basis before completing a workshop.
+combine less than once per year 
 ```{r include=FALSE}
 # Naupaka's tip so pre- and post-responses match
 data_paired_plot <- data
@@ -473,26 +475,28 @@ Respondents were asked to reflect on ways in which completing a Carpentry worksh
 Using the [Likert](http://jason.bryer.org/likert/) package, the following plot is an analysis of learner responses to the statements above. We see an overwhelmingly positive indication that respondents left their workshop feeling motivated to seek more knowledge and having gained confidence in working with data. Additionally, more than 80% of respondents improved their coding practices, made their analyses reproducible, improved their research producitvity, and believe the skills they learned helped them advance their career. Fourty percent of our respondents have received professional recognition as a result of using the tools they learned in a Carpentry workshop.
 
 ```{r echo=FALSE}
+# Jonah's fix to include the correct levels. Variable was renamed to 'levels' because
+# 'order' is the name of a function in R
 cols_with_Agree <- map_lgl(data, ~`%in%`("Agree", .x))
 data_agree <-  data[ , cols_with_Agree]
 
-order = c("Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree")
+levels = c("Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree")
 
-# How do I get the [1] data.frame not to show on the output? 
-print(class(data_agree))
-data_agree <- map_if(data_agree,
-                     is.character,
-                     as.factor)
+data_agree_likert <- likert(data.frame(lapply(data_agree, factor, levels, ordered=TRUE)))
+
+# print(class(data_agree))
+# data_agree <- map_if(data_agree,
+#                     is.character,
+#                     as.factor)
 
 # Elizabeth's tip on factors
-for(i in seq_along(data_agree)) {
-                data_agree[[i]] <- factor(data_agree[[i]], levels=order)
-}
+# for(i in seq_along(data_agree)) {
+#                data_agree[[i]] <- factor(data_agree[[i]], levels=order)}
 
-print(levels(data_agree))
+# print(levels(data_agree))
 title <- "Workshops are Welcoming & Useful"
-data_agree_likert <-  likert(as.data.frame(data_agree)) 
-theme_update(plot.title = element_text(hjust = 0.5))
+# data_agree_likert <-  likert(as.data.frame(data_agree)) 
+ theme_update(plot.title = element_text(hjust = 0.5))
 
 plot(data_agree_likert) + ggtitle(title)
 ```
@@ -632,7 +636,7 @@ self <- Learning_Activities %>% filter(`Learning Activities` == "Used self-guide
   collect() %>% 
   .[["n"]]
 ```
-Another outcome we hope to see is that learners continue on in their learning once they've completed a workshop. This can take many forms including participating in short-courses (in-peson and online) and using self-guided material. We asked respondents to tell us which learning activities (for data management and analysis) they've participated in since completing a Carpentry workshop. The majority of respondents have used non-Carpentry self-guided material, though `r self` responded having used Carpentry self-guided material. Additionally, we see participation in meetups and in-person short courses.
+One of our primary outcomes is that learners continue on in their learning once they've completed a workshop. This can take many forms including participating in short-courses (in-peson and online) and using self-guided material. We asked respondents to tell us which learning activities (for data management and analysis) they've participated in since completing a Carpentry workshop. The majority of respondents have used non-Carpentry self-guided material, though `r self` responded having used Carpentry self-guided material. Additionally, we see participation in meetups and in-person short courses.
 ```{r}
 activities <- matrix(c(59,45,35,24,68,127),ncol=1,byrow=TRUE)
 colnames(activities) <-("Continuous Learning Post-Workshop")
@@ -660,11 +664,10 @@ data %>%
   arrange(desc(n)) %>% 
   rename(`Involvement Since Attending a Carpentry Workshop` = Carpentry_Involvement)
 
-kable(Carpentry_Involvement,
-      caption = "How respondents became involved")
+kable(Carpentry_Involvement) # Use caption = "How respondents became involved" to add caption
 ```
 
-## Recommending Carpentry Workshops
+
 ```{r include=FALSE}
 data_recommended_tally <-
   data %>% 
@@ -677,7 +680,7 @@ said_yes <- data_recommended_tally[data_recommended_tally$Recommended == "Yes.",
 
 # kable(data_recommended_tally)
 ```
-We value our learners because when they have successful experiences in our workshops, they share their experience with others. We asked respondents if they had already recommended our workshop, and `r said_yes` said yes!
+
 ```{r include=FALSE}
 data_likelyrecommend_tally <-
   data %>% 
@@ -689,9 +692,12 @@ data_likelyrecommend_tally <-
 # kable(data_likelyrecommend_tally)
 ```
 
-
 # Summary
+We value our learners because when they have successful experiences in our workshops, they share their experience with others. We asked respondents if they had already recommended our workshop, and `r said_yes` said yes!
+
 This initial look at how Carpentry workshops have impacted learners long-term has been extremely insightful. In general, our workshops are helping learners improve their efficiency with managing and analyzing data. Learners are taking advantage of online resources to improve their skills, and becoming involved with our community.
 
-We will take another look at this data to compare responses of learners having taken a workshop more than a year ago versus those having taken a workshop 0 to 6 months ago and 6 months to 1 year ago. Additionally, every 6 months we will collect data using this survey from new learners to see how they're doing!
+We will take another look at this data to compare responses of learners having taken a workshop more than a year ago versus those having taken a workshop 0 to 6 months ago and 6 months to 1 year ago. Additionally, every 6 months we will collect data using this survey from new learners to see how they're doing.
+
+OpenRefine, Spreadsheets, and Cloud Computing being low indicate the we had low responses from Data Carpentry.
 
