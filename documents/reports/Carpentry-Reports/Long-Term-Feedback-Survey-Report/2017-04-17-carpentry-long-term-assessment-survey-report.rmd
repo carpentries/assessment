@@ -48,8 +48,8 @@ Programming_Usage_Since <- prop.table(table(data$Programming.Usage.Since.Worksho
 # Key Highlights
 
 (`r Confidence_Change`)
-(`r Programming_Usage_Before)
-(`r Programming_Usage_Since)
+(`r Programming_Usage_Before`)
+(`r Programming_Usage_Since`)
 
 # Respondent Demographics
 ```{r}
