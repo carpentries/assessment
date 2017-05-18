@@ -1,3 +1,9 @@
+---
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
 # Analysis of the Carpentry's Long-Term Feedback Survey
 [Kari L. Jordan](https://github.com/kariljordan)  
 __May 2017__
@@ -68,12 +74,12 @@ Recommended <- round(prop.table(table(data$Recommended))* 100)
 Recommended
 ```
 # Highlights
-Provided below are a few higlights from our data.
+Provided below are a few highlights from our data.
 
 + `r Confidence_Change[3]`% of our respondents reported being more confident in the tools that were covered during their Carpentry workshop compared to before the workshop. 
 + Respondents daily programming usage increased from `r Programming_Usage_Before[6]`% to `r Programming_Usage_Since[6]`% post-Carpentry workshop.
 + `r Motivated_Seek_Knowledge[1] + Motivated_Seek_Knowledge[4]`% of our respondents were motivated to seek more knowledge about the tools they learned in their Carpentry workshop.
-+ `r Made_Analyses_Reproducible[1] + Made_Analyses_Reproducible[4]`% of our respondents have made their analyses more reprodicible as a result of completing a Carpentry workshop.
++ `r Made_Analyses_Reproducible[1] + Made_Analyses_Reproducible[4]`% of our respondents have made their analyses more reproducible as a result of completing a Carpentry workshop.
 + `r Improved_Coding_Practices[1] + Improved_Coding_Practices[4]`% of our respondents have improved their coding practices as a result of participating in a Carpentry workshop.
 + `r Gained_Confidence_Data[1] + Gained_Confidence_Data[4]`% of our respondents have gained confidence in working with data as a result of completing the workshop.
 + `r Recommended[3]`% of respondents have recommended our workshops to a friend or colleague.
