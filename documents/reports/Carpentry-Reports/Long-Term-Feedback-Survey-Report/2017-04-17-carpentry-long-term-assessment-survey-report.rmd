@@ -31,7 +31,7 @@ This analysis includes 510 responses to the long-term feedback survey. Not all r
 ```{r}
 data <- read.csv("https://raw.githubusercontent.com/carpentries/public-survey-info/master/documents/reports/Carpentry-Reports/Long-Term-Feedback-Survey-Report/2017-04-17-carpentry-long-term-assessment-survey-data-public.csv", na.strings = "")
 ```
-```{r}
+```{r include=FALSE}
 # Kari's code for highlights in the data
 # Use prop.table() to calculate percentages on a single column.
 
@@ -47,12 +47,31 @@ Programming_Usage_Before[6]
 Programming_Usage_Since <- round(prop.table(table(data$Programming.Usage.Since.Workshop)) * 100)
 Programming_Usage_Since[6]
 
+#Motivated to Seek Knowledge
+Motivated_Seek_Knowledge <- round(prop.table(table(data$Motivated.Seek.Knowledge))* 100)
+Motivated_Seek_Knowledge
 
+#Made Analyses Reproducible
+Made_Analyses_Reproducible <- round(prop.table(table(data$Made.Analyses.Reproducible))* 100)
+Made_Analyses_Reproducible
+
+#Improved Coding Practices
+Improved_Coding_Practices <- round(prop.table(table(data$Improved.Coding.Practices))* 100)
+Improved_Coding_Practices
+
+#Gained Confidence with Data
+Gained_Confidence_Data <- round(prop.table(table(data$Gained.Confidence.With.Data))* 100)
+Gained_Confidence_Data
 ```
-# Key Highlights
+# Highlights
+Provided below are a few higlights from our data.
 
 + `r Confidence_Change[3]`% of our respondents reported being more confident in the tools that were covered during their Carpentry workshop compared to before the workshop. 
 + Respondents daily programming usage increased from `r Programming_Usage_Before[6]`% to `r Programming_Usage_Since[6]`% post-Carpentry workshop.
++ `r Motivated_Seek_Knowledge[1] + Motivated_Seek_Knowledge[4]`% of our respondents were motivated to seek more knowledge about the tools they learned in their Carpentry workshop.
++ `r Made_Analyses_Reproducible[1] + Made_Analyses_Reproducible[4]`% of our respondents have made their analyses more reprodicible as a result of completing a Carpentry workshop.
++ `r Improved_Coding_Practices[1] + Improved_Coding_Practices[4]`% of our respondents have improved their coding practices as a result of participating in a Carpentry workshop.
++ `r Gained_Confidence_Data[1] + Gained_Confidence_Data[4]`% of our respondents have gained confidence in working with data as a result of completing the workshop.
 
 # Respondent Demographics
 ```{r}
