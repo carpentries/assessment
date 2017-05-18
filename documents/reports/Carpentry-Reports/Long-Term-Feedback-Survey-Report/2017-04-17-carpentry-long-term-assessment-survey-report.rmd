@@ -80,6 +80,23 @@ Provided below are a few highlights from the data.
 
 # Respondent Demographics
 ```{r}
+# Ben's tip to use 'gather' to go from wide to long format
+# Responses are in columns 'Field' through 'Column12'
+respondent_field <- 
+data %>%
+  select(`Field`:Column12) %>% 
+  gather(col, respondent_field) %>% 
+  group_by(respondent_field) %>% 
+  tally() %>% 
+  filter(!is.na(respondent_field)) %>% 
+  arrange(desc(n)) %>%
+  rename(`Field` = respondent_field)
+kable(respondent_field)
+```
+
+
+```{r}
+# Code for Status of Respondents
 position = c("Undergraduate Student", "Graduate Student", "Postdoc", "Faculty", "Industry", "Academic Research Staff", "Other Academic Staff", "Other (please specify)")
 position = factor(position)
 
@@ -190,15 +207,16 @@ kable(data_position_other_tally, format = "markdown", row.names = FALSE, col.nam
 The Carpentries continue to endeavor to improve our workshop content and operations. We were therefore interested in knowing how many workshops respondents attended, and how long it has been since respondents completed a workshop. If there are spikes in the trends of our data, knowing when respondents completed a workshop will help us pinpoint whether or not our changes are related to learner responses in the data.
 
 ```{r include=FALSE}
-# If interested in seeing the open-ended responses for Position: Other, run this code.
-data_position_other_tally <- 
-  data %>% 
-  group_by(Position.Other) %>% 
-  tally() %>% 
-  filter(!is.na(Position.Other))
-kable(data_position_other_tally, format = "markdown", row.names = FALSE, col.names = c("Position", "# Respondents"))
+#Code for in-line text
+#How long ago did respondents attend a workshop?
+How_Long_Ago <- round(prop.table(table(data$How.Long.Ago))* 100)
+How_Long_Ago
+
+#How many workshops have respondents attended?
+How_Many_Workshops <- round(prop.table(table(data$How.Many.Workshops))* 100)
+How_Many_Workshops
 ```
-Nearly 75% of respondents participated in a Carpentry workshop more than one year ago, and the majority of respondents have attended only one Carpentry workshop. 
+`r How_Long_Ago[3]`% of respondents participated in a Carpentry workshop more than one year ago, and `r How_Many_Workshops[1]`% of respondents have attended only one Carpentry workshop. 
 
 ```{r include=FALSE}
 Carpentry_Involvement <- 
@@ -214,7 +232,7 @@ data %>%
 Carpentry_Involvement[1,2]
 ```
 
-The majority of respondents attending a workshop more than one year ago speaks to their level of involvement with the Carpentries (`r Carpentry_Involvement[1,2]` responded having subscribed to the Carpentries newsletter). It can be difficult, in survey research, to collect responses from participants a year later. It is great to see that learners are still receptive to our e-mail communication and have taken time to complete our survey.
+The majority of respondents attending a workshop more than one year ago speaks to their level of involvement with the Carpentries (`r Carpentry_Involvement[1,2]` people responded having subscribed to the Carpentries newsletter). It can be difficult, in survey research, to collect responses from participants a year later. It is great to see that learners are still receptive to our e-mail communication and have taken time to complete our survey.
 
 ```{r}
  data_howlong_tally <- 
@@ -269,7 +287,7 @@ ggplot(data_workshops_tally,
 ### Workshop Content
 Data Carpentry's [lessons](http://www.datacarpentry.org/lessons/) include data organization in Spreadsheets, data cleaning with OpenRefine, data management with SQL, and data analysis and visualization in R and Python.
 
-Software Carpentry's [lessons](https://software-carpentry.org) include the Unix Shell, version control with Git and Mercurial, programming with Python, R, and MATLAB, databases with SQL, and Automation and Make.
+Software Carpentry's [lessons](https://software-carpentry.org) include the Unix Shell, version control with Git and Mercurial, programming with Python, R, and MATLAB, databases with SQL, and Automation and Make. Provided below is a breakdown of the tools respondents identified being covered in the workshop they attended.
 ```{r}
 # Responses are in columns 'Content' through 'Column22'
 # Ben's tip to use 'gather' to go from wide to long format
@@ -287,20 +305,34 @@ kable(workshop_tools) #Add caption = "Tools Covered" to include a caption
 
 # Ben's tip to use in-line text
 # This code produces results to use in the text of the report
+Git <- workshop_tools[workshop_tools$Content == 'Git', ]$n
+Python <- workshop_tools[workshop_tools$Content == 'Python', ]$n
+Unix_Shell <- workshop_tools[workshop_tools$Content == 'Unix Shell', ]$n
+R <- workshop_tools[workshop_tools$Content == 'R', ]$n
+SQL <- workshop_tools[workshop_tools$Content == 'SQL', ]$n
+OpenRefine <- workshop_tools[workshop_tools$Content == 'OpenRefine', ]$n
 Spreadsheets <- workshop_tools[workshop_tools$Content == 'Spreadsheets', ]$n
 Cloud_Computing <- workshop_tools[workshop_tools$Content == 'Cloud Computing', ]$n
 MATLAB <-  workshop_tools[workshop_tools$Content == 'MATLAB', ]$n
 Mercurial <-  workshop_tools[workshop_tools$Content == 'Mercurial', ]$n
+
 ```
 
-From the table we see that a large majority of respondents learned Git, Python, and Unix Shell. On the low end were Spreadsheets (`r Spreadsheets`), Cloud Computing (`r Cloud_Computing`), MATLAB (`r MATLAB`), and Mercurial (`r Mercurial`).
+A large majority of respondents learned Git (n = `r Git`), Python (n = `r Python`), and Unix Shell (n = `r Unix_Shell`). On the low end were Spreadsheets (n = `r Spreadsheets`), Cloud Computing (n = `r Cloud_Computing`), MATLAB (n = `r MATLAB`), and Mercurial (n = `r Mercurial`). OpenRefine, Spreadsheets, and Cloud Computing being on the low end is an indicator that the majority of our respondents attended a Software Carpentry workshop. This makes sense as Software Carpentry has offered more workshops than Data Carpentry.
+```{r}
+# Data for in-line text on programming usage
+Programming_Usage_Before <- round(prop.table(table(data$Programming.Usage.Before)) * 100)
+Programming_Usage_Before
 
+#Programming Usage Since Workshop
+Programming_Usage_Since <- round(prop.table(table(data$Programming.Usage.Since.Workshop)) * 100)
+Programming_Usage_Since
+```
 ### Programming Usage Pre- and Post Workshop
 A goal for this assessment is to understand respondents' programming usage before attending a Carpentry workshop compared to after. Our hope is that the workshop they attended influenced their usage of the programming tools covered during their workshop.
 
-##### CHANGE#####
-Twenty percent of the learners who responded to our survey had not been using the tools they learned in our workshop before completing a workshop, but nearly 30% responded having used the tools on a daily basis before completing a workshop.
-combine less than once per year 
+`r Programming_Usage_Before[2]`% of the learners who responded to our survey had not been using the tools covered in their Carpentry workshop before completing. This decreased to `r Programming_Usage_Since[2]`% post-Carpentry workshop.
+
 ```{r include=FALSE}
 # Naupaka's tip so pre- and post-responses match
 data_paired_plot <- data
@@ -790,6 +822,4 @@ We value our learners because when they have successful experiences in our works
 This initial look at how Carpentry workshops have impacted learners long-term has been extremely insightful. In general, our workshops are helping learners improve their efficiency with managing and analyzing data. Learners are taking advantage of online resources to improve their skills, and becoming involved with our community.
 
 We will take another look at this data to compare responses of learners having taken a workshop more than a year ago versus those having taken a workshop 0 to 6 months ago and 6 months to 1 year ago. Additionally, every 6 months we will collect data using this survey from new learners to see how they're doing.
-
-OpenRefine, Spreadsheets, and Cloud Computing being low indicate the we had low responses from Data Carpentry.
 
