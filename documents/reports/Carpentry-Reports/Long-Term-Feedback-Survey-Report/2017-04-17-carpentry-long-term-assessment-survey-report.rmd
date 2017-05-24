@@ -26,7 +26,7 @@ Data and Software Carpentry launched a [long-term assessment survey](https://www
 
 A [PDF](https://github.com/carpentries/public-survey-info/blob/master/documents/surveys/2017-04-17-carpentry-long-term-feedback-survey.pdf) of the survey questions and the data used in this analysis are located in the [long-term feedback survey report](https://github.com/carpentries/public-survey-info/tree/master/documents/reports/Carpentry-Reports/Long-Term-Feedback-Survey-Report) folder on GitHub. We have already received several pull requests from community members interested in this data. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings. 
 
-This analysis includes 510 responses. Not all respondents answered each of the 26 questions.
+This analysis includes 476 observations. Not all respondents answered each of the 26 questions.
 
 ```{r include=FALSE}
 data <- read.csv("https://raw.githubusercontent.com/carpentries/public-survey-info/master/documents/reports/Carpentry-Reports/Long-Term-Feedback-Survey-Report/2017-04-17-carpentry-long-term-assessment-survey-data-public.csv", na.strings = "")
@@ -94,6 +94,7 @@ data %>%
 kable(respondent_field)
 
 # These numbers don't make sense. This means we had 622 respondents.
+# I figured out that they were told to check all that apply. How can I represent this?
 ```
 
 
