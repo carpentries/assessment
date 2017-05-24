@@ -76,7 +76,7 @@ Provided below are a few highlights from the data.
 + `r Made_Analyses_Reproducible[1] + Made_Analyses_Reproducible[4]`% of our respondents have made their analyses more reproducible as a result of completing a Carpentry workshop.
 + `r Improved_Coding_Practices[1] + Improved_Coding_Practices[4]`% of our respondents have improved their coding practices as a result of participating in a Carpentry workshop.
 + `r Gained_Confidence_Data[1] + Gained_Confidence_Data[4]`% of our respondents have gained confidence in working with data as a result of completing the workshop.
-+ `r Recommended[3]`% of respondents have recommended our workshops to a friend or colleague.
++ `r Recommended[3]`% of our respondents have recommended our workshops to a friend or colleague.
 
 # Respondent Demographics
 ```{r}
@@ -92,6 +92,8 @@ data %>%
   arrange(desc(n)) %>%
   rename(`Field` = respondent_field)
 kable(respondent_field)
+
+# These numbers don't make sense. This means we had 622 respondents.
 ```
 
 
