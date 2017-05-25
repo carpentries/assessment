@@ -511,7 +511,7 @@ round(delta_pre_daily_using$perc[2] -
 ```
 
 The most compelling change in responses was a decline in the percentage of respondents that 'have not been using these tools' (`r -delta_pre_have_not_been_using`%), and an increase in the percentage of those who now use the tools on daily basis (`r delta_pre_daily_using`%).
-```{r}
+```{r include=FALSE}
 pre_and_post_test <- 
 pre_and_post_usage %>% 
   select(-perc) %>% 
@@ -573,10 +573,10 @@ ggplot(stdres,
                  keyheight = 0.4,
                  default.unit = "inch")
       )
-
+#A chi-square test indicates that there is a significant difference in the frequencies of the pre- and post-workshop responses about #programming use. The chi-squared standardized residuals for the post-workshop values show that significantly more respondents do #programming daily after the workshop than expected if the workshop had no effect. Similarly, significantly fewer respondents program #less than once per year after the workshop.
 ```
 
-A chi-square test indicates that there is a significant difference in the frequencies of the pre- and post-workshop responses about programming use. The chi-squared standardized residuals for the post-workshop values show that significantly more respondents do programming daily after the workshop than expected if the workshop had no effect. Similarly, significantly fewer respondents program less than once per year after the workshop.
+
 
 # Workshop Impact
 Respondents were asked to reflect on ways in which completing a Carpentry workshop may have impacted them by rating their level of agreement (1-Strongly disagree to 5-Strongly agree) with the following statements: 
@@ -747,17 +747,26 @@ kable(tools_helped)
 Only (`r not_helped`) respondents said the tools they learned have not helped them, and (`r not_using`) respondents have not been using the tools that were covered in their workshop.
 
 ### Contributions to Academic Writing
-Another possible outcome of attending a Carpentry workshop is that the tools learned may contribute to academic writing (i.e. grant proposal, journal article). 118 respondents said that the tools they learned contributed to their academic writing.
+Another possible outcome of attending a Carpentry workshop is that the tools learned may contribute to academic writing (i.e. grant proposal, journal article). 
 ```{r}
-data_writing_tally <- 
-  data %>% 
-  group_by(Contributed.To.Writing) %>% 
-  tally() %>% 
-  filter(!is.na(Contributed.To.Writing)) %>% 
-  arrange(desc(n))
+writing = c("No.", "Not sure.", "Yes.")
+writing = factor(writing)
 
-kable(data_writing_tally, format = "markdown", row.names = FALSE, col.names = c("Are Tools Helping with Writing?", "n"))
+data$Contributed.To.Writing = factor(data$Contributed.To.Writing, levels = writing)
+
+Contributed_Writing <- round(prop.table(table(data$Contributed.To.Writing)) * 100)
+
+# data_writing_tally <- 
+#   data %>% 
+#   group_by(Contributed.To.Writing) %>% 
+#   tally() %>% 
+#   filter(!is.na(Contributed.To.Writing)) %>% 
+#   arrange(desc(n))
+
+kable(Contributed_Writing, format = "markdown", row.names = FALSE, col.names = c("Have the Tools Learned Contributed to Academic Writing?", "%"))
 ```
+
+`r Contributed_Writing[1]`% of our respondents said that the tools they learned contributed to their academic writing.
 ### Continuous Learning
 ```{r}
 Learning_Activities <- 
@@ -786,8 +795,22 @@ data %>%
   filter(!is.na(Continuous_Learning)) %>% 
   arrange(desc(n)) %>% 
   rename(`Continuous Learning Post-Workshop` = Continuous_Learning)
+kable(Continuous_Learning, format = "markdown", row.names = FALSE, col.names = c("Continuous Learning", "n"))
+my.prop <- round(prop.table(n) * 100)
+my.prop
 
-kable(Continuous_Learning) 
+learning_levels = c("Used non-Carpentry self-guided material.", 
+             "Used self-guided Carpentry lesson material", 
+             "Participated in an in-person short course.",
+             "Participated in an online short course.",
+             "Participated in a Meetup.",
+             "Participated in a semester long course.")
+
+#Learning <- (round(prop.table(table(n)))) * 100
+                  
+#my.prop <- prop.table(table(n/sum(n))) * 100
+#kable(learning_levels, my.prop, format = "markdown", row.names = FALSE, col.names = c("Continuous Learning", "%"))
+
 ```
 
 ## Involvement in the Carpentries 
