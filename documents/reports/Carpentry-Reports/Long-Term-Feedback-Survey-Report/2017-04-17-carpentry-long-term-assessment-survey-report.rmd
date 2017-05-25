@@ -795,22 +795,19 @@ data %>%
   filter(!is.na(Continuous_Learning)) %>% 
   arrange(desc(n)) %>% 
   rename(`Continuous Learning Post-Workshop` = Continuous_Learning)
+
 kable(Continuous_Learning, format = "markdown", row.names = FALSE, col.names = c("Continuous Learning", "n"))
 my.prop <- round(prop.table(n) * 100)
-my.prop
 
-learning_levels = c("Used non-Carpentry self-guided material.", 
-             "Used self-guided Carpentry lesson material", 
-             "Participated in an in-person short course.",
-             "Participated in an online short course.",
-             "Participated in a Meetup.",
-             "Participated in a semester long course.")
+kable(my.prop, format = "markdown", row.names = TRUE, col.names = c("%"))
+#table(names,my.prop)
 
-#Learning <- (round(prop.table(table(n)))) * 100
-                  
-#my.prop <- prop.table(table(n/sum(n))) * 100
-#kable(learning_levels, my.prop, format = "markdown", row.names = FALSE, col.names = c("Continuous Learning", "%"))
-
+#How do I change the row names in the output table from 1, 2, 3, 4, 6, 6 to names <- c("Used non-Carpentry self-guided material.", 
+#"Used self-guided Carpentry lesson material.", 
+#"Participated in an in-person short course.", 
+#"Participated in an online short course.", 
+#"Participated in a Meetup.", 
+#"Participated in a semester long course.")?
 ```
 
 ## Involvement in the Carpentries 
