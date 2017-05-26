@@ -767,6 +767,7 @@ kable(Contributed_Writing, format = "markdown", row.names = FALSE, col.names = c
 ```
 
 `r Contributed_Writing[1]`% of our respondents said that the tools they learned contributed to their academic writing.
+
 ### Continuous Learning
 ```{r}
 Learning_Activities <- 
@@ -797,12 +798,14 @@ data %>%
   rename(`Continuous Learning Post-Workshop` = Continuous_Learning)
 
 kable(Continuous_Learning, format = "markdown", row.names = FALSE, col.names = c("Continuous Learning", "n"))
-my.prop <- round(prop.table(n) * 100)
 
-kable(my.prop, format = "markdown", row.names = TRUE, col.names = c("%"))
+#my.prop <- round(prop.table(n) * 100)
+
+#kable(my.prop, format = "markdown", row.names = TRUE, col.names = c("%"))
 #table(names,my.prop)
 
-#How do I change the row names in the output table from 1, 2, 3, 4, 6, 6 to names <- c("Used non-Carpentry self-guided material.", 
+#How do I change the row names in the output table from 1, 2, 3, 4, 6, 6 to names 
+#<- c("Used non-Carpentry self-guided material.", 
 #"Used self-guided Carpentry lesson material.", 
 #"Participated in an in-person short course.", 
 #"Participated in an online short course.", 
