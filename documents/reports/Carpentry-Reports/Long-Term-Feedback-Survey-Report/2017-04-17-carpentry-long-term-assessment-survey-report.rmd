@@ -592,41 +592,37 @@ Respondents were asked to reflect on ways in which completing a Carpentry worksh
 The following plot was created using the [Likert](http://jason.bryer.org/likert/) package, and presents an analysis of learner responses to the statements above. We see an overwhelmingly positive indication that respondents left their workshop feeling motivated to seek more knowledge and having gained confidence in working with data. Additionally, more than 80% of respondents improved their coding practices, made their analyses reproducible, improved their research productivity, and believe the skills they learned helped them advance their career. Forty percent of our respondents have received professional recognition as a result of using the tools they learned in a Carpentry workshop.
 
 ```{r echo=FALSE}
-# Jonah's fix to include the correct levels. Variable was renamed to 'levels' because
-# 'order' is the name of a function in R
+# Jonah's fix to include the correct levels. Variable was renamed to 'levels' #because 'order' is the name of a function in R.
 
 cols_with_Agree <- map_lgl(data, ~`%in%`("Agree", .x))
 data_agree <-  data[ , cols_with_Agree]
 
-levels = c("Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree")
+levels = c("Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree")
 
 # Beth's tip to both order the factors based on levels and unify the factors
-# I don't know exactly how to use this yet or where to place it. Will come back to it.
-# factorfunction <- function(mydata, factlevel){
-#  factor(mydata, 
-#         levels=factlevel, 
-#         ordered = TRUE)
-#    fct_unify(mydata, 
-#              levels=factlevel) 
-# }
+ factorfunction <- function(mydata, factlevel){
+  factor(mydata, 
+         levels=factlevel, 
+         ordered = TRUE)
+    fct_unify(mydata, 
+              levels=factlevel)}
 # End tip 
+ 
 data_agree_likert <- likert(data.frame(lapply(data_agree, factor, levels, ordered=TRUE)))
-
-# print(class(data_agree))
-# data_agree <- map_if(data_agree,
-#                     is.character,
-#                     as.factor)
-
 # Elizabeth's tip on factors
-# for(i in seq_along(data_agree)) {
-#                data_agree[[i]] <- factor(data_agree[[i]], levels=order)}
+ for(i in seq_along(data_agree)) {
+                data_agree[[i]] <- factor(data_agree[[i]], levels=order)}
 
-# print(levels(data_agree))
+#print(levels(data_agree))
+ 
 title <- "Workshops are Welcoming & Useful"
-# data_agree_likert <-  likert(as.data.frame(data_agree)) 
  theme_update(plot.title = element_text(hjust = 0.5))
-
 plot(data_agree_likert) + ggtitle(title) 
+
+#print(class(data_agree))
+ data_agree <- map_if(data_agree,
+                     is.character,
+                     as.factor)
 ```
 
 ```{r include=FALSE}  
@@ -767,6 +763,7 @@ kable(Contributed_Writing, format = "markdown", row.names = FALSE, col.names = c
 ```
 
 `r Contributed_Writing[1]`% of our respondents said that the tools they learned contributed to their academic writing.
+
 ### Continuous Learning
 ```{r}
 Learning_Activities <- 
@@ -795,22 +792,21 @@ data %>%
   filter(!is.na(Continuous_Learning)) %>% 
   arrange(desc(n)) %>% 
   rename(`Continuous Learning Post-Workshop` = Continuous_Learning)
+
 kable(Continuous_Learning, format = "markdown", row.names = FALSE, col.names = c("Continuous Learning", "n"))
-my.prop <- round(prop.table(n) * 100)
-my.prop
 
-learning_levels = c("Used non-Carpentry self-guided material.", 
-             "Used self-guided Carpentry lesson material", 
-             "Participated in an in-person short course.",
-             "Participated in an online short course.",
-             "Participated in a Meetup.",
-             "Participated in a semester long course.")
+#my.prop <- round(prop.table(n) * 100)
 
-#Learning <- (round(prop.table(table(n)))) * 100
-                  
-#my.prop <- prop.table(table(n/sum(n))) * 100
-#kable(learning_levels, my.prop, format = "markdown", row.names = FALSE, col.names = c("Continuous Learning", "%"))
+#kable(my.prop, format = "markdown", row.names = TRUE, col.names = c("%"))
+#table(names,my.prop)
 
+#How do I change the row names in the output table from 1, 2, 3, 4, 6, 6 to names 
+#<- c("Used non-Carpentry self-guided material.", 
+#"Used self-guided Carpentry lesson material.", 
+#"Participated in an in-person short course.", 
+#"Participated in an online short course.", 
+#"Participated in a Meetup.", 
+#"Participated in a semester long course.")?
 ```
 
 ## Involvement in the Carpentries 
