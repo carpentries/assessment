@@ -5,7 +5,7 @@ Survey Question | Column Header
 When are you taking this survey? | When-Taking-Survey
 Will this be your first time attending a Software Carpentry workshop (as a learner)? | First-Time
 How long ago did you attend a Software Carpentry Workshop? | How-Long-Ago
-Why did you attend another workshop? | Why-Attend
+Why did you attend another workshop? | Why-Attend-Another
 In a few words, what is the most important reason for attending this workshop? | Why-Attending   
 | Improve your ability to use software and tools related to your research? | Improve-Tools      |  
 | Automate your analysis or computation.      | Automate |   
