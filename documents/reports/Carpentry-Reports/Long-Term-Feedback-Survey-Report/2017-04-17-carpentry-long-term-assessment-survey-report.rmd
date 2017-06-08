@@ -511,7 +511,7 @@ round(delta_pre_daily_using$perc[2] -
 ```
 
 The most compelling change in responses was a decline in the percentage of respondents that 'have not been using these tools' (`r -delta_pre_have_not_been_using`%), and an increase in the percentage of those who now use the tools on daily basis (`r delta_pre_daily_using`%).
-```{r include=FALSE}
+```{r}
 pre_and_post_test <- 
 pre_and_post_usage %>% 
   select(-perc) %>% 
@@ -576,8 +576,6 @@ ggplot(stdres,
 #A chi-square test indicates that there is a significant difference in the frequencies of the pre- and post-workshop responses about #programming use. The chi-squared standardized residuals for the post-workshop values show that significantly more respondents do #programming daily after the workshop than expected if the workshop had no effect. Similarly, significantly fewer respondents program #less than once per year after the workshop.
 ```
 
-
-
 # Workshop Impact
 Respondents were asked to reflect on ways in which completing a Carpentry workshop may have impacted them by rating their level of agreement (1-Strongly disagree to 5-Strongly agree) with the following statements: 
 
@@ -610,8 +608,8 @@ levels = c("Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"
  
 data_agree_likert <- likert(data.frame(lapply(data_agree, factor, levels, ordered=TRUE)))
 # Elizabeth's tip on factors
- for(i in seq_along(data_agree)) {
-                data_agree[[i]] <- factor(data_agree[[i]], levels=order)}
+ #for(i in seq_along(data_agree)) {
+                #data_agree[[i]] <- factor(data_agree[[i]], levels=order)}
 
 #print(levels(data_agree))
  
