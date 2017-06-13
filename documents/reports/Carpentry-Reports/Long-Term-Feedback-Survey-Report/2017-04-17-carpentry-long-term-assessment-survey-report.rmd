@@ -1,6 +1,6 @@
 # Analysis of the Carpentry's Long-Term Feedback Survey
 [Kari L. Jordan](https://github.com/kariljordan)  
-__May 2017__
+__June 2017__
 
 ```{r setup, include=FALSE}
 # To comment out a block of code, highlight the block and use CTRL + SHIFT + C  
@@ -8,17 +8,19 @@ library(knitr)
 opts_chunk$set(echo = FALSE,
                message = FALSE,
                warning = FALSE)
-
-library(tidyr)
-library(ggmap)
-library(likert)
-library(purrr)
-library(mapproj)
+library(tidyverse)
 library(ggplot2)
 library(dplyr)
-library(knitr)
-library(RColorBrewer)
+library(tidyr)
 library(readr)
+library(purrr)
+library(tibble)
+library(DBI)
+library(ggmap)
+library(likert)
+library(mapproj)
+library(RColorBrewer)
+library(srvyr)
 ```
 
 # Introduction
@@ -29,8 +31,9 @@ A [PDF](https://github.com/carpentries/public-survey-info/blob/master/documents/
 This analysis includes 476 observations. Not all respondents answered each of the 26 questions.
 
 ```{r include=FALSE}
-data <- read.csv("https://raw.githubusercontent.com/carpentries/public-survey-info/master/documents/reports/Carpentry-Reports/Long-Term-Feedback-Survey-Report/2017-04-17-carpentry-long-term-assessment-survey-data-public.csv", na.strings = "")
+data <- read.csv("https://raw.githubusercontent.com/kariljordan/public-survey-info/master/documents/reports/Carpentry-Reports/Long-Term-Feedback-Survey-Report/2017-04-17-carpentry-long-term-assessment-survey-data-public.csv", na.strings = "")
 ```
+
 ```{r include=FALSE}
 # Kari's code for highlights in the data
 # Use prop.table() to calculate percentages on a single column.
@@ -137,31 +140,30 @@ Graduate_Student
 Carpentry workshops are open to individuals from all backgrounds and fields. Attendees vary from students (undergraduate and graduate) and faculty to staff and persons working in industry. `r Graduate_Student[2]`% of our respondents were graduate students. 
  
 ```{r}
-data_country_tally <- 
+# Plot includes Ben's tip to add a percent column to the data_country_tally data frame 
+# before it goes into the ggplot() function. Then you should be able to use reorder on that column 
+# name in the ggplot() function
+data_country_tally <-
 data %>%
-  group_by(Country) %>% 
-  tally() %>% 
-   filter(!is.na(Country)) %>% 
-  arrange(desc(n)) 
+  group_by(Country) %>%
+  tally() %>%
+  mutate(perc = round(100 * (n/sum(n)), 1)) %>% # add the % col
+  filter(!is.na(Country)) %>%
+  arrange(desc(n))
 
-# kable(data_country_tally, caption = "Workshop Location")
-
-# Use this plot to show all countries
 ggplot(data_country_tally,
-       aes(Country, y = 100 * (n/sum(n)), 
-                   n))  +
-   geom_bar(stat = "identity", fill = "orange") + 
-   # Remove comment from line below to add counts to countries on bar plot
-   # geom_text(aes(label=n), size= 4) +
-   theme_classic() +
-   xlab("Country") +
-   ylab("% Respondents") +
-   coord_flip() +
+       aes(reorder(Country, perc),
+           perc)) +
+  geom_bar(stat = "identity", fill = "orange") +
+  theme_classic() +
+  xlab("") +
+  ylab("Percentage of all participants") +
+  coord_flip() +
   ggtitle("Carpentry Workshop Respondents by Country") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_bw(base_size = 14)
 
-# Use code below for in-line text.
+#Use code below for in-line text.
 USA <- data_country_tally[data_country_tally$Country == 'USA', ]$n
 Canada <- data_country_tally[data_country_tally$Country == 'Canada', ]$n
 UK <- data_country_tally[data_country_tally$Country == 'UK', ]$n
@@ -295,16 +297,16 @@ Software Carpentry's [lessons](https://software-carpentry.org) include the Unix 
 # Responses are in columns 'Content' through 'Column22'
 # Ben's tip to use 'gather' to go from wide to long format
 workshop_tools <- 
-data %>%
-  select(`Content`:Column22) %>% 
-  gather(col, workshop_tools) %>% 
-  group_by(workshop_tools) %>% 
-  tally() %>% 
-  filter(!is.na(workshop_tools)) %>% 
-  arrange(desc(n)) %>%
-  rename(`Content` = workshop_tools)
+ data %>%
+ select(`Content`:Column22) %>% 
+ gather(col, workshop_tools) %>% 
+ group_by(workshop_tools) %>% 
+ tally() %>% 
+ filter(!is.na(workshop_tools)) %>% 
+ arrange(desc(n)) %>%
+ rename(`Content` = workshop_tools)
 
-kable(workshop_tools) #Add caption = "Tools Covered" to include a caption
+# kable(workshop_tools) #Add caption = "Tools Covered" to include a caption
 
 # Ben's tip to use in-line text
 # This code produces results to use in the text of the report
@@ -318,7 +320,60 @@ Spreadsheets <- workshop_tools[workshop_tools$Content == 'Spreadsheets', ]$n
 Cloud_Computing <- workshop_tools[workshop_tools$Content == 'Cloud Computing', ]$n
 MATLAB <-  workshop_tools[workshop_tools$Content == 'MATLAB', ]$n
 Mercurial <-  workshop_tools[workshop_tools$Content == 'Mercurial', ]$n
+```
 
+```{r}
+# The code segment below from Ben Marwick will show the most combinations of tools 
+# covered in our workshops for individual.
+tools_cols <-
+  data %>%
+    select(Content:Column22)
+
+list_of_tools_per_person < list()
+for(i in seq_len(nrow(tools_cols))) {
+  ii <- quo(i)
+  
+  list_of_tools_per_person[[i]] <-
+    tools_cols %>%
+    slice(!!ii) %>%
+    c(., recursive=TRUE) %>%
+    na.omit() %>%
+    as.vector()
+}
+
+# The code segment below from Ben Marwick will get the tally of 
+# combinations of tools and produce a table.
+tool_combs <- 
+purrr::map_chr(list_of_tools_per_person,
+               ~paste0(.x, collapse = " "))
+
+tool_combs_df <- 
+tool_combs %>% 
+  as_data_frame() %>% 
+  group_by(value) %>% 
+  tally() %>% 
+  mutate(`%` = round(n / sum(n) * 100, 1)) %>% 
+  arrange(desc(n)) %>% 
+  filter(value != "")
+
+# top combinations as entered by respondants
+kable(tool_combs_df[1:10, ])
+```
+
+Taking a look at which combinations of tools stood out in the data, we see from the matrix below that Git was frequently covered alongside Python, R, and/or the Unix Shell. Additionally, SQL was often covered with Git and/or the Unix Shell. This reveals that the majority of respondents have taken a Software Carpentry workshop.
+```{r}
+# The code segment below from Ben Marwick will give a matrix of the combinations of tools used.
+m <- as.matrix(tools_cols) 
+# the unique values in the matrix
+vals <- sort(unique(as.vector(m)))
+
+# rearrange the data so that each value is a column
+bigm <- t(apply(m, 1, function(row) match(vals, row, nomatch=0)))
+colnames(bigm) <- vals
+
+# count the co-occurences of each value (diagonal is total number of rows with that value)
+tool_co_occurences  <- as.data.frame(crossprod(bigm>0))
+kable(tool_co_occurences)
 ```
 
 A large majority of respondents learned Git (n = `r Git`), Python (n = `r Python`), and Unix Shell (n = `r Unix_Shell`). On the low end were Spreadsheets (n = `r Spreadsheets`), Cloud Computing (n = `r Cloud_Computing`), MATLAB (n = `r MATLAB`), and Mercurial (n = `r Mercurial`). OpenRefine, Spreadsheets, and Cloud Computing being on the low end is an indicator that the majority of our respondents attended a Software Carpentry workshop. This makes sense as Software Carpentry has offered more workshops than Data Carpentry.
