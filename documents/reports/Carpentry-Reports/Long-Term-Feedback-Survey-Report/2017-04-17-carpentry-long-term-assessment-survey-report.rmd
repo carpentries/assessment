@@ -31,7 +31,7 @@ A [PDF](https://github.com/carpentries/public-survey-info/blob/master/documents/
 This analysis includes 476 observations. Not all respondents answered each of the 26 questions.
 
 ```{r include=FALSE}
-data <- read.csv("https://raw.githubusercontent.com/kariljordan/public-survey-info/master/documents/reports/Carpentry-Reports/Long-Term-Feedback-Survey-Report/2017-04-17-carpentry-long-term-assessment-survey-data-public.csv", na.strings = "")
+data <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/public-survey-info/master/documents/reports/Carpentry-Reports/Long-Term-Feedback-Survey-Report/2017-04-17-carpentry-long-term-assessment-survey-data-public.csv")
 ```
 
 ```{r include=FALSE}
@@ -39,31 +39,31 @@ data <- read.csv("https://raw.githubusercontent.com/kariljordan/public-survey-in
 # Use prop.table() to calculate percentages on a single column.
 
 #Change in Confidence
-Confidence_Change <- round(prop.table(table(data$Change.In.Confidence)) * 100)
+Confidence_Change <- round(prop.table(table(data$`Change-In-Confidence`)) * 100)
 Confidence_Change[3]
 
 #Programming Usage Before Workshop
-Programming_Usage_Before <- round(prop.table(table(data$Programming.Usage.Before.Workshop)) * 100)
+Programming_Usage_Before <- round(prop.table(table(data$`Programming-Usage-Before-Workshop`)) * 100)
 Programming_Usage_Before[6]
 
 #Programming Usage Since Workshop
-Programming_Usage_Since <- round(prop.table(table(data$Programming.Usage.Since.Workshop)) * 100)
+Programming_Usage_Since <- round(prop.table(table(data$`Programming-Usage-Since-Workshop`)) * 100)
 Programming_Usage_Since[6]
 
 #Motivated to Seek Knowledge
-Motivated_Seek_Knowledge <- round(prop.table(table(data$Motivated.Seek.Knowledge))* 100)
+Motivated_Seek_Knowledge <- round(prop.table(table(data$`Motivated-Seek-Knowledge`))* 100)
 Motivated_Seek_Knowledge
 
 #Made Analyses Reproducible
-Made_Analyses_Reproducible <- round(prop.table(table(data$Made.Analyses.Reproducible))* 100)
+Made_Analyses_Reproducible <- round(prop.table(table(data$`Made-Analyses-Reproducible`))* 100)
 Made_Analyses_Reproducible
 
 #Improved Coding Practices
-Improved_Coding_Practices <- round(prop.table(table(data$Improved.Coding.Practices))* 100)
+Improved_Coding_Practices <- round(prop.table(table(data$`Improved Coding Practices`))* 100)
 Improved_Coding_Practices
 
 #Gained Confidence with Data
-Gained_Confidence_Data <- round(prop.table(table(data$Gained.Confidence.With.Data))* 100)
+Gained_Confidence_Data <- round(prop.table(table(data$`Gained-Confidence-With-Data`))* 100)
 Gained_Confidence_Data
 
 #Recommend our Workshops
@@ -203,9 +203,9 @@ Provided is a breakdown of our respondents by the Country where they attended a 
 # If interested in seeing the open-ended responses for Position: Other, run this code.
 data_position_other_tally <- 
   data %>% 
-  group_by(Position.Other) %>% 
+  group_by(`Position-Other`) %>% 
   tally() %>% 
-  filter(!is.na(Position.Other))
+  filter(!is.na(`Position-Other`))
 kable(data_position_other_tally, format = "markdown", row.names = FALSE, col.names = c("Position", "# Respondents"))
 ```
 
@@ -214,11 +214,11 @@ The Carpentries continue to endeavor to improve our workshop content and operati
 ```{r include=FALSE}
 #Code for in-line text
 #How long ago did respondents attend a workshop?
-How_Long_Ago <- round(prop.table(table(data$How.Long.Ago))* 100)
+How_Long_Ago <- round(prop.table(table(data$`How-Long-Ago`))* 100)
 How_Long_Ago
 
 #How many workshops have respondents attended?
-How_Many_Workshops <- round(prop.table(table(data$How.Many.Workshops))* 100)
+How_Many_Workshops <- round(prop.table(table(data$`How-Many-Workshops`))* 100)
 How_Many_Workshops
 ```
 `r How_Long_Ago[3]`% of respondents participated in a Carpentry workshop more than one year ago, and `r How_Many_Workshops[1]`% of respondents have attended only one Carpentry workshop. 
@@ -226,7 +226,7 @@ How_Many_Workshops
 ```{r include=FALSE}
 Carpentry_Involvement <- 
 data %>%
-  select(`Carpentry.Involvement`:Column51) %>% 
+  select(`Carpentry-Involvement`:Column51) %>% 
   gather(col, Carpentry_Involvement) %>% 
   group_by(Carpentry_Involvement) %>% 
   tally() %>% 
@@ -242,16 +242,16 @@ The majority of respondents attending a workshop more than one year ago speaks t
 ```{r}
  data_howlong_tally <- 
   data %>% 
-  group_by(How.Long.Ago) %>% 
+  group_by(`How-Long-Ago`) %>% 
   tally() %>% 
-  filter(!is.na(How.Long.Ago)) 
+  filter(!is.na(`How-Long-Ago`)) 
 
 # Use the code below to include a table of how long ago respondents attended a workshop
 # kable(data_howlong_tally, format = "markdown", row.names = FALSE, col.names = c("Time", "n"), caption = "How Recently Did Respondents Complete a Workshop?")
 
 
 ggplot(data_howlong_tally, 
-       aes(How.Long.Ago, y = 100 * (n/sum(n)),
+       aes(`How-Long-Ago`, y = 100 * (n/sum(n)),
            n)) +
   geom_bar(stat = "identity", fill="orange") +
   geom_text(aes(label=n), size= 4) +
@@ -266,9 +266,9 @@ ggplot(data_howlong_tally,
 ```{r}
 data_workshops_tally <- 
   data %>% 
-  group_by(`How.Many.Workshops`) %>% 
+  group_by(`How-Many-Workshops`) %>% 
   tally() %>% 
-  filter(!is.na(`How.Many.Workshops`)) # %>%
+  filter(!is.na(`How-Many-Workshops`)) # %>%
   # Ben's tip for changing the column names below
   # rename(`How Many Workshops` = `How.Many.Workshops`)
 
@@ -276,7 +276,7 @@ data_workshops_tally <-
 # kable(data_workshops_tally, format = "markdown", row.names = FALSE, col.names = c("# Wrkshps", "n"), caption = "Number of Workshops Attended")
 
 ggplot(data_workshops_tally, 
-       aes(How.Many.Workshops, y = 100 * (n/sum(n)),
+       aes(`How-Many-Workshops`, y = 100 * (n/sum(n)),
            n)) +
   geom_bar(stat = "identity", fill="orange") +
   geom_text(aes(label=n), size= 4) +
@@ -324,20 +324,21 @@ Mercurial <-  workshop_tools[workshop_tools$Content == 'Mercurial', ]$n
 
 ```{r}
 # The code segment below from Ben Marwick will show the most combinations of tools 
-# covered in our workshops for individual.
-tools_cols <-
-  data %>%
-    select(Content:Column22)
+# covered in our workshops.
+tools_cols <- 
+data %>%
+  select(Content:Column22)
 
-list_of_tools_per_person < list()
+list_of_tools_per_person <- list()
 for(i in seq_len(nrow(tools_cols))) {
   ii <- quo(i)
   
-  list_of_tools_per_person[[i]] <-
-    tools_cols %>%
-    slice(!!ii) %>%
-    c(., recursive=TRUE) %>%
-    na.omit() %>%
+  list_of_tools_per_person[[i]] <- 
+  tools_cols %>% 
+    slice(!!ii) %>% 
+          c(., recursive=TRUE) %>%
+          unname %>% 
+    na.omit() %>% 
     as.vector()
 }
 
@@ -356,8 +357,9 @@ tool_combs %>%
   arrange(desc(n)) %>% 
   filter(value != "")
 
-# top combinations as entered by respondants
-kable(tool_combs_df[1:10, ])
+# Top combinations as entered by respondants
+colnames <- c("Tools", "n", "%")
+kable(tool_combs_df[1:10, ], row.names = NA, col.names = colnames)
 ```
 
 Taking a look at which combinations of tools stood out in the data, we see from the matrix below that Git was frequently covered alongside Python, R, and/or the Unix Shell. Additionally, SQL was often covered with Git and/or the Unix Shell. This reveals that the majority of respondents have taken a Software Carpentry workshop.
@@ -379,11 +381,11 @@ kable(tool_co_occurences)
 A large majority of respondents learned Git (n = `r Git`), Python (n = `r Python`), and Unix Shell (n = `r Unix_Shell`). On the low end were Spreadsheets (n = `r Spreadsheets`), Cloud Computing (n = `r Cloud_Computing`), MATLAB (n = `r MATLAB`), and Mercurial (n = `r Mercurial`). OpenRefine, Spreadsheets, and Cloud Computing being on the low end is an indicator that the majority of our respondents attended a Software Carpentry workshop. This makes sense as Software Carpentry has offered more workshops than Data Carpentry.
 ```{r include=FALSE}
 # Data for in-line text on programming usage
-Programming_Usage_Before <- round(prop.table(table(data$Programming.Usage.Before)) * 100)
+Programming_Usage_Before <- round(prop.table(table(data$`Programming-Usage-Before-Workshop`)) * 100)
 Programming_Usage_Before
 
 #Programming Usage Since Workshop
-Programming_Usage_Since <- round(prop.table(table(data$Programming.Usage.Since.Workshop)) * 100)
+Programming_Usage_Since <- round(prop.table(table(data$`Programming-Usage-Since-Workshop`)) * 100)
 Programming_Usage_Since
 ```
 ### Programming Usage Pre- and Post Workshop
@@ -396,7 +398,7 @@ The plot below is a comparison of respondents' usage of the tools covered in the
 ```{r include=FALSE}
 # Naupaka's tip so pre- and post-responses match
 data_paired_plot <- data
-levels(data$Programming.Usage.Before.Workshop)[2] <- "I have not been using tools like these."
+levels(data$`Programming-Usage-Before-Workshop`)[2] <- "I have not been using tools like these."
  
  # Programming Usage Pre-Carpentry Workshop [Absolute Plot]
   programming = c("I had not been using tools like these.", "Less than once per year.", "Several times per year.", "Monthly.", "Weekly.", "Daily.")
@@ -407,15 +409,15 @@ levels(data$Programming.Usage.Before.Workshop)[2] <- "I have not been using tool
  
   data_usage_tally <- 
    data %>% 
-   group_by(Programming.Usage.Before.Workshop) %>% 
+   group_by(`Programming-Usage-Before-Workshop`) %>% 
    tally() %>% 
-   filter(!is.na(Programming.Usage.Before.Workshop)) # %>%
-   # rename(`Programming Usage Before Workshop` = `Programming.Usage.Before.Workshop`) #Ben's tip to change column name
+   filter(!is.na(`Programming-Usage-Before-Workshop`)) # %>%
+   #rename(`Programming Usage Before Workshop` = `Programming-Usage-Before-Workshop`) #Ben's tip to change column name
  
-  # kable(data_usage_tally, caption = "Prior Programming of Respondents")
+  kable(data_usage_tally, caption = "Prior Programming of Respondents")
  
   ggplot(data_usage_tally, 
-        aes(Programming.Usage.Before.Workshop, n)) +
+        aes(`Programming-Usage-Before-Workshop`, n)) +
    geom_bar(stat = "identity", fill="orange") +
    geom_text(aes(label=n), size= 4) +
    scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
@@ -429,12 +431,12 @@ levels(data$Programming.Usage.Before.Workshop)[2] <- "I have not been using tool
 ```{r include=FALSE}
 #Programming Pre-Carpentry Workshop [Percentage Plot]
  data %>%
-  select(Programming.Usage.Before.Workshop) %>%
-   group_by(Programming.Usage.Before.Workshop) %>%
+  select(`Programming-Usage-Before-Workshop`) %>%
+   group_by(`Programming-Usage-Before-Workshop`) %>%
    tally() %>%
-   filter(!is.na(Programming.Usage.Before.Workshop)) %>%
-   mutate(Programming.Usage.Before.Workshop = factor(Programming.Usage.Before.Workshop, levels = programming)) %>%
-   ggplot(aes(x = Programming.Usage.Before.Workshop, y = 100 * (n/sum(n)))) +
+   filter(!is.na(`Programming-Usage-Before-Workshop`)) %>%
+   mutate(`Programming-Usage-Before-Workshop` = factor(`Programming-Usage-Before-Workshop`, levels = programming)) %>%
+   ggplot(aes(x = `Programming-Usage-Before-Workshop`, y = 100 * (n/sum(n)))) +
      geom_bar(stat = "identity", position = "dodge", fill = "orange") +
      geom_text(aes(label=n), size= 4) +
      scale_x_discrete(labels = function(x) lapply(strwrap(x,
@@ -454,18 +456,18 @@ levels(data$Programming.Usage.Before.Workshop)[2] <- "I have not been using tool
   programming = c("I have not been using tools like these.", "Less than once per year.", "Several times per year.", "Monthly.", "Weekly.", "Daily.")
   programming = factor(programming)
  
- data$Programming.Usage.Since.Workshop = factor(data$Programming.Usage.Since.Workshop, levels = programming)
+ data$`Programming-Usage-Since-Workshop` = factor(data$`Programming-Usage-Since-Workshop`, levels = programming)
  
   data_usage_tally <- 
    data %>% 
-   group_by(Programming.Usage.Since.Workshop) %>% 
+   group_by(`Programming-Usage-Since-Workshop`) %>% 
    tally() %>% 
-   filter(!is.na(Programming.Usage.Since.Workshop)) 
+   filter(!is.na(`Programming-Usage-Since-Workshop`)) 
  
 # kable(data_usage_tally)
  
   ggplot(data_usage_tally, 
-        aes(Programming.Usage.Since.Workshop, n)) +
+        aes(`Programming-Usage-Since-Workshop`, n)) +
    geom_bar(stat = "identity", fill="orange") +
    geom_text(aes(label=n), size= 4) +
    scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
@@ -479,12 +481,12 @@ levels(data$Programming.Usage.Before.Workshop)[2] <- "I have not been using tool
 ```{r include=FALSE}
 #Programming Usage Post-Carpentry Workshop [Percentage Plot]
 data %>%
-select(Programming.Usage.Since.Workshop) %>%
-group_by(Programming.Usage.Since.Workshop) %>%
+select(`Programming-Usage-Since-Workshop`) %>%
+group_by(`Programming-Usage-Since-Workshop`) %>%
 tally() %>%
-filter(!is.na(Programming.Usage.Since.Workshop)) %>%
-mutate(Programming.Usage.Since.Workshop = factor(Programming.Usage.Since.Workshop, levels = programming)) %>%
-ggplot(aes(x = Programming.Usage.Since.Workshop, y = 100 * (n/sum(n)))) +
+filter(!is.na(`Programming-Usage-Since-Workshop`)) %>%
+mutate(`Programming-Usage-Since-Workshop` = factor(`Programming-Usage-Since-Workshop`, levels = programming)) %>%
+ggplot(aes(x = `Programming-Usage-Since-Workshop`, y = 100 * (n/sum(n)))) +
 geom_bar(stat = "identity", position = "dodge", fill = "orange", na.rm = TRUE ) +
 geom_text(aes(label=n), size= 4) + # Adds count to top of bar
 scale_x_discrete(labels = function(x) lapply(strwrap(x,
@@ -503,19 +505,19 @@ scale_x_discrete(labels = function(x) lapply(strwrap(x,
 ```{r}
 # Pre/Post plots with tips from Ben and Naupaka 
 # Make the unique values the same
-data$`Programming.Usage.Before.Workshop` <- 
+data$`Programming-Usage-Before-Workshop` <- 
   gsub("I had not been using tools like these.",
        "I have not been using tools like these.", 
-       data$`Programming.Usage.Before.Workshop`)
+       data$`Programming-Usage-Before-Workshop`)
 
-data$`Programming.Usage.Before.Workshop` <- 
-  factor(data$`Programming.Usage.Before.Workshop`, 
+data$`Programming-Usage-Before-Workshop` <- 
+  factor(data$`Programming-Usage-Before-Workshop`, 
          levels = programming)
 
 pre_and_post_usage <- 
 data %>%
-  select(`Programming.Usage.Before.Workshop`, 
-          `Programming.Usage.Since.Workshop`) %>%
+  select(`Programming-Usage-Before-Workshop`, 
+          `Programming-Usage-Since-Workshop`) %>%
   gather() %>%
   group_by(key, value) %>%
   tally() %>%
@@ -692,7 +694,7 @@ table(data$Column57)
 # Use 'gather' to go from wide to long format
 Behaviors <- 
 data %>%
-  select(`Behaviors.Adopted`:Column32) %>% 
+  select(`Behaviors-Adopted`:Column32) %>% 
   gather(col, Behaviors) %>% 
   group_by(Behaviors) %>% 
   tally() %>% 
@@ -704,7 +706,7 @@ data %>%
 #- used programming languages for automation : Column28
 #- used version control to manage code : Column30
 
-Behaviors_Adopted <-   select(data, `Behaviors.Adopted`:Column32)
+Behaviors_Adopted <-   select(data, `Behaviors-Adopted`:Column32)
 Behaviors_Adopted <- data.frame(apply(Behaviors_Adopted, 2, function(x) ifelse(x == "NA", 0, 1)))
 relevant_cols <- c("Behaviors.Adopted", "Column28", "Column30")
 Behaviors_Adopted <- Behaviors_Adopted[, names(Behaviors_Adopted) %in% relevant_cols]
@@ -722,18 +724,18 @@ Our goal is for learners to leave a workshop having an increase in their confide
 confidence = c("I'm less confident now.", "I'm equally confident now.", "I'm more confident now.")
 confidence = factor(confidence)
 
-data$Change.In.Confidence = factor(data$Change.In.Confidence, levels = confidence)
+data$Change.In.Confidence = factor(data$`Change-In-Confidence`, levels = confidence)
 
 data_change.in.confidence_tally <- 
   data %>% 
-  group_by(Change.In.Confidence) %>% 
+  group_by(`Change-In-Confidence`) %>% 
   tally() %>% 
-  filter(!is.na(Change.In.Confidence))
+  filter(!is.na(`Change-In-Confidence`))
 
 # kable(data_confidence_tally)
 
 ggplot(data_change.in.confidence_tally, 
-       aes(Change.In.Confidence, y = 100 * (n/sum(n)),
+       aes(`Change-In-Confidence`, y = 100 * (n/sum(n)),
            n)) +
    geom_bar(stat = "identity", fill = "orange") +
    geom_text(aes(label=n), size= 4) +
@@ -759,7 +761,7 @@ We identified specific outcomes that learners may experience after completing a 
 # They are improving my ability to analyze data. : Column34
 # They are improving my ability to manage data. : Column35
 
-Tools_Learned <-   select(data, `How.Tools.Learned.Help`:Column35)
+Tools_Learned <-   select(data, `How-Tools-Learned-Help`:Column35)
 Tools_Learned <- data.frame(apply(Tools_Learned, 2, function(x) ifelse(x == "NA", 0, 1)))
 relevant_cols <- c("How.Tools.Learned.Help", "Column34", "Column35")
 Tools_Learned <- Tools_Learned[, names(Tools_Learned) %in% 
@@ -768,21 +770,21 @@ number_that_tools_helped <- sum(ifelse(rowSums(Tools_Learned, na.rm = TRUE) >= 1
 
 how_help <- 
 data %>%
-  select(`How.Tools.Learned.Help`:Column37) %>% 
+  select(`How-Tools-Learned-Help`:Column37) %>% 
   gather(col, how_help) %>% 
   group_by(how_help) %>% 
   tally() %>% 
   filter(!is.na(how_help)) %>% 
   arrange(desc(n)) %>% 
-  rename(`How.Tools.Learned.Help` = how_help)
+  rename(`How-Tools-Learned-Help` = how_help)
 
-# Grab data to use in-line
-not_helped <- how_help[how_help$How.Tools.Learned.Help == 'Column36', ]$n
-not_using  <- how_help[how_help$How.Tools.Learned.Help == 'Column37', ]$n
+# Data to use in-line
+no_help <- table(data$`Column36`)
+no_use <- table(data$`Column37`)
 
 tools_helped <- 
 data %>%
-  select(`How.Tools.Learned.Help`:Column37) %>% 
+  select(`How-Tools-Learned-Help`:Column37) %>% 
   gather(col, tools_helped) %>% 
   group_by(tools_helped) %>% 
   tally() %>% 
@@ -793,7 +795,7 @@ data %>%
 kable(tools_helped)
 ```
 
-Only (`r not_helped`) respondents said the tools they learned have not helped them, and (`r not_using`) respondents have not been using the tools that were covered in their workshop.
+Only `r no_help` respondents said the tools they learned have not helped them, and `r no_use` respondents have not been using the tools that were covered in their workshop.
 
 ### Contributions to Academic Writing
 Another possible outcome of attending a Carpentry workshop is that the tools learned may contribute to academic writing (i.e. grant proposal, journal article). 
@@ -801,9 +803,9 @@ Another possible outcome of attending a Carpentry workshop is that the tools lea
 writing = c("No.", "Not sure.", "Yes.")
 writing = factor(writing)
 
-data$Contributed.To.Writing = factor(data$Contributed.To.Writing, levels = writing)
+data$Contributed.To.Writing = factor(data$`Contributed-To-Writing`, levels = writing)
 
-Contributed_Writing <- round(prop.table(table(data$Contributed.To.Writing)) * 100)
+Contributed_Writing <- round(prop.table(table(data$`Contributed-To-Writing`)) * 100)
 
 # data_writing_tally <- 
 #   data %>% 
@@ -869,7 +871,7 @@ Another outcome of attending a Carpentry workshop is that learners become involv
 # Data in columns 'Carpentry.Involvement through Column51
 Carpentry_Involvement <- 
 data %>%
-  select(`Carpentry.Involvement`:Column51) %>% 
+  select(`Carpentry-Involvement`:Column51) %>% 
   gather(col, Carpentry_Involvement) %>% 
   group_by(Carpentry_Involvement) %>% 
   tally() %>% 
@@ -897,9 +899,9 @@ said_yes <- data_recommended_tally[data_recommended_tally$Recommended == "Yes.",
 ```{r include=FALSE}
 data_likelyrecommend_tally <-
   data %>% 
-  group_by(Likely.To.Recommend) %>% 
+  group_by(`Likely-To-Recommend`) %>% 
   tally() %>% 
-  filter(!is.na(Likely.To.Recommend)) %>% 
+  filter(!is.na(`Likely-To-Recommend`)) %>% 
   arrange(desc(n))
 
 # kable(data_likelyrecommend_tally)
