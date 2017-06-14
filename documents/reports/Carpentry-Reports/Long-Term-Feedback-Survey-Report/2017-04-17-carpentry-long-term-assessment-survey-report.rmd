@@ -835,23 +835,24 @@ kable(Contributed_Writing, format = "markdown", row.names = FALSE, col.names = c
 # Code chunk for continuous learning 
 Learning_Activities <- 
 data %>%
-  select(Activities:Column57) %>% 
+  select(`Activities`:Column57) %>% 
   gather(col, Learning_Activities) %>% 
   group_by(Learning_Activities) %>% 
   tally() %>% 
   filter(!is.na(Learning_Activities)) %>% 
   arrange(desc(n)) %>% 
-  rename(`Continuous Learning Post-Workshop` = Continuous_Learning)
+  rename(`Continuous Learning Post-Workshop` = Learning_Activities)
 
 # To use code for Carpentry self-guided material in-line
-carpentry_self_guided <- Learning_Activities %>% filter(`Learning Activities` == "Used self-guided Carpentry lesson material.") %>% 
-  collect() %>% 
-  .[["n"]]
+#carpentry_self_guided <- Learning_Activities %>% filter(`Learning_Activities` == "Used self-guided Carpentry lesson material.") %>% 
+#  collect() %>% 
+#  .[["n"]]
+carpentry_self_guided <- table(data$Column56)
 ```
 One of our primary outcomes is that learners continue on in their learning once they've completed a workshop. This can take many forms including participating in short-courses (in-person and online) and using self-guided material. We asked respondents to tell us which learning activities they've participated in since completing a Carpentry workshop. The majority of respondents have used non-Carpentry self-guided material, though `r carpentry_self_guided` responded having used Carpentry self-guided material. Additionally, we see participation in meetups and in-person short courses, as outlined in the table below.
 ```{r}
 # Code chunk for table of continuous learning activities
-kable(Continuous_Learning, format = "markdown", row.names = FALSE, col.names = c("Continuous Learning", "n"))
+kable(Learning_Activities, format = "markdown", row.names = FALSE, col.names = c("Continuous Learning", "n"))
 ```
 
 ## Involvement in the Carpentries 
