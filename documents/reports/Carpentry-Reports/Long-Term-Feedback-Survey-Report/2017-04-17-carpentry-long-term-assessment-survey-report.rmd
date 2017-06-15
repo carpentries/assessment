@@ -94,7 +94,8 @@ data %>%
   filter(!is.na(respondent_field)) %>% 
   arrange(desc(n)) %>%
   rename(`Field` = respondent_field)
-kable(respondent_field)
+kable(respondent_field, format = "markdown", row.names = FALSE, col.names = c("Field", "n"), caption = "Table 1: Breakdown of Respondents by Field")
+#The caption isn't showing
 ```
 
 Respondents were also asked to indicate their position. A breakdown of respondents by position is provided below.
@@ -272,7 +273,7 @@ data_workshops_tally <-
   filter(!is.na(`How-Many-Workshops`))
 
 # Use the code below to include a table of the number of workshops respondents attended
-# kable(data_workshops_tally, format = "markdown", row.names = FALSE, col.names = c("# Wrkshps", "n"), caption = "Number of Workshops Attended")
+#kable(data_workshops_tally, format = "markdown", row.names = FALSE, col.names = c("# Wrkshps", "n"), caption = "Number of Workshops Attended")
 
 ggplot(data_workshops_tally, 
        aes(`How-Many-Workshops`, y = 100 * (n/sum(n)),
@@ -361,7 +362,7 @@ tool_combs %>%
 
 # Top combinations as entered by respondants
 colnames <- c("Tools", "n", "%")
-kable(tool_combs_df[1:10, ], row.names = NA, col.names = colnames)
+kable(tool_combs_df[1:10, ], row.names = NA, col.names = colnames, caption = "Combination of Tools Covered")
 ```
 
 Taking a look at which combinations of tools covered stood out in the data, we see from the matrix below that Git was frequently covered alongside Python, R, and/or the Unix Shell. Additionally, SQL was often covered with Git and/or the Unix Shell. OpenRefine, Spreadsheets, and Cloud Computing being on the low end is an indicator that the majority of our respondents attended a Software Carpentry workshop. This makes sense as Software Carpentry has offered more workshops than Data Carpentry.
@@ -378,7 +379,8 @@ colnames(bigm) <- vals
 
 # Count the co-occurences of each value (diagonal is total number of rows with that value)
 tool_co_occurences  <- as.data.frame(crossprod(bigm>0))
-kable(tool_co_occurences)
+kable(tool_co_occurences, format = "markdown", row.names = TRUE, caption = "Table 3: Matrix of Common Tools Covered")
+# The caption isn't showing.
 ```
 
 ```{r include=FALSE}
@@ -719,9 +721,57 @@ number_that_adopted_any_of_those_three <- sum(ifelse(rowSums(Behaviors_Adopted, 
 
 We asked respondents to identify the behaviors they adopted as a result of completing a Carpentry workshop. We are happy to report that more than half of the respondents who answered this question (n= `r number_that_adopted_any_of_those_three`) have improved their data management and project organization practices, used programming languages for automation, and used version control to manage code. Additionally, respondents are __more confident__ now in using the tools than before they completed a Carpentry workshop.
 ```{r}
-kable(Behaviors, caption = "Behaviors Adopted by Respondents")
-# Why isn't the caption showing?
+kable(Behaviors, format = "markdown", row.names = FALSE, caption = "Table 4: Behaviors Adopted by Respondents")
 ```
+The matrix below shows a count of the highest combinations of behaviors adopted. It was interesting to see that 102 respondents who reported improving their data management and project organization also use version control to manage code.
+```{r}
+# Code for matrix of behaviors (thanks Ben for the tip!)
+# Combinations of behaviors adopted for individuals
+behaviors_cols <- 
+data %>%
+  select(`Behaviors-Adopted`:Column32)
+
+list_of_behaviors_per_person <- list()
+for(i in seq_len(nrow(behaviors_cols))) {
+  ii <- quo(i)
+  
+  list_of_behaviors_per_person[[i]] <- 
+  behaviors_cols %>% 
+    slice(!!ii) %>% 
+          c(., recursive=TRUE) %>%
+          unname %>% 
+    na.omit() %>% 
+    as.vector()
+}
+
+# Tally of combinations of behaviors adopted 
+behaviors_combs <- 
+purrr::map_chr(list_of_behaviors_per_person,
+               ~paste0(.x, collapse = " "))
+
+behaviors_combs_df <- 
+behaviors_combs %>% 
+  as_data_frame() %>% 
+  group_by(value) %>% 
+  tally() %>% 
+  mutate(`%` = round(n / sum(n) * 100, 1)) %>% 
+  arrange(desc(n)) %>% 
+  filter(value != "")
+
+# Matrix 
+m <- as.matrix(behaviors_cols) 
+# the unique values in the matrix
+vals <- sort(unique(as.vector(m)))
+
+# rearrange the data so that each value is a column
+bigm <- t(apply(m, 1, function(row) match(vals, row, nomatch=0)))
+colnames(bigm) <- vals
+
+# count the co-occurences of each value (diagonal is total number of rows with that value)
+behaviors_co_occurences  <- as.data.frame(crossprod(bigm>0))
+kable(behaviors_co_occurences, row.names = TRUE, caption = "Matrix of Common Behaviors Adopted Post-Workshop")
+```
+
 
 ### Change in Confidence 
 Our goal is for learners to leave a workshop having an increase in their confidence to use the tools they learned. More than 75% of the respondents are more confident now in using the tools they learned than they were before attending a Carpentry workshop.
@@ -799,7 +849,7 @@ data %>%
   arrange(desc(n)) %>%
   rename(`How Tools Covered Have Helped` = tools_helped)
 
-kable(tools_helped)
+kable(tools_helped, format = "markdown", row.names = FALSE, caption = "Table 5: Self-Reported Perception of How Tools Help Respondents")
 ```
 
 Only `r no_help` respondents said the tools they learned have not helped them, and `r no_use` respondents have not been using the tools that were covered in their workshop.
@@ -823,12 +873,12 @@ Contributed_Writing <- round(prop.table(table(data$`Contributed-To-Writing`)) * 
    arrange(desc(n))
 
 # Use the code below for a table of the count of responses.
-#kable(data_writing_tally, format = "markdown", row.names = FALSE, col.names = c("Have the Tools Learned Contributed to Academic Writing?", "n"))
+#kable(data_writing_tally, format = "markdown", row.names = FALSE, col.names = c("Response?", "n"), caption = "Table 6: Respondents Perception of How Tools Contributed to Academic Writing")
 
-kable(Contributed_Writing, format = "markdown", row.names = FALSE, col.names = c("Have the Tools Learned Contributed to Academic Writing?", "%"))
+kable(Contributed_Writing, format = "markdown", row.names = FALSE, col.names = c("Response", "n"), caption = "Table 6: Respondents Perception of How Tools Contributed to Academic Writing")
 ```
 
-`r Contributed_Writing[1]`% of our respondents said that the tools they learned contributed to their academic writing.
+`r Contributed_Writing[1]` of our respondents said that the tools they learned contributed to their academic writing.
 
 ### Continuous Learning
 ```{r}
@@ -852,7 +902,55 @@ carpentry_self_guided <- table(data$Column56)
 One of our primary outcomes is that learners continue on in their learning once they've completed a workshop. This can take many forms including participating in short-courses (in-person and online) and using self-guided material. We asked respondents to tell us which learning activities they've participated in since completing a Carpentry workshop. The majority of respondents have used non-Carpentry self-guided material, though `r carpentry_self_guided` responded having used Carpentry self-guided material. Additionally, we see participation in meetups and in-person short courses, as outlined in the table below.
 ```{r}
 # Code chunk for table of continuous learning activities
-kable(Learning_Activities, format = "markdown", row.names = FALSE, col.names = c("Continuous Learning", "n"))
+kable(Learning_Activities, format = "markdown", row.names = FALSE, col.names = c("Continuous Learning", "n"), caption = "Table 7: Respondents Self-Reported Continuous Learning Activities")
+```
+The matrix below provides a breakdown of the combination of continuous learning activities respondents participated in. For example, 35 respondents have used both Carpentry and non-Carpentry self-guided material since attending a workshop.
+```{r}
+# Code for matrix of continuous learning (thanks Ben for the tip!)
+# Combinations of continuous learning for individual
+learning_cols <- 
+data %>%
+  select(`Activities`:Column57)
+
+list_of_learning_per_person <- list()
+for(i in seq_len(nrow(learning_cols))) {
+  ii <- quo(i)
+  
+  list_of_learning_per_person[[i]] <- 
+  learning_cols %>% 
+    slice(!!ii) %>% 
+          c(., recursive=TRUE) %>%
+          unname %>% 
+    na.omit() %>% 
+    as.vector()
+}
+
+# Tally of combinations of continuous learning 
+learning_combs <- 
+purrr::map_chr(list_of_learning_per_person,
+               ~paste0(.x, collapse = " "))
+
+learning_combs_df <- 
+learning_combs %>% 
+  as_data_frame() %>% 
+  group_by(value) %>% 
+  tally() %>% 
+  mutate(`%` = round(n / sum(n) * 100, 1)) %>% 
+  arrange(desc(n)) %>% 
+  filter(value != "")
+
+# Matrix 
+m <- as.matrix(learning_cols) 
+# the unique values in the matrix
+vals <- sort(unique(as.vector(m)))
+
+# rearrange the data so that each value is a column
+bigm <- t(apply(m, 1, function(row) match(vals, row, nomatch=0)))
+colnames(bigm) <- vals
+
+# count the co-occurences of each value (diagonal is total number of rows with that value)
+learning_co_occurences  <- as.data.frame(crossprod(bigm>0))
+kable(learning_co_occurences, row.names = TRUE, caption = "Matrix of Common Continuous Learning Activities")
 ```
 
 ## Involvement in the Carpentries 
@@ -869,12 +967,60 @@ data %>%
   tally() %>% 
   filter(!is.na(Carpentry_Involvement)) %>% 
   arrange(desc(n)) %>% 
-  rename(`Involvement Since Attending a Carpentry Workshop` = Carpentry_Involvement)
+  rename(`Involvement Post-Workshop` = Carpentry_Involvement)
 
-kable(Carpentry_Involvement) 
-# How do I add a caption?
+kable(Carpentry_Involvement, row.names = FALSE, caption = "Respondents Self-Reported Inolvement in the Carpentries Post-Workshop")
 ```
 
+The matrix below is a look at the frequent combinations of involvement. For example, 16 of the respondents who became Carpentry instructors have attended at least one community call.
+```{r}
+# Code for matrix of involvement (thanks Ben for the tip!)
+# Combinations of tools for individual
+involvement_cols <- 
+data %>%
+  select(`Carpentry-Involvement`:Column51)
+
+list_of_involvement_per_person <- list()
+for(i in seq_len(nrow(involvement_cols))) {
+  ii <- quo(i)
+  
+  list_of_involvement_per_person[[i]] <- 
+  involvement_cols %>% 
+    slice(!!ii) %>% 
+          c(., recursive=TRUE) %>%
+          unname %>% 
+    na.omit() %>% 
+    as.vector()
+}
+
+# Tally of combinations of tools 
+involvement_combs <- 
+purrr::map_chr(list_of_involvement_per_person,
+               ~paste0(.x, collapse = " "))
+
+involvement_combs_df <- 
+involvement_combs %>% 
+  as_data_frame() %>% 
+  group_by(value) %>% 
+  tally() %>% 
+  mutate(`%` = round(n / sum(n) * 100, 1)) %>% 
+  arrange(desc(n)) %>% 
+  filter(value != "")
+
+# Matrix tool-by-tool
+
+m <- as.matrix(involvement_cols) 
+# the unique values in the matrix
+vals <- sort(unique(as.vector(m)))
+
+# rearrange the data so that each value is a column
+bigm <- t(apply(m, 1, function(row) match(vals, row, nomatch=0)))
+colnames(bigm) <- vals
+
+# count the co-occurences of each value (diagonal is total number of rows with that value)
+involvement_co_occurences  <- as.data.frame(crossprod(bigm>0))
+kable(involvement_co_occurences, row.names = FALSE, caption = "Matrix of Common Involvement")
+```
 
 ```{r include=FALSE}
 # Code chunk for whether respondents recommended a workshop
@@ -911,4 +1057,5 @@ We value our learners because when they have successful experiences in our works
 This initial look at how Carpentry workshops have impacted learners long-term has been extremely insightful. In general, our workshops are helping learners improve their efficiency with managing and analyzing data. Learners are taking advantage of online resources to improve their skills, and becoming involved with our community.
 
 We will take another look at this data to compare responses of learners having taken a workshop more than a year ago versus those having taken a workshop 0 to 6 months ago and 6 months to 1 year ago. Additionally, every 6 months we will collect data using this survey from new learners to see how they're doing.
+
 

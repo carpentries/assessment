@@ -220,6 +220,7 @@ $(document).ready(function () {
 <p>Software Carpentry’s <a href="https://software-carpentry.org">lessons</a> include the Unix Shell, version control with Git and Mercurial, programming with Python, R, and MATLAB, databases with SQL, and Automation and Make. Provided below is a breakdown of the tools respondents identified being covered in the workshop they attended.</p>
 <p>The table below provides insight into the combination of tools that was covered the most frequently in our respondent’s workshops. Nearly 20% of respondents learned Git (n = 362), Python (n = 289), and the Unix Shell (n = 274) during their workshop. On the low end were Spreadsheets (n = 20), Cloud Computing (n = 11), MATLAB (n = 5), and Mercurial (n = 3).</p>
 <table>
+<caption>Combination of Tools Covered</caption>
 <thead>
 <tr class="header">
 <th align="left">Tools</th>
@@ -282,9 +283,22 @@ $(document).ready(function () {
 </table>
 <p>Taking a look at which combinations of tools covered stood out in the data, we see from the matrix below that Git was frequently covered alongside Python, R, and/or the Unix Shell. Additionally, SQL was often covered with Git and/or the Unix Shell. OpenRefine, Spreadsheets, and Cloud Computing being on the low end is an indicator that the majority of our respondents attended a Software Carpentry workshop. This makes sense as Software Carpentry has offered more workshops than Data Carpentry.</p>
 <table>
+<colgroup>
+<col width="14%"></col>
+<col width="14%"></col>
+<col width="4%"></col>
+<col width="7%"></col>
+<col width="9%"></col>
+<col width="10%"></col>
+<col width="7%"></col>
+<col width="4%"></col>
+<col width="12%"></col>
+<col width="4%"></col>
+<col width="10%"></col>
+</colgroup>
 <thead>
 <tr class="header">
-<th></th>
+<th align="left"></th>
 <th align="right">Cloud Computing</th>
 <th align="right">Git</th>
 <th align="right">MATLAB</th>
@@ -299,7 +313,7 @@ $(document).ready(function () {
 </thead>
 <tbody>
 <tr class="odd">
-<td>Cloud Computing</td>
+<td align="left">Cloud Computing</td>
 <td align="right">11</td>
 <td align="right">9</td>
 <td align="right">0</td>
@@ -312,7 +326,7 @@ $(document).ready(function () {
 <td align="right">7</td>
 </tr>
 <tr class="even">
-<td>Git</td>
+<td align="left">Git</td>
 <td align="right">9</td>
 <td align="right">362</td>
 <td align="right">4</td>
@@ -325,7 +339,7 @@ $(document).ready(function () {
 <td align="right">244</td>
 </tr>
 <tr class="odd">
-<td>MATLAB</td>
+<td align="left">MATLAB</td>
 <td align="right">0</td>
 <td align="right">4</td>
 <td align="right">5</td>
@@ -338,7 +352,7 @@ $(document).ready(function () {
 <td align="right">3</td>
 </tr>
 <tr class="even">
-<td>Mercurial</td>
+<td align="left">Mercurial</td>
 <td align="right">0</td>
 <td align="right">2</td>
 <td align="right">0</td>
@@ -351,7 +365,7 @@ $(document).ready(function () {
 <td align="right">3</td>
 </tr>
 <tr class="odd">
-<td>OpenRefine</td>
+<td align="left">OpenRefine</td>
 <td align="right">2</td>
 <td align="right">13</td>
 <td align="right">0</td>
@@ -364,7 +378,7 @@ $(document).ready(function () {
 <td align="right">9</td>
 </tr>
 <tr class="even">
-<td>Python</td>
+<td align="left">Python</td>
 <td align="right">6</td>
 <td align="right">247</td>
 <td align="right">4</td>
@@ -377,7 +391,7 @@ $(document).ready(function () {
 <td align="right">193</td>
 </tr>
 <tr class="odd">
-<td>R</td>
+<td align="left">R</td>
 <td align="right">6</td>
 <td align="right">132</td>
 <td align="right">2</td>
@@ -390,7 +404,7 @@ $(document).ready(function () {
 <td align="right">96</td>
 </tr>
 <tr class="even">
-<td>Spreadsheets</td>
+<td align="left">Spreadsheets</td>
 <td align="right">2</td>
 <td align="right">8</td>
 <td align="right">0</td>
@@ -403,7 +417,7 @@ $(document).ready(function () {
 <td align="right">10</td>
 </tr>
 <tr class="odd">
-<td>SQL</td>
+<td align="left">SQL</td>
 <td align="right">2</td>
 <td align="right">110</td>
 <td align="right">3</td>
@@ -416,7 +430,7 @@ $(document).ready(function () {
 <td align="right">81</td>
 </tr>
 <tr class="even">
-<td>Unix Shell</td>
+<td align="left">Unix Shell</td>
 <td align="right">7</td>
 <td align="right">244</td>
 <td align="right">3</td>
@@ -464,7 +478,10 @@ $(document).ready(function () {
 <h3>Behaviors Adopted</h3>
 <p>We asked respondents to identify the behaviors they adopted as a result of completing a Carpentry workshop. We are happy to report that more than half of the respondents who answered this question (n= 361) have improved their data management and project organization practices, used programming languages for automation, and used version control to manage code. Additionally, respondents are <strong>more confident</strong> now in using the tools than before they completed a Carpentry workshop.</p>
 <table>
-<caption>Behaviors Adopted by Respondents</caption>
+<colgroup>
+<col width="95%"></col>
+<col width="4%"></col>
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Behaviors</th>
@@ -507,6 +524,134 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">Developing a data management and analysis plan.</td>
 <td align="right">74</td>
+</tr>
+</tbody>
+</table>
+<p>The matrix below shows a count of the highest combinations of behaviors adopted. It was interesting to see that 102 respondents who reported improving their data management and project organization also use version control to manage code.</p>
+<table>
+<caption>Matrix of Common Behaviors Adopted Post-Workshop</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">Developing a data management and analysis plan.</th>
+<th align="right">Improving data management and project organization.</th>
+<th align="right">Reusing code.</th>
+<th align="right">Sharing code or data publicly on places like GitHub or FigShare.</th>
+<th align="right">Transforming step-by-step workflows into scripts or functions.</th>
+<th align="right">Using databases, scripts and queries to manage large data sets.</th>
+<th align="right">Using programming languages like R or Python, or the command line to automate repetitive tasks.</th>
+<th align="right">Using version control to collaborate online (in public or private repositories).</th>
+<th align="right">Using version control to manage code.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Developing a data management and analysis plan.</td>
+<td align="right">74</td>
+<td align="right">63</td>
+<td align="right">48</td>
+<td align="right">32</td>
+<td align="right">33</td>
+<td align="right">38</td>
+<td align="right">47</td>
+<td align="right">28</td>
+<td align="right">41</td>
+</tr>
+<tr class="even">
+<td>Improving data management and project organization.</td>
+<td align="right">63</td>
+<td align="right">198</td>
+<td align="right">98</td>
+<td align="right">70</td>
+<td align="right">70</td>
+<td align="right">71</td>
+<td align="right">122</td>
+<td align="right">71</td>
+<td align="right">102</td>
+</tr>
+<tr class="odd">
+<td>Reusing code.</td>
+<td align="right">48</td>
+<td align="right">98</td>
+<td align="right">169</td>
+<td align="right">55</td>
+<td align="right">76</td>
+<td align="right">69</td>
+<td align="right">134</td>
+<td align="right">57</td>
+<td align="right">88</td>
+</tr>
+<tr class="even">
+<td>Sharing code or data publicly on places like GitHub or FigShare.</td>
+<td align="right">32</td>
+<td align="right">70</td>
+<td align="right">55</td>
+<td align="right">122</td>
+<td align="right">45</td>
+<td align="right">36</td>
+<td align="right">86</td>
+<td align="right">75</td>
+<td align="right">92</td>
+</tr>
+<tr class="odd">
+<td>Transforming step-by-step workflows into scripts or functions.</td>
+<td align="right">33</td>
+<td align="right">70</td>
+<td align="right">76</td>
+<td align="right">45</td>
+<td align="right">111</td>
+<td align="right">59</td>
+<td align="right">89</td>
+<td align="right">51</td>
+<td align="right">62</td>
+</tr>
+<tr class="even">
+<td>Using databases, scripts and queries to manage large data sets.</td>
+<td align="right">38</td>
+<td align="right">71</td>
+<td align="right">69</td>
+<td align="right">36</td>
+<td align="right">59</td>
+<td align="right">119</td>
+<td align="right">87</td>
+<td align="right">35</td>
+<td align="right">53</td>
+</tr>
+<tr class="odd">
+<td>Using programming languages like R or Python, or the command line to automate repetitive tasks.</td>
+<td align="right">47</td>
+<td align="right">122</td>
+<td align="right">134</td>
+<td align="right">86</td>
+<td align="right">89</td>
+<td align="right">87</td>
+<td align="right">260</td>
+<td align="right">89</td>
+<td align="right">129</td>
+</tr>
+<tr class="even">
+<td>Using version control to collaborate online (in public or private repositories).</td>
+<td align="right">28</td>
+<td align="right">71</td>
+<td align="right">57</td>
+<td align="right">75</td>
+<td align="right">51</td>
+<td align="right">35</td>
+<td align="right">89</td>
+<td align="right">119</td>
+<td align="right">99</td>
+</tr>
+<tr class="odd">
+<td>Using version control to manage code.</td>
+<td align="right">41</td>
+<td align="right">102</td>
+<td align="right">88</td>
+<td align="right">92</td>
+<td align="right">62</td>
+<td align="right">53</td>
+<td align="right">129</td>
+<td align="right">99</td>
+<td align="right">185</td>
 </tr>
 </tbody>
 </table>
@@ -556,8 +701,8 @@ $(document).ready(function () {
 <table>
 <thead>
 <tr class="header">
-<th align="left">Have the Tools Learned Contributed to Academic Writing?</th>
-<th align="right">%</th>
+<th align="left">Response</th>
+<th align="right">n</th>
 </tr>
 </thead>
 <tbody>
@@ -575,7 +720,7 @@ $(document).ready(function () {
 </tr>
 </tbody>
 </table>
-<p>44% of our respondents said that the tools they learned contributed to their academic writing.</p>
+<p>44 of our respondents said that the tools they learned contributed to their academic writing.</p>
 </div>
 <div id="continuous-learning" class="section level3">
 <h3>Continuous Learning</h3>
@@ -614,14 +759,86 @@ $(document).ready(function () {
 </tr>
 </tbody>
 </table>
+<p>The matrix below provides a breakdown of the combination of continuous learning activities respondents participated in. For example, 35 respondents have used both Carpentry and non-Carpentry self-guided material since attending a workshop.</p>
+<table>
+<caption>Matrix of Common Continuous Learning Activities</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">Participated in a Meetup.</th>
+<th align="right">Participated in a semester long course.</th>
+<th align="right">Participated in an in-person short course.</th>
+<th align="right">Participated in an online short course.</th>
+<th align="right">Used non-Carpentry self-guided material.</th>
+<th align="right">Used self-guided Carpentry lesson material.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Participated in a Meetup.</td>
+<td align="right">35</td>
+<td align="right">8</td>
+<td align="right">12</td>
+<td align="right">16</td>
+<td align="right">17</td>
+<td align="right">9</td>
+</tr>
+<tr class="even">
+<td>Participated in a semester long course.</td>
+<td align="right">8</td>
+<td align="right">24</td>
+<td align="right">8</td>
+<td align="right">8</td>
+<td align="right">12</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td>Participated in an in-person short course.</td>
+<td align="right">12</td>
+<td align="right">8</td>
+<td align="right">59</td>
+<td align="right">15</td>
+<td align="right">17</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td>Participated in an online short course.</td>
+<td align="right">16</td>
+<td align="right">8</td>
+<td align="right">15</td>
+<td align="right">45</td>
+<td align="right">25</td>
+<td align="right">9</td>
+</tr>
+<tr class="odd">
+<td>Used non-Carpentry self-guided material.</td>
+<td align="right">17</td>
+<td align="right">12</td>
+<td align="right">17</td>
+<td align="right">25</td>
+<td align="right">127</td>
+<td align="right">35</td>
+</tr>
+<tr class="even">
+<td>Used self-guided Carpentry lesson material.</td>
+<td align="right">9</td>
+<td align="right">3</td>
+<td align="right">12</td>
+<td align="right">9</td>
+<td align="right">35</td>
+<td align="right">68</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="involvement-in-the-carpentries" class="section level2">
 <h2>Involvement in the Carpentries</h2>
 <p>Another outcome of attending a Carpentry workshop is that learners become involved with Software and/or Data Carpentry by way of joining a mentoring group, becoming a workshop helper, or even becoming an instructor. The table provided below shows how respondents have been involved with the Carpentries since completing a workshop. Respondents were asked to check all that apply.</p>
 <table>
+<caption>Respondents Self-Reported Inolvement in the Carpentries Post-Workshop</caption>
 <thead>
 <tr class="header">
-<th align="left">Involvement Since Attending a Carpentry Workshop</th>
+<th align="left">Involvement Post-Workshop</th>
 <th align="right">n</th>
 </tr>
 </thead>
@@ -657,6 +874,104 @@ $(document).ready(function () {
 <tr class="even">
 <td align="left">Joined a committee.</td>
 <td align="right">6</td>
+</tr>
+</tbody>
+</table>
+<p>The matrix below is a look at the frequent combinations of involvement. For example, 16 of the respondents who became Carpentry instructors have attended at least one community call.</p>
+<table>
+<caption>Matrix of Common Involvement</caption>
+<thead>
+<tr class="header">
+<th align="right">Attended at least one community call.</th>
+<th align="right">Became a Carpentry instructor.</th>
+<th align="right">Became a workshop helper.</th>
+<th align="right">Contributed to a Carpentry lesson.</th>
+<th align="right">Joined a committee.</th>
+<th align="right">Joined a mentoring group.</th>
+<th align="right">Participated in a Twitter chat.</th>
+<th align="right">Subscribed to the newsletter.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">18</td>
+<td align="right">16</td>
+<td align="right">9</td>
+<td align="right">12</td>
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">4</td>
+<td align="right">14</td>
+</tr>
+<tr class="even">
+<td align="right">16</td>
+<td align="right">26</td>
+<td align="right">15</td>
+<td align="right">17</td>
+<td align="right">3</td>
+<td align="right">9</td>
+<td align="right">4</td>
+<td align="right">17</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">15</td>
+<td align="right">31</td>
+<td align="right">10</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">2</td>
+<td align="right">17</td>
+</tr>
+<tr class="even">
+<td align="right">12</td>
+<td align="right">17</td>
+<td align="right">10</td>
+<td align="right">18</td>
+<td align="right">2</td>
+<td align="right">7</td>
+<td align="right">4</td>
+<td align="right">12</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">9</td>
+<td align="right">5</td>
+<td align="right">7</td>
+<td align="right">3</td>
+<td align="right">12</td>
+<td align="right">2</td>
+<td align="right">8</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">11</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="right">14</td>
+<td align="right">17</td>
+<td align="right">17</td>
+<td align="right">12</td>
+<td align="right">2</td>
+<td align="right">8</td>
+<td align="right">4</td>
+<td align="right">120</td>
 </tr>
 </tbody>
 </table>
