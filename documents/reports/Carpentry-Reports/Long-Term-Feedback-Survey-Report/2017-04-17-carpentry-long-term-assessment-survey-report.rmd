@@ -642,8 +642,8 @@ ggplot(stdres,
                  keyheight = 0.4,
                  default.unit = "inch")
       )
-#A chi-square test indicates that there is a significant difference in the frequencies of the pre- and post-workshop responses about #programming use. The chi-squared standardized residuals for the post-workshop values show that significantly more respondents do #programming daily after the workshop than expected if the workshop had no effect. Similarly, significantly fewer respondents program #less than once per year after the workshop.
 ```
+A chi-square test indicates that there is a significant difference in the frequencies of the pre- and post-workshop responses about #programming use. The chi-squared standardized residuals for the post-workshop values show that significantly more respondents do #programming daily after the workshop than expected if the workshop had no effect. Similarly, significantly fewer respondents program #less than once per year after the workshop.
 
 # Workshop Impact
 Respondents were asked to reflect on ways in which completing a Carpentry workshop may have impacted them by rating their level of agreement (1-Strongly disagree to 5-Strongly agree) with the following statements: 
@@ -1019,7 +1019,7 @@ colnames(bigm) <- vals
 
 # count the co-occurences of each value (diagonal is total number of rows with that value)
 involvement_co_occurences  <- as.data.frame(crossprod(bigm>0))
-kable(involvement_co_occurences, row.names = FALSE, caption = "Matrix of Common Involvement")
+kable(involvement_co_occurences, row.names = TRUE, caption = "Matrix of Common Involvement")
 ```
 
 ```{r include=FALSE}
