@@ -643,6 +643,7 @@ ggplot(stdres,
                  default.unit = "inch")
       )
 ```
+
 A chi-square test indicates that there is a significant difference in the frequencies of the pre- and post-workshop responses about #programming use. The chi-squared standardized residuals for the post-workshop values show that significantly more respondents do #programming daily after the workshop than expected if the workshop had no effect. Similarly, significantly fewer respondents program #less than once per year after the workshop.
 
 # Workshop Impact
