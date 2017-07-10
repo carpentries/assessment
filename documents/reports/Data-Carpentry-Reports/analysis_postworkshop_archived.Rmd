@@ -21,14 +21,14 @@ library(mapproj)
 library(RColorBrewer)
 library(forcats)
 ```
-For nearly 20 years, Software Carpentry has developed material and trained instructors to teach computing skills to researchers in science, medicine, engineering, and other disciplines. This report is an analysis of the post-workshop survey responses collected for Software Carpentry's workshops from March 2015 through July 2017. In this two year period, nearly 4,000 responses were collected.
+This report is an analysis of the post-workshop survey responses collected for Data Carpentry's workshops from XX through XX. In this XX year period, nearly XX responses were collected.
 
-A [PDF](https://github.com/kariljordan/carpentry-community-assessment-projects/blob/master/software-carpentry-projects/survey-postworkshop.pdf) of the survey questions, the data used in this analysis, and full R code are located on the [carpentry-community-assessment-projects](https://github.com/kariljordan/carpentry-community-assessment-projects) repo on GitHub. Special thank you to Ben Marwick, Naupaka Zimmerman, Erin Becker, and Jonah Duckles. These individuals made valuable contributions to the code that was used to create the figures in this report.
+A [PDF](https://github.com/carpentries/public-survey-info/blob/master/documents/surveys/dc_presurvey_archived.pdf) of the survey questions, the data used in this analysis, and full R code are located on the [public-survey-info](https://github.com/carpentries/public-survey-info) repo on GitHub. I'd like to thank Ben Marwick, Naupaka Zimmerman, Erin Becker, and Jonah Duckles for their valuable contributions to the code that was used to create the figures in this report.
 
 Community members are invited to contribute code to this analysis. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
 
 ```{r include=FALSE}
-data <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/carpentry-community-assessment-projects/master/software-carpentry-projects/public_swc_postworkshop_data_archivedJune2017.csv")
+data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/public-survey-info/master/documents/reports/Data-Carpentry-Reports/postworkshop_data.csv")
 ```
 ### Respondent Demographics
 A host of initiatives have been developed and implemented globally to address gender disparities in computing. Software Carpentry's volunteer instructors have hosted hundreds of workshops since 1998, and the post-workshop survey data shows __parity__ in attendance of males compared to females.
