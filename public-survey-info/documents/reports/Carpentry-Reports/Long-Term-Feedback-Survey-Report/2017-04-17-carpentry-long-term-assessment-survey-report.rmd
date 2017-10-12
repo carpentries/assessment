@@ -24,7 +24,7 @@ A [PDF](https://github.com/carpentries/public-survey-info/blob/master/documents/
 This analysis includes 476 observations. Not all respondents answered each of the 26 questions.
 
 ```{r include=FALSE}
-data <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/public-survey-info/master/documents/reports/Carpentry-Reports/Long-Term-Feedback-Survey-Report/2017-04-17-carpentry-long-term-assessment-survey-data-public.csv")
+data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/public-survey-info/documents/reports/Carpentry-Reports/Long-Term-Feedback-Survey-Report/2017-04-17-carpentry-long-term-assessment-survey-data-public.csv")
 ```
 
 ```{r include=FALSE}
