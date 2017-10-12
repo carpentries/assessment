@@ -12,9 +12,9 @@ assessment-network@carpentries.org
 | Kim Gurwitz  | H3ABioNet, University of Cape Town  | SAST  |   |
 | Alycia Crall  | National Ecological Observatory Network (NEON)  | Science Educator and Evaluator  | MT  |
 | Elizabeth Wickes  | University of Illinois at Urbana-Champaign  | Data Curation Specialist  |   |
-|   |   |   |   |
-|   |   |   |   |
-|   |   |   |   |
+| Matthew B. Jones  | National Center for Ecological Analysis and Synthesis (NCEAS)  | Director of Informatics  | AK  |
+| Kate Hertweck  | University of Texas at Tyler  | Assistant Professor of Biology  | TX (US Central)  |
+| Ian Carroll  | National Socio-Environmental Synthesis Center (SESYNC)  | Data Science Instructor  | EST  |
 |   |   |   |   |
 |   |   |   |   |
 |   |   |   |   |
