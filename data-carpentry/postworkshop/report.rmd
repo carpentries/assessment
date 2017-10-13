@@ -1,5 +1,5 @@
 # Data Carpentry's Post-Workshop Survey Summary Plots
-__Author__: [Kari L. Jordan](https://github.com/kariljordan) 
+__Author__: [Kari L. Jordan](https://github.com/kariljordan)   
 __Revised__: September 2017
 
 ```{r setup, include=FALSE}
