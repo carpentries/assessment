@@ -1,6 +1,7 @@
-Link to [Rendered Report](https://carpentries.github.io/assessment-projects/software-carpentry-projects/analysis-postworkshop.html)
+# About
+Link to [Rendered Report](https://carpentries.github.io/assessment/software-carpentry/analysis-postworkshop.html)
 
 
 ## Source Data:
-* [June 2017 Snapshot](https://raw.githubusercontent.com/carpentries/assessment-projects/master/software-carpentry-projects/public_swc_postworkshop_data_archivedJune2017.csv)
+* [2017-06](https://raw.githubusercontent.com/carpentries/assessment/master/software-carpentry/data.csv)
 
