@@ -15,16 +15,13 @@ assessment-network@carpentries.org
 | Matthew B. Jones  | National Center for Ecological Analysis and Synthesis (NCEAS)  | Director of Informatics  | AK  |
 | Kate Hertweck  | University of Texas at Tyler  | Assistant Professor of Biology  | TX (US Central)  |
 | Ian Carroll  | National Socio-Environmental Synthesis Center (SESYNC)  | Data Science Instructor  | EST  |
-|   |   |   |   |
-|   |   |   |   |
-|   |   |   |   |
-|   |   |   |   |
-|   |   |   |   |
-|   |   |   |   |
-|   |   |   |   |
-|   |   |   |   |
-|   |   |   |   |
-|   |   |   |   |
-|   |   |   |   |
-|   |   |   |   |
-|   |   |   |   |
+| Beth Duckles  | Portland State University  | PST  |   |
+| Shoaib Suf  | Software Sustainability Institute  | Community Lead  | GMT/BST  |
+| Marianne Corvellec  | CRIM (crim.ca)  | Data Scientist  | EST UTC-5  |
+| Sam Donovan  | University of Pittsburgh and QUBESHub.org  | Science Educator  | UEastern  |
+| Karen Word  | UC Davis  | Postdoc, Lab for Data Intensive Biology  | PST  |
+| Olav Vahtras  | KTH Royal Institute of Technology, Sweden  | Professor of Theoretical Chemistry  | CET UTC+1  |
+| Amber Budden  | DataONE  | Dir Community Engagement and Outreach  | PST  |
+| Susanne Grossman-Clarke  | Environmental Data Initiative  | Outreach & Training Coordinator  | EST  |
+| Kristin Bass  | Rockman et al.  | Senior Researcher  | PST  |
+| Sue McClatchy  | The Jackson Laboratory  | Bioinformatician  | EST  |
