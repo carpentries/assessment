@@ -1,1 +1,0 @@
-Link to [Rendered Report](https://carpentries.github.io/public-survey-info/documents/reports/Carpentry-Reports/Long-Term-Feedback-Survey-Report/2017-04-17-carpentry-long-term-assessment-survey-report.html)
