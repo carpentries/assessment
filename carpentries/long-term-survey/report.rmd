@@ -719,23 +719,6 @@ ggsave("figures/programming_post_workshop.png")
 A chi-square test indicates that the use of programming significantly increases post-workshop. The chi-squared standardized residuals for the post-workshop values show that significantly more respondents program daily six months (or more) after the workshop than would have been expected had the workshop had no effect on their practice. Similarly, significantly fewer respondents program less than once per year six months (or more) after the workshop.
 
 # Workshop Impact
-
-To help us measure the impact that completing a Carpentries’ workshop may have had for learners, survey respondents were asked to rate their level of agreement (1-Strongly disagree to 5-Strongly agree) with the following statements:
-
-+ I have used skills I learned at the workshop to advance my career.
-+ I have been motivated to seek more knowledge about the tools I learned at the workshop.
-+ I have made my analyses more reproducible as a result of completing the workshop.
-+ I have received professional recognition for my work as a result of using the tools I learned at the workshop.
-+ I have improved my coding practices as a result of completing the workshop.
-+ My research productivity has improved as a result of completing the workshop.
-+ I have gained confidence in working with data as a result of completing the workshop.
-
-Strategies to make analyses more reproducible and improving coding practices include, but are not limited to, keeping raw data raw, sharing source code openly, and using scripts.
-
-The following plot is an analysis of learner responses to the statements above. We see an overwhelmingly positive indication that, after taking the workshop, respondents feel motivated to seek more knowledge and have gained confidence in working with data. As this survey was administered to learners who had taken a workshop at least six months ago, this feeling of confidence has obviously persisted. This is quite impactful, as both the [Data Carpentry](https://carpentries.github.io/assessment-projects//data-carpentry-projects/postworkshop_analysis.html) and [Software Carpentry](https://carpentries.github.io/assessment-projects/software-carpentry-projects/analysis-postworkshop.html) post workshop survey results show learners having self-reported improved understanding of how to import and work with data. 
-
-
-
 ```{r echo=FALSE}
 # Jonah's fix to include the correct levels. Variable was renamed to 'levels' 
 # because 'order' is the name of a function in R.
@@ -783,18 +766,30 @@ received_professional_recognition <-
   select(Agree, `Strongly agree`) %>% 
   sum() %>% 
   round(0)
+```
+The figure below shows respondents' perception of workshop impact on several factors, including career, confidence, and continuous learning. Respondents were asked to rate their level of agreement (1-Strongly disagree to 5-Strongly agree) with the statements below. The x-axis labels for the figure are in bold, and correspond to the statement following.
 
++ *Reproducible*: I have made my analyses more reproducible as a result of completing the workshop. 
++ *Recognition*: I have received professional recognition for my work as a result of using the tools I learned at the workshop. 
++ *Productivity*: My research productivity has improved as a result of completing the workshop. 
++ *Motivation*: I have been motivated to seek more knowledge about the tools I learned at the workshop. 
++ *Confidence*: I have gained confidence in working with data as a result of completing the workshop. 
++ *Coding*: I have improved my coding practices as a result of completing the workshop. 
++ *Career*: I have used skills I learned at the workshop to advance my career. 
+
+```{r}
 title <- "Perception of Workshop Impact"		
 plot(data_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
 ggsave("figures/workshop_impact_heatmap.png")
-
 ```
+
+We see an overwhelmingly positive indication that, after taking the workshop, respondents feel motivated to seek more knowledge and have gained confidence in working with data. Additionally, respondents are making their analyses more reproducible and improving their coding practices (i.e. keeping raw data raw, sharing source code openly, and using scripts). As this survey was administered to learners who had taken a workshop at least six months ago, this feeling of confidence has obviously persisted. This is quite impactful, as both the [Data Carpentry](https://carpentries.github.io/assessment-projects//data-carpentry-projects/postworkshop_analysis.html) and [Software Carpentry](https://carpentries.github.io/assessment-projects/software-carpentry-projects/analysis-postworkshop.html) post workshop survey results show learners having self-reported improved understanding of how to import and work with data. 
 
 <!-- BM: in the paragraph below, where did the original figure of 80% come from? I cannot reproduce it. Inline R code is better than hard-coded numbers -->
 
 Additionally, `r perc_agree_or_strongly_agree_improved_3_things`% of respondents agree or strongly agree that they have improved their coding practices, made their analyses reproducible, or improved their research productivity. They also believe the skills they learned helped them advance their career: `r received_professional_recognition`% of our respondents have received professional recognition as a result of using the tools they learned in a Carpentries workshop.
 
-```{r}
+```{r include=FALSE}
 
 title <- "Perception of Workshop Impact"
  theme_update(plot.title = element_text(hjust = 0.5))
