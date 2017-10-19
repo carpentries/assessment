@@ -137,7 +137,6 @@ This analysis includes `r question_n` observations. Not all respondents answered
 The long-term survey assessed confidence, motivation, and other outcomes **more than six months** after respondents attended a Carpentry workshop. Provided below are a few highlights from the data.
 
 + `r Confidence_Change[3]`% of our respondents reported being more confident in the tools that were covered during their Carpentry workshop compared to before the workshop. 
-+ `r Motivated_Seek_Knowledge[1] + Motivated_Seek_Knowledge[4]`% of our respondents were motivated to seek more knowledge about the tools they learned in their Carpentry workshop.
 + `r Made_Analyses_Reproducible[1] + Made_Analyses_Reproducible[4]`% of our respondents have made their analyses more reproducible as a result of completing a Carpentry workshop.
 + `r Improved_Coding_Practices[1] + Improved_Coding_Practices[4]`% of our respondents have improved their coding practices as a result of participating in a Carpentry workshop.
 + `r Gained_Confidence_Data[1] + Gained_Confidence_Data[4]`% of our respondents have gained confidence in working with data as a result of completing the workshop.
