@@ -30,20 +30,17 @@ data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessmen
 
 
 ```{r include=FALSE}
-# Kari's code for highlights in the data
+# Highlights in the data
 # Use prop.table() to calculate percentages on a single column.
 
 #Change in Confidence
 Confidence_Change <- round(prop.table(table(data$`Change-In-Confidence`)) * 100)
-Confidence_Change[3]
 
 #Programming Usage Before Workshop
 Programming_Usage_Before <- round(prop.table(table(data$`Programming-Usage-Before-Workshop`)) * 100)
-Programming_Usage_Before[6]
 
 #Programming Usage Since Workshop
 Programming_Usage_Since <- round(prop.table(table(data$`Programming-Usage-Since-Workshop`)) * 100)
-Programming_Usage_Since[6]
 
 #Motivated to Seek Knowledge
 Motivated_Seek_Knowledge <- round(prop.table(table(data$`Motivated-Seek-Knowledge`))* 100)
@@ -51,19 +48,16 @@ Motivated_Seek_Knowledge
 
 #Made Analyses Reproducible
 Made_Analyses_Reproducible <- round(prop.table(table(data$`Made-Analyses-Reproducible`))* 100)
-Made_Analyses_Reproducible
 
 #Improved Coding Practices
 Improved_Coding_Practices <- round(prop.table(table(data$`Improved Coding Practices`))* 100)
-Improved_Coding_Practices
 
 #Gained Confidence with Data
 Gained_Confidence_Data <- round(prop.table(table(data$`Gained-Confidence-With-Data`))* 100)
-Gained_Confidence_Data
+#Gained_Confidence_Data
 
 #Recommend our Workshops
 Recommended <- round(prop.table(table(data$Recommended))* 100)
-Recommended
 
 # Function that makes a table of counts and percentages
 # question_n is set by default to the number of respondents in the survey - 476. This value may have to be set by question. 
@@ -103,7 +97,6 @@ sum(idx)
 }
 
 ```
-
 # Introduction
 
 Software Carpentry is a worldwide volunteer organization whose mission is to make scientists more productive, and their findings more reliable, by teaching them foundational computing skills. Established in 1998, it runs short, intensive workshops that cover task automation using the Unix shell, structured programming in Python and R, and version control using tools such as Git. Its sibling organization, Data Carpentry, teaches foundational data science skills. To date, the majority of Software and Data Carpentry workshops have been run in the United States, Canada and the UK. However, there is growing interest elsewhere, and there are active ‘Carpentries’ communities in Australia, New Zealand, South Africa, the Netherlands, Norway and in other countries in Africa and in Central and South America.
@@ -116,7 +109,7 @@ We are outcome-driven organizations interested in continually improving the work
 <!-- 
 
 BM: Where do the numbersin this paragraph come from? Better to have them as inline variables rather than hard-coded in the text.
-KJ: I removed the numbers because we don't necessarily need them in this paper.
+KJ: I removed the numbers because we don't necessarily need them in this report.
 -->
 Our post-workshop survey [results](https://carpentries.github.io/assessment/data-carpentry/postworkshop_analysis.html) tell us that our respondents are either enthusiastically or very involved in our workshops, they learn a great deal of practical knowledge, and agree that they can immediately apply what they learned at the workshop. Our interest is in establishing, long-term, what impact workshops are having on learners’ confidence in the skills they were taught. 
 
@@ -136,11 +129,11 @@ This analysis includes `r question_n` observations. Not all respondents answered
 
 The long-term survey assessed confidence, motivation, and other outcomes **more than six months** after respondents attended a Carpentry workshop. Provided below are a few highlights from the data.
 
-+ `r Confidence_Change[3]`% of our respondents reported being more confident in the tools that were covered during their Carpentry workshop compared to before the workshop. 
-+ `r Made_Analyses_Reproducible[1] + Made_Analyses_Reproducible[4]`% of our respondents have made their analyses more reproducible as a result of completing a Carpentry workshop.
-+ `r Improved_Coding_Practices[1] + Improved_Coding_Practices[4]`% of our respondents have improved their coding practices as a result of participating in a Carpentry workshop.
-+ `r Gained_Confidence_Data[1] + Gained_Confidence_Data[4]`% of our respondents have gained confidence in working with data as a result of completing the workshop.
-+ `r Recommended[3]`% of our respondents have recommended our workshops to a friend or colleague.
++ `r Confidence_Change[3]`% of respondents reported being more confident in the tools that were covered during their workshop compared to before the workshop. 
++ `r Made_Analyses_Reproducible[1] + Made_Analyses_Reproducible[4]`% of respondents have made their analyses more reproducible as a result of completing a workshop.
++ `r Gained_Confidence_Data[1] + Gained_Confidence_Data[4]`% of respondents have gained confidence in working with data as a result of completing a workshop.
++ `r Recommended[3]`% of respondents have recommended our workshops to a friend or colleague.
++ Respondents' daily programming usage increased from `r Programming_Usage_Before[6]`% pre-workshop to `r Programming_Usage_Since[6]`% six-months or more after attending a workshop.
 
 # Respondent Demographics
 ```{r include=FALSE}
