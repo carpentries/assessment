@@ -1,6 +1,7 @@
-# Data Carpentry's Pilot Pre-Workshop Survey Summary Plots
-__Author__: [Kari L. Jordan](https://github.com/kariljordan)   
-__Revised__: October 2017
+# Data Carpentry's Pilot Pre-Workshop Survey 
+### Summary of Current Responses
+__Lead__: [Kari L. Jordan](https://github.com/kariljordan)   
+__Revised__: 2017-10-20
 
 ```{r setup, include=FALSE}
 library(knitr)
@@ -21,7 +22,9 @@ library(mapproj)
 library(RColorBrewer)
 library(srvyr)
 ```
-A [PDF](https://github.com/carpentries/assessment/blob/master/data-carpentry/preworkshop/2017-pilot/presurvey.pdf) of the survey questions, the data used in this analysis, and full R code are located on the Data Carpentry [assessment](https://github.com/carpentries/assessment/tree/master/data-carpentry/preworkshop/2017-pilot) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
+Data Carpentry is piloting a pre/post workshop survey that includes skills-based questions. A [PDF](https://github.com/carpentries/assessment/blob/master/data-carpentry/preworkshop/2017-pilot/presurvey.pdf) of the survey questions, the data used in this analysis, and full R code are located on the Data Carpentry [assessment](https://github.com/carpentries/assessment/tree/master/data-carpentry/preworkshop/2017-pilot) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
+
+The following is a summary of the responses that have been collected since March 2017. As of 2017-10-20, 261 responses have been collected for the [pre-workshop survey](https://github.com/carpentries/assessment/blob/master/data-carpentry/preworkshop/2017-pilot/presurvey.pdf).
 
 ```{r echo=FALSE}
 data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/data-carpentry/preworkshop/2017-pilot/20171020_data.csv")
@@ -42,9 +45,10 @@ tally_and_perc <- function(df, colname, na.rm = FALSE){
 }
 ```
 
-### Demographics
+# Demographics
+
+### Domain
 ```{r}
-# Status
 # Use 'gather' to go from wide to long format
 # Responses are in columns 'Domain' through 'Column13'
 
@@ -60,6 +64,8 @@ data %>%
 
 kable(Research_Domain)
 ```
+
+### Status
 ```{r}
 # Use 'gather' to go from wide to long format
 # Responses are in columns 'Status' through 'Column21'
@@ -72,11 +78,13 @@ data %>%
   tally_and_perc(Respondent_Status, 
                  na.rm = TRUE) %>% 
   arrange(desc(n)) %>% 
-  rename(`Status` = Respondent_Status)
+  rename(`Status (Check all that apply)` = Respondent_Status)
 
 # Table
 kable(Respondent_Status)
 ```
+
+### Operating System
 ```{r}
 # Operating System
 OS <- 
@@ -93,7 +101,9 @@ data %>%
 kable(OS)
 ```
 
-### Q: How often do you currently use programming languages (R, Python, etc.) databases (Access, SQL, etc.) version control software or the Unix shell?
+### Programming Usage
+How often do you currently use programming languages (R, Python, etc.) databases (Access, SQL, etc.) version control software or the Unix shell?
+
 ```{r}
 # How often do you currently use programming languages (R, Python, etc.) databases (Access, SQL, etc.) version control software or the Unix shell?
 
@@ -110,7 +120,10 @@ data %>%
 # Table
 kable(Programming)
 ```
-### Q: Please rate your level of satisfaction with your current data management and analysis workflow.
+
+### Satisfaction with Data 
+Please rate your level of satisfaction with your current data management and analysis workflow.
+
 ```{r}
 # Please rate your level of satisfaction with your current data management and analysis workflow.
 
@@ -130,7 +143,9 @@ data %>%
 kable(Satisfaction)
 ```
 
-### Q: Why are you attending this workshop?
+### Perception of Attendance 
+Why are you attending this workshop?
+
 ```{r}
 # Why are you attending this workshop?
 # Responses are in columns 'Why-Attending' through 'Column25'
@@ -149,7 +164,9 @@ data %>%
 kable(Why_Attending)
 ```
 
-### Q: How did you find out about this workshop?
+### Workshop Exposure
+How did you find out about this workshop?
+
 ```{r}
 # How did you find out about this workshop?
 # Responses are in columns 'Exposure-Workshop' through 'Column31'
@@ -168,7 +185,9 @@ data %>%
 kable(Exposure)
 ```
 
-### Q: Which programming language is being covered?
+### Programming Language Covered 
+Which programming language is being covered?
+
 ```{r}
 # Which programming language is being covered?
 
@@ -186,8 +205,21 @@ data %>%
 kable(Programming_Language)
 ```
 
-### Skills Based Questions
-Q: Which of the following are fundamental rules for producing well formatted spreadsheet tables? Check all that apply.
+# Skills Based Questions
+
+### Question 1 
+Which of the following are fundamental rules for producing well formatted spreadsheet tables? Check all that apply.
+
+*Objective*: Describe best practices for data entry and formatting in spreadsheets. 
+
+The answers they should've checked are:
+
++ Put each variable (e.g. ‘weight’ or ‘temperature’) in its own column.
++ Put each observation in its own row.
++ Leave the raw data raw and make edits to a copy of the data.
+
+The majority of the respondents selected these three options.
+
 ```{r}
 # Which of the following are fundamental rules for producing well formatted spreadsheet tables? Check all that apply.
 
@@ -225,9 +257,34 @@ colnames(bigm) <- vals
 formatting_co_occurences  <- as.data.frame(crossprod(bigm>0))
 kable(formatting_co_occurences, row.names = TRUE, caption = "Matrix of Fundamental Formatting Rules")
 ```
-### Q: The following spreadsheet table shows data from a survey of teenagers' favorite fruit. Multiple researchers have entered data into the spreadsheet keeping track of date collected, school code, age, sex, and favorite fruit.
 
-Which of the following tables most improves the structure of this data?
+### Question 2 
+*Objective*: Apply best practices to arrange variables and observations in a spreadsheet.
+
+The following spreadsheet table shows data from a survey of teenagers' favorite fruit. Multiple researchers have entered data into the spreadsheet keeping track of date collected, school code, age, sex, and favorite fruit.
+
+| Date Collected   | School Code  | Age-Sex  | Favorite Fruit  |
+|---|---|---|---|---|
+| 1/19/17  |01   |15-M   | orange  |
+| 1/19/17  |01   |17-F  | apple  |   
+| 1/19/17  |01  |18-F   | grapes  |   
+| 1/20/17  |01   |16-F   | banana  |
+| 1/20/17  |02  | 14-M  | pear  |  
+| 1/20/17  |02   | 17-F  | mango  |   
+| 3/13/17  |02   |15-F   | kiwi  |   
+| 3/13/17  |02  |18-F   |peach   |   
+| 3/13/17  |02   |16-F   | strawberries  |
+
+We want to know if respondents understand how to structure data in a spreadsheet. We asked which table most improves the structure of this data.
+
+The correct answser is B, which is a spreadsheet table that separates the variables as follows:
+
+| Year   | Month  | Day  | School Code  | Age | Sex | Favorite Fruit |
+
+The majority of respondents selected B, with about a third selecting C. C separated the variables as follows:
+
+| Date collected  | School Code  | Age | Sex | Favorite Fruit |
+
 ```{r}
 # Which of the following tables most improves the structure of this data?
 
@@ -245,10 +302,12 @@ data %>%
 kable(Data_Structure_R)
 ```
 
-### Q: You collected data in a spreadsheet program and would now like to read your data into R. First, you export the data to a file named "data.txt". The file is shown below.
+### Question 3 
+*Objective*: Load external data from a csv file into a dataframe in R.
+
+You collected data in a spreadsheet program and would now like to read your data into R. First, you export the data to a file named "data.txt". The file is shown below.
 
 How can you read this data into R, creating the dataframe 'contacts', so that you can work with the data in R?
-
 ```{r}
 # How can you read this data into R, creating the dataframe 'contacts', 
 # so that you can work with the data in R?
@@ -261,15 +320,19 @@ data %>%
   tally_and_perc(Read_Data_R, 
                  na.rm = TRUE) %>% 
   arrange() %>% 
-  rename(`Which improves data structure?` = Read_Data_R)
+  rename(`Reading in data` = Read_Data_R)
 
 # Table
 kable(Read_Data_R)
 ```
 
-### Q: Which of the following options complete the blanks in the statement below to make a true statement. Check all that apply.
+### Question 4
+*Objective*: Load external data from a csv file into a dataframe in R.
+
+Which of the following options complete the blanks in the statement below to make a true statement. Check all that apply.
 
 Answer A in the previous question ____, because ___.
+
 ***This is a check all that apply question, but in the current survey version it's only single select***
 ```{r}
 # Answer A in the previous question ____, because ___.
@@ -288,8 +351,18 @@ data %>%
 kable(Read_Data_Reasoning_R)
 ```
 
-### Q: After you load data into a dataframe, what are some things you can do to check that it was imported correctly? Check all that apply.
+### Question 5
+*Objective*: Checking integrity of loaded data in R
 
+After you load data into a dataframe, what are some things you can do to check that it was imported correctly? Check all that apply.
+
+Of the options, respondents should've selected:
+
++ Type the name of the data frame to display the whole dataset.
++ Use the str() function to see information about the data.
++ Use the dim() function to see the number of rows and columns in the dataset.
+
+The head() function gives you the first few lines, not the last.
 ```{r}
 # After you load data into a dataframe, what are some things you can do to check that it was imported correctly? Check all that apply.
 
@@ -327,7 +400,11 @@ checking_data_co_occurences  <- as.data.frame(crossprod(bigm>0))
 kable(checking_data_co_occurences, row.names = TRUE, caption = "Matrix of Checking Data Import")
 ```
 
-### Q: If 'df' is your dataframe and has columns x and y, which of the follwing lines of code will produce a plot of x versus y?
+### Question 6 
+*Objective*: Produce a simple plot in R using ggplot.
+
+If 'df' is your dataframe and has columns x and y, which of the follwing lines of code will produce a plot of x versus y?
+
 ```{r}
 # If 'df' is your dataframe and has columns x and y, which of the follwing lines of code will produce a plot of x versus y?
 
@@ -344,7 +421,9 @@ data %>%
 # Table
 kable(Plotting_R)
 ```
-### Q: Which of the following options complete the blanks in the statement below to make a true statement. Check all that apply.
+
+### Question 7 
+Which of the following options complete the blanks in the statement below to make a true statement. Check all that apply.
 
 Answer C in the previous question ____, because ___.
 ```{r}
@@ -380,4 +459,61 @@ colnames(bigm) <- vals
 # count the co-occurences of each value (diagonal is total number of rows with that value)
 plotting_reasoning_r_co_occurences  <- as.data.frame(crossprod(bigm>0))
 kable(plotting_reasoning_r_co_occurences, row.names = TRUE, caption = "Matrix of Plotting Reasoning Question")
+```
+
+# Perception of Confidence, Motivation, and Tools
+Respondents were asked to rate their level of agreement (1-Strongly disagree to 5-Strongly agree) with the statements below. The following heat map and Likert plot shows respondents' answers. The x-axis labels for the figure are in bold, and correspond to the statement following.
+
++ __WriteProgram__: I can write a small program/script/macro to solve a problem in my own work. 
++ __SearchAnswers__: I know how to search for answers to my technical questions online. 
++ __Reproducible__: Using a programming language (like R or Python) can make my analyses easier to reproduce.
++ __RawData__: Having access to the original, raw data is important to be able to repeat an analysis. 
++ __Overcoming__: While workng on a programming project, if I get stuck, I can find ways of overcoming the problem.
++ __Confidence__: I am confident in my ability to make use of programming languages to work with data. 
+
+```{r}
+#Likert
+
+cols_with_Agree <- map_lgl(data, ~`%in%`("Agree", .x))
+data_agree <-  data[ , cols_with_Agree]
+
+levels = c("Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree")
+
+# Beth's tip to both order the factors based on levels and unify the factors
+ factorfunction <- function(mydata, factlevel){
+  factor(mydata, 
+         levels=factlevel, 
+         ordered = TRUE)
+    fct_unify(mydata, 
+              levels=factlevel)}
+ # End tip 
+ 
+ # Adjusting names of y axis labels
+ names(data_agree) <- 
+  c("WriteProgram",
+    "SearchAnswers",
+    "RawData",
+    "Reproducible",
+    "Confidence",
+    "Overcoming")
+
+data_agree_likert <- likert(data.frame(lapply(data_agree, factor, levels, ordered=TRUE)))
+```
+
+```{r}
+title <- "Perception of Confidence, Motivation, and Tools"		
+plot(data_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
+ggsave("figures/workshop_impact_heatmap.png")
+
+title <- "Perception of Confidence, Motivation, and Tools"
+ theme_update(plot.title = element_text(hjust = 0.5))
+plot(data_agree_likert) + ggtitle(title) 
+
+#print(class(data_agree))
+ data_agree <- map_if(data_agree,
+                     is.character,
+                     as.factor)
+ggsave("figures/workshop_impact_likert.png")
+ # The plot works, but the labels are not in the correct order.
+```
 ```
