@@ -1,0 +1,383 @@
+# Data Carpentry's Pilot Pre-Workshop Survey Summary Plots
+__Author__: [Kari L. Jordan](https://github.com/kariljordan)   
+__Revised__: October 2017
+
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(echo = FALSE,
+               message = FALSE,
+               warning = FALSE)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(readr)
+library(purrr)
+library(tibble)
+library(DBI)
+library(ggmap)
+library(likert)
+library(mapproj)
+library(RColorBrewer)
+library(srvyr)
+```
+A [PDF](https://github.com/carpentries/assessment/blob/master/data-carpentry/preworkshop/2017-pilot/presurvey.pdf) of the survey questions, the data used in this analysis, and full R code are located on the Data Carpentry [assessment](https://github.com/carpentries/assessment/tree/master/data-carpentry/preworkshop/2017-pilot) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
+
+```{r echo=FALSE}
+data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/data-carpentry/preworkshop/2017-pilot/20171020_data.csv")
+```
+
+```{r}
+# Function that makes a table of counts and percentages
+tally_and_perc <- function(df, colname, na.rm = FALSE){
+  quo_colname <- enquo(colname)
+
+  df %>% 
+    group_by(!!quo_colname) %>% 
+    tally() %>% 
+    filter(if_else(rep(na.rm, nrow(.)),
+                  !is.na(!!quo_colname),
+                  as.logical(rep(1, nrow(.))))) %>% 
+    mutate(`%` = round(n / sum(n) * 100, 1)) 
+}
+```
+
+### Demographics
+```{r}
+# Status
+# Use 'gather' to go from wide to long format
+# Responses are in columns 'Domain' through 'Column13'
+
+Research_Domain <- 
+data %>%
+  select(`Domain`:`Column13`) %>% 
+  gather(col, 
+         Research_Domain) %>% 
+  tally_and_perc(Research_Domain, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Domain (Check all that apply)` = Research_Domain)
+
+kable(Research_Domain)
+```
+```{r}
+# Use 'gather' to go from wide to long format
+# Responses are in columns 'Status' through 'Column21'
+
+Respondent_Status <- 
+data %>%
+  select(`Status`:`Column21`) %>% 
+  gather(col, 
+         Respondent_Status) %>% 
+  tally_and_perc(Respondent_Status, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Status` = Respondent_Status)
+
+# Table
+kable(Respondent_Status)
+```
+```{r}
+# Operating System
+OS <- 
+data %>%
+  select(OS) %>% 
+  gather(col, 
+         OS) %>% 
+  tally_and_perc(OS, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Operating System` = OS)
+
+# Table
+kable(OS)
+```
+
+### Q: How often do you currently use programming languages (R, Python, etc.) databases (Access, SQL, etc.) version control software or the Unix shell?
+```{r}
+# How often do you currently use programming languages (R, Python, etc.) databases (Access, SQL, etc.) version control software or the Unix shell?
+
+Programming <- 
+data %>%
+  select(`Programming-Usage`) %>% 
+  gather(col, 
+         Programming) %>% 
+  tally_and_perc(Programming, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Current Programming Usage` = Programming)
+
+# Table
+kable(Programming)
+```
+### Q: Please rate your level of satisfaction with your current data management and analysis workflow.
+```{r}
+# Please rate your level of satisfaction with your current data management and analysis workflow.
+
+levels = c("Very unsatisfied", "Unsatisfied", "Neutral", "Satisfied", "Very satisfied", "Not sure", "Not applicable")
+
+Satisfaction <- 
+data %>%
+  select(`Data-Satisfaction`) %>% 
+  gather(col, 
+         Satisfaction) %>% 
+  tally_and_perc(Satisfaction, 
+                 na.rm = TRUE) %>% 
+  arrange() %>% 
+  rename(`Satisfaction` = Satisfaction)
+
+# Table
+kable(Satisfaction)
+```
+
+### Q: Why are you attending this workshop?
+```{r}
+# Why are you attending this workshop?
+# Responses are in columns 'Why-Attending' through 'Column25'
+
+Why_Attending <- 
+data %>%
+  select(`Why-Attending`:`Column25`) %>% 
+  gather(col, 
+         Why_Attending) %>% 
+  tally_and_perc(Why_Attending, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Why are you attending? Check all that apply.` = Why_Attending)
+
+# Table
+kable(Why_Attending)
+```
+
+### Q: How did you find out about this workshop?
+```{r}
+# How did you find out about this workshop?
+# Responses are in columns 'Exposure-Workshop' through 'Column31'
+
+Exposure <- 
+data %>%
+  select(`Exposure-Workshop`:`Column31`) %>% 
+  gather(col, 
+         Exposure) %>% 
+  tally_and_perc(Exposure, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Exposure` = Exposure)
+
+# Table
+kable(Exposure)
+```
+
+### Q: Which programming language is being covered?
+```{r}
+# Which programming language is being covered?
+
+Programming_Language <- 
+data %>%
+  select(`Language-Covered`) %>% 
+  gather(col, 
+         Programming_Language) %>% 
+  tally_and_perc(Programming_Language, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Which language is being covered?` = Programming_Language)
+
+# Table
+kable(Programming_Language)
+```
+
+### Skills Based Questions
+Q: Which of the following are fundamental rules for producing well formatted spreadsheet tables? Check all that apply.
+```{r}
+# Which of the following are fundamental rules for producing well formatted spreadsheet tables? Check all that apply.
+
+Formatting <- 
+data %>%
+  select(`Spreadsheet-Rules-R`:`Column36`) %>% 
+  gather(col, 
+         Formatting) %>% 
+  tally_and_perc(Formatting, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Fundamental Rules for Spreadsheets` = Formatting)
+
+# Table
+kable(Formatting)
+```
+
+```{r}
+# Code for matrix of formatting spreadsheet tables
+# Combinations of responses
+formatting_cols <- 
+data %>%
+  select(`Spreadsheet-Rules-R`:`Column36`)
+
+# Matrix 
+m <- as.matrix(formatting_cols) 
+# the unique values in the matrix
+vals <- sort(unique(as.vector(m)))
+
+# rearrange the data so that each value is a column
+bigm <- t(apply(m, 1, function(row) match(vals, row, nomatch=0)))
+colnames(bigm) <- vals
+
+# count the co-occurences of each value (diagonal is total number of rows with that value)
+formatting_co_occurences  <- as.data.frame(crossprod(bigm>0))
+kable(formatting_co_occurences, row.names = TRUE, caption = "Matrix of Fundamental Formatting Rules")
+```
+### Q: The following spreadsheet table shows data from a survey of teenagers' favorite fruit. Multiple researchers have entered data into the spreadsheet keeping track of date collected, school code, age, sex, and favorite fruit.
+
+Which of the following tables most improves the structure of this data?
+```{r}
+# Which of the following tables most improves the structure of this data?
+
+Data_Structure_R <- 
+data %>%
+  select(`Data-Structure-R`) %>% 
+  gather(col, 
+         Data_Structure_R) %>% 
+  tally_and_perc(Data_Structure_R, 
+                 na.rm = TRUE) %>% 
+  arrange() %>% 
+  rename(`Which improves data structure?` = Data_Structure_R)
+
+# Table
+kable(Data_Structure_R)
+```
+
+### Q: You collected data in a spreadsheet program and would now like to read your data into R. First, you export the data to a file named "data.txt". The file is shown below.
+
+How can you read this data into R, creating the dataframe 'contacts', so that you can work with the data in R?
+
+```{r}
+# How can you read this data into R, creating the dataframe 'contacts', 
+# so that you can work with the data in R?
+
+Read_Data_R <- 
+data %>%
+  select(`Read-Data-R`) %>% 
+  gather(col, 
+         Read_Data_R) %>% 
+  tally_and_perc(Read_Data_R, 
+                 na.rm = TRUE) %>% 
+  arrange() %>% 
+  rename(`Which improves data structure?` = Read_Data_R)
+
+# Table
+kable(Read_Data_R)
+```
+
+### Q: Which of the following options complete the blanks in the statement below to make a true statement. Check all that apply.
+
+Answer A in the previous question ____, because ___.
+***This is a check all that apply question, but in the current survey version it's only single select***
+```{r}
+# Answer A in the previous question ____, because ___.
+
+Read_Data_Reasoning_R <- 
+data %>%
+  select(`Read-Data-Reasoning-R`) %>% 
+  gather(col, 
+         Read_Data_Reasoning_R) %>% 
+  tally_and_perc(Read_Data_Reasoning_R, 
+                 na.rm = TRUE) %>% 
+  arrange() %>% 
+  rename(`Which improves data structure?` = Read_Data_Reasoning_R)
+
+# Table
+kable(Read_Data_Reasoning_R)
+```
+
+### Q: After you load data into a dataframe, what are some things you can do to check that it was imported correctly? Check all that apply.
+
+```{r}
+# After you load data into a dataframe, what are some things you can do to check that it was imported correctly? Check all that apply.
+
+Check_Data_R <- 
+data %>%
+  select(`Check-Data-R`:`Column39`) %>% 
+  gather(col, 
+         Check_Data_R) %>% 
+  tally_and_perc(Check_Data_R, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Checking data imported correctly` = Check_Data_R)
+
+# Table
+kable(Check_Data_R)
+```
+
+```{r}
+# Code for checking if data imported correctly
+checking_data_cols <- 
+data %>%
+  select(`Check-Data-R`:`Column39`)
+
+# Matrix 
+m <- as.matrix(checking_data_cols) 
+# the unique values in the matrix
+vals <- sort(unique(as.vector(m)))
+
+# rearrange the data so that each value is a column
+bigm <- t(apply(m, 1, function(row) match(vals, row, nomatch=0)))
+colnames(bigm) <- vals
+
+# count the co-occurences of each value (diagonal is total number of rows with that value)
+checking_data_co_occurences  <- as.data.frame(crossprod(bigm>0))
+kable(checking_data_co_occurences, row.names = TRUE, caption = "Matrix of Checking Data Import")
+```
+
+### Q: If 'df' is your dataframe and has columns x and y, which of the follwing lines of code will produce a plot of x versus y?
+```{r}
+# If 'df' is your dataframe and has columns x and y, which of the follwing lines of code will produce a plot of x versus y?
+
+Plotting_R <- 
+data %>%
+  select(`Plotting-R`) %>% 
+  gather(col, 
+         Plotting_R) %>% 
+  tally_and_perc(Plotting_R, 
+                 na.rm = TRUE) %>% 
+  arrange() %>% 
+  rename(`Which produces plot x vs. y?` = Plotting_R)
+
+# Table
+kable(Plotting_R)
+```
+### Q: Which of the following options complete the blanks in the statement below to make a true statement. Check all that apply.
+
+Answer C in the previous question ____, because ___.
+```{r}
+Plotting_Reasoning_R <- 
+data %>%
+  select(`Plotting-Reasoning-R`:`Column42`) %>% 
+  gather(col, 
+         Plotting_Reasoning_R) %>% 
+  tally_and_perc(Plotting_Reasoning_R, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Reasoning` = Plotting_Reasoning_R)
+
+# Table
+kable(Plotting_Reasoning_R)
+```
+
+```{r}
+# Code for checking if data imported correctly
+plotting_reasoning_r_cols <- 
+data %>%
+  select(`Plotting-Reasoning-R`:`Column42`)
+
+# Matrix 
+m <- as.matrix(plotting_reasoning_r_cols) 
+# the unique values in the matrix
+vals <- sort(unique(as.vector(m)))
+
+# rearrange the data so that each value is a column
+bigm <- t(apply(m, 1, function(row) match(vals, row, nomatch=0)))
+colnames(bigm) <- vals
+
+# count the co-occurences of each value (diagonal is total number of rows with that value)
+plotting_reasoning_r_co_occurences  <- as.data.frame(crossprod(bigm>0))
+kable(plotting_reasoning_r_co_occurences, row.names = TRUE, caption = "Matrix of Plotting Reasoning Question")
+```
