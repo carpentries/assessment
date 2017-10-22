@@ -29,7 +29,7 @@ data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessmen
 ```
 
 
-```{r include=FALSE}
+```{r include = FALSE}
 # Highlights in the data
 # Use prop.table() to calculate percentages on a single column.
 
@@ -44,7 +44,6 @@ Programming_Usage_Since <- round(prop.table(table(data$`Programming-Usage-Since-
 
 #Motivated to Seek Knowledge
 Motivated_Seek_Knowledge <- round(prop.table(table(data$`Motivated-Seek-Knowledge`))* 100)
-Motivated_Seek_Knowledge
 
 #Made Analyses Reproducible
 Made_Analyses_Reproducible <- round(prop.table(table(data$`Made-Analyses-Reproducible`))* 100)
@@ -54,7 +53,7 @@ Improved_Coding_Practices <- round(prop.table(table(data$`Improved Coding Practi
 
 #Gained Confidence with Data
 Gained_Confidence_Data <- round(prop.table(table(data$`Gained-Confidence-With-Data`))* 100)
-#Gained_Confidence_Data
+Gained_Confidence_Data
 
 #Recommend our Workshops
 Recommended <- round(prop.table(table(data$Recommended))* 100)
@@ -129,11 +128,10 @@ This analysis includes `r question_n` observations. Not all respondents answered
 
 The long-term survey assessed confidence, motivation, and other outcomes **more than six months** after respondents attended a Carpentry workshop. Provided below are a few highlights from the data.
 
-+ `r Confidence_Change[3]`% of respondents reported being more confident in the tools that were covered during their workshop compared to before the workshop. 
-+ `r Made_Analyses_Reproducible[1] + Made_Analyses_Reproducible[4]`% of respondents have made their analyses more reproducible as a result of completing a workshop.
-+ `r Gained_Confidence_Data[1] + Gained_Confidence_Data[4]`% of respondents have gained confidence in working with data as a result of completing a workshop.
-+ `r Recommended[3]`% of respondents have recommended our workshops to a friend or colleague.
-+ Respondents' daily programming usage increased from `r Programming_Usage_Before[6]`% pre-workshop to `r Programming_Usage_Since[6]`% six-months or more after attending a workshop.
++ `r Confidence_Change[3]`% of respondents reported being more confident **in the tools** that were covered during their workshop compared to before the workshop. 
++ `r Made_Analyses_Reproducible[1] + Made_Analyses_Reproducible[4]`% of respondents have **made their analyses more reproducible** as a result of completing a workshop.
++ `r Gained_Confidence_Data[1] + Gained_Confidence_Data[4]`% of respondents have gained confidence in **working with data** as a result of completing a workshop.
++ `r Recommended[3]`% of respondents have **recommended our workshops** to a friend or colleague.
 
 # Respondent Demographics
 ```{r include=FALSE}
