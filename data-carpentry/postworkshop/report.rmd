@@ -1,6 +1,6 @@
-# Data Carpentry's Post-Workshop Survey Summary Plots
+# Data Carpentry's Pilot Pre-Workshop Survey Summary Plots
 __Author__: [Kari L. Jordan](https://github.com/kariljordan)   
-__Revised__: September 2017
+__Revised__: October 2017
 
 ```{r setup, include=FALSE}
 library(knitr)
@@ -21,10 +21,10 @@ library(mapproj)
 library(RColorBrewer)
 library(srvyr)
 ```
-A [PDF](https://github.com/carpentries/assessment/blob/master/documents/surveys/dc_postsurvey_archived.pdf) of the survey questions, the data used in this analysis, and full R code are located on the Data Carpentry [assessment](https://github.com/carpentries/assessment) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
+A [PDF](https://github.com/carpentries/assessment/blob/master/data-carpentry/preworkshop/2017-pilot/presurvey.pdf) of the survey questions, the data used in this analysis, and full R code are located on the Data Carpentry [assessment](https://github.com/carpentries/assessment/tree/master/data-carpentry/preworkshop/2017-pilot) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
 
 ```{r echo=FALSE}
-data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/data-carpentry/postworkshop/data.csv")
+data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/data-carpentry/preworkshop/2017-pilot/20171020_data.csv")
 ```
 
 ```{r}
