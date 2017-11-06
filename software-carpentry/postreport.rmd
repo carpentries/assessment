@@ -1,6 +1,6 @@
 # Analysis of Software Carpentry's Post-Workshop Surveys
 __Project Lead__: [Kari L. Jordan](https://github.com/kariljordan)  
-__Work Cycle__: Phobos
+__Published__: July 1, 2017
 
 ```{r setup, include=FALSE}
 library(knitr)
