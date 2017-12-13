@@ -14,7 +14,7 @@ We also ask questions to measure learners mindset (growth vs. fixed). Our object
 
 Additionally, we measure learner’s perception of skill growth and whether or not they plan to recommend our workshops to colleagues.
 
-This repository contains projects lead by Kari L. Jordan, Data Carpentry's Deputy Director of Assessment. The projects in this repo are open to the Carpentries community for comments/feedback and collaboration.
+This repository contains projects lead by Kari L. Jordan, Data Carpentry's Deputy Director of Assessment. The projects in this repo are open for comments/feedback and collaboration.
 
 # Content
 + [assessment-network](https://github.com/carpentries/assessment/tree/master/assessment-network): Contains minutes from the Assessment Network meetings. This group collaborate and share resources works on assessment within the open source/research computing space to 
