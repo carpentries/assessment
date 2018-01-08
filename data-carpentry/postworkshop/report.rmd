@@ -1,6 +1,5 @@
-# Data Carpentry's Pilot Pre-Workshop Survey Summary Plots
-__Author__: [Kari L. Jordan](https://github.com/kariljordan)   
-__Revised__: October 2017
+# Data Carpentry's Post-Workshop Survey Summary Plots
+__Revised__: January 2018
 
 ```{r setup, include=FALSE}
 library(knitr)
@@ -24,7 +23,7 @@ library(srvyr)
 A [PDF](https://github.com/carpentries/assessment/blob/master/data-carpentry/preworkshop/2017-pilot/presurvey.pdf) of the survey questions, the data used in this analysis, and full R code are located on the Data Carpentry [assessment](https://github.com/carpentries/assessment/tree/master/data-carpentry/preworkshop/2017-pilot) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
 
 ```{r echo=FALSE}
-data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/data-carpentry/preworkshop/2017-pilot/20171020_data.csv")
+data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/data-carpentry/postworkshop/data.csv")
 ```
 
 ```{r}
@@ -73,6 +72,12 @@ ggsave("figures/postworkshop_stats.png")
 data %>% 
   tally_and_perc(`Status`, na.rm = TRUE) %>% 
   kable()
+
+# Come back to race because you need to go from long to short column format
+#race = c("American Indian or Alaskan Native", "Asian/Pacific Islander", "Black or African American", "Hispanic or Latino", "Native Hawaiian or other Pacific Islander", "White/Caucasian", "Prefer not to say", "Other (please specify")
+#race = factor(race)
+
+
 ```
 
 ### Perception of Workshop Involvement & Practical Knowledge
@@ -176,6 +181,70 @@ title <- "Perception of Workshop Impact"
 plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
 ggsave("figures/postworkshop_perception_heat.png")
 ```
+
+### Perception of Data Management and Analysis Skills Pre- and Post-Workshop
+```{r}
+# Rate the level of your data management and analysis skills prior to the workshop
+skillsbefore <- c("Very low", "Low", "Neighter high nor low", "High", "Very high")
+skillsbefore = factor(skillsbefore)
+
+data$`Skill-Level-Prior` = factor(data$`Skill-Level-Prior`, levels = skillsbefore)
+
+data_skillsbefore_tally <- 
+  data %>% 
+  group_by(`Skill-Level-Prior`) %>% 
+  tally() %>% 
+  filter(!is.na(`Skill-Level-Prior`)) 
+
+ggplot(data_skillsbefore_tally, 
+       aes(`Skill-Level-Prior`, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="orange") +
+  geom_text(aes(label=n), size= 4) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Level of Data Management & Analysis Skills Before the Workshop") +
+  ylab("% Respondents") +
+  ggtitle("A range of skill levels pre-workshop") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+ggsave("figures/preworkshop_skills.png")
+
+data %>% 
+  tally_and_perc(`Skill-Level-Prior`, na.rm = TRUE) %>% 
+  kable()
+
+# Rate your level of data management and analysis skills following the workshop.
+skillsafter <- c("About the same", "Somewhat higher", "Higher", "Much higher")
+skillsafter = factor(skillsafter)
+
+data$`Skill-Level-Following` = factor(data$`Skill-Level-Following`, levels = skillsafter)
+
+data_skillsafter_tally <- 
+  data %>% 
+  group_by(`Skill-Level-Following`) %>% 
+  tally() %>% 
+  filter(!is.na(`Skill-Level-Following`)) 
+
+ggplot(data_skillsafter_tally, 
+       aes(`Skill-Level-Following`, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="orange") +
+  geom_text(aes(label=n), size= 4) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Level of Data Management & Analysis Skills Following the Workshop") +
+  ylab("% Respondents") +
+  ggtitle("Skills increased post-workshop") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+ggsave("figures/postworkshop_skills.png")
+
+data %>% 
+  tally_and_perc(`Skill-Level-Following`, na.rm = TRUE) %>% 
+  kable()
+```
+
 
 ### Perception of Workshop Overall
 ```{r}
