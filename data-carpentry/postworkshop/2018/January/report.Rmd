@@ -1,0 +1,319 @@
+# Data Carpentry's Post-Workshop Survey Summary Plots
+__Published__: January 2018
+
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(echo = FALSE,
+               message = FALSE,
+               warning = FALSE)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(readr)
+library(purrr)
+library(tibble)
+library(DBI)
+library(ggmap)
+library(likert)
+library(mapproj)
+library(RColorBrewer)
+library(srvyr)
+```
+A [PDF](https://github.com/carpentries/assessment/blob/master/surveys/dc_postsurvey_INUSE.pdf) of the survey questions, the data used in this analysis, and full R code are located on the Data Carpentry [assessment](https://github.com/carpentries/assessment/tree/master/data-carpentry/postworkshop/2018/January) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
+
+```{r echo=FALSE}
+data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/data-carpentry/postworkshop/2018/January/data_180108.csv")
+```
+
+```{r}
+# Function that makes a table of counts and percentages
+tally_and_perc <- function(df, colname, na.rm = FALSE){
+  quo_colname <- enquo(colname)
+
+  df %>% 
+    group_by(!!quo_colname) %>% 
+    tally() %>% 
+    filter(if_else(rep(na.rm, nrow(.)),
+                  !is.na(!!quo_colname),
+                  as.logical(rep(1, nrow(.))))) %>% 
+    mutate(`%` = round(n / sum(n) * 100, 1)) 
+}
+```
+
+### BEGIN UPDATING CODE HERE
+```{r}
+# Code chunk for Status
+status = c("Undergraduate student", "Graduate student", "Post-doc", "Faculty", "Industry", "Academic Research Staff", "Other (please specify)")
+status = factor(status)
+
+data$Status = factor(data$Status, levels = status)
+
+data_status_tally <- 
+  data %>% 
+  group_by(Status) %>% 
+  tally() %>% 
+  filter(!is.na(Status)) 
+
+ggplot(data_status_tally, 
+       aes(Status, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="orange") +
+  geom_text(aes(label=n), size= 4) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Status") +
+  ylab("% Respondents") +
+  ggtitle("Majority of Respondents were Graduate Students") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+ggsave("figures/postworkshop_stats.png")
+
+data %>% 
+  tally_and_perc(`Status`, na.rm = TRUE) %>% 
+  kable()
+
+# Come back to race because you need to go from long to short column format
+#race = c("American Indian or Alaskan Native", "Asian/Pacific Islander", "Black or African American", "Hispanic or Latino", "Native Hawaiian or other Pacific Islander", "White/Caucasian", "Prefer not to say", "Other (please specify")
+#race = factor(race)
+
+
+```
+
+### Perception of Workshop Involvement & Practical Knowledge
+```{r}
+# Code chunk for Involvement
+involvement = c("Somewhat involved", "Very involved", "Enthusiastically involved")
+involvement = factor(involvement)
+
+data$Involvement = factor(data$Involvement, levels = involvement)
+
+data_involvement_tally <- 
+  data %>% 
+  group_by(Involvement) %>% 
+  tally() %>% 
+  filter(!is.na(Involvement)) 
+
+ggplot(data_involvement_tally, 
+       aes(Involvement, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="orange") +
+  geom_text(aes(label=n), size= 4) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Involvement") +
+  ylab("% Respondents") +
+  ggtitle("Majority of Respondents were very involved in the workshop") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+ggsave("figures/postworkshop_involvement.png")
+
+data %>% 
+  tally_and_perc(`Involvement`, na.rm = TRUE) %>% 
+  kable()
+```
+
+```{r}
+# Code chunk for Practical Knowledge
+practical_knowledge = c("A great deal", "Some practical knowledge", "None")
+practical_knowledge = factor(practical_knowledge)
+
+data$`Practical-Knowledge` = factor(data$`Practical-Knowledge`, levels = practical_knowledge)
+
+data_practical_knowledge_tally <- 
+  data %>% 
+  group_by(`Practical-Knowledge`) %>% 
+  tally() %>% 
+  filter(!is.na(`Practical-Knowledge`)) 
+
+ggplot(data_practical_knowledge_tally, 
+       aes(`Practical-Knowledge`, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="orange") +
+  geom_text(aes(label=n), size= 4) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Practical Knowledge") +
+  ylab("% Respondents") +
+  ggtitle("Majority of Respondents learned a great deal") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+ggsave("figures/postworkshop_knowledge.png")
+
+data %>% 
+  tally_and_perc(`Practical-Knowledge`, na.rm = TRUE) %>% 
+  kable()
+```
+
+### Perception of Post-Workshop Skills
+```{r}
+#Subsetting a portion of the Likert items from Organize-Data to Use-command-line
+myvars <- c("Organize-Data", "Use-OpenRefine", "Import-Python", "Import-R", "Visualizations-in-Python", "Visualizations-in-R", "Construct-SQL", "Use-command-line")
+newdata <- data[myvars]
+
+cols_with_Agree <- map_lgl(newdata, ~`%in%`("Agree", .x))
+newdata_agree <-  newdata[ , cols_with_Agree]
+
+levels = c("Strongly disagree",
+   "Disagree",
+   "Neutral",
+   "Agree",
+   "Strongly Agree",
+   "NA/Not covered at this workshop")
+
+ factorfunction <- function(newdata, factlevel){
+  factor(newdata, 
+         levels=factlevel, 
+         ordered = TRUE)
+    fct_unify(newdata, 
+              levels=factlevel)}
+
+newdata_agree_likert <- likert(data.frame(lapply(newdata_agree, factor, levels, ordered=TRUE)))
+
+#Likert plot
+title <- "Post-workshop: Better understanding of how to..."
+ theme_update(plot.title = element_text(hjust = 0.5))
+plot(newdata_agree_likert) + ggtitle(title) 
+ggsave("figures/postworkshop_perception_likert.png")
+
+#Heatmap
+title <- "Perception of Workshop Impact"
+plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
+ggsave("figures/postworkshop_perception_heat.png")
+```
+
+### Perception of Data Management and Analysis Skills Pre- and Post-Workshop
+```{r}
+# Rate the level of your data management and analysis skills prior to the workshop
+skillsbefore <- c("Very low", "Low", "Neighter high nor low", "High", "Very high")
+skillsbefore = factor(skillsbefore)
+
+data$`Skill-Level-Prior` = factor(data$`Skill-Level-Prior`, levels = skillsbefore)
+
+data_skillsbefore_tally <- 
+  data %>% 
+  group_by(`Skill-Level-Prior`) %>% 
+  tally() %>% 
+  filter(!is.na(`Skill-Level-Prior`)) 
+
+ggplot(data_skillsbefore_tally, 
+       aes(`Skill-Level-Prior`, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="orange") +
+  geom_text(aes(label=n), size= 4) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Level of Data Management & Analysis Skills Before the Workshop") +
+  ylab("% Respondents") +
+  ggtitle("A range of skill levels pre-workshop") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+ggsave("figures/preworkshop_skills.png")
+
+data %>% 
+  tally_and_perc(`Skill-Level-Prior`, na.rm = TRUE) %>% 
+  kable()
+
+# Rate your level of data management and analysis skills following the workshop.
+skillsafter <- c("About the same", "Somewhat higher", "Higher", "Much higher")
+skillsafter = factor(skillsafter)
+
+data$`Skill-Level-Following` = factor(data$`Skill-Level-Following`, levels = skillsafter)
+
+data_skillsafter_tally <- 
+  data %>% 
+  group_by(`Skill-Level-Following`) %>% 
+  tally() %>% 
+  filter(!is.na(`Skill-Level-Following`)) 
+
+ggplot(data_skillsafter_tally, 
+       aes(`Skill-Level-Following`, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="orange") +
+  geom_text(aes(label=n), size= 4) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Level of Data Management & Analysis Skills Following the Workshop") +
+  ylab("% Respondents") +
+  ggtitle("Skills increased post-workshop") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+ggsave("figures/postworkshop_skills.png")
+
+data %>% 
+  tally_and_perc(`Skill-Level-Following`, na.rm = TRUE) %>% 
+  kable()
+```
+
+
+### Perception of Workshop Overall
+```{r}
+#Subsetting a portion of the Likert items from Application to Recommend
+newvars <- c("Application", "Worth-My-Time", "Material", "Recommend")
+newdata2 <- data[newvars]
+
+cols_with_Agree <- map_lgl(newdata2, ~`%in%`("Agree", .x))
+newdata2_agree <-  newdata2[ , cols_with_Agree]
+
+levels = c("Strongly disagree",
+   "Disagree",
+   "Neutral",
+   "Agree",
+   "Strongly Agree")
+
+ factorfunction <- function(newdata2, factlevel){
+  factor(newdata2, 
+         levels=factlevel, 
+         ordered = TRUE)
+    fct_unify(newdata2, 
+              levels=factlevel)}
+
+newdata2_agree_likert <- likert(data.frame(lapply(newdata2_agree, factor, levels, ordered=TRUE)))
+
+#Likert plot
+title <- "Perception of Workshop Overall"
+ theme_update(plot.title = element_text(hjust = 0.5))
+plot(newdata2_agree_likert) + ggtitle(title) 
+ggsave("figures/postworkshop_overallperception_likert.png")
+
+#Heatmap
+title <- "Perception of Workshop Overall"
+plot(newdata2_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
+ggsave("figures/postworkshop_overallperception_heat.png")
+```
+
+### Perception of Workshop Instructors
+```{r}
+#Subsetting a portion of the Likert items from Instructors-Clear-Answers to Instructors-Enthusiastic
+updatedvars <- c("Instructors-Clear-Answers", "Instructors-Considerate", "Instructors-Effective", "Instructors-Enthusiastic")
+newdata3 <- data[updatedvars]
+
+cols_with_Agree <- map_lgl(newdata3, ~`%in%`("Always", .x))
+newdata3_agree <-  newdata3[ , cols_with_Agree]
+
+levels = c("Never",
+   "Sometimes",
+   "Usually",
+   "Most of the time",
+   "Always")
+
+ factorfunction <- function(newdata3, factlevel){
+  factor(newdata3, 
+         levels=factlevel, 
+         ordered = TRUE)
+    fct_unify(newdata3, 
+              levels=factlevel)}
+
+newdata3_agree_likert <- likert(data.frame(lapply(newdata3_agree, factor, levels, ordered=TRUE)))
+
+#Likert
+title <- "Perception of Workshop Instructors"
+ theme_update(plot.title = element_text(hjust = 0.5))
+plot(newdata3_agree_likert) + ggtitle(title) 
+ggsave("figures/postworkshop_instructors_likert.png")
+
+#Heatmap
+title <- "Perception of Workshop Instructors"
+plot(newdata3_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
+ggsave("figures/postworkshop_instructors_heat.png")
+```
