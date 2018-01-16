@@ -6,4 +6,4 @@ This report is an analysis of Data Carpentry's post-workshop [survey](https://gi
 
 
 ## Report
-[Report](https://carpentries.github.io/assessment/carpentries/data-carpentry/postworkshop/2018/January/report.html)
+[Report](https://carpentries.github.io/assessment/data-carpentry/postworkshop/2018/January/report.html)
