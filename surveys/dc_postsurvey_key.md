@@ -2,31 +2,24 @@
 
 Survey Question | Column Header
 ------------ | -------------
-When are you taking this survey? | When-Taking-Survey
-Is this your first time in a Data Carpentry workshop as a learner? | First-Time   
-| What is your domain of research (i.e. microbiology, ecology, social science, humanities, etc) | Research      |  
-| Which of the following describes your current status      | Status |   
-| Rate your level of involvement in the activities of this workshop.      | Involvement      |   
-| How much practical knowledge have you gained from this workshop? | Practical-Knowledge      |  
-| Compared to before the workshop I have a better understanding of how to: Effectively organize data in spreadsheets.      | Organize-Data |   
-| Compared to before the workshop I have a better understanding of how to: Use OpenRefine for data cleaning.      | Use-OpenRefine      |   
-| Compared to before the workshop I have a better understanding of how to: Import a file into Python and work with the data. | Import-Python      |  
-| Compared to before the workshop I have a better understanding of how to: Import a file into R and work with the data.      | Import-R |   
-| Compared to before the workshop I have a better understanding of how to: Do initial visualizations in Python.      | Visualizations-in-Python      |   
-| Compared to before the workshop I have a better understanding of how to: Do initial visualizations in R. | Visualizations-in-R      |  
-| Compared to before the workshop I have a better understanding of how to: Construct a SQL query statement. | Construct-SQL      |  
-| Compared to before the workshop I have a better understanding of how to: Use the command line. | Use-command-line      |  
-| Please rate your level of data management and analysis skills following the workshop. | Skill-Level-Following      |  
-| Please rate your level of agreement with the following statements: Data organization is a fundamental component of effective and reproducible research. | Data-Organization      |  
-| Please rate your level of agreement with the following statements: Using a scripting language like R or Python can ultimately improve my analysis efficiency. | Using-Scripting-Language      |  
-| Please rate your level of agreement with the following statements: Using R or Python makes analyses easier to reproduce. | Using-R-or-Python      |  
-| Please rate your level of agreement with the following statements: A value of using SQL, R or Python is that the underlying data cannot accidentally be changed. | Value-of-SQL-or-Python      |  
-| I can immediately apply what I learned at this workshop. | Application      |  
-| This workshop was worth my time. | Worth-My-Time      |  
-| The material presented matched the workshop description. | Material      |  
-| I would recommend this workshop to a friend or colleague. | Recommend      |  
-| Could you get clear answers to your questions from the instructors? | Instructors-Clear-Answers     |  
-| Were the instructors considerate to you? | Instructors-Considerate      |  
-| Were the instructors effective in teaching in the workshop? | Instructors-Effective      |  
-| Were the instructors enthusiastic about the workshop? | Instructors-Enthusiastic     |  
-| Was the workshop held in the United States? | Workshop-in-US     |  
+I consent to taking this survey. | Consent
+Are you 18 years of age or above? | Age   
+| Which workshop did you attend? | Workshop      |  
+| Please enter a unique identifier as follows: Number of siblings (as numeric) + First two letters of the city you were born in (lowercase) + First three letters of your current street (lowercase). Example: If I have 0 siblings, was born in Arlington, and live on Creekwater Street, my unique identifier would be 0arcre.This identifier will be confidential to you and will help us compare your answers with the pre-survey.      | UniqueID |   
+| Which of the following programming languages was covered in your workshop?      | ProgrammingLanguage      |   
+| Please rate your level of agreement with the following statements: Having access to the original, raw data is important to be able to repeat an analysis. | RawData      |   
+| Please rate your level of agreement with the following statements: I can write a small program/script/macro to solve a problem in my own work. | WriteProgram      |  
+| Please rate your level of agreement with the following statements: I know how to search for answers to my technical questions online. | SearchOnline      |  
+| Please rate your level of agreement with the following statements: While working on a programming project, if I get stuck, I can find ways of overcoming the problem. | OvercomeProblem      |  
+| Please rate your level of agreement with the following statements: I am confident in my ability to make use of programming software to work with data. | ProgrammingAbility      |  
+| Please rate your level of agreement with the following statements: Using a programming language (like R or Python) can make my analyses easier to reproduce. | Reproducibility      | 
+| Please rate your level of agreement with the following statements: I can immediately apply what I learned at this workshop. | ImmediatelyApply      | 
+| Please rate your level of agreement with the following statements: I felt comfortable learning in this workshop environment. | WorkshopComfortable      |
+| Please rate your level of agreement with the following statements: Using a programming language (like R or Python) can make me more efficient at working with data. | ProgrammingEfficient      |
+| Were there any accessibility issues that affected your ability to participate in this workshop? | AccessibilityIssues      |  
+| Please rate your level of agreement with the following statements: I was able to get clear answers to my questions from the instructors. | InstructorsClearAnswers      |
+| Please rate your level of agreement with the following statements: The instructors were enthusiastic about the workshop. | InstructorsEnthusiastic     |
+| Please rate your level of agreement with the following statements: I felt comfortable interacting with the instructors. | InstructorsComfortable     |
+| Please rate your level of agreement with the following statements: The instructors were knowledgeable about the material being taught. | InstructorsKnowledgeable     | 
+| How likely are you to recommend this workshop to a friend or colleague? | Recommend      |   
+| In what country was your workshop held? | Country     |  
