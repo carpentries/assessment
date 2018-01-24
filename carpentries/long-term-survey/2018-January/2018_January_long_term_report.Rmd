@@ -1,5 +1,5 @@
-# Short format workshops build skills and confidence for researchers to work with data
-## Tables and Figures for 2018 ASEE Paper
+# Analysis of the Carpentries Long-Term Feedback Survey: Round 2
+Contributors: [Kari L. Jordan](https://github.com/kariljordan), [Naupaka Zimmerman](https://github.com/naupaka), [Marianne Corvellec](https://github.com/mkcor), [Elizabeth Wickes](https://github.com/elliewix), [Jonah Duckles](https://github.com/jduckles) 
 ```{r setup, include=FALSE}
 library(knitr)
 opts_chunk$set(echo = FALSE,
@@ -13,10 +13,10 @@ library(testthat)
 
 ```{r include=FALSE}
 # round1data was collected March 2017
-round1data <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/ASEE/master/2018/data_20170701.csv")
+round1data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/carpentries/long-term-survey/2018-January/data_20170701.csv")
 
 # The survey was sent out again in October 2017. round2data includes the March 2017 data and the October 2017 data. Demographic questions (race/gender) were added to the survey.
-round2data <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/ASEE/master/2018/data_20171108.csv")
+round2data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/carpentries/long-term-survey/2018-January/data_20171108.csv")
 ```
 
 ```{r}
@@ -60,10 +60,8 @@ sum(idx)
 
 ### Demographics
 
-__Is this your first time completing this survey?__
-
-This question was added to the survey in the second round of data collection, that's why the n is so small. Do not include this in the paper.
-```{r}
+```{r include=FALSE}
+# Is this your first time completing this survey?
 first_time = c("Yes", "No", "I don't know.")
 first_time = factor(first_time)
 
@@ -102,7 +100,7 @@ ggplot(round2data_status_tally,
   geom_text(aes(label=n), size= 4, vjust=-0.25) +
   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
   theme_classic() +
-  xlab("Figure X: Respondents' Status") +
+  xlab("Figure 1: Respondents' Status") +
   ylab("% Respondents") +
   ggtitle("") +
   theme(plot.title = element_text(hjust = 0.5)) +
@@ -159,7 +157,7 @@ ggplot(round2data_workshops_tally,
   geom_text(aes(label=n), size= 4, vjust=-0.25) +
   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
   theme_classic() +
-  xlab("Figure 5: Number of Workshops Attended") +
+  xlab("Figure 2: Number of Workshops Attended") +
   ylab("% Respondents") +
   ggtitle("") +
   theme(plot.title = element_text(hjust = 0.5)) +
@@ -186,7 +184,7 @@ ggplot(round2data_time_since_tally,
   geom_text(aes(label=n), size= 4 , vjust=-0.25) +
   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
   theme_classic() +
-  xlab("Figure X: Time Since Attending Carpentry Workshop") +
+  xlab("Figure 3: Time Since Attending Carpentry Workshop") +
   ylab("% Respondents") +
   ggtitle("") +
   theme(plot.title = element_text(hjust = 0.5)) +
@@ -194,10 +192,9 @@ ggplot(round2data_time_since_tally,
 ggsave("figures/time_since_attending_workshop.png")
 ```
 
-__Last Carpentries workshop attended__
 
-This question was added to the survey during the second round, so there are only 17 responses. Do not include this in the paper.
-```{r}
+```{r include=FALSE}
+# Last Carpentries workshop attended
 workshop_attended = c("Data Carpentry", "Library Carpentry", "Software Carpentry", "I don't know.")
 workshop_attended = factor(workshop_attended)
 
@@ -426,7 +423,7 @@ behaviors_adopted_by_group %>%
                         low = "white",
                         high = "blue",
                         limits = c(0, 100)) +
-    ggtitle("Behaviors Adopted by Group (percent of respondants)") +
+    ggtitle("Figure 4: Behaviors Adopted by Group (percent of respondants)") +
     theme(axis.text.x = element_text(angle = 45,
                                      hjust = 1),
           panel.grid.major = element_blank(),
@@ -466,7 +463,7 @@ programming = factor(programming)
    theme_classic() +
    xlab("Programming Usage Pre-Workshop [Absolute]") +
    ylab("# Respondents") +
-   ggtitle("") +
+   ggtitle("Figure 5: Programming Usage Pre-Workshop") +
    theme(plot.title = element_text(hjust = 0.5)) +
    theme_classic(base_size = 14)
 ggsave("figures/programming_usage_pre_absolute.png")
@@ -492,9 +489,9 @@ ggsave("figures/programming_usage_pre_absolute.png")
                                                   paste,
                                                   collapse = "\n")) +
      theme_classic() +
-     xlab("Programming Usage Post-Workshop [%]") +
+     xlab("Programming Usage Pre-Workshop [%]") +
      ylab("% respondents") +
-     ggtitle("") +
+     ggtitle("Figure 6: Programming Usage Pre-Workshop") +
      theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14)
 ggsave("figures/programming_usage_pre_percent.png")
@@ -524,9 +521,9 @@ __Since completing a Carpentries workshop, how often do you currently use progra
    geom_text(aes(label=n), size= 4, vjust=-0.25) +
    scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
    theme_classic() +
-   xlab("Programming Usage Pre-Workshop [Absolute]") +
+   xlab("Programming Usage Post-Workshop [Absolute]") +
    ylab("# Respondents") +
-   ggtitle("") +
+   ggtitle("Figure 7: Programming Usage Post-Workshop") +
    theme(plot.title = element_text(hjust = 0.5)) +
    theme_classic(base_size = 14)
 ggsave("figures/programming_usage_post_absolute.png")
@@ -552,7 +549,7 @@ scale_x_discrete(labels = function(x) lapply(strwrap(x,
     theme_classic() +
     xlab("Programming Usage Post-Workshop") +
     ylab("% respondents") +
-    ggtitle("") +
+    ggtitle("Figure 8: Programming Usage Post-Workshop") +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14)
 ggsave("figures/programming_usage_post_percent.png")
@@ -598,7 +595,7 @@ round2data %>%
                                                  paste,
                                                  collapse = "\n")) +
     theme_classic() +
-    xlab("Figure 6: Respondents' Programming Usage Increased") +
+    xlab("Figure 9: Respondents' Programming Usage Increased") +
     ylab("% Respondents") +
     scale_fill_discrete(name = "",
                         labels = c("Before Workshop", "After Workshop")) +
@@ -647,11 +644,11 @@ ggplot(pre_and_post_usage_by_group,
                                                paste,
                                                collapse = "\n")) +
   theme_classic() +
-  xlab("Figure XX: Respondents' Programming Usage Increased (Grouped)") +
+  xlab("Figure 10: Respondents' Programming Usage Increased (Grouped)") +
   ylab("% Respondents (actual counts above bars)") +
   scale_fill_discrete(name = "",
                       labels = c("Before Workshop", "After Workshop")) +
-  ggtitle("") +
+  ggtitle("Figure 10: Programming Usage Pre/Post by Status") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
 ggsave("figures/change_in_programming_usage_by_group.png")
@@ -707,7 +704,7 @@ ggplot(stdres,
            fill = sign)) +
   geom_col(position = "dodge",
            aes(alpha = contrib_0_to_1)) +
-  xlab("Figure X: Respondents program significantly more often") +
+  xlab("Figure 11: Respondents program significantly more often") +
   ylab("Chi-square standardized residuals of\npost-workshop frequencies") +
   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse = "\n")) +
   scale_fill_manual(name = "",
@@ -762,22 +759,23 @@ ggplot(data_change.in.confidence_tally,
    theme_classic() +
    xlab("Change in Confidence") +
    ylab("% Respondents") +
-   ggtitle("") +
+   ggtitle("Figure 12: Change in Confidence 6 Months Later") +
    theme(plot.title = element_text(hjust = 0.5)) +
    theme_bw(base_size = 14)
 ggsave("figures/change_in_confidence.png")
 ```
 
-__Breakdown by Status__
+__Change in Confidence by Status__
 
-```{r}
+```{r include=FALSE}
 status <- unique(round1data$Position)
 status <- factor(status[!is.na(status)])
 ```
 
-What is your position?
+
 
 ```{r}
+# What is your position?
 status <- factor(status, levels(status)[c(7, 3, 6, 2, 1, 5, 4)])
 # Display ordering.
 print(levels(status))
@@ -820,9 +818,9 @@ ggplot(data = change_in_confidence_by_status,
 ggsave("figures/change_in_confidence_by_status.png")
 ```
 
-__Focus on Engineering__
 
 ```{r}
+# Focus on Engineering
 change_in_conf_eng <- round1data %>%
   filter(grepl("Engineering", Column6)) %>%
   group_by(`Change-In-Confidence`) %>%
@@ -846,7 +844,7 @@ ggplot(change_in_conf_eng,
 ggsave("figures/change_in_confidence_eng.png")
 ```
 
-```{r}
+```{r include=FALSE}
 # Breakdown by status.
 change_in_conf_eng_by_status <- round1data %>%
   filter(grepl("Engineering", Column6)) %>%
@@ -1037,7 +1035,7 @@ received_professional_recognition <-
   sum() %>%
   round(0)
 
-title <- "Table X: Perception of Workshop Impact"
+title <- "Figure: Perception of Workshop Impact"
 plot(data_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
 ggsave("figures/workshop_impact_heatmap.png")
 
