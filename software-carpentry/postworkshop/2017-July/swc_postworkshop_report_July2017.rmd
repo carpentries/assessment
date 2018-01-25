@@ -1,7 +1,7 @@
 ---
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 # Analysis of Software Carpentry's Post-Workshop Surveys
 __Contributors__: [Kari L. Jordan](https://github.com/kariljordan), [Ben Marwick](https://github.com/benmarwick), [Naupaka Zimmerman](https://github.com/naupaka), [Erin Becker](https://github.com/ErinBecker), and [Jonah Duckles](https://github.com/jduckles)  
