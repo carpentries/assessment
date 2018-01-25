@@ -1,5 +1,7 @@
-# Analysis of the Carpentries Long-Term Feedback Survey: Round 2
-Contributors: [Kari L. Jordan](https://github.com/kariljordan), [Naupaka Zimmerman](https://github.com/naupaka), [Marianne Corvellec](https://github.com/mkcor), [Elizabeth Wickes](https://github.com/elliewix), [Jonah Duckles](https://github.com/jduckles) 
+## Analysis of the Carpentries Long-Term Feedback Survey: Round 2
+__Contributors:__ [Kari L. Jordan](https://github.com/kariljordan), [Naupaka Zimmerman](https://github.com/naupaka), [Marianne Corvellec](https://github.com/mkcor), [Elizabeth Wickes](https://github.com/elliewix), [Jonah Duckles](https://github.com/jduckles) 
+
+__January 2018__
 ```{r setup, include=FALSE}
 library(knitr)
 opts_chunk$set(echo = FALSE,
@@ -13,10 +15,10 @@ library(testthat)
 
 ```{r include=FALSE}
 # round1data was collected March 2017
-round1data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/carpentries/long-term-survey/2018-January/data_20170701.csv")
+round1data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/long-term-survey/2018-January/data_20170701.csv")
 
 # The survey was sent out again in October 2017. round2data includes the March 2017 data and the October 2017 data. Demographic questions (race/gender) were added to the survey.
-round2data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/carpentries/long-term-survey/2018-January/data_20171108.csv")
+round2data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/long-term-survey/2018-January/data_20171108.csv")
 ```
 
 ```{r}
