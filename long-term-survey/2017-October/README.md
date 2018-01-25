@@ -6,7 +6,7 @@ The following individuals contributed to the development of the long-term survey
 + [Kari L. Jordan](https://github.com/kariljordan) 
 + [Ben Marwick](https://github.com/benmarwick) 
 + [Belinda Weaver](https://github.com/weaverbel) 
-+ [Naupaka Zimmerman]() 
++ [Naupaka Zimmerman](https://github.com/naupaka) 
 + [Jason Williams](https://github.com/JasonJWilliamsNY) 
 + [Tracy Teal](https://github.com/tracykteal) 
 + [Erin Becker](https://github.com/ErinBecker) 
