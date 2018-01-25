@@ -1,7 +1,7 @@
 # Summary
-Data and Software Carpentry launched a [long-term assessment survey](https://github.com/carpentries/assessment/blob/master/carpentries/long-term-survey/survey.pdf) in March 2017. The main goal of the resulting survey was to ask our learners to describe concrete changes they had implemented to their research practices as a result of completing a Carpentries workshop. 
+Data and Software Carpentry launched a [long-term assessment survey](https://github.com/carpentries/assessment/blob/master/long-term-survey/ARCHIVEDsurvey.pdf) in March 2017. The main goal of the resulting survey was to ask our learners to describe concrete changes they had implemented to their research practices as a result of completing a Carpentries workshop. 
 
-# Authors/Contributors
+# Contributors
 The following individuals contributed to the development of the long-term survey, the code for this report, or the write-up of the results: 
 + [Kari L. Jordan](https://github.com/kariljordan) 
 + [Ben Marwick](https://github.com/benmarwick) 
@@ -15,4 +15,4 @@ The following individuals contributed to the development of the long-term survey
 + [Beth Duckles](https://github.com/bduckles)
 
 # Report
-[Report](https://carpentries.github.io/assessment/carpentries/long-term-survey/report.html) 
+[Report](https://carpentries.github.io/assessment/long-term-survey/2017-October/longtermreport_October2017.html) 
