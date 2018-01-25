@@ -18,7 +18,7 @@ This repository contains projects lead by Kari L. Jordan, Data Carpentry's Deput
 
 # Content
 + [assessment-network](https://github.com/carpentries/assessment/tree/master/assessment-network): Contains minutes from the Assessment Network meetings. This group collaborate and share resources works on assessment within the open source/research computing space to 
-+ [carpentries](https://github.com/carpentries/assessment/tree/master/carpentries): Contains joint Carpentries reports and figures (ex. long-term survey report).
++ [long-term-survey](https://github.com/carpentries/assessment/tree/master/long-term-survey): Contains long-term survey data, reports, and figures.
 + [data-carpentry](https://github.com/carpentries/assessment/tree/master/data-carpentry): Contains Data Carpentry's survey reports and figures.
 + [software-carpentry](https://github.com/carpentries/assessment/tree/master/software-carpentry): Contains Software Carpentry's survey reports and figures.
 + [surveys](https://github.com/carpentries/assessment/tree/master/surveys): Contains all of the current and archived surveys for the Carpentries.
