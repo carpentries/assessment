@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Analysis of the Carpentries' Long-Term Feedback Survey
 Authors: [Kari L. Jordan](https://github.com/kariljordan), [Ben Marwick](https://github.com/benmarwick), [Belinda Weaver](https://github.com/weaverbel), [Naupaka Zimmerman](https://github.com/naupaka), [Jason Williams](https://github.com/JasonJWilliamsNY), [Tracy Teal](https://github.com/tracykteal), [Erin Becker](https://github.com/ErinBecker), [Jonah Duckles](https://github.com/jduckles), [Beth Duckles](https://github.com/bduckles), [Elizabeth Wickes](https://github.com/elliewix)  
 
