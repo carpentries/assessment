@@ -10,4 +10,4 @@ The following individuals contributed to the development of the long-term survey
 + [Jonah Duckles](https://github.com/jduckles)   
 
 # Report
-[2017-July Report](https://carpentries.github.io/assessment/software-carpentry/postworkshop/2017-July/swc_postworkshop_report_July2017.html) 
+[2017-July Report](https://carpentries.github.io/assessment/software-carpentry/postworkshop/2017-July/swc_postworkshop_report_July2017.html)
