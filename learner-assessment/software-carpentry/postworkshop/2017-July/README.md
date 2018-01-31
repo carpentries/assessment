@@ -1,5 +1,5 @@
 # Summary
-Software Carpentry's [post-workshop survey](https://github.com/carpentries/assessment/blob/master/software-carpentry/surveys/postsurvey.pdf) data and analysis for workshops up until July 2017.
+Software Carpentry's [post-workshop survey](https://github.com/carpentries/assessment/blob/master/learner-assessment/software-carpentry/surveys/postsurvey.pdf) data and analysis for workshops up until July 2017.
 
 # Contributors
 The following individuals contributed to the development of the long-term survey, the code for this report, or the write-up of the results: 
@@ -10,4 +10,4 @@ The following individuals contributed to the development of the long-term survey
 + [Jonah Duckles](https://github.com/jduckles)   
 
 # Report
-[2017-July Report](https://carpentries.github.io/assessment/software-carpentry/postworkshop/2017-July/swc_postworkshop_report_July2017.html)
+[2017-July Report](https://carpentries.github.io/assessment/learner/assessment/software-carpentry/postworkshop/2017-July/swc_postworkshop_report_July2017.html)
