@@ -1,8 +1,10 @@
-# About
-Repo for Data Carpentry's *retired* pre and post-workshop survey data.
+# About 
+This folder contains data and analyses for Data Carpentry's pre- and post-workshop surveys. 
 
-[Summary plots](https://carpentries.github.io/assessment/data-carpentry/pre-and-post/archived-survey-analysis/archived_survey_report.html) of the archived pre AND post workshop survey data for Data Carpentry's "retired" survey.
+# Surveys
+[Pre-Survey](https://github.com/carpentries/assessment/blob/master/learner-assessment/surveys/dc_presurvey_current.pdf)
 
-# Source Data:
-* [Archived Pre-Workshop Data](https://raw.githubusercontent.com/carpentries/assessment/master/data-carpentry/pre-and-post/archived-survey-analysis/data/clean_presurvey.csv)
-* [Archived Post-Workshop Data](https://raw.githubusercontent.com/carpentries/assessment/master/data-carpentry/pre-and-post/archived-survey-analysis/data/clean_postsurvey.csv)
+[Post-Survey](https://github.com/carpentries/assessment/blob/master/learner-assessment/surveys/dc_postsurvey_current.pdf)
+
+# Reports
+[Summary plots](https://carpentries.github.io/assessment/data-carpentry/pre-and-post/archived-survey-analysis/archived_survey_report.html) from the archived [pre](https://github.com/carpentries/assessment/blob/master/learner-assessment/surveys/dc_presurvey_archived.pdf) AND [post](https://github.com/carpentries/assessment/blob/master/learner-assessment/surveys/dc_postsurvey_archived.pdf) workshop survey data for Data Carpentry's "retired" survey.
