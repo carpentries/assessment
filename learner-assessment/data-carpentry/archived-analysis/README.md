@@ -14,4 +14,4 @@ All of the scripts in this repo were created by Paula Andrea and are freely avai
 If you have questions about contributing please contact [Kari L. Jordan](mailto:kariljordan@carpentries.org). You may also raise an issue or pull request. If you would like to develop on top of this, please cite the source as mentioned before.
 
 ## Plots
-[Plots](https://carpentries.github.io/assessment/data-carpentry/pre-and-post/archived-survey-analysis/archived_survey_report.html)
+[Plots](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/archived-survey-analysis/archived_survey_report.html)
