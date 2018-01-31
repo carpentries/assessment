@@ -17,17 +17,17 @@ Additionally, we measure learner’s perception of skill growth and whether or n
 This repository contains projects lead by Kari L. Jordan, Director of Assessment and Community Equity. The projects in this repo are open for comments/feedback and collaboration.
 
 # Content
-+ [assessment-network](https://github.com/carpentries/assessment/tree/master/assessment-network): Contains minutes from the Assessment Network meetings. This group collaborates and shares resources on assessment within the open source/research computing space. 
-+ [long-term-survey](https://github.com/carpentries/assessment/tree/master/long-term-survey): Contains long-term survey data, reports, and figures.
-+ [data-carpentry](https://github.com/carpentries/assessment/tree/master/data-carpentry): Contains Data Carpentry's survey reports and figures.
-+ [software-carpentry](https://github.com/carpentries/assessment/tree/master/software-carpentry): Contains Software Carpentry's survey reports and figures.
-+ [surveys](https://github.com/carpentries/assessment/tree/master/surveys): Contains all of the current and archived surveys for the Carpentries.
++ [long-term-survey](https://github.com/carpentries/assessment/tree/master/learner-assessment/long-term-survey): Contains long-term survey data, reports, and figures.
++ [data-carpentry](https://github.com/carpentries/assessment/tree/master/learner-assessment/data-carpentry): Contains Data Carpentry's survey reports and figures.
++ [software-carpentry](https://github.com/carpentries/assessment/tree/master/learner-assessment/software-carpentry): Contains Software Carpentry's survey reports and figures.
++ [library-carpentry](https://github.com/carpentries/assessment/tree/master/learner-assessment/library-carpentry): Contains Software Carpentry's survey reports and figures.
++ [surveys](https://github.com/carpentries/assessment/tree/master/learner-assessment/surveys): Contains all of the current and archived surveys for the Carpentries.
 
 # Reports  
-+ Software Carpentry post-workshop survey [report](https://carpentries.github.io/assessment/software-carpentry/postreport.html).  
++ Software Carpentry post-workshop survey [report](https://carpentries.github.io/assessment/learner-assessment/software-carpentry/postreport.html).  
 
-+ Carpentries Long-Term Assessment [report](https://carpentries.github.io/assessment/carpentries/long-term-survey/report.html).  
++ Carpentries Long-Term Assessment [report](https://carpentries.github.io/assessment/learner-assessment/long-term-survey/report.html).  
 
-+ Data Carpentry post-workshop survey [summary plots](https://carpentries.github.io/assessment/data-carpentry/postworkshop/report.html).
++ Data Carpentry post-workshop survey [summary plots](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/postworkshop/report.html).
  
-+ Data Carpentry Archived pre/post [summary plots](https://carpentries.github.io/assessment/data-carpentry/pre-and-post/archived-survey-analysis/archived_survey_report.html).
++ Data Carpentry Archived pre/post [summary plots](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/pre-and-post/archived-survey-analysis/archived_survey_report.html).
