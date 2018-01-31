@@ -1,11 +1,11 @@
 ---
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 # Analysis of Software Carpentry's Post-Workshop Surveys
-__Project Lead__: [Kari L. Jordan](https://github.com/kariljordan)  
-__Published__: July 1, 2017
+__Contributors__: [Kari L. Jordan](https://github.com/kariljordan), [Ben Marwick](https://github.com/benmarwick), [Naupaka Zimmerman](https://github.com/naupaka), [Erin Becker](https://github.com/ErinBecker), and [Jonah Duckles](https://github.com/jduckles)  
+__July 2017__
 
 ```{r setup, include=FALSE}
 library(knitr)
@@ -33,7 +33,7 @@ A [PDF](https://github.com/carpentries/assessment/blob/master/software-carpentry
 Community members are invited to contribute code to this analysis. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
 
 ```{r include=FALSE}
-data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/software-carpentry/data.csv")
+data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/software-carpentry/postworkshop/2017-July/data.csv")
 ```
 ### Respondent Demographics
 A host of initiatives have been developed and implemented globally to address gender disparities in computing. Software Carpentry's volunteer instructors have hosted hundreds of workshops since 1998, and the post-workshop survey data shows __parity__ in attendance of males compared to females.
