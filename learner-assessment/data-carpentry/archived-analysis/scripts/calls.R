@@ -3,7 +3,7 @@
 #
 #   Description: report plotting calls
 #   Analyzing pre and post survey results from Data Carpentry 
-#   Repo: https://github.com/carpentries/assessment-projects/tree/master/data-carpentry-projects
+#   Repo: https://github.com/carpentries/assessment/tree/master/learner-assessment/data-carpentry/archived-analysis
 #   Date: 2017, August 27
 #   Copyright (C) 2017 Paula Andrea Martinez
 #   ORCID iD 0000-0002-8990-1985
