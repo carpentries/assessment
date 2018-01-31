@@ -22,12 +22,12 @@ library(mapproj)
 library(RColorBrewer)
 library(srvyr)
 ```
-Data Carpentry is piloting a pre/post workshop survey that includes skills-based questions. A [PDF](https://github.com/carpentries/assessment/blob/master/data-carpentry/preworkshop/2017-pilot/presurvey.pdf) of the survey questions, the data used in this analysis, and full R code are located on the Data Carpentry [assessment](https://github.com/carpentries/assessment/tree/master/data-carpentry/preworkshop/2017-pilot) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
+Data Carpentry is piloting a pre/post workshop survey that includes skills-based questions. A [PDF](https://github.com/carpentries/assessment/blob/master/learner-assessment/data-carpentry/preworkshop/2017-pilot/presurvey.pdf) of the survey questions, the data used in this analysis, and full R code are located on the Data Carpentry [assessment](https://github.com/carpentries/assessment/tree/master/learner-assessment/data-carpentry/preworkshop/2017-pilot) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
 
-The following is a summary of the responses that have been collected since March 2017. As of 2017-10-20, 261 responses have been collected for the [pre-workshop survey](https://github.com/carpentries/assessment/blob/master/data-carpentry/preworkshop/2017-pilot/presurvey.pdf).
+The following is a summary of the responses that have been collected since March 2017. As of 2017-10-20, 261 responses have been collected for the [pre-workshop survey](https://github.com/carpentries/assessment/blob/master/learner-assessment/data-carpentry/preworkshop/2017-pilot/presurvey.pdf).
 
 ```{r echo=FALSE}
-data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/data-carpentry/preworkshop/2017-pilot/20171020_data.csv")
+data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/data-carpentry/preworkshop/2017-pilot/20171020_data.csv")
 ```
 
 ```{r}
