@@ -20,10 +20,10 @@ library(mapproj)
 library(RColorBrewer)
 library(srvyr)
 ```
-A [PDF](https://github.com/carpentries/assessment/blob/master/data-carpentry/preworkshop/2017-pilot/presurvey.pdf) of the survey questions, the data used in this analysis, and full R code are located on the Data Carpentry [assessment](https://github.com/carpentries/assessment/tree/master/data-carpentry/preworkshop/2017-pilot) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
+A [PDF](https://github.com/carpentries/assessment/blob/master/learner-assessment/data-carpentry/postworkshop/2018-January/survey.pdf) of the survey questions, the data used in this analysis, and full R code are located on the Data Carpentry [assessment](https://github.com/carpentries/assessment/tree/master/learner-assessment/data-carpentry/postworkshop) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
 
 ```{r echo=FALSE}
-data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/data-carpentry/postworkshop/data.csv")
+data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/data-carpentry/postworkshop/2018-January/data_180108.csv")
 ```
 
 ```{r}
