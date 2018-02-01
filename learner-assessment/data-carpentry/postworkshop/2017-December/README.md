@@ -1,11 +1,15 @@
 # About
-This repo contains reports for Data Carpentry's post-workshop surveys 
+Data Carpentry's post-workshop survey report written December 2017.
 
-# Reports
-- [December 2017](https://carpentries.github.io/assessment/data-carpentry/postworkshop/report.html)
-  - Report using data collected from 2016-March to 2017-Aug using the [archived survey](https://github.com/carpentries/assessment/blob/master/surveys/dc_postsurvey_archived.pdf).
-  - [Source Data](https://raw.githubusercontent.com/carpentries/assessment/master/data-carpentry/postworkshop/data.csv)
-- [January 2018](https://carpentries.github.io/assessment/data-carpentry/postworkshop/2018/January/report.html)
+# Source Data 
+- [Archived 2017-August](https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/data-carpentry/postworkshop/data.csv)
+
+# Report
+- [December 2017](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/postworkshop/report.html)
+  - Report using data collected from 2016-March to 2017-Aug using the [archived survey](https://github.com/carpentries/assessment/blob/master/learner-assessment/surveys/dc_postsurvey_archived.pdf).
+  
+
+
 
 
 
