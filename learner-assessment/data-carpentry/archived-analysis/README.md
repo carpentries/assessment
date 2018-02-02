@@ -1,7 +1,7 @@
 # Archived Survey Data
 
 ## Description
-Data Carpentry is continually developing our [Assesment](https://github.com/carpentries/assessment) efforts lead by Dr. Kari L. Jordan. On July 25th, 2017, [Paula Andrea](https://twitter.com/orchid00) joined [Kari L. Jordan](https://twitter.com/DrKariLJordan) to work on producing visualizations of the archived pre and post survey data. Read more about our efforts in the Carpentries Assessment [repo](https://github.com/carpentries/assessment/learner-assessment). 
+Data Carpentry is continually developing our [Assesment](https://github.com/carpentries/assessment) efforts lead by Dr. Kari L. Jordan. On July 25th, 2017, [Paula Andrea](https://twitter.com/orchid00) joined [Kari L. Jordan](https://twitter.com/DrKariLJordan) to work on producing visualizations of the archived pre and post survey data. Read more about our efforts in the Carpentries Assessment [repo](https://github.com/carpentries/assessment/edit/master/learner-assessment). 
 
 
 ## Availability
