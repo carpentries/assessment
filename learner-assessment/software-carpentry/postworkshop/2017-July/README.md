@@ -9,5 +9,5 @@ The following individuals contributed to the development of the long-term survey
 + [Erin Becker](https://github.com/ErinBecker) 
 + [Jonah Duckles](https://github.com/jduckles)   
 
-# Report
+# Report 
 [2017-July Report](https://carpentries.github.io/assessment/learner-assessment/software-carpentry/postworkshop/2017-July/2017-July-post.html)
