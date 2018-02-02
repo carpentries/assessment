@@ -7,5 +7,5 @@ This folder contains data and analyses for Software Carpentry's pre- and post-wo
 [Post-Survey](https://github.com/carpentries/assessment/blob/master/learner-assessment/software-carpentry/surveys/postsurvey.pdf)
 
 # Reports
-[2017-July](https://carpentries.github.io/assessment/learner-assessment/software-carpentry/postworkshop/2017-July/swc_postworkshop_report_July2017.html) __Post-Workshop Survey__ Report
+[2017-July Report](https://carpentries.github.io/assessment/learner-assessment/software-carpentry/postworkshop/2017-July/2017-July-post.html)
 
