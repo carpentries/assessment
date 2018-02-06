@@ -24,10 +24,10 @@ This repository contains projects lead by Kari L. Jordan, Director of Assessment
 + [surveys](https://github.com/carpentries/assessment/tree/master/learner-assessment/surveys): Contains all of the current and archived surveys for the Carpentries.
 
 # Reports  
-+ Software Carpentry post-workshop survey [report](https://carpentries.github.io/assessment/learner-assessment/software-carpentry/postreport.html).  
++ Software Carpentry post-workshop survey [report](https://carpentries.github.io/assessment/learner-assessment/software-carpentry/postworkshop/2017-July/2017-July-post.html).  
 
-+ Carpentries Long-Term Assessment [report](https://carpentries.github.io/assessment/learner-assessment/long-term-survey/report.html).  
++ Carpentries Long-Term Assessment [report]().  
 
-+ Data Carpentry post-workshop survey [summary plots](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/postworkshop/report.html).
++ Data Carpentry post-workshop survey [summary plots]().
  
-+ Data Carpentry Archived pre/post [summary plots](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/pre-and-post/archived-survey-analysis/archived_survey_report.html).
++ Data Carpentry Archived pre/post [summary plots](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/archived-analysis/2017-September-archived-analysis.html).
