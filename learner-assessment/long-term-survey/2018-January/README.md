@@ -1,5 +1,5 @@
 # Summary
-Data and Software Carpentry launched a [long-term assessment survey](https://github.com/carpentries/assessment/blob/master/long-term-survey/ARCHIVEDsurvey.pdf) in March 2017. The main goal of the resulting survey was to ask our learners to describe concrete changes they had implemented to their research practices as a result of completing a Carpentries workshop. The contents of this folder include data and analysis from the second round of long-term survey data collection.
+Data and Software Carpentry launched a [long-term assessment survey](https://github.com/carpentries/assessment/blob/master/long-term-survey/ARCHIVEDsurvey.pdf) in March 2017. The main goal of the resulting survey was to ask our learners to describe concrete changes they had implemented to their research practices as a result of completing a Carpentries workshop. The contents of this folder include data and analysis from the second round of long-term survey data collection using the [revised survey](https://github.com/carpentries/assessment/blob/master/learner-assessment/long-term-survey/longterm_survey_curent.pdf).
 
 # Contributors
 The following individuals contributed to the development of the long-term survey, the code for this report, or the write-up of the results: 
