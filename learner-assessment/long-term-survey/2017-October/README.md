@@ -15,4 +15,4 @@ The following individuals contributed to the development of the long-term survey
 + [Beth Duckles](https://github.com/bduckles)
 
 # Report
-[Report](https://carpentries.github.io/assessment/learner-assessment/long-term-survey/2017-October/longtermreport_October2017.html)
+[October 2017](https://carpentries.github.io/assessment/learner-assessment/long-term-survey/2017-October/longtermreport_October2017.html)
