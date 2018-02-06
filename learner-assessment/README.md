@@ -25,9 +25,11 @@ This repository contains projects lead by Kari L. Jordan, Director of Assessment
 
 # Reports  
 + Software Carpentry post-workshop survey [report](https://carpentries.github.io/assessment/learner-assessment/software-carpentry/postworkshop/2017-July/2017-July-post.html).  
-
-+ Carpentries Long-Term Assessment [report]().  
-
-+ Data Carpentry post-workshop survey [summary plots]().
++ Carpentries Long-Term Assessment reports:
+  + [October 2017](https://carpentries.github.io/assessment/learner-assessment/long-term-survey/2017-October/longtermreport_October2017.html)
+  + [January 2018](https://carpentries.github.io/assessment/learner-assessment/long-term-survey/2018-January/2018_January_long_term_report.html)
++ Data Carpentry post-workshop surveys:
+  + [December 2017](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/postworkshop/2017-December/2017-December-post.html)
+  + [January 2018]()
  
 + Data Carpentry Archived pre/post [summary plots](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/archived-analysis/2017-September-archived-analysis.html).
