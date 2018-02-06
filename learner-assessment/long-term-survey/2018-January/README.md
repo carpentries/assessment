@@ -10,4 +10,4 @@ The following individuals contributed to the development of the long-term survey
 + [Jonah Duckles](https://github.com/jduckles) 
 
 # Report
-[January 2018](https://carpentries.github.io/assessment/long-term-survey/2018-January/2018_January_long_term_report.html)
+[January 2018](https://carpentries.github.io/assessment/learner-assessment/long-term-survey/2018-January/2018_January_long_term_report.html)
