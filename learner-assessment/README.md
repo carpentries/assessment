@@ -24,12 +24,12 @@ This repository contains projects lead by Kari L. Jordan, Director of Assessment
 + [surveys](https://github.com/carpentries/assessment/tree/master/learner-assessment/surveys): Contains all of the current and archived surveys for the Carpentries.
 
 # Reports  
-+ Software Carpentry post-workshop survey [report](https://carpentries.github.io/assessment/learner-assessment/software-carpentry/postworkshop/2017-July/2017-July-post.html).  
-+ Carpentries Long-Term Assessment reports:
-  + [October 2017](https://carpentries.github.io/assessment/learner-assessment/long-term-survey/2017-October/longtermreport_October2017.html)
-  + [January 2018](https://carpentries.github.io/assessment/learner-assessment/long-term-survey/2018-January/2018_January_long_term_report.html)
-+ Data Carpentry post-workshop surveys:
-  + [December 2017](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/postworkshop/2017-December/2017-December-post.html)
-  + [January 2018]()
- 
-+ Data Carpentry Archived pre/post [summary plots](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/archived-analysis/2017-September-archived-analysis.html).
++ __Software Carpentry:__ 
+  + [2017-July](https://carpentries.github.io/assessment/learner-assessment/software-carpentry/postworkshop/2017-July/2017-July-post.html) Post-Workshop Survey Report  
++ __Data Carpentry:__
+  + [2018-January](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/postworkshop/2018-January/report.html) Post-Workshop Survey Report  
+  + [2017-December](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/postworkshop/2017-December/report.html) Post-Workshop Survey Report  
+  + [2017-September](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/archived-analysis/2017-September-archived-analysis.html) Archived [pre](https://github.com/carpentries/assessment/blob/master/learner-assessment/surveys/dc_presurvey_archived.pdf) AND [post](https://github.com/carpentries/assessment/blob/master/learner-assessment/surveys/dc_postsurvey_archived.pdf) Workshop Summary Plots.
++ __Carpentries Long-Term Survey:__
+  + [2017-October](https://carpentries.github.io/assessment/learner-assessment/long-term-survey/2017-October/longtermreport_October2017.html) Report
+  + [2018-January](https://carpentries.github.io/assessment/learner-assessment/long-term-survey/2018-January/2018_January_long_term_report.html) Report
