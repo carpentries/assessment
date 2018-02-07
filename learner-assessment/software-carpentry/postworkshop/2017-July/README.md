@@ -1,5 +1,5 @@
 # Summary
-Software Carpentry's [post-workshop survey](https://github.com/carpentries/assessment/blob/master/learner-assessment/software-carpentry/surveys/postsurvey.pdf) data and analysis for workshops up until July 2017.
+Software Carpentry's [post-workshop survey](https://github.com/carpentries/assessment/blob/master/learner-assessment/software-carpentry/surveys/postsurvey.pdf) data and analysis for workshops up until July 2017. The __column header key__ in this folder corresponds to the column headers in the dataset. Each question in the survey has a corresponding column header in the __column header key__.
 
 # Contributors
 The following individuals contributed to the development of the long-term survey, the code for this report, or the write-up of the results: 
