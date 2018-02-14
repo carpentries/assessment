@@ -6,7 +6,7 @@ This report is an analysis of Data Carpentry's post-workshop [survey](https://gi
 
 
 ## Report
-[January 2018](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/postworkshop/2018-January/report.html)
+[January 2018](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/postworkshop/postworkshop/2018-January/2018-January-post.html)
 
 
 
