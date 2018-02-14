@@ -238,13 +238,13 @@ ggsave("figures/perception_instructors_heat.png")
 ### Recommending Data Carpentry Workshops
 Learners were asked how likely they are to recommend this workshop to a friend or colleague using a sliding scale from zero to one hundred.
 ```{r}
-data %>% 
-  tally_and_perc(`Recommend`, na.rm = TRUE) %>% 
-  kable()
+# data %>% 
+  #tally_and_perc(`Recommend`, na.rm = TRUE) %>% 
 
 # col picks the color, pch fills the circles in with the color
 beeswarm(data$Recommend,
          method = c("center"),
          vertical = TRUE,
          pch = 16, col = rainbow(7))
+ggsave("figures/likely_to_recommend.png")
 ```
