@@ -20,6 +20,7 @@ library(likert)
 library(mapproj)
 library(RColorBrewer)
 library(srvyr)
+library(beeswarm)
 ```
 This report and the figures created were create using Data Carpentry's post-workshop surveys collected August 7, 2017 through January 8, 2018. A PDF of the survey questions, the data used in this analysis, and full R code are located on the Carpentries [assessment](https://github.com/carpentries/assessment/tree/master/data-carpentry/postworkshop/2018/January) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
 
@@ -236,10 +237,14 @@ ggsave("figures/perception_instructors_heat.png")
 
 ### Recommending Data Carpentry Workshops
 Learners were asked how likely they are to recommend this workshop to a friend or colleague using a sliding scale from zero to one hundred.
-```{r include=FALSE}
+```{r}
 data %>% 
   tally_and_perc(`Recommend`, na.rm = TRUE) %>% 
   kable()
 
-#What's the best way to show this info? Table is too long.
+# col picks the color, pch fills the circles in with the color
+beeswarm(data$Recommend,
+         method = c("center"),
+         vertical = TRUE,
+         pch = 16, col = rainbow(7))
 ```
