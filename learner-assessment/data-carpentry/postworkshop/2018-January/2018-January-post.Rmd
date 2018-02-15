@@ -237,14 +237,25 @@ ggsave("figures/perception_instructors_heat.png")
 ```
 
 ### Recommending Data Carpentry Workshops
-Learners were asked how likely they are to recommend this workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter).
+Learners were asked how likely they are to recommend this workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter). The scoring for this question based on a 0 to 100 scale. Respondents scoring from 0 to 60 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 90 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 70 and 80 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors. 
+
+```{r}
+data %>% 
+  tally_and_perc(`Recommend`, na.rm = TRUE) %>% 
+  kable()
+
+x <- data$`Recommend`
+kable(table(npc(x, breaks = list(0:60, 70:80, 90:100))))
+
+```
+
 ```{r}
 
 data_recommend_tally <- 
   data %>% 
   group_by(Recommend) %>% 
   tally() %>%
-  filter(!is.na(Recommend)) 
+  filter(!is.na(Recommend))
 
 ggplot(data_recommend_tally, 
        aes(`Recommend`, y = 100 * (n/sum(n)),
@@ -260,12 +271,6 @@ ggplot(data_recommend_tally,
   theme_classic(base_size = 14)
 ggsave("figures/likely_to_recommend.png")
 
-prop.table(table(data$`Recommend`))
+
 hist(data$`Recommend`, breaks=-1:100, col=c(rep("red",7), rep("yellow",2), rep("green", 2)))
-
-barplot(
-prop.table(table(data$`Recommend`)),
-col=c(rep("red",7), rep("yellow",2), rep("green", 2))
-)
-
 ```
