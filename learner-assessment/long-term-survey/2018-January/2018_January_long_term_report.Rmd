@@ -15,10 +15,10 @@ library(testthat)
 
 ```{r include=FALSE}
 # round1data was collected March 2017
-round1data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/long-term-survey/2018-January/data_20170701.csv")
+round1data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/long-term-survey/2018-January/data_20170701.csv")
 
 # The survey was sent out again in October 2017. round2data includes the March 2017 data and the October 2017 data. Demographic questions (race/gender) were added to the survey.
-round2data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/long-term-survey/2018-January/data_20171108.csv")
+round2data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/long-term-survey/2018-January/data_20171108.csv")
 ```
 
 ```{r}
