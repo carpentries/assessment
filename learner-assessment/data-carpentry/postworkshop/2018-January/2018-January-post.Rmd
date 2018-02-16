@@ -27,6 +27,7 @@ This report and the figures created were create using Data Carpentry's post-work
 
 ```{r echo=FALSE}
 data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/data-carpentry/postworkshop/2018-January/data_180108.csv")
+data <- mutate_if(data,  is.character, ~ gsub("[\u2018\u2019\u201A\u201B\u2032\u2035]", "'", .))
 ```
 
 
