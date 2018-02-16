@@ -156,7 +156,7 @@ levels = c("Strongly disagree",
    "Disagree",
    "Neutral",
    "Agree",
-   "Strongly Agree")
+   "Strongly agree")
 
  factorfunction <- function(newdata, factlevel){
   factor(newdata, 
@@ -213,7 +213,7 @@ levels = c("Strongly disagree",
    "Disagree",
    "Neutral",
    "Agree",
-   "Strongly Agree")
+   "Strongly agree")
 
  factorfunction <- function(newdata, factlevel){
   factor(newdata, 
