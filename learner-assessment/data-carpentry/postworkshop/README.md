@@ -5,7 +5,7 @@ This folder contains data and analyses for Data Carpentry's post-workshop survey
 [Post-Survey](https://github.com/carpentries/assessment/blob/master/learner-assessment/surveys/dc_postsurvey_current.pdf)
 
 # Reports
-[2018-January](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/postworkshop/2018-January/report.html)
+[2018-January](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/postworkshop/2018-January/2018-January-post.html)
 
-[2017-December](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/postworkshop/2017-December/report.html)
+[2017-December](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/postworkshop/2017-December/2017-December-post.html)
 
