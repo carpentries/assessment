@@ -1,8 +1,8 @@
 # About
 The Assessment Network was established on Wednesday, October 5, 2016 as a space for those working on assessment within the open source/research computing space to collaborate and share resources.
 
-# E-mail List
-assessment-network@carpentries.org
+# Get Involved
+To join the Assessment Network, submit a [request to join](mailto:kariljordancarpentries.org).
 
 # Members
 | Name  | Organization  |  Role |  Timezone |
