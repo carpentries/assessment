@@ -9,7 +9,7 @@ To join the Assessment Network, submit a [request to join](mailto:kariljordancar
 |---|---|---|---|
 | Kari L. Jordan  | Data Carpentry  | Deputy Director of Assessment  | UTC-4
 | Louisa Bellis  |  University of Cambridge  | EXCELERATE Training Quality & Impact Coordinator  |  BST/GMT |
-| Kim Gurwitz  | H3ABioNet, University of Cape Town  | SAST  |   |
+| Kim Gurwitz  | Elixir, University of Cambridge  | Training Impact Coordinator  | GMT  |
 | Alycia Crall  | National Ecological Observatory Network (NEON)  | Science Educator and Evaluator  | MT  |
 | Elizabeth Wickes  | University of Illinois at Urbana-Champaign  | Data Curation Specialist  |   |
 | Matthew B. Jones  | National Center for Ecological Analysis and Synthesis (NCEAS)  | Director of Informatics  | AK  |
