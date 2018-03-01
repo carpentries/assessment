@@ -210,15 +210,9 @@ Respondents were asked to rate their level of agreement about the following:
 ```{r}
 # Please give us some feedback about the overall training event.
 # Subsetting a portion of the Likert items from InformationReasonableTime to Worth
-<<<<<<< HEAD
 myvars <- c("InformationReasonableTime", 
             "AtmosphereWelcoming", "LearnedSkills", "Material", "Recommend", "Worth") 
-newdata <- data[myvars]            
-=======
-
-myvars <- c("InformationReasonableTime", "AtmosphereWelcoming", "LearnedSkills", "Material", "Recommend", "Worth")
-newdata <- postdata[myvars]
->>>>>>> f48ad9f84a50939e220b4cf61fe755008486101e
+newdata <- postdata[myvars]            
 
 cols_with_Agree <- map_lgl(newdata, ~`%in%`("Agree", .x))
 newdata_agree <-  newdata[ , cols_with_Agree]
@@ -237,19 +231,86 @@ levels = c("Strongly Disagree",
               levels=factlevel)}
 
 newdata_agree_likert <- likert(data.frame(lapply(newdata_agree, factor, levels, ordered=TRUE)))
+```
 
+```{r training_perception_likert}
 #Likert plot
 title <- "Perception of Workshop Impact"
  theme_update(plot.title = element_text(hjust = 0.5))
 plot(newdata_agree_likert) + ggtitle(title) 
+```
 
-
+```{r training_perception_heatmap}
 #Heatmap
 title <- "Perception of Workshop Impact"
 plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
 ```
 
+__How did you perceive the pace of the training?__
+```{r training_pace}
+# How did you perceive the pace of the training?
+pace = c("Too slow", "Slightly slow", "Just right", "Slightly fast", "Too fast")
+pace = factor(pace)
 
+postdata$Pace = factor(postdata$Pace, levels = pace)
+
+postdata_pace_tally <-
+  postdata %>%
+  group_by(Pace) %>%
+  tally() %>%
+  filter(!is.na(Pace)) %>%
+  mutate(perc = round(n/sum(n) * 100, 0))
+
+kable(postdata_pace_tally)
+
+ggplot(postdata_pace_tally,
+       aes(Pace, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="orange") +
+  geom_text(aes(label=n), size= 4, vjust=-0.25) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Pace") +
+  ylab("% Respondents") +
+  ggtitle("Trainees Perception of Workshop Pace") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+```
+
+__How was the balance of lecture to hands-on work?__
+```{r training_pace}
+# How was the balance of lecture to hands-on work?
+handson = c("Too much lecture", 
+            "Slightly too much lecture", 
+            "Balanced (lecture/hands-on)", 
+            "Slightly too much hands-on", 
+            "Too much hands-on")
+handson = factor(handson)
+
+postdata$HandsOn = factor(postdata$HandsOn, levels = pace)
+
+postdata_handson_tally <-
+  postdata %>%
+  group_by(HandsOn) %>%
+  tally() %>%
+  filter(!is.na(HandsOn)) %>%
+  mutate(perc = round(n/sum(n) * 100, 0))
+
+kable(postdata_handson_tally)
+
+ggplot(postdata_handson_tally,
+       aes(HandsOn, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="orange") +
+  geom_text(aes(label=n), size= 4, vjust=-0.25) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Balance of Lecture") +
+  ylab("% Respondents") +
+  ggtitle("Trainees Perception of Balance: Lecture vs. Hands-On") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+```
 
 
 ```{r include=FALSE}
