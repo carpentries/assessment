@@ -992,7 +992,6 @@ The statements below reflect ways in which completing a Carpentries workshop may
 ```{r}
 # Jonah's fix to include the correct levels. Variable was renamed to 'levels'
 # because 'order' is the name of a function in R.
-# I am still not sure if this plot is 100% correct -KLJ
 
 cols_with_Agree <- map_lgl(round2data, ~`%in%`("Agree", .x))
 data_agree <-  round2data[ , cols_with_Agree]
@@ -1040,8 +1039,6 @@ received_professional_recognition <-
 title <- "Figure: Perception of Workshop Impact"
 plot(data_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
 ggsave("figures/workshop_impact_heatmap.png")
-
-# How can we change the axis labels to make them easier to understand?
 ```
 
 # Breakdown of respondents by Country
