@@ -178,9 +178,6 @@ ggsave("figures/postworkshop_impact_likert.png")
 title <- "Perception of Workshop Impact"
 plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
 ggsave("figures/postworkshop_impact_heat.png")
-
-
-## Neither of these plots are correct because we have respondents who selected STRONGLY AGREE
 ```
 
 ### Accessibility Issues 
