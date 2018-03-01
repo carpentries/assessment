@@ -278,7 +278,8 @@ ggplot(postdata_pace_tally,
 ```
 
 __How was the balance of lecture to hands-on work?__
-```{r training_pace}
+
+```{r training_balance_of_lecture}
 # How was the balance of lecture to hands-on work?
 handson = c("Too much lecture", 
             "Slightly too much lecture", 
@@ -287,7 +288,7 @@ handson = c("Too much lecture",
             "Too much hands-on")
 handson = factor(handson)
 
-postdata$HandsOn = factor(postdata$HandsOn, levels = pace)
+postdata$HandsOn = factor(postdata$HandsOn, levels = handson)
 
 postdata_handson_tally <-
   postdata %>%
@@ -307,10 +308,73 @@ ggplot(postdata_handson_tally,
   theme_classic() +
   xlab("Balance of Lecture") +
   ylab("% Respondents") +
-  ggtitle("Trainees Perception of Balance: Lecture vs. Hands-On") +
+  ggtitle("Trainees Perception of Workshop Balance: Lecture vs. Hands-On") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
 ```
+
+## About the Instructors and Helpers
+
+__Please select how you felt the instructor trainers(s) performed.
+
++ Instructor trainer(s) gave clear answers to your questions.
++ Instructor trainer(s) were considerate.
++ Instructor trainer(s) were good communicators.
++ Instructor trainer(s) were enthusiastic.
+
+```{r perception_trainers_performance}
+# Please select how you felt the instructor trainers(s) performed.
+# Code chunk for likert plot (perception of workshop instructors/helpers)
+ordered_often <-
+  c("Never", "Rarely", "Sometimes", "Often", "All of the time")
+
+# Trainers
+likert_cols_often_Train <- 
+ postdata %>% 
+   select(grep("Trainers", names(.))) %>% 
+   mutate_if(is.character, as.factor) %>% 
+   mutate_all(funs(fct_relevel(., ordered_often))) %>% 
+   filter_all(all_vars(!is.na(.)))
+
+names(likert_cols_often_Train) <- 
+  gsub("Trainers", "", names(likert_cols_often_Train))
+  
+lc_often_train <- likert(data.frame(likert_cols_often_Train))
+
+plot(lc_often_train) +
+  ggtitle("Perception of How Instructor Trainers Performed")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ```{r include=FALSE}
