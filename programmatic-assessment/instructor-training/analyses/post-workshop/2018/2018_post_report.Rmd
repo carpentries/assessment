@@ -212,7 +212,7 @@ Respondents were asked to rate their level of agreement about the following:
 # Subsetting a portion of the Likert items from InformationReasonableTime to Worth
 
 myvars <- c("InformationReasonableTime", "AtmosphereWelcoming", "LearnedSkills", "Material", "Recommend", "Worth")
-newdata <- data[myvars]
+newdata <- postdata[myvars]
 
 cols_with_Agree <- map_lgl(newdata, ~`%in%`("Agree", .x))
 newdata_agree <-  newdata[ , cols_with_Agree]
