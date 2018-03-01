@@ -61,78 +61,133 @@ This analysis of The Carpentries Instructor Training [post-workshop survey](http
 
 There were a total 573 trainees who completed this survey in between 2016 and 2018.
 
-### Demographics
+## When are respondents completing the post-workshop survey?
 
-```{r include=FALSE}
-# Is this your first time completing this survey?
-first_time = c("Yes", "No", "I don't know.")
-first_time = factor(first_time)
-
-round2data$FirstSurvey = factor(round2data$FirstSurvey, levels = first_time)
-
-round2data_firsttime_tally <-
-  round2data %>%
-  group_by(FirstSurvey) %>%
-  tally() %>%
-  filter(!is.na(FirstSurvey)) %>%
-  mutate(perc = round(n/sum(n) * 100, 0))
-
-kable(round2data_firsttime_tally)
-```
-
-__Respondents Status__
+When are you taking this survey?
 
 ```{r}
-# Status of Respondents
-status = c("Undergraduate Student", "Graduate Student", "Postdoc", "Faculty", "Industry", "Academic Research Staff", "Other Academic Staff", "Other (please specify)")
-status = factor(status)
+# When are you taking this survey?
+when_taking = c("I have just completed the training, and am taking it at the event", "I have recently completed the training, and am taking it after I left the event")
+when_taking = factor(when_taking)
 
-round2data$Status = factor(round2data$Status, levels = status)
+postdata$`When-Taking` = factor(postdata$`When-Taking`, levels = when_taking)
 
-round2data_status_tally <-
-  round2data %>%
-  group_by(Status) %>%
+postdata_when_taking_tally <-
+  postdata %>%
+  group_by(`When-Taking`) %>%
   tally() %>%
-  filter(!is.na(Status)) %>%
+  filter(!is.na(`When-Taking`)) %>%
   mutate(perc = round(n/sum(n) * 100, 0))
 
-ggplot(round2data_status_tally,
-       aes(Status, y = 100 * (n/sum(n)),
+kable(postdata_when_taking_tally)
+```
+### Demographics
+
+__Respondents Position__
+
+What is your current position?
+
+```{r trainees_position}
+# What is your current position?
+position = c("Undergraduate Student", "Graduate Student", "Post-doctoral researcher", "Faculty", "Research staff (including research programmer", "Support staff (including technical support)", "Librarian/archivist", "Commercial software developer", "Other (please specify)")
+position = factor(position)
+
+postdata$Position = factor(postdata$Position, levels = position)
+
+postdata_position_tally <-
+  postdata %>%
+  group_by(Position) %>%
+  tally() %>%
+  filter(!is.na(Position)) %>%
+  mutate(perc = round(n/sum(n) * 100, 0))
+
+ggplot(postdata_position_tally,
+       aes(Position, y = 100 * (n/sum(n)),
            n)) +
-  geom_bar(stat = "identity", fill="grey") +
+  geom_bar(stat = "identity", fill="orange") +
   geom_text(aes(label=n), size= 4, vjust=-0.25) +
   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
   theme_classic() +
-  xlab("Figure 1: Respondents' Status") +
+  xlab("Respondents' Position") +
   ylab("% Respondents") +
-  ggtitle("") +
+  ggtitle("Breakdown of Instructor Trainees by Position") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
-ggsave("figures/status.png")
 ```
 
-__Field of work, research, or study.__
+In the interest of improving diversity, we collect additional demographic information for U.S. participants. This information is completely voluntary.
+
+__How would you describe yourself?__
+
 ```{r}
-# Field of work, research, or study. Responses are in columns 'Field' through 'Column12'
+# How would you describe yourself?
+race = c("American Indian or Alaska Native",
+"Asian",
+"Black or African American",
+"Hispanic or Latino(a)",
+"Native Hawaiian or Other Pacific Islander",
+"White",
+"Prefer not to say",
+"Multiple ethnicity / Other (please specify)")
+race = factor(race)
 
-n_responses_to_field_question <-
-  n_responses_to_the_question(round2data,
-                              from_colname = Field,
-                              to_colname = Column12)
+postdata$Race = factor(postdata$Race, levels = race)
 
-field_perc <-
-round2data %>%
-  select(Field:Column12) %>%
-  gather(col, field_perc) %>%
-  group_by(field_perc) %>%
-  tally_and_perc(field_perc,
+postdata_race_tally <-
+  postdata %>%
+  group_by(Race) %>%
+  tally() %>%
+  filter(!is.na(Race)) %>%
+  mutate(perc = round(n/sum(n) * 100, 0))
+
+kable(postdata_race_tally)
+```
+
+__What is your gender?__
+
+```{r}
+# What is your gender?
+gender = c("Female", "Male", "Other", "Prefer not to say")
+gender = factor(gender)
+
+postdata$Gender = factor(postdata$Gender, levels = gender)
+
+postdata_gender_tally <-
+  postdata %>%
+  group_by(Gender) %>%
+  tally() %>%
+  filter(!is.na(Gender)) %>%
+  mutate(perc = round(n/sum(n) * 100, 0))
+
+kable(postdata_gender_tally)
+```
+
+__Domain of research/study__
+
+What is your downain of research/study?
+
+```{r}
+# What is your downain of research/study? 
+# Responses are in columns 'Domain' through 'Column63'
+
+n_responses_to_domain_question <-
+  n_responses_to_the_question(postdata,
+                              from_colname = Domain,
+                              to_colname = Column63)
+
+domain_perc <-
+postdata %>%
+  select(Domain:Column63) %>%
+  gather(col, domain_perc) %>%
+  group_by(domain_perc) %>%
+  tally_and_perc(domain_perc,
                  na.rm = TRUE,
-                 question_n = n_responses_to_field_question) %>%
-  filter(!is.na(field_perc)) %>%
+                 question_n = n_responses_to_domain_question) %>%
+  filter(!is.na(domain_perc)) %>%
   arrange(desc(n)) %>%
-  rename(Field = field_perc)
+  rename(Domain = domain_perc)
 
-kable(field_perc,
+kable(domain_perc,
       format = "markdown",
       digits = getOption("digits"),
       row.names = NA,
@@ -141,59 +196,66 @@ kable(field_perc,
     escape = TRUE)
 ```
 
-__Number of Carpentries workshops attended__
-```{r}
-# Number of workshops attended
-round2data_workshops_tally <-
-  round2data %>%
-  group_by(`NumWorkshops`) %>%
-  tally() %>%
-  filter(!is.na(`NumWorkshops`))
+__Feedback about the overall training event.__
+Respondents were asked to rate their level of agreement about the following:
 
-# Use the code below to include a table of the number of workshops respondents attended
-#kable(round2data_workshops_tally, format = "markdown", row.names = FALSE, col.names = c("# Wrkshps", "n"), caption = "Number of Workshops Attended")
++ The amount of information covered was reasonable for alloted time.
++ The overall atmosphere was welcoming.
++ I learned skills that I will be able to use in my teaching.
++ The material preented matched the description of the training event.
++ I would recommend this training to a friend/colleague.
++ The training was worth my time.
 
-ggplot(round2data_workshops_tally,
-       aes(`NumWorkshops`, y = 100 * (n/sum(n)),
-           n)) +
-  geom_bar(stat = "identity", fill="grey") +
-  geom_text(aes(label=n), size= 4, vjust=-0.25) +
-  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-  theme_classic() +
-  xlab("Figure 2: Number of Workshops Attended") +
-  ylab("% Respondents") +
-  ggtitle("") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
-ggsave("figures/number_workshops_attended.png")
+```{r training_perception}
+# Please give us some feedback about the overall training event.
+cols_with_Agree <- map_lgl(round2data, ~`%in%`("Agree", .x))
+data_agree <-  round2data[ , cols_with_Agree]
+
+levels = c("Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree")
+
+# Beth's tip to both order the factors based on levels and unify the factors
+ factorfunction <- function(mydata, factlevel){
+  factor(mydata,
+         levels=factlevel,
+         ordered = TRUE)
+    fct_unify(mydata,
+              levels=factlevel)}
+ # End tip
+
+ # Adjusting names of y axis labels
+ names(data_agree) <-
+  c("Coding",
+    "Confidence",
+    "Career",
+    "Motivation",
+    "Reproducible",
+    "Productivity",
+    "Recognition")
+
+data_agree_likert <- likert(data.frame(lapply(data_agree, factor, levels, ordered=TRUE)))
+
+agree_or_strongly_agree_improved_3_things <-
+  data_agree %>%
+  select(Coding, Reproducible, Productivity) %>%
+  filter(Coding       %in% c("Agree", "Strongly agree") | # or
+         Reproducible %in% c("Agree", "Strongly agree") |
+         Productivity %in% c("Agree", "Strongly agree"))
+
+perc_agree_or_strongly_agree_improved_3_things <-
+  round(nrow(agree_or_strongly_agree_improved_3_things) / nrow(data_agree) * 100, 0)
+
+received_professional_recognition <-
+  data_agree_likert$results %>%
+  filter(Item == "Recognition") %>%
+  select(Agree, `Strongly agree`) %>%
+  sum() %>%
+  round(0)
+
+title <- "Figure: Perception of Workshop Impact"
+plot(data_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
 ```
 
-__Time since completing last Carpentries workshop__
-```{r}
-# How long ago did you attend a workshop?
- round2data_time_since_tally <-
-  round2data %>%
-  group_by(`TimeSinceWorkshop`) %>%
-  tally() %>%
-  filter(!is.na(`TimeSinceWorkshop`))
 
-# Use the code below to include a table of how long ago respondents attended a workshop
-# kable(round2data_time_since_tally, format = "markdown", row.names = FALSE, col.names = c("Time", "n"), caption = "How Recently Did Respondents Complete a Workshop?")
-
-ggplot(round2data_time_since_tally,
-       aes(`TimeSinceWorkshop`, y = 100 * (n/sum(n)),
-           n)) +
-  geom_bar(stat = "identity", fill="grey") +
-  geom_text(aes(label=n), size= 4 , vjust=-0.25) +
-  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-  theme_classic() +
-  xlab("Figure 3: Time Since Attending Carpentry Workshop") +
-  ylab("% Respondents") +
-  ggtitle("") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
-ggsave("figures/time_since_attending_workshop.png")
-```
 
 
 ```{r include=FALSE}
@@ -658,74 +720,7 @@ ggsave("figures/change_in_programming_usage_by_group.png")
 ```
 
 
-__Pre/Post Residuals__
-```{r}
-# The code below from Ben provides a chi-square plot of the pre/post residuals
-# Let's talk about this plot and whether to include it. If it's not easy to understand we shouldn't
-# use it.
-pre_and_post_test <-
-pre_and_post_usage %>%
-  select(-perc) %>%
-  spread(value, n) %>%
-  ungroup()
 
-# chi-sq test
-pre_and_post_test_result <-
-  chisq.test(pre_and_post_test[ , !names(pre_and_post_test) == 'key'])
-
-# standardised residuals
-stdres <- data.frame(t(pre_and_post_test_result$stdres))
-names(stdres) <- pre_and_post_test$key
-stdres$freq <- row.names(stdres)
-
-# just show post-workshop
-stdres <- stdres[, c(2,3)]
-
-names(stdres) <- rev(c("Frequency", "Residual"))
-
-# large positive residuals means there were more xxx than the hypothesis of independence predicts. Where are our large +ve residuals?
-
-# Contribution in percentage (%)
-# The contribution (in %) of a given cell to the total Chi-square score is calculated as follows:
-contrib <- 100 * pre_and_post_test_result$residuals^2 / pre_and_post_test_result$statistic
-# scale 0 to 1 to use as alpha
-range0to1 <- function(x){(x-min(x))/(max(x)-min(x))}
-# reorder to match order of programming factor
-contrib_0_to_1 <- as.vector(range0to1(contrib))[c(3,5,9,7,11,1)]
-
-# colour +ve and -ve values
-# http://stackoverflow.com/a/12910865/1036500
-stdres$sign = ifelse(stdres$Residual >= 0,
-                          "positive",
-                          "negative")
-
-# get the categories in a sensible order
-ggplot(stdres,
-       aes(factor(Frequency,
-                  levels = programming),
-           Residual,
-           fill = sign)) +
-  geom_col(position = "dodge",
-           aes(alpha = contrib_0_to_1)) +
-  xlab("Figure 11: Respondents program significantly more often") +
-  ylab("Chi-square standardized residuals of\npost-workshop frequencies") +
-  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse = "\n")) +
-  scale_fill_manual(name = "",
-                      values = c("negative" = "red",
-                                 "positive" = "blue"),
-                      labels = c("Fewer respondents than \nexpected assuming no effect",
-                                 "More respondents than \nexpected assuming no effect")) +
-  ggtitle("") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14) +
-  scale_alpha_continuous("Contribution to \nchi-square value") +
-   guides(fill=guide_legend(
-                 keywidth = 0.1,
-                 keyheight = 0.4,
-                 default.unit = "inch")
-      )
-ggsave("figures/programming_post_workshop.png")
-```
 
 # Workshop Impact
 
@@ -979,68 +974,8 @@ round2data$`Writing` = factor(round2data$`Writing`, levels = writing)
 Contributed_Writing <- round(prop.table(table(round2data$`Writing`)) * 100)
 ```
 
-# Perception of Workshop Impact
 
-The statements below reflect ways in which completing a Carpentries workshop may have impacted you. Please indicate your level of agreement with these statements:
 
-+ I have used skills I learned at the workshop to advance my career.
-+ I have been motivated to seek more knowledge about the tools I learned at the workshop.
-+ I have made my analyses more reproducible as a result of completing the workshop.
-+ I have received professional recognition for my work as a result of using the tools I learned at the workshop.
-+ I have improved my coding practices as a result of completing the workshop.
-+ My research productivity has improved as a result of completing the workshop.
-+ I have gained confidence in working with data as a result of completing the workshop.
-```{r}
-# Jonah's fix to include the correct levels. Variable was renamed to 'levels'
-# because 'order' is the name of a function in R.
-
-cols_with_Agree <- map_lgl(round2data, ~`%in%`("Agree", .x))
-data_agree <-  round2data[ , cols_with_Agree]
-
-levels = c("Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree")
-
-# Beth's tip to both order the factors based on levels and unify the factors
- factorfunction <- function(mydata, factlevel){
-  factor(mydata,
-         levels=factlevel,
-         ordered = TRUE)
-    fct_unify(mydata,
-              levels=factlevel)}
- # End tip
-
- # Adjusting names of y axis labels
- names(data_agree) <-
-  c("Coding",
-    "Confidence",
-    "Career",
-    "Motivation",
-    "Reproducible",
-    "Productivity",
-    "Recognition")
-
-data_agree_likert <- likert(data.frame(lapply(data_agree, factor, levels, ordered=TRUE)))
-
-agree_or_strongly_agree_improved_3_things <-
-  data_agree %>%
-  select(Coding, Reproducible, Productivity) %>%
-  filter(Coding       %in% c("Agree", "Strongly agree") | # or
-         Reproducible %in% c("Agree", "Strongly agree") |
-         Productivity %in% c("Agree", "Strongly agree"))
-
-perc_agree_or_strongly_agree_improved_3_things <-
-  round(nrow(agree_or_strongly_agree_improved_3_things) / nrow(data_agree) * 100, 0)
-
-received_professional_recognition <-
-  data_agree_likert$results %>%
-  filter(Item == "Recognition") %>%
-  select(Agree, `Strongly agree`) %>%
-  sum() %>%
-  round(0)
-
-title <- "Figure: Perception of Workshop Impact"
-plot(data_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
-ggsave("figures/workshop_impact_heatmap.png")
-```
 
 # Breakdown of respondents by Country
 
@@ -1075,57 +1010,11 @@ ggsave("figures/percent_by_country.png")
 
 # Respondent Demographics
 
-__What is your gender?__
-
-Gender was added to the survey during the second round of data collection. We only have seven data points, so do not include this information in the report.
-```{r}
-# What is your gender?
-# Gender was added to the survey during the second round of data collection. That is why I used round2data
-# in the code below. Only six people responded with their gender, so we aren't including this information.
-gender = c("Female", "Male", "I prefer not to say")
-gender = factor(gender)
-
-round2data$Gender = factor(round2data$Gender, levels = gender)
-
-round2data_gender_tally <-
-  round2data %>%
-  group_by(Gender) %>%
-  tally() %>%
-  filter(!is.na(Gender)) %>%
-  mutate(perc = round(n/sum(n) * 100, 0))
-
-kable(round2data_gender_tally)
-```
 
 
-__How would you describe yourself?__
 
-Ethnicity was added to the survey in the second round of data collection. We only have eight responses, so do not include this information in the report.
-```{r}
-# How would you describe yourself?
-# Responses are in columns 'Race' through 'Column50'
-# Using 'gather' to go from wide to long format
 
-n_responses_race <-
-  n_responses_to_the_question(round2data,
-                              from_colname = Race,
-                              to_colname = Column50)
 
-race_perc <-
-  round2data %>%
-    select(Race:Column50) %>%
-    gather(col, race_perc) %>%
-    group_by(race_perc) %>%
-    tally_and_perc(race_perc,
-                 na.rm = TRUE,
-                 question_n = n_responses_race) %>%
-  filter(!is.na(race_perc)) %>%
-  arrange(desc(n)) %>%
-  rename(Race = race_perc)
-
-kable(race_perc)
-# Only 8 persons responded to this question, so we will not include this in the report.
-```
 
 ```{r}
 # Table of number of workshops that participants have attended
