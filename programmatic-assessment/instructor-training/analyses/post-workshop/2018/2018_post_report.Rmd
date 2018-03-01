@@ -210,9 +210,9 @@ Respondents were asked to rate their level of agreement about the following:
 ```{r}
 # Please give us some feedback about the overall training event.
 # Subsetting a portion of the Likert items from InformationReasonableTime to Worth
-
-myvars <- c("InformationReasonableTime", "AtmosphereWelcoming", "LearnedSkills", "Material", "Recommend", "Worth")
-newdata <- data[myvars]
+myvars <- c("InformationReasonableTime", 
+            "AtmosphereWelcoming", "LearnedSkills", "Material", "Recommend", "Worth") 
+newdata <- data[myvars]            
 
 cols_with_Agree <- map_lgl(newdata, ~`%in%`("Agree", .x))
 newdata_agree <-  newdata[ , cols_with_Agree]
@@ -231,21 +231,16 @@ levels = c("Strongly Disagree",
               levels=factlevel)}
 
 newdata_agree_likert <- likert(data.frame(lapply(newdata_agree, factor, levels, ordered=TRUE)))
-```
 
-```{r training_perception_likert}
 #Likert plot
 title <- "Perception of Workshop Impact"
  theme_update(plot.title = element_text(hjust = 0.5))
 plot(newdata_agree_likert) + ggtitle(title) 
-ggsave("figures/postworkshop_impact_likert.png")
-```
 
-```{r training_perception_heatmap}
+
 #Heatmap
 title <- "Perception of Workshop Impact"
 plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
-ggsave("figures/postworkshop_impact_heat.png") 
 ```
 
 
