@@ -70,16 +70,17 @@ When are you taking this survey?
 when_taking = c("I have just completed the training, and am taking it at the event", "I have recently completed the training, and am taking it after I left the event")
 when_taking = factor(when_taking)
 
-postdata$`When-Taking` = factor(postdata$`When-Taking`, levels = when_taking)
+postdata$WhenTaking = factor(postdata$WhenTaking, levels = when_taking)
 
 postdata_when_taking_tally <-
   postdata %>%
-  group_by(`When-Taking`) %>%
+  group_by(WhenTaking) %>%
   tally() %>%
-  filter(!is.na(`When-Taking`)) %>%
+  filter(!is.na(WhenTaking)) %>%
   mutate(perc = round(n/sum(n) * 100, 0))
 
 kable(postdata_when_taking_tally)
+# Come back and fix table column headers
 ```
 ### Demographics
 
@@ -206,53 +207,45 @@ Respondents were asked to rate their level of agreement about the following:
 + I would recommend this training to a friend/colleague.
 + The training was worth my time.
 
-```{r training_perception}
+```{r}
 # Please give us some feedback about the overall training event.
-cols_with_Agree <- map_lgl(round2data, ~`%in%`("Agree", .x))
-data_agree <-  round2data[ , cols_with_Agree]
+# Subsetting a portion of the Likert items from InformationReasonableTime to Worth
 
-levels = c("Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree")
+myvars <- c("InformationReasonableTime", "AtmosphereWelcoming", "LearnedSkills", "Material", "Recommend", "Worth")
+newdata <- data[myvars]
 
-# Beth's tip to both order the factors based on levels and unify the factors
- factorfunction <- function(mydata, factlevel){
-  factor(mydata,
-         levels=factlevel,
+cols_with_Agree <- map_lgl(newdata, ~`%in%`("Agree", .x))
+newdata_agree <-  newdata[ , cols_with_Agree]
+
+levels = c("Strongly Disagree",
+   "Disagree",
+   "Neither Agree nor Disagree",
+   "Agree",
+   "Strongly Agree")
+
+ factorfunction <- function(newdata, factlevel){
+  factor(newdata, 
+         levels=factlevel, 
          ordered = TRUE)
-    fct_unify(mydata,
+    fct_unify(newdata, 
               levels=factlevel)}
- # End tip
 
- # Adjusting names of y axis labels
- names(data_agree) <-
-  c("Coding",
-    "Confidence",
-    "Career",
-    "Motivation",
-    "Reproducible",
-    "Productivity",
-    "Recognition")
+newdata_agree_likert <- likert(data.frame(lapply(newdata_agree, factor, levels, ordered=TRUE)))
+```
 
-data_agree_likert <- likert(data.frame(lapply(data_agree, factor, levels, ordered=TRUE)))
+```{r training_perception_likert}
+#Likert plot
+title <- "Perception of Workshop Impact"
+ theme_update(plot.title = element_text(hjust = 0.5))
+plot(newdata_agree_likert) + ggtitle(title) 
+ggsave("figures/postworkshop_impact_likert.png")
+```
 
-agree_or_strongly_agree_improved_3_things <-
-  data_agree %>%
-  select(Coding, Reproducible, Productivity) %>%
-  filter(Coding       %in% c("Agree", "Strongly agree") | # or
-         Reproducible %in% c("Agree", "Strongly agree") |
-         Productivity %in% c("Agree", "Strongly agree"))
-
-perc_agree_or_strongly_agree_improved_3_things <-
-  round(nrow(agree_or_strongly_agree_improved_3_things) / nrow(data_agree) * 100, 0)
-
-received_professional_recognition <-
-  data_agree_likert$results %>%
-  filter(Item == "Recognition") %>%
-  select(Agree, `Strongly agree`) %>%
-  sum() %>%
-  round(0)
-
-title <- "Figure: Perception of Workshop Impact"
-plot(data_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
+```{r training_perception_heatmap}
+#Heatmap
+title <- "Perception of Workshop Impact"
+plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
+ggsave("figures/postworkshop_impact_heat.png") 
 ```
 
 
