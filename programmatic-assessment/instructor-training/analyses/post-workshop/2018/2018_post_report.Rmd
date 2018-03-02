@@ -5,7 +5,6 @@ __Lead:__ [Kari L. Jordan](https://github.com/kariljordan)
 library(knitr)
 library(tidyverse)
 library(likert)
-library(purrr)
 opts_chunk$set(echo = FALSE,
                message = FALSE,
                warning = FALSE)
@@ -405,11 +404,9 @@ Trainees were asked to describe their experience with the following topics befor
 # Do two plots and then stack them up using grid.arrange(), nest(), and map() to combine the pre/post plots
   
 experience_pre <-
-    c(
-    "Little or no knowledge of topic",
+    c("Little or no knowledge of topic",
     "Some knowledge of topic",
-    "Extensive knowledge of topic"
-    )
+    "Extensive knowledge of topic")
 
 experience_post <- 
   c("No increase in my knowledge", 
@@ -445,12 +442,12 @@ postdata %>%
 ```{r experience_with_topics_pre}
 # Plot before and after as two grouped bar plots, then combine.
 
-tools_before <- 
-   ggplot(pre_knowledge, 
+experience_pre_plot <- 
+   ggplot(pre_experience, 
          aes(x = key,
              y = `%`,
              fill = fct_relevel(value, 
-                             knowledge_pre))) +
+                             experience_pre))) +
     geom_col(position = "dodge") +
     geom_text(aes(label=n), 
               size= 4,
@@ -463,20 +460,20 @@ tools_before <-
     theme_classic() +
     xlab("") +
     ylab("% Respondents") +
-    ggtitle("Knowledge before workshop") +
+    ggtitle("Experience with Tools Pre-Workshop") +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14) +
     theme(legend.position = "bottom", 
           legend.title=element_blank())
 ```
 
-```{ experience_with_topics_post}
-tools_after <- 
-   ggplot(post_knowledge, 
+```{r experience_with_topics_post}
+experience_post_plot <- 
+   ggplot(experience_post, 
          aes(x = key,
              y = `%`,
              fill = fct_rev(fct_relevel(value, 
-                             (knowledge_pre))))) +
+                             (experience_pre))))) +
     geom_col(position = "dodge") +
     geom_text(aes(label=n), 
               size= 4,
@@ -489,7 +486,7 @@ tools_after <-
     theme_classic() +
     xlab("") +
     ylab("% Respondents") +
-    ggtitle("Knowledge after workshop") +
+    ggtitle("Change in Knowledge") +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14) +
     theme(legend.position = "bottom", 
@@ -499,7 +496,7 @@ tools_after <-
 ```{r pre_post_experience_comparison}
 # put the two plots together
 library(gridExtra)
-grid.arrange(tools_before, 
-             tools_after,
+grid.arrange(experience_post_plot, 
+             experience_pre_plot,
              ncol = 1)
 ```
