@@ -1,4 +1,4 @@
-## Analysis of the Carpentries Instructor Training Post-Workshop Survey
+## Analysis of the Carpentries Instructor Training Post-Workshop Survey Data
 __Lead:__ [Kari L. Jordan](https://github.com/kariljordan)
 
 ```{r setup, include=FALSE}
@@ -235,14 +235,14 @@ newdata_agree_likert <- likert(data.frame(lapply(newdata_agree, factor, levels, 
 
 ```{r training_perception_likert}
 #Likert plot
-title <- "Perception of Workshop Impact"
+title <- "Perception of Instructor Training Impact"
  theme_update(plot.title = element_text(hjust = 0.5))
 plot(newdata_agree_likert) + ggtitle(title) 
 ```
 
 ```{r training_perception_heatmap}
 #Heatmap
-title <- "Perception of Workshop Impact"
+title <- "Perception of Instructor Training Impact"
 plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
 ```
 
