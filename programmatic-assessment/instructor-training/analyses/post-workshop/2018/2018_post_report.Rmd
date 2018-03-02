@@ -420,22 +420,25 @@ experience_post <-
 pre_experience <- 
 postdata %>%
   select(contains("Pre")) %>% 
-  gather() %>% 
+  gather() %>%
+  count(key, value) %>%
+  group_by(key) %>%
+  mutate(`%` = n/sum(n) * 100 ) %>%
+  ungroup() %>% 
   filter(value %in% experience_pre) %>% 
-  nest(-key) %>% 
-  mutate(tallies = purrr::map(postdata, ~tally_and_perc(.x, value))) %>% 
-  unnest(tallies) %>% 
   mutate(key = gsub("Pre", "", key))
+
 
 # After the workshop
 post_experience <- 
 postdata %>%
   select(contains("Post")) %>% 
-  gather() %>% 
+  gather() %>%
+  count(key, value) %>%
+  group_by(key) %>%
+  mutate(`%` = n/sum(n) * 100 ) %>%
+  ungroup() %>%
   filter(value %in% experience_post) %>% 
-  nest(-key) %>% 
-  mutate(tallies = purrr::map(postdata, ~tally_and_perc(.x, value)))  %>% 
-  unnest(tallies) %>% 
   mutate(key = gsub("Post", "", key))
 ```
 
@@ -469,7 +472,7 @@ experience_pre_plot <-
 
 ```{r experience_with_topics_post}
 experience_post_plot <- 
-   ggplot(experience_post, 
+   ggplot(post_experience, 
          aes(x = key,
              y = `%`,
              fill = fct_rev(fct_relevel(value, 
