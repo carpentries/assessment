@@ -13,11 +13,8 @@ opts_chunk$set(echo = FALSE,
                message = FALSE,
                warning = FALSE)
 library(tidyverse)
-library(ggplot2)
-library(dplyr)
 library(tidyr)
 library(readr)
-library(purrr)
 library(tibble)
 library(DBI)
 library(ggmap)
