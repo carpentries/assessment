@@ -416,7 +416,7 @@ experience_post <-
 
 # Compute for all tools.
 
-# Before the workshop
+# Pre-Workshop
 pre_experience <- 
 postdata %>%
   select(contains("Pre")) %>% 
@@ -429,7 +429,7 @@ postdata %>%
   mutate(key = gsub("Pre", "", key))
 
 
-# After the workshop
+# Post-Workshop
 post_experience <- 
 postdata %>%
   select(contains("Post")) %>% 
@@ -442,9 +442,9 @@ postdata %>%
   mutate(key = gsub("Post", "", key))
 ```
 
-```{r experience_with_topics_pre}
-# Plot before and after as two grouped bar plots, then combine.
-
+```{r}
+# Plot pre and post as two grouped bar plots, then combine.
+# Pre
 experience_pre_plot <- 
    ggplot(pre_experience, 
          aes(x = key,
@@ -470,7 +470,9 @@ experience_pre_plot <-
           legend.title=element_blank())
 ```
 
-```{r experience_with_topics_post}
+```{r}
+# Plot pre and post as two grouped bar plots, then combine.
+# Post
 experience_post_plot <- 
    ggplot(post_experience, 
          aes(x = key,
@@ -489,7 +491,7 @@ experience_post_plot <-
     theme_classic() +
     xlab("") +
     ylab("% Respondents") +
-    ggtitle("Change in Knowledge") +
+    ggtitle("Change in Knowledge Post-Workshop") +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14) +
     theme(legend.position = "bottom", 
@@ -499,7 +501,7 @@ experience_post_plot <-
 ```{r pre_post_experience_comparison}
 # put the two plots together
 library(gridExtra)
-grid.arrange(experience_post_plot, 
-             experience_pre_plot,
+grid.arrange(experience_pre_plot, 
+             experience_post_plot,
              ncol = 1)
 ```
