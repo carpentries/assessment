@@ -22,6 +22,7 @@ library(RColorBrewer)
 library(srvyr)
 library(beeswarm)
 library(NPS)
+library(xtable)
 ```
 This report and the figures created were create using Data Carpentry's post-workshop surveys collected August 7, 2017 through January 8, 2018. A PDF of the survey questions, the data used in this analysis, and full R code are located on the Carpentries [assessment](https://github.com/carpentries/assessment/tree/master/data-carpentry/postworkshop/2018/January) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
 
@@ -50,7 +51,7 @@ tally_and_perc <- function(df, colname, na.rm = FALSE){
 The majority of respondents attended workshops in the United States, however, we see representation in multiple countries including Canada, Ethiopia, South Africa, and Switzerland.
 ```{r}
 data %>% 
-  tally_and_perc(`Country`, na.rm = TRUE) %>% 
+  tally_and_perc(`Country`, na.rm = TRUE) %>%
   kable()
 ```
 
@@ -131,17 +132,18 @@ data %>%
   kable()
 ```
 
-### Perception of Workshop Impact  
-Learners were asked to rate their level of agreement with the following statements related to Data Carpentry's workshop goals and learning objectives:   
-+ Having access to the original, raw data is important to be able to repeat an analysis.   
-+ I can write a small program/script/macro to solve a problem in my own work.   
-+ I know how to search for answers to my technical questions online.   
-+ While working on a programming project, if I get stuck, I can find ways of overcoming the problem.  
-+ I am confident in my ability to make use of programming software to work with data.  
-+ Using a programming language (like R or Python) can make my analyses easier to reproduce.  
-+ I can immediately apply what I learned at this workshop.  
-+ I felt comfortable learning in this workshop environment.  
-+ Using a programming language (like R or Python) can make me more efficient at working with data. 
+### Perception of Workshop Impact   
+Learners were asked to rate their level of agreement with the following statements related to Data Carpentry's workshop goals and learning objectives. The figure below provides a visual representation of their responses. Axis labels and the corresponding question are as follows:  
+
++ __WriteProgram__: I can write a small program/script/macro to solve a problem in my own work.  
++ __TechnicalQuestions__: I know how to search for answers to my technical questions online.  
++ __RawData__: Having access to the original, raw data is important to be able to repeat an analysis.    
++ __ProgrammingEasier__: Using a programming language (like R or Python) can make my analyses easier to reproduce.   
++ __OvercomeProblem__: While working on a programming project, if I get stuck, I can find ways of overcoming the problem.   
++ __ImmediatelyApply__: I can immediately apply what I learned at this workshop. 
++ __ConfidentProgramming__: I am confident in my ability to make use of programming software to work with data.   
++ __ConfidenceSoftware__: Using a programming language (like R or Python) can make me more efficient at working with data.  
++ __ComfortableLearning__: I felt comfortable learning in this workshop environment. 
 
 
 ```{r}
@@ -167,12 +169,6 @@ levels = c("Strongly disagree",
               levels=factlevel)}
 
 newdata_agree_likert <- likert(data.frame(lapply(newdata_agree, factor, levels, ordered=TRUE)))
-
-#Likert plot
-title <- "Perception of Workshop Impact"
- theme_update(plot.title = element_text(hjust = 0.5))
-plot(newdata_agree_likert) + ggtitle(title) 
-ggsave("figures/postworkshop_impact_likert.png")
 
 #Heatmap
 title <- "Perception of Workshop Impact"
