@@ -176,15 +176,6 @@ plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.co
 ggsave("figures/postworkshop_impact_heat.png")
 ```
 
-### Accessibility Issues 
-Were there any accessibility issues that affected your ability to participate in this workshop? 
-```{r}
-# Accessibility Issues
-# To do: Read the open ended responses for what issues came up.
-data %>% 
-  tally_and_perc(`AccessibilityIssues`, na.rm = TRUE) %>% 
-  kable()
-```
 
 ### Evaluation of Data Carpentry Instructors    
 Please rate your level of agreement with the following statements:
@@ -266,3 +257,24 @@ ggsave("figures/likely_to_recommend.png")
 ```
 
 
+### Accessibility Issues 
+Learners were asked whether there were any accessibility issues that affected their ability to participate in their workshop. A breakdown of their responses are as follows:
+
+```{r}
+# Accessibility Issues
+# To do: Read the open ended responses for what issues came up.
+data %>% 
+  tally_and_perc(`AccessibilityIssues`, na.rm = TRUE) %>% 
+  kable()
+```
+
+A summary of the open-ended responses for those having accessibility issues is as follows:
+
++ Internet problems/poor internet 
++ Difficulty working with windows on a PC 
++ Small workshop room, view being obstructed by pillars in the room 
++ Difficulty hearing instructors if sitting in the back of the room 
++ Firefox not being able to run SQLIte 
++ Workshop pace 
++ Administrative rights to the computer being used in the workshop 
++ Space on personal computers to run software 
