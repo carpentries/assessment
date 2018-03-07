@@ -209,12 +209,6 @@ levels = c("Strongly disagree",
 
 newdata_agree_likert <- likert(data.frame(lapply(newdata_agree, factor, levels, ordered=TRUE)))
 
-#Likert plot
-title <- "Perception of Data Carpentry Instructors"
- theme_update(plot.title = element_text(hjust = 0.5))
-plot(newdata_agree_likert) + ggtitle(title) 
-ggsave("figures/perception_instructors_likert.png")
-
 #Heatmap
 title <- "Perception of Data Carpentry Instructors"
 plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
