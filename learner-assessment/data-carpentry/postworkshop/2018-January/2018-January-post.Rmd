@@ -24,7 +24,7 @@ library(beeswarm)
 library(NPS)
 library(xtable)
 ```
-This report and the figures created were create using Data Carpentry's post-workshop surveys collected August 7, 2017 through January 8, 2018. A PDF of the survey questions, the data used in this analysis, and full R code are located on the Carpentries [assessment](https://github.com/carpentries/assessment/tree/master/data-carpentry/postworkshop/2018/January) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
+This analysis was completed using Data Carpentry's post-workshop surveys collected August 7, 2017 through January 8, 2018. A PDF of the survey questions, the data used in this analysis, and full R code are located on the Carpentries [assessment](https://github.com/carpentries/assessment/tree/master/learner-assessment/data-carpentry/postworkshop/2018/January) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
 
 ```{r echo=FALSE}
 data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/data-carpentry/postworkshop/2018-January/data_180108.csv")
@@ -98,7 +98,7 @@ data %>%
   kable()
 ```
 
-As the majority of workshop respondents attended an Ecology workshop, it is not surprise that R was covered in most workshops.
+As the majority of workshop respondents attended an Ecology workshop, it is no surprise that R was covered in most workshops.
 
 ```{r}
 # Q: Which of the following programming languages was covered in your workshop?
@@ -178,13 +178,12 @@ ggsave("figures/postworkshop_impact_heat.png")
 
 
 ### Evaluation of Data Carpentry Instructors    
-Please rate your level of agreement with the following statements:
+Learners were asked to rate their level of agreement with several statements regarding their instructor's knowledge, instructional method, and enthusiasm. Their responses are in the figure below, and axis labels corresponding to the statements are as follows:
 
-+ I was able to get clear answers to my questions from the instructors.  
-+ The instructors were enthusiastic about the workshop.  
-+ I felt comfortable interacting with the instructors.  
-+ The instructors were knowledgeable about the material being taught.
-
++ __InstructorsKnowledge__: The instructors were knowledgeable about the material being taught.
++ __InstructorsEnthusiastic__: The instructors were enthusiastic about the workshop.
++ __InstructorsComfortable__: I felt comfortable interacting with the instructors. 
++ __InstructorsClear__: I was able to get clear answers to my questions from the instructors.  
 ```{r}
 # Please rate your level of agreement with the following statements:
 #Subsetting a portion of the Likert items from Organize-Data to Use-command-line
@@ -208,7 +207,9 @@ levels = c("Strongly disagree",
               levels=factlevel)}
 
 newdata_agree_likert <- likert(data.frame(lapply(newdata_agree, factor, levels, ordered=TRUE)))
+```
 
+```{r}
 #Heatmap
 title <- "Perception of Data Carpentry Instructors"
 plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
@@ -272,3 +273,4 @@ A summary of the open-ended responses for those having accessibility issues is a
 + Workshop pace 
 + Administrative rights to the computer being used in the workshop 
 + Space on personal computers to run software 
+
