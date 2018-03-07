@@ -8,6 +8,7 @@ library(knitr)
 library(tidyverse)
 library(likert)
 library(flexdashboard)
+library(plotly)
 opts_chunk$set(echo = FALSE,
                message = FALSE,
                warning = FALSE)
