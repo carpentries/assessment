@@ -274,3 +274,6 @@ A summary of the open-ended responses for those having accessibility issues is a
 + Administrative rights to the computer being used in the workshop 
 + Space on personal computers to run software 
 
+### Summary
+This analysis of Data Carpentry's post-workshop surveys is automated quarterly. For questions, or to get involved with The Carpentries assessment efforts, please [contact Kari L. Jordan](kariljordan@carpentries.org).
+
