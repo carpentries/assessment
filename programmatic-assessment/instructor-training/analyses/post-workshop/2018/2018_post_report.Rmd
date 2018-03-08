@@ -82,6 +82,7 @@ postdata_when_taking_tally <-
 kable(postdata_when_taking_tally)
 # Come back and fix table column headers
 ```
+
 ### Demographics
 
 __Respondents Position__
@@ -315,7 +316,7 @@ ggplot(postdata_handson_tally,
 
 ## About the Instructors and Helpers
 
-__Please select how you felt the instructor trainers(s) performed.
+__Please select how you felt the instructor trainers(s) performed.__
 
 + Instructor trainer(s) gave clear answers to your questions.
 + Instructor trainer(s) were considerate.
@@ -384,6 +385,7 @@ ggplot(postdata_newinfo_tally,
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
 ```
+
 
 Trainees were asked to describe their experience with the following topics before the training, and their change in knowledge of these topics after the training. The topics are as follows:
 
@@ -505,6 +507,7 @@ grid.arrange(experience_pre_plot,
              experience_post_plot,
              ncol = 1)
 ```
+
 Trainees were asked how their motivation to learn more about the topics below changed:
 
 + Formative vs. summative assessment
@@ -540,46 +543,28 @@ postdata %>%
   mutate(key = gsub("Motivation", "", key))
 ```
 
-
-
-
-
-
-```{r}
-# Subsetting a portion of the Likert items from AssessmentMotivation to CognitionMotivation
-myvars <- c("AssessmentMotivation", 
-            "FeedbackMotivation", 
-            "NoviceMotivation", 
-            "MemoryMotivation", 
-            "CognitiveLoadMotivation", 
-            "CarpentriesMotivation",
-            "Motivation",
-            "BackwardsDesignMotivation",
-            "CognitionMotivation") 
-newdata <- postdata[myvars]            
-
-cols_with_motivation <- map_lgl(newdata, ~`%in%`("Motivation", .x))
-newdata_motivation <-  newdata[ , cols_with_motivation]
-
-levels = c("Less motivated",
-   "Slightly less motivated",
-   "No change in motivation",
-   "More motivated",
-   "Much more motivated")
-
- factorfunction <- function(newdata, factlevel){
-  factor(newdata, 
-         levels=factlevel, 
-         ordered = TRUE)
-    fct_unify(newdata, 
-              levels=factlevel)}
-
-#newdata_motivation_likert <- likert(data.frame(lapply(newdata_motivation, factor, levels, ordered=TRUE)))
-```
-
 ```{r change_in_motivation_heatmap}
-#Heatmap
-title <- "Change in Motivation to Learn Topics"
-plot(change_in_motivation, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
+   ggplot(change_in_motivation, 
+         aes(x = key,
+             y = `%`,
+             fill = fct_relevel(value, 
+                             change_in_motivation_factors))) +
+    geom_col(position = "dodge") +
+    geom_text(aes(label=n), 
+              size= 4,
+              position=position_dodge(width=1)) +
+    scale_x_discrete(labels = function(x) lapply(strwrap(x,
+                                                         width = 10,
+                                                         simplify = FALSE),
+                                                 paste,
+                                                 collapse = "\n")) +
+    theme_classic() +
+    xlab("") +
+    ylab("% Respondents") +
+    ggtitle("Change in motivation to learn more teaching pedagogy") +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme_classic(base_size = 14) +
+    theme(legend.position = "bottom", 
+          legend.title=element_blank())
 ```
 
