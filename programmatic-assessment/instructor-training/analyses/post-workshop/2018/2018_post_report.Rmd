@@ -201,12 +201,12 @@ kable(domain_perc,
 __Feedback about the overall training event.__
 Respondents were asked to rate their level of agreement about the following:
 
-+ The amount of information covered was reasonable for alloted time.
-+ The overall atmosphere was welcoming.
-+ I learned skills that I will be able to use in my teaching.
-+ The material preented matched the description of the training event.
-+ I would recommend this training to a friend/colleague.
-+ The training was worth my time.
++ __Worth__: The training was worth my time.
++ __Recommend__: I would recommend this training to a friend/colleague.
++ __Material__: The material preented matched the description of the training event.
++ __LearnedSkills__: I learned skills that I will be able to use in my teaching.
++ __InformationReasonableTime__: The amount of information covered was reasonable for alloted time.
++ __AtmosphereWelcoming__: The overall atmosphere was welcoming.
 
 ```{r}
 # Please give us some feedback about the overall training event.
@@ -232,13 +232,6 @@ levels = c("Strongly Disagree",
               levels=factlevel)}
 
 newdata_agree_likert <- likert(data.frame(lapply(newdata_agree, factor, levels, ordered=TRUE)))
-```
-
-```{r training_perception_likert}
-#Likert plot
-title <- "Perception of Instructor Training Impact"
- theme_update(plot.title = element_text(hjust = 0.5))
-plot(newdata_agree_likert) + ggtitle(title) 
 ```
 
 ```{r training_perception_heatmap}
@@ -318,12 +311,12 @@ ggplot(postdata_handson_tally,
 
 __Please select how you felt the instructor trainers(s) performed.__
 
-+ Instructor trainer(s) gave clear answers to your questions.
-+ Instructor trainer(s) were considerate.
-+ Instructor trainer(s) were good communicators.
-+ Instructor trainer(s) were enthusiastic.
++ __Enthusiastic__: Instructor trainer(s) were enthusiastic.
++ __Considerate__: Instructor trainer(s) were considerate.
++ __Communicators__: Instructor trainer(s) were good communicators.
++ __ClearAnswers__: Instructor trainer(s) gave clear answers to your questions.
 
-```{r perception_trainers_performance}
+```{r}
 # Please select how you felt the instructor trainers(s) performed.
 # Code chunk for likert plot (perception of workshop instructors/helpers)
 ordered_often <-
@@ -341,9 +334,12 @@ names(likert_cols_often_Train) <-
   gsub("Trainers", "", names(likert_cols_often_Train))
   
 lc_often_train <- likert(data.frame(likert_cols_often_Train))
+```
 
-plot(lc_often_train) +
-  ggtitle("Perception of How Instructor Trainers Performed")
+```{r perception_trainers_performance}
+#Heatmap
+title <- "Perception of How Instructor Trainers Performed"
+plot(lc_often_train, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
 ```
 
 
@@ -389,16 +385,15 @@ ggplot(postdata_newinfo_tally,
 
 Trainees were asked to describe their experience with the following topics before the training, and their change in knowledge of these topics after the training. The topics are as follows:
 
-+ Formative vs. summative assessment
-+ Giving effective feedback
-+ What makes someone a novice or expert
-+ How human memory works
-+ Cognitive load
-+ What the Carpentries are and what they do
-+ Motivation
-+ Backwards design
-+ Levels of cognition
-
++ __Assessment__: Formative vs. summative assessment
++ __BackwardsDesign__: Backwards design
++ __Carpentries__: What the Carpentries are and what they do
++ __Cognition__: Levels of cognition
++ __CognitiveLoad__: Cognitive load
++ __Feedback__: Giving effective feedback
++ __Memory__: How human memory works
++ __Motiation__: Motivation
++ __Novice__: What makes someone a novice or expert
 
 ```{r}
 # Code chunk for Pre/Post plots for experience with topics covered
@@ -510,15 +505,15 @@ grid.arrange(experience_pre_plot,
 
 Trainees were asked how their motivation to learn more about the topics below changed:
 
-+ Formative vs. summative assessment
-+ Giving effective feedback
-+ What makes someone a novice or expert
-+ How human memory works
-+ Cognitive load
-+ What the Carpentries are and what they do
-+ Motivation
-+ Backwards design
-+ Levels of cognition
++ __Assessment__: Formative vs. summative assessment
++ __BackwardsDesign__: Backwards design
++ __Carpentries__: What the Carpentries are and what they do
++ __Cognition__: Levels of cognition
++ __CognitiveLoad__: Cognitive load
++ __Feedback__: Giving effective feedback
++ __Memory__: How human memory works
++ __Motiation__: Motivation
++ __Novice__: What makes someone a novice or expert
 
 ```{r}
 # Code chunk for change in motivation
@@ -533,14 +528,14 @@ change_in_motivation_factors <-
 
 change_in_motivation <- 
 postdata %>%
-  select(contains("Motivation")) %>% 
+  select(contains("Motivated")) %>% 
   gather() %>%
   count(key, value) %>%
   group_by(key) %>%
   mutate(`%` = n/sum(n) * 100 ) %>%
   ungroup() %>% 
   filter(value %in% change_in_motivation_factors) %>% 
-  mutate(key = gsub("Motivation", "", key))
+  mutate(key = gsub("Motivated", "", key))
 ```
 
 ```{r change_in_motivation_heatmap}
