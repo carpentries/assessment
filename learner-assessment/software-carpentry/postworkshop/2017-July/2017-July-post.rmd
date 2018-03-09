@@ -96,7 +96,7 @@ ggplot(data_status_tally,
   ylab("% Respondents") +
   ggtitle("Majority of Respondents were Graduate Students") +
   theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
+  theme_classic(base_size = 14) 
 ggsave("figures/status.png")
 ```
 
@@ -211,7 +211,8 @@ names(likert_cols) <-
 lc <- likert(data.frame(likert_cols))
 title <- "Perception of Workshop Atmosphere & Content"
  theme_update(plot.title = element_text(hjust = 0.5))
-plot(lc) + ggtitle(title)
+plot(lc) + ggtitle(title)+ 
+guides(fill = guide_legend(nrow = 2)) # wraps legend
 
 # Double check the plot with a table:
 xx <- 
@@ -258,7 +259,9 @@ names(likert_cols_often_Inst) <-
 lc_often_inst <- likert(data.frame(likert_cols_often_Inst))
 
 plot(lc_often_inst) +
-  ggtitle("Perception of Workshop Instructors")
+  ggtitle("Perception of Workshop Instructors") + 
+guides(fill = guide_legend(nrow = 2)) # wraps legend
+
 ggsave("figures/instructors_perception.png")
 
 # To relabel the y-axis, see the previous chunk
@@ -289,7 +292,9 @@ names(likert_cols_often_h) <-
 lc_often_h <- likert(data.frame(likert_cols_often_h))
 
 plot(lc_often_h) +
-  ggtitle("Perception of Workshop Helpers")
+  ggtitle("Perception of Workshop Helpers") + 
+guides(fill = guide_legend(nrow = 2)) # wraps legend
+
 ggsave("figures/helpers_perception.png")
 
 # To relabel the y-axis, see the previous chunk
@@ -412,7 +417,8 @@ names(likert_cols_little) <- gsub("-Pre", "", names(likert_cols_little) )
 lc_little <- likert(data.frame(likert_cols_little))
 
 plot(lc_little) +
-  ggtitle("Self-Reported Knowledge of Tools Covered Pre-Workshop")
+  ggtitle("Self-Reported Knowledge of Tools Covered Pre-Workshop") + 
+guides(fill = guide_legend(nrow = 2)) # wraps legend
 
 # Double check the plot with a table:
 xx <- 
@@ -466,7 +472,8 @@ names(likert_cols_intim) <- gsub(".Perception", "", names(likert_cols_intim))
 lc_intim <- likert(data.frame(likert_cols_intim))
 
 plot(lc_intim) +
-  ggtitle("Self-Reported Feeling of Intimidation Pre-Workshop") 
+  ggtitle("Self-Reported Feeling of Intimidation Pre-Workshop") + 
+guides(fill = guide_legend(nrow = 2)) # wraps legend
 
 # Double check the plot with a table:
 xx <- 
@@ -537,7 +544,8 @@ lc_incre <- likert(data.frame(likert_cols_incre))
 
 # looks right!
 plot(lc_incre) +
-  ggtitle("Self-Reported Knowledge Increase Post-Workshop")
+  ggtitle("Self-Reported Knowledge Increase Post-Workshop") + 
+guides(fill = guide_legend(nrow = 2)) # wraps legend
 
 # let's double check the plot with a table:
 xx <- 
@@ -640,7 +648,8 @@ tools_before <-
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14) +
     theme(legend.position = "bottom", 
-          legend.title=element_blank())
+          legend.title=element_blank()) + 
+guides(fill = guide_legend(nrow = 2)) # wraps legend
 
 tools_after <- 
    ggplot(post_knowledge, 
@@ -664,14 +673,15 @@ tools_after <-
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14) +
     theme(legend.position = "bottom", 
-          legend.title=element_blank())
+          legend.title=element_blank()) + 
+guides(fill = guide_legend(nrow = 2)) # wraps legend
           
   
 # put the two plots together
 library(gridExtra)
 grid.arrange(tools_before, 
              tools_after,
-             ncol = 1)
+             ncol = 1) 
 ggsave("figures/prepost_knowledge.png")
 ```
 
@@ -826,7 +836,8 @@ computing_after <-
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14) +
     theme(legend.position = "bottom", 
-          legend.title=element_blank())
+          legend.title=element_blank()) + 
+guides(fill = guide_legend(nrow = 2)) # wraps legend
           
   
 # Put the two plots together
