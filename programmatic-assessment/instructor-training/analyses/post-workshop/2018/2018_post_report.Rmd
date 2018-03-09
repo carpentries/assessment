@@ -5,6 +5,7 @@ __Lead:__ [Kari L. Jordan](https://github.com/kariljordan)
 library(knitr)
 library(tidyverse)
 library(likert)
+library(NPS)
 opts_chunk$set(echo = FALSE,
                message = FALSE,
                warning = FALSE)
@@ -273,7 +274,7 @@ ggplot(postdata_pace_tally,
 
 __How was the balance of lecture to hands-on work?__
 
-```{r training_balance_of_lecture}
+```{r}
 # How was the balance of lecture to hands-on work?
 handson = c("Too much lecture", 
             "Slightly too much lecture", 
@@ -292,7 +293,9 @@ postdata_handson_tally <-
   mutate(perc = round(n/sum(n) * 100, 0))
 
 kable(postdata_handson_tally)
+```
 
+```{r training_balance_of_lecture}
 ggplot(postdata_handson_tally,
        aes(HandsOn, y = 100 * (n/sum(n)),
            n)) +
@@ -367,7 +370,9 @@ postdata_newinfo_tally <-
   mutate(perc = round(n/sum(n) * 100, 0))
 
 kable(postdata_newinfo_tally)
+```
 
+```{r new_information_presented}
 ggplot(postdata_newinfo_tally,
        aes(NewInformation, y = 100 * (n/sum(n)),
            n)) +
@@ -464,7 +469,8 @@ experience_pre_plot <-
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14) +
     theme(legend.position = "bottom", 
-          legend.title=element_blank())
+          legend.title=element_blank()) +
+  guides(fill = guide_legend(nrow = 2)) # wraps legend
 ```
 
 ```{r}
@@ -492,7 +498,8 @@ experience_post_plot <-
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14) +
     theme(legend.position = "bottom", 
-          legend.title=element_blank())
+          legend.title=element_blank()) +
+  guides(fill = guide_legend(nrow = 2)) # wraps legend
 ```
 
 ```{r pre_post_experience_comparison}
@@ -561,5 +568,197 @@ postdata %>%
     theme_classic(base_size = 14) +
     theme(legend.position = "bottom", 
           legend.title=element_blank())
+```
+
+__Change in confidence with Carpentries teaching practices__
+
++ Teach using live coding  
++ Set up a workshop website  
++ Use a concept map for lesson planning  
++ Write a multiple choice question with diagnostic power  
++ Write effective learning objectives  
+
+```{r}
+# Code chunk for Pre/Post plots for ability to do a series of tasks.
+# The before and after columns are different, so we can't put them on the same plot.
+# Do two plots and then stack them up using grid.arrange(), nest(), and map() to combine the pre/post plots
+  
+ability_before <-
+    c("Yes",
+    "No",
+    "Maybe")
+
+confidence_after <- 
+  c("Confidence increased slightly", 
+    "Confidence increased a bit", 
+    "Confidence increased greatly", 
+    "No change in confidence",
+    "N/A - Not covered at workshop")
+
+# Compute for all tools.
+
+# Ability before
+before_ability <- 
+postdata %>%
+  select(contains("Before")) %>% 
+  gather() %>%
+  count(key, value) %>%
+  group_by(key) %>%
+  mutate(`%` = n/sum(n) * 100 ) %>%
+  ungroup() %>% 
+  filter(value %in% ability_before) %>% 
+  mutate(key = gsub("Before", "", key))
+
+
+# Change in confidence
+after_confidence <- 
+postdata %>%
+  select(contains("After")) %>% 
+  gather() %>%
+  count(key, value) %>%
+  group_by(key) %>%
+  mutate(`%` = n/sum(n) * 100 ) %>%
+  ungroup() %>%
+  filter(value %in% confidence_after) %>% 
+  mutate(key = gsub("After", "", key))
+```
+
+```{r}
+# Plot before and after as two grouped bar plots, then combine.
+# Before
+ability_before_plot <- 
+   ggplot(before_ability, 
+         aes(x = key,
+             y = `%`,
+             fill = fct_relevel(value, 
+                             ability_before))) +
+    geom_col(position = "dodge") +
+    geom_text(aes(label=n), 
+              size= 4,
+              position=position_dodge(width=1)) +
+    scale_x_discrete(labels = function(x) lapply(strwrap(x,
+                                                         width = 10,
+                                                         simplify = FALSE),
+                                                 paste,
+                                                 collapse = "\n")) +
+    theme_classic() +
+    xlab("") +
+    ylab("% Respondents") +
+    ggtitle("Ability to use these methods before the workshop") +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme_classic(base_size = 14) +
+    theme(legend.position = "bottom", 
+          legend.title=element_blank())
+```
+
+```{r}
+# Plot before and after as two grouped bar plots, then combine.
+# After
+confidence_after_plot <- 
+   ggplot(after_confidence, 
+         aes(x = key,
+             y = `%`,
+             fill = fct_rev(fct_relevel(value, 
+                             confidence_after)))) +
+    geom_col(position = "dodge") +
+    geom_text(aes(label=n), 
+              size= 4,
+              position=position_dodge(width=1)) +
+    scale_x_discrete(labels = function(x) lapply(strwrap(x,
+                                                         width = 10,
+                                                         simplify = FALSE),
+                                                 paste,
+                                                 collapse = "\n")) +
+    theme_classic() +
+    xlab("") +
+    ylab("% Respondents") +
+    ggtitle("Confidence to use methods after workshop") +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme_classic(base_size = 14) +
+    theme(legend.position = "bottom", 
+          legend.title=element_blank()) +
+  guides(fill = guide_legend(nrow = 2))
+```
+
+```{r before_after_confidence_comparison}
+# put the two plots together
+library(gridExtra)
+grid.arrange(ability_before_plot, 
+             confidence_after_plot,
+             ncol = 1)
+```
+
+Learners were asked if they have a clear understanding of what needs to be done to complete instructor training.
+
+```{r}
+# Do you have a clearn understanding of what needs to be done to complete instructor training?
+checkout_factor = c("No, not clear at all", 
+            "Could use some more details", 
+            "Yes, I understand", 
+            "Other (please specify")
+checkout_factor = factor(checkout_factor)
+
+postdata$CompleteTraining = factor(postdata$CompleteTraining, levels = checkout_factor)
+
+checkout_tally <-
+  postdata %>%
+  group_by(CompleteTraining) %>%
+  tally() %>%
+  filter(!is.na(CompleteTraining)) %>%
+  mutate(perc = round(n/sum(n) * 100, 0))
+
+kable(checkout_tally)
+```
+
+```{r understanding_of_checkout}
+ggplot(checkout_tally,
+       aes(CompleteTraining, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="orange") +
+  geom_text(aes(label=n), size= 4, vjust=-0.25) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Understanding of Checkout Process") +
+  ylab("% Respondents") +
+  ggtitle("Trainees Understanding of Checkout Process") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+```
+
+__Likely to Recommend__
+
+Trainees were asked how likely they are to recommend a Software and/or Data Carpentry workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter). The scoring for this question based on a 0 to 100 scale. Respondents scoring from 0 to 60 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 90 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 70 and 80 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors.
+
+```{r}
+postdata$LikelyToRecommend %>%
+    npc(breaks = list(0:6, 7:8, 9:10)) %>%
+    data.frame(category = .) %>%
+    filter(!is.na(category)) %>%
+    count(category) %>%
+    mutate("%" = (n / sum(n))*100) %>%
+    kable()
+```
+
+```{r}
+data_recommend_tally <- 
+  postdata %>% 
+  group_by(LikelyToRecommend) %>% 
+  tally() %>%
+  filter(!is.na(LikelyToRecommend))
+```
+
+```{r likely_to_recommend}
+ggplot(data_recommend_tally, 
+       aes(`LikelyToRecommend`, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="purple") +
+  geom_text(aes(label=n), size= 4, vjust=-0.25) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Likely to Recommend") +
+  ylab("% Respondents") +
+  ggtitle("Likely to Recommend") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
 ```
 
