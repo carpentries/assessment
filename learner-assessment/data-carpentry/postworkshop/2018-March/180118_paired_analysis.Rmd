@@ -1,17 +1,9 @@
-
+## [DRAFT] Data Carpentry's Paired Pre and Post-Workshop Survey Report 
+March 2018
 
 ```{r setup, include=FALSE}
 library(knitr)
-opts_chunk$set(echo = FALSE,
-               message = FALSE,
-               warning = FALSE)
 library(tidyverse)
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-library(readr)
-library(purrr)
-library(tibble)
 library(DBI)
 library(ggmap)
 library(likert)
@@ -20,38 +12,198 @@ library(RColorBrewer)
 library(srvyr)
 library(beeswarm)
 library(NPS)
-library(xtable)
-```
-
-```{r echo=FALSE}
-predata <- read.csv("https://raw.githubusercontent.com/carpentries/private-data/master/learner-assessment/data-carpentry/180118_dcpre.csv?token=AUDcFxfA1eiClziBxiHMfK1KkI5CPTC3ks5asDC6wA%3D%3D", stringsAsFactors = FALSE)
-postdata <- read.csv("https://raw.githubusercontent.com/carpentries/private-data/master/learner-assessment/data-carpentry/180108_dcpost.csv?token=AUDcF3z7OolTxfuvJ21GiV5YOSZ5J0u3ks5asDBSwA%3D%3D", stringsAsFactors = FALSE)
+opts_chunk$set(echo = FALSE,
+               message = FALSE,
+               warning = FALSE)
 ```
 
 ```{r}
-predata$uniqueID = predata[["Please.enter.a.unique.identifier.as.follows..Number.of.siblings..as.numeric....First.two.letters.of.the.city.you.were.born.in..lowercase....First.three.letters.of.your.current.street..lowercase...Example..If.I.have.0.siblings..was.born.in.Arlington..and.live.on.Creekwater.Street..my.unique.identifier.would.be.0arcre.This.identifier.will.be.confidential.to.you.and.will.help.us.compare.your.answers.with.the.post.survey."]]
-predata[["Please.enter.a.unique.identifier.as.follows..Number.of.siblings..as.numeric....First.two.letters.of.the.city.you.were.born.in..lowercase....First.three.letters.of.your.current.street..lowercase...Example..If.I.have.0.siblings..was.born.in.Arlington..and.live.on.Creekwater.Street..my.unique.identifier.would.be.0arcre.This.identifier.will.be.confidential.to.you.and.will.help.us.compare.your.answers.with.the.post.survey."]] = NULL
+# Pre-Workshop Data
+predata <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/data-carpentry/postworkshop/2018-March/180118_dcpre.csv")
 
-# Which in the table of unique IDs appeared only once?
-# Which gave us the position of the vector. We needed to pull out the names, not positions
-# Which of the unique IDs are in this list. Only give us the rows in predata which match this condition
-# and give us all the columns. We assigned it to a new data frame.
-list_unique_ids_pre = names(which(table(predata$uniqueID) == 1))
-predata_unique = predata[which(predata$uniqueID %in% list_unique_ids_pre),]
+# Post-Workshop Data
+postdata <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/data-carpentry/postworkshop/2018-March/180108_dcpost.csv")
 ```
 
 ```{r}
-# Do the same for the post data
-postdata$uniqueID = postdata[["Please.enter.a.unique.identifier.as.follows..Number.of.siblings..as.numeric....First.two.letters.of.the.city.you.were.born.in..lowercase....First.three.letters.of.your.current.street..lowercase...Example..If.I.have.0.siblings..was.born.in.Arlington..and.live.on.Creekwater.Street..my.unique.identifier.would.be.0arcre.This.identifier.will.be.confidential.to.you.and.will.help.us.compare.your.answers.with.the.pre.survey."]]
-postdata[["Please.enter.a.unique.identifier.as.follows..Number.of.siblings..as.numeric....First.two.letters.of.the.city.you.were.born.in..lowercase....First.three.letters.of.your.current.street..lowercase...Example..If.I.have.0.siblings..was.born.in.Arlington..and.live.on.Creekwater.Street..my.unique.identifier.would.be.0arcre.This.identifier.will.be.confidential.to.you.and.will.help.us.compare.your.answers.with.the.pre.survey."]] = NULL
+# Function that makes a table of counts and percentages
+tally_and_perc <- function(df, colname, na.rm = FALSE){
+  quo_colname <- enquo(colname)
 
-list_unique_ids_post = names(which(table(postdata$uniqueID) == 1))
-postdata_unique = postdata[which(postdata$uniqueID %in% list_unique_ids_post),]
+  df %>% 
+    group_by(!!quo_colname) %>% 
+    tally() %>% 
+    filter(if_else(rep(na.rm, nrow(.)),
+                  !is.na(!!quo_colname),
+                  as.logical(rep(1, nrow(.))))) %>% 
+    mutate(`%` = round(n / sum(n) * 100, 1)) 
+}
+```
+
+# Pre-Workshop Survey Demographics
+
+## Workshop Location
+
+```{r}
+data_country_tally <-
+  predata %>% 
+  tally_and_perc(`Country`, na.rm = TRUE) %>%
+  arrange(desc(n))
+
+kable(data_country_tally, format='markdown')
+```
+
+## Respondents Discipline
+
+```{r}
+# Responses are in columns 'Discipline' through 'Column13'
+discipline <-
+ predata %>%
+ select(`Discipline`:Column13) %>%
+ gather(col, discipline) %>%
+ group_by(discipline) %>%
+ tally_and_perc(discipline) %>%
+ filter(!is.na(discipline)) %>%
+ arrange(desc(n)) %>%
+ rename(`Discipline` = discipline)
+
+kable(discipline, caption = "Discipline")
+```
+
+## Respondents Status
+
+```{r}
+# Responses are in columns 'Discipline' through 'Column22'
+status = c("Undergraduate Student", "Graduate Student", "Postdoctoral Researcher", "Faculty", "Industry Employee", "Government Employee", "Research Staff", "Management/Administrator", "Retired/Not Employed", "Other (please specify)")
+status = factor(status)
+
+predata$Status = factor(predata$Status, levels = status)
+
+status <-
+ predata %>%
+ select(`Status`:Column22) %>%
+ gather(col, status) %>%
+ group_by(status) %>%
+ tally_and_perc(status) %>%
+ filter(!is.na(status)) %>%
+ arrange(desc(n)) %>%
+ rename(`Status` = status)
+
+kable(status, caption = "Status")
+```
+
+## Pre/Post Comparison
+
+Learners were asked to rate their level of agreement with the following statements related to Data Carpentry's workshop goals and learning objectives. The figure below provides a visual representation of their responses, comparing them before the workshop and after the workshop. Axis labels and the corresponding question are as follows:  
+
++ __WriteProgram__: I can write a small program/script/macro to solve a problem in my own work.  
++ __TechnicalQuestions__: I know how to search for answers to my technical questions online.  
++ __RawData__: Having access to the original, raw data is important to be able to repeat an analysis.    
++ __ProgrammingEasier__: Using a programming language (like R or Python) can make my analyses easier to reproduce.   
++ __OvercomeProblem__: While working on a programming project, if I get stuck, I can find ways of overcoming the problem.   
++ __ImmediatelyApply__: I can immediately apply what I learned at this workshop. 
++ __ConfidentProgramming__: I am confident in my ability to make use of programming software to work with data.   
++ __ConfidenceSoftware__: Using a programming language (like R or Python) can make me more efficient at working with data.  
++ __ComfortableLearning__: I felt comfortable learning in this workshop environment.
+```{r}
+# Ability to perform various computing tasks before and after completing the workshop
+impact_pre <-
+    c("Strongly disagree",
+    "Disagree",
+    "Neutral",
+    "Agree",
+    "Strongly agree")
+
+impact_post <- 
+  c("Strongly disagree",
+    "Disagree",
+    "Neutral",
+    "Agree",
+    "Strongly agree")
+
+# Compute for all tools.
+
+# Before the workshop
+pre_computing <- 
+predata %>%
+  select(`RawData`:`AnalysesEasier`) %>% 
+  gather() %>% 
+  filter(value %in% impact_pre) %>% 
+  nest(-key) %>% 
+  mutate(tallies = purrr::map(data, ~tally_and_perc(.x, value))) %>% 
+  unnest(tallies)
+
+# After the workshop
+post_computing <- 
+postdata %>%
+  select(`RawData`:`AnalysesEasier`) %>% 
+  gather() %>% 
+  filter(value %in% impact_post) %>% 
+  nest(-key) %>% 
+  mutate(tallies = purrr::map(data, ~tally_and_perc(.x, value)))  %>% 
+  unnest(tallies) 
 ```
 
 ```{r}
-# Now we are ready to combine. Pre responses are labeled with an 'x' and post with a 'y'
-combined_data <- merge(predata_unique, postdata_unique, by = "uniqueID")
+# Plot before a grouped bar plot, then combine.
+
+computing_before <- 
+   ggplot(pre_computing, 
+         aes(x = key,
+             y = `%`,
+             fill = fct_relevel(value, 
+                             impact_pre))) +
+    geom_col(position = "dodge") +
+    geom_text(aes(label=n), 
+              size= 4, 
+              position=position_dodge(width=1)) +
+    scale_x_discrete(labels = function(x) lapply(strwrap(x,
+                                                         width = 10,
+                                                         simplify = FALSE),
+                                                 paste,
+                                                 collapse = "\n")) +
+    theme_classic() +
+    xlab("") +
+    ylab("% Respondents") +
+    ggtitle("Respondent Ability Pre-Workshop") +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme_classic(base_size = 14) +
+    theme(legend.position = "bottom", 
+          legend.title=element_blank()) 
 ```
 
+```{r}
+# Plot after a grouped bar plot, then combine.
+computing_after <- 
+   ggplot(post_computing, 
+         aes(x = key,
+             y = `%`,
+             fill = fct_rev(fct_relevel(value, 
+                             (impact_post))))) +
+    geom_col(position = "dodge") +
+    geom_text(aes(label=n), 
+              size= 4,
+              position=position_dodge(width=1)) +
+    scale_x_discrete(labels = function(x) lapply(strwrap(x,
+                                                         width = 10,
+                                                         simplify = FALSE),
+                                                 paste,
+                                                 collapse = "\n")) +
+    theme_classic() +
+    xlab("") +
+    ylab("% Respondents") +
+    ggtitle("Level of Confidence Post-Workshop") +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme_classic(base_size = 14) +
+    theme(legend.position = "bottom", 
+          legend.title=element_blank()) + 
+guides(fill = guide_legend(nrow = 2)) # wraps legend
+```          
 
+```{r} 
+# Put the two plots together
+library(gridExtra)
+grid.arrange(computing_before, 
+             computing_after,
+             ncol = 1)
+```
