@@ -1,6 +1,7 @@
 # About
-This folder contains analyses of Data Carpentry's pre-workshop survey results. As of 2017-10-13, the content in this folder needs to be updated. The __workshop survey key__ in this folder corresponds to the column headers in the dataset. Each question in the survey has a corresponding column header in the __worshop survey key__.
+This folder contains analyses of Data Carpentry's pre-workshop survey results. Our pre-workshop survey is meant to help instructors understand their learners' prior experience with the skills covered in a workshop. The survey also collects demographic data for our learners.
 
-# Source Data
+The current pre-workshop survey is [here](https://github.com/carpentries/assessment/blob/master/learner-assessment/surveys/dc_presurvey_current.pdf).
 
-# Report
+# Reports
++ [October 2017 Report](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/preworkshop/2017-pilot/2017-10-pilot-pre.html) for the pilot skills-based pre-workshop survey.
