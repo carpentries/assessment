@@ -58,13 +58,12 @@ sum(idx)
 }
 ```
 
-This analysis of The Carpentries Instructor Training [post-workshop survey](https://github.com/carpentries/assessment/blob/master/programmatic-assessment/instructor-training/surveys/current_survey.pdf) serves to offer recommendations for changes to curriculum and assessment of our instructor training program.
+This analysis of The Carpentries Instructor Training [post-workshop survey](https://github.com/carpentries/assessment/blob/master/programmatic-assessment/instructor-training/surveys/current_survey.pdf) serves to offer recommendations for changes to curriculum and assessment of The Carpentries instructor training program.
 
-There were a total 573 trainees who completed this survey in between 2016 and 2018.
+There were a total 573 trainees who completed this survey in between 2016 and February 2018.
 
-## When are respondents completing the post-workshop survey?
+__When are respondents completing the post instructor training survey?__
 
-When are you taking this survey?
 
 ```{r}
 # When are you taking this survey?
@@ -86,9 +85,39 @@ kable(postdata_when_taking_tally)
 
 ### Demographics
 
-__Respondents Position__
+__Domain of research/study__
 
-What is your current position?
+```{r}
+# What is your downain of research/study? 
+# Responses are in columns 'Domain' through 'Column63'
+
+n_responses_to_domain_question <-
+  n_responses_to_the_question(postdata,
+                              from_colname = Domain,
+                              to_colname = Column63)
+
+domain_perc <-
+postdata %>%
+  select(Domain:Column63) %>%
+  gather(col, domain_perc) %>%
+  group_by(domain_perc) %>%
+  tally_and_perc(domain_perc,
+                 na.rm = TRUE,
+                 question_n = n_responses_to_domain_question) %>%
+  filter(!is.na(domain_perc)) %>%
+  arrange(desc(n)) %>%
+  rename(Domain = domain_perc)
+
+kable(domain_perc,
+      format = "markdown",
+      digits = getOption("digits"),
+      row.names = NA,
+      col.names = NA,
+    caption = NULL,
+    escape = TRUE)
+```
+
+__Position__
 
 ```{r trainees_position}
 # What is your current position?
@@ -165,41 +194,8 @@ postdata_gender_tally <-
 kable(postdata_gender_tally)
 ```
 
-__Domain of research/study__
+## Feedback about the overall training event.
 
-What is your downain of research/study?
-
-```{r}
-# What is your downain of research/study? 
-# Responses are in columns 'Domain' through 'Column63'
-
-n_responses_to_domain_question <-
-  n_responses_to_the_question(postdata,
-                              from_colname = Domain,
-                              to_colname = Column63)
-
-domain_perc <-
-postdata %>%
-  select(Domain:Column63) %>%
-  gather(col, domain_perc) %>%
-  group_by(domain_perc) %>%
-  tally_and_perc(domain_perc,
-                 na.rm = TRUE,
-                 question_n = n_responses_to_domain_question) %>%
-  filter(!is.na(domain_perc)) %>%
-  arrange(desc(n)) %>%
-  rename(Domain = domain_perc)
-
-kable(domain_perc,
-      format = "markdown",
-      digits = getOption("digits"),
-      row.names = NA,
-      col.names = NA,
-    caption = NULL,
-    escape = TRUE)
-```
-
-__Feedback about the overall training event.__
 Respondents were asked to rate their level of agreement about the following:
 
 + __Worth__: The training was worth my time.
@@ -242,7 +238,7 @@ plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.co
 ```
 
 __How did you perceive the pace of the training?__
-```{r training_pace}
+```{r}
 # How did you perceive the pace of the training?
 pace = c("Too slow", "Slightly slow", "Just right", "Slightly fast", "Too fast")
 pace = factor(pace)
@@ -257,7 +253,9 @@ postdata_pace_tally <-
   mutate(perc = round(n/sum(n) * 100, 0))
 
 kable(postdata_pace_tally)
+```
 
+```{r training_pace}
 ggplot(postdata_pace_tally,
        aes(Pace, y = 100 * (n/sum(n)),
            n)) +
@@ -727,7 +725,7 @@ ggplot(checkout_tally,
 
 __Likely to Recommend__
 
-Trainees were asked how likely they are to recommend a Software and/or Data Carpentry workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter). The scoring for this question based on a 0 to 100 scale. Respondents scoring from 0 to 60 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 90 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 70 and 80 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors.
+Trainees were asked how likely they are to recommend a Software and/or Data Carpentry workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter). The scoring for this question based on a 0 to 10 scale. Respondents scoring from 0 to 6 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 9 to 10 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 7 and 8 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors.
 
 ```{r}
 postdata$LikelyToRecommend %>%
@@ -761,4 +759,3 @@ ggplot(data_recommend_tally,
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
 ```
-
