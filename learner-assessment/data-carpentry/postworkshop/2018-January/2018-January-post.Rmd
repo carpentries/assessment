@@ -226,7 +226,7 @@ data$`Recommend` %>%
     filter(!is.na(category)) %>%
     count(category) %>%
     mutate("%" = (n / sum(n))*100) %>%
-    kable()
+    kable(, format = 'markdown', row.names = NA, col.names = c ("Promoter Score", "n", "%"))
 ```
 
 ```{r}
@@ -257,10 +257,9 @@ Learners were asked whether there were any accessibility issues that affected th
 
 ```{r}
 # Accessibility Issues
-# To do: Read the open ended responses for what issues came up.
 data %>% 
   tally_and_perc(`AccessibilityIssues`, na.rm = TRUE) %>% 
-  kable()
+  kable(, format = 'markdown', row.names = NA, col.names = c ("Accessibility Issues", "n", "%"))
 ```
 
 A summary of the open-ended responses for those having accessibility issues is as follows:
