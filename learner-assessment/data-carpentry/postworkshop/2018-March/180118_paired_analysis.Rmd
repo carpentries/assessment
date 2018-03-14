@@ -67,7 +67,7 @@ discipline <-
  arrange(desc(n)) %>%
  rename(`Discipline` = discipline)
 
-kable(discipline, caption = "Discipline")
+kable(discipline, format = 'markdown', row.names = NA, col.names = c ("Respondents Discipline", "n", "%"))
 ```
 
 ## Respondents Status
@@ -119,7 +119,10 @@ impact_post <-
     "Neutral",
     "Agree",
     "Strongly agree")
+```
 
+# Pre-Workshop
+```{r}
 # Compute for all tools.
 
 # Before the workshop
@@ -131,7 +134,11 @@ predata %>%
   nest(-key) %>% 
   mutate(tallies = purrr::map(data, ~tally_and_perc(.x, value))) %>% 
   unnest(tallies)
+kable(pre_computing, format = 'markdown', row.names = NA, col.names = c ("Statement", "Level of Agreement", "n", "%"))
+```
 
+# Post-Workshop
+```{r}
 # After the workshop
 post_computing <- 
 postdata %>%
@@ -141,6 +148,7 @@ postdata %>%
   nest(-key) %>% 
   mutate(tallies = purrr::map(data, ~tally_and_perc(.x, value)))  %>% 
   unnest(tallies) 
+kable(post_computing, format = 'markdown', row.names = NA, col.names = c ("Statement", "Level of Agreement", "n", "%"))
 ```
 
 ```{r}
@@ -195,8 +203,8 @@ computing_after <-
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14) +
     theme(legend.position = "bottom", 
-          legend.title=element_blank()) + 
-guides(fill = guide_legend(nrow = 2)) # wraps legend
+          legend.title=element_blank())  
+# + guides(fill = guide_legend(nrow = 2)) # wraps legend
 ```          
 
 ```{r} 
@@ -205,16 +213,21 @@ library(gridExtra)
 grid.arrange(computing_before, 
              computing_after,
              ncol = 1)
+
+# Why are the levels showing in a different order on the grid?
 ```
-### Recommending Data Carpentry Workshops
+
+# Recommending Data Carpentry Workshops
 Learners were asked how likely they are to recommend this workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter). The scoring for this question based on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors. 
 
 ```{r}
-data$`Recommend` %>%
+postdata$`LikelyToRecommend` %>%
     npc(breaks = list(0:64, 65:84, 85:100)) %>%
     data.frame(category = .) %>%
     filter(!is.na(category)) %>%
     count(category) %>%
     mutate("%" = (n / sum(n))*100) %>%
-    kable()
+    kable(, format = 'markdown', row.names = NA, col.names = c ("Promoter Score", "n", "%"))
 ```
+
+
