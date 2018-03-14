@@ -1,9 +1,11 @@
-# setwd("/Users/kariljordan/Data_Carpentry/my-forked-repos/private-data/learner-assessment/data-carpentry/"
-predata <- read.csv("180118_dcpre.csv", stringsAsFactors = FALSE)
-postdata <- read.csv("180108_dcpost.csv", stringsAsFactors = FALSE)
+# Load Pre-Workshop Data
+predata <- read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/data-carpentry/postworkshop/2018-March/180118_dcpre.csv")
 
-predata$uniqueID = predata[["Please.enter.a.unique.identifier.as.follows..Number.of.siblings..as.numeric....First.two.letters.of.the.city.you.were.born.in..lowercase....First.three.letters.of.your.current.street..lowercase...Example..If.I.have.0.siblings..was.born.in.Arlington..and.live.on.Creekwater.Street..my.unique.identifier.would.be.0arcre.This.identifier.will.be.confidential.to.you.and.will.help.us.compare.your.answers.with.the.post.survey."]]
-predata[["Please.enter.a.unique.identifier.as.follows..Number.of.siblings..as.numeric....First.two.letters.of.the.city.you.were.born.in..lowercase....First.three.letters.of.your.current.street..lowercase...Example..If.I.have.0.siblings..was.born.in.Arlington..and.live.on.Creekwater.Street..my.unique.identifier.would.be.0arcre.This.identifier.will.be.confidential.to.you.and.will.help.us.compare.your.answers.with.the.post.survey."]] = NULL
+# Load Post-Workshop Data
+postdata <- read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/data-carpentry/postworkshop/2018-March/180108_dcpost.csv")
+
+predata$uniqueID = predata[["UniqueID"]]
+predata[["UniqueID"]] = NULL
 
 # Which in the table of unique IDs appeared only once?
 # Which gave us the position of the vector. We needed to pull out the names, not positions
@@ -13,11 +15,28 @@ list_unique_ids_pre = names(which(table(predata$uniqueID) == 1))
 predata_unique = predata[which(predata$uniqueID %in% list_unique_ids_pre),]
 
 # Do the same for the post data
-postdata$uniqueID = postdata[["Please.enter.a.unique.identifier.as.follows..Number.of.siblings..as.numeric....First.two.letters.of.the.city.you.were.born.in..lowercase....First.three.letters.of.your.current.street..lowercase...Example..If.I.have.0.siblings..was.born.in.Arlington..and.live.on.Creekwater.Street..my.unique.identifier.would.be.0arcre.This.identifier.will.be.confidential.to.you.and.will.help.us.compare.your.answers.with.the.pre.survey."]]
-postdata[["Please.enter.a.unique.identifier.as.follows..Number.of.siblings..as.numeric....First.two.letters.of.the.city.you.were.born.in..lowercase....First.three.letters.of.your.current.street..lowercase...Example..If.I.have.0.siblings..was.born.in.Arlington..and.live.on.Creekwater.Street..my.unique.identifier.would.be.0arcre.This.identifier.will.be.confidential.to.you.and.will.help.us.compare.your.answers.with.the.pre.survey."]] = NULL
+postdata$uniqueID = postdata[["UniqueID"]]
+postdata[["UniqueID"]] = NULL
 
 list_unique_ids_post = names(which(table(postdata$uniqueID) == 1))
 postdata_unique = postdata[which(postdata$uniqueID %in% list_unique_ids_post),]
 
-# Now we are ready to combine. Pre responses are labeled with an 'x' and post with a 'y'
-combined_data <- merge(predata_unique, postdata_unique, by = "uniqueID")
+# Now we are ready to combine. Pre responses are labeled with an 'x' and post with a 'y'.
+# This is Erin's technique
+# combined_data <- merge(predata_unique, postdata_unique, by = c("uniqueID"))
+
+# This is from DataCamp
+# Join both data frames
+data_merged <- predata_unique %>%
+  inner_join(postdata_unique, by = c("uniqueID"))
+
+# Count the resulting rows
+# data_merged %>%
+#  count()
+
+# Examine combined_data
+# data_merged
+
+# Turn country into a factor
+data_merged <- data_merged %>%
+  mutate(Country.x = as.factor(Country.x))

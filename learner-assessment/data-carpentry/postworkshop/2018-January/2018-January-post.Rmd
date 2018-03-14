@@ -217,11 +217,11 @@ ggsave("figures/perception_instructors_heat.png")
 ```
 
 ### Recommending Data Carpentry Workshops
-Learners were asked how likely they are to recommend this workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter). The scoring for this question based on a 0 to 100 scale. Respondents scoring from 0 to 60 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 90 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 70 and 80 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors. 
+Learners were asked how likely they are to recommend this workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter). The scoring for this question based on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors. 
 
 ```{r}
 data$`Recommend` %>%
-    npc(breaks = list(0:60, 70:80, 90:100)) %>%
+    npc(breaks = list(0:64, 65:84, 85:100)) %>%
     data.frame(category = .) %>%
     filter(!is.na(category)) %>%
     count(category) %>%
