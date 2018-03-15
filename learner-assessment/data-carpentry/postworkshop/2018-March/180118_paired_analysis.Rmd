@@ -231,3 +231,130 @@ postdata$`LikelyToRecommend` %>%
 ```
 
 
+```{r agreement_pre}
+   ggplot(pre_computing, 
+         aes(x = key,
+             y = `%`,
+             fill = fct_relevel(value, 
+                             impact_pre))) +
+    geom_col(position = "dodge") +
+    geom_text(aes(label=n), 
+              size= 4, vjust=-0.25,
+              position=position_dodge(width=1)) +
+    scale_x_discrete(labels = function(x) lapply(strwrap(x,
+                                                         width = 10,
+                                                         simplify = FALSE),
+                                                 paste,
+                                                 collapse = "\n")) +
+    theme_classic() +
+    xlab("") +
+    ylab("% Respondents") +
+    ggtitle("Level of Agreement Pre-Workshop") +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme_classic(base_size = 14) +
+    theme(legend.position = "bottom", 
+          legend.title=element_blank())
+```
+
+```{r agreement_post}
+ggplot(post_computing, 
+         aes(x = key,
+             y = `%`,
+             fill = fct_rev(fct_relevel(value, 
+                             (impact_post))))) +
+    geom_col(position = "dodge") +
+    geom_text(aes(label=n), 
+              size= 4, vjust=-0.25,
+              position=position_dodge(width=1)) +
+    scale_x_discrete(labels = function(x) lapply(strwrap(x,
+                                                         width = 10,
+                                                         simplify = FALSE),
+                                                 paste,
+                                                 collapse = "\n")) +
+    theme_classic() +
+    xlab("") +
+    ylab("% Respondents") +
+    ggtitle("Level of Agreement Post-Workshop") +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme_classic(base_size = 14) +
+    theme(legend.position = "bottom", 
+          legend.title=element_blank())  
+```
+## Pre-Workshop
+
+__WriteProgram__: I can write a small program/script/macro to solve a problem in my own work.
+```{r}
+# I can write a small program/script/macro to solve a problem in my own work.
+levels_write_pre <-
+    c("Strongly disagree",
+    "Disagree",
+    "Neutral",
+    "Agree",
+    "Strongly agree")
+levels_write_pre = factor(levels_write_pre)
+
+predata$WriteScript = factor(predata$WriteScript, levels = levels_write_pre)
+
+data_write_pre_tally <- 
+  predata %>% 
+  group_by(WriteScript) %>% 
+  tally() %>%
+  filter(!is.na(WriteScript)) 
+
+ggplot(data_write_pre_tally, 
+       aes(`WriteScript`, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="purple") +
+  geom_text(aes(label=n), size= 4, vjust=-0.25) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Self-Reported Pre-Workshop Scores") +
+  ylab("% Respondents") +
+  ggtitle("I can write a small program/script/macro to solve a problem \nin my own work.") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+```
+
+```{r}
+# This is the code to join both dataframes by UniqueId so that we can run paired analyses
+predata$uniqueID = predata[["UniqueID"]]
+predata[["UniqueID"]] = NULL
+
+# Which in the table of unique IDs appeared only once?
+# Which gave us the position of the vector. We needed to pull out the names, not positions
+# Which of the unique IDs are in this list. Only give us the rows in predata which match this condition
+# and give us all the columns. We assigned it to a new data frame.
+list_unique_ids_pre = names(which(table(predata$uniqueID) == 1))
+predata_unique = predata[which(predata$uniqueID %in% list_unique_ids_pre),]
+
+# Do the same for the post data
+postdata$uniqueID = postdata[["UniqueID"]]
+postdata[["UniqueID"]] = NULL
+
+list_unique_ids_post = names(which(table(postdata$uniqueID) == 1))
+postdata_unique = postdata[which(postdata$uniqueID %in% list_unique_ids_post),]
+
+# Now we are ready to combine. Pre responses are labeled with an 'x' and post with a 'y'.
+# This is Erin's technique
+# combined_data <- merge(predata_unique, postdata_unique, by = c("uniqueID"))
+
+# This is from DataCamp
+# Join both data frames
+data_merged <- predata_unique %>%
+  inner_join(postdata_unique, by = c("uniqueID"))
+```
+
+__RawData__ 
+Having access to the original, raw data is important to be able to repeat an analysis.
+
+
+```{r}
+# Convert from factor to numeric
+RawData.x <- as.numeric(as.character(data_merged$RawData.x))
+RawData.y <- as.numeric(as.character(data_merged$RawData.y))
+```
+
+```{r}
+# Paired t-test
+t.test(RawData.x,RawData.y, paired = TRUE)
+```
