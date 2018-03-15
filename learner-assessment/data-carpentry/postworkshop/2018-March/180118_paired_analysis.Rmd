@@ -15,6 +15,7 @@ library(NPS)
 opts_chunk$set(echo = FALSE,
                message = FALSE,
                warning = FALSE)
+opts_chunk$set(fig.path='/figures') #puts all figures in figures folder
 ```
 
 ```{r}
@@ -68,6 +69,7 @@ discipline <-
  rename(`Discipline` = discipline)
 
 kable(discipline, format = 'markdown', row.names = NA, col.names = c ("Respondents Discipline", "n", "%"))
+# The percentages in the table are incorrect
 ```
 
 ## Respondents Status
@@ -89,6 +91,7 @@ status <-
  rename(`Status` = status)
 
 kable(status, caption = "Status")
+# The percentages in the table are incorrect
 ```
 
 ## Pre/Post Comparison
@@ -119,6 +122,7 @@ impact_post <-
     "Neutral",
     "Agree",
     "Strongly agree")
+# How do I tell R that I want the factors in this order always?
 ```
 
 # Pre-Workshop
@@ -207,7 +211,7 @@ computing_after <-
 # + guides(fill = guide_legend(nrow = 2)) # wraps legend
 ```          
 
-```{r} 
+```{r change_in_confidence} 
 # Put the two plots together
 library(gridExtra)
 grid.arrange(computing_before, 
@@ -283,7 +287,7 @@ ggplot(post_computing,
 ## Pre-Workshop
 
 __WriteProgram__: I can write a small program/script/macro to solve a problem in my own work.
-```{r write_program_pre}
+```{r}
 # I can write a small program/script/macro to solve a problem in my own work.
 levels_write_pre <-
     c("Strongly disagree",
@@ -300,7 +304,9 @@ data_write_pre_tally <-
   group_by(WriteScript) %>% 
   tally() %>%
   filter(!is.na(WriteScript)) 
+```
 
+```{r write_program_pre}
 ggplot(data_write_pre_tally, 
        aes(`WriteScript`, y = 100 * (n/sum(n)),
            n)) +
