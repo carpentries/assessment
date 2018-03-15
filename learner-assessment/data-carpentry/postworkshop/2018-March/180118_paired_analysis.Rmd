@@ -283,7 +283,7 @@ ggplot(post_computing,
 ## Pre-Workshop
 
 __WriteProgram__: I can write a small program/script/macro to solve a problem in my own work.
-```{r}
+```{r write_program_pre}
 # I can write a small program/script/macro to solve a problem in my own work.
 levels_write_pre <-
     c("Strongly disagree",
