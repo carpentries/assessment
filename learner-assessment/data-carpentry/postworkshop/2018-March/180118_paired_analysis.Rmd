@@ -15,7 +15,7 @@ library(NPS)
 opts_chunk$set(echo = FALSE,
                message = FALSE,
                warning = FALSE)
-opts_chunk$set(fig.path='/figures') #puts all figures in figures folder
+opts_chunk$set(fig.path='figures/') #puts all figures in figures folder
 ```
 
 ```{r}
@@ -323,32 +323,32 @@ ggplot(data_write_pre_tally,
 ```
 
 ```{r}
-# This is the code to join both dataframes by UniqueId so that we can run paired analyses
-predata$uniqueID = predata[["UniqueID"]]
-predata[["UniqueID"]] = NULL
+## # This is the code to join both dataframes by UniqueId so that we can run paired analyses
+## #predata$uniqueID = predata[["UniqueID"]]
+## #predata[["UniqueID"]] = NULL
 
-# Which in the table of unique IDs appeared only once?
-# Which gave us the position of the vector. We needed to pull out the names, not positions
-# Which of the unique IDs are in this list. Only give us the rows in predata which match this condition
-# and give us all the columns. We assigned it to a new data frame.
-list_unique_ids_pre = names(which(table(predata$uniqueID) == 1))
-predata_unique = predata[which(predata$uniqueID %in% list_unique_ids_pre),]
+## # Which in the table of unique IDs appeared only once?
+## # Which gave us the position of the vector. We needed to pull out the names, not positions
+## # Which of the unique IDs are in this list. Only give us the rows in predata which match this condition
+## # and give us all the columns. We assigned it to a new data frame.
+## list_unique_ids_pre = names(which(table(predata$uniqueID) == 1))
+## predata_unique = predata[which(predata$uniqueID %in% list_unique_ids_pre),]
 
-# Do the same for the post data
-postdata$uniqueID = postdata[["UniqueID"]]
-postdata[["UniqueID"]] = NULL
+## # Do the same for the post data
+## postdata$uniqueID = postdata[["UniqueID"]]
+## postdata[["UniqueID"]] = NULL
 
-list_unique_ids_post = names(which(table(postdata$uniqueID) == 1))
-postdata_unique = postdata[which(postdata$uniqueID %in% list_unique_ids_post),]
+## list_unique_ids_post = names(which(table(postdata$uniqueID) == 1))
+## postdata_unique = postdata[which(postdata$uniqueID %in% list_unique_ids_post),]
 
-# Now we are ready to combine. Pre responses are labeled with an 'x' and post with a 'y'.
-# This is Erin's technique
-# combined_data <- merge(predata_unique, postdata_unique, by = c("uniqueID"))
+## # Now we are ready to combine. Pre responses are labeled with an 'x' and post with a 'y'.
+## # This is Erin's technique
+## # combined_data <- merge(predata_unique, postdata_unique, by = c("uniqueID"))
 
-# This is from DataCamp
-# Join both data frames
-data_merged <- predata_unique %>%
-  inner_join(postdata_unique, by = c("uniqueID"))
+## # This is from DataCamp
+## # Join both data frames
+## data_merged <- predata_unique %>%
+##   inner_join(postdata_unique, by = c("uniqueID"))
 ```
 
 __RawData__ 
@@ -363,26 +363,84 @@ RawData.y <- as.numeric(as.character(data_merged$RawData.y))
 
 ```{r}
 # Paired t-test
-t.test(RawData.x,RawData.y, paired = TRUE)
+##t.test(RawData.x,RawData.y, paired = TRUE)
 ```
 ```{r}
 #Change from character to numerica
-RawData.x <- revalue(data_merged$RawData.x, c("Strongly disagree" = "1",
-                                      "Disagree" = "2",
-                                      "Neutral" = "3",
-                                      "Agree" = "4",
-                                      "Strongly agree" = "5"))
+## RawData.x <- revalue(data_merged$RawData.x, c("Strongly disagree" = "1",
+##                                       "Disagree" = "2",
+##                                       "Neutral" = "3",
+##                                       "Agree" = "4",
+##                                       "Strongly agree" = "5"))
 
-RawData.y <- revalue(data_merged$RawData.y, c("Strongly disagree" = "1",
-                                      "Disagree" = "2",
-                                      "Neutral" = "3",
-                                      "Agree" = "4",
-                                      "Strongly agree" = "5"))
+## RawData.y <- revalue(data_merged$RawData.y, c("Strongly disagree" = "1",
+##                                       "Disagree" = "2",
+##                                       "Neutral" = "3",
+##                                       "Agree" = "4",
+##                                       "Strongly agree" = "5"))
 ```
 
 ```{r}
-data <-data.frame(RawData.x, RawData.y)
+##data <-data.frame(RawData.x, RawData.y)
 # Paired t-test
-t.test(data ~ group, sleep, paired=TRUE)
+##t.test(data ~ group, sleep, paired=TRUE)
 ```
 
+#### François
+
+
+```{r}
+
+prep_paired_data <- . %>%
+    select(UniqueID, `RawData`:`AnalysesEasier`) %>%
+    filter(!is.na(UniqueID)) %>%
+    gather(skill, feeling, -UniqueID) %>%
+    mutate(feeling_score = case_when(
+               feeling == "Strongly disagree" ~ 1,
+               feeling == "Disagree"          ~ 2,
+               feeling == "Neutral"           ~ 3,
+               feeling == "Agree"             ~ 4, 
+               feeling == "Strongly agree"    ~ 5,
+               is.na(feeling)                 ~ NA_real_, 
+               TRUE                           ~ 999
+           )) %>%
+    assert(in_set(NA, 1, 2, 3, 4, 5), feeling_score)
+
+
+pre_paired <- predata %>%
+    prep_paired_data %>%
+    rename_at(vars(-UniqueID, -skill), ~ paste0("pre_", .))
+    
+post_paired <- postdata %>%
+    prep_paired_data %>%
+    rename_at(vars(-UniqueID, -skill), ~ paste0("post_", .))
+
+paired_data <- inner_join(pre_paired, post_paired, by = c("UniqueID", "skill"))
+
+
+t_test_results <- paired_data %>%
+    group_by(skill) %>%
+    nest() %>% 
+    mutate(t_test_res = purrr::map(data, function(x) {
+        t.test(x$pre_feeling_score, x$post_feeling_score, paired = TRUE,
+               alt = "less") %>%
+            broom::tidy()
+    })) %>%
+    unnest(t_test_res)
+
+t_test <- paired_data %>%
+    group_by(skill) %>%
+    summarize(
+        mean_pre_feeling = mean(pre_feeling_score, na.rm = TRUE),
+        n_pre = sum(!is.na(pre_feeling_score)),
+        sd_pre_feeling = sd(pre_feeling_score, na.rm = TRUE),
+        mean_post_feeling = mean(post_feeling_score, na.rm = TRUE),
+        n_post = sum(!is.na(post_feeling_score)),
+        sd_post_feeling = sd(post_feeling_score, na.rm = TRUE)
+    ) %>%
+    left_join(t_test_results, by = "skill")
+
+kable(select(t_test, skill, ends_with("feeling"), starts_with("n"), 
+             p.value))
+ 
+```
