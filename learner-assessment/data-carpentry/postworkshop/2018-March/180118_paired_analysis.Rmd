@@ -64,7 +64,7 @@ discipline <-
  gather(col, discipline) %>%
  group_by(discipline) %>%
  tally_and_perc(discipline) %>%
- filter(!is.na(discipline)) %>%
+ #filter(!is.na(discipline)) %>%
  arrange(desc(n)) %>%
  rename(`Discipline` = discipline)
 
@@ -86,7 +86,7 @@ status <-
  gather(col, status) %>%
  group_by(status) %>%
  tally_and_perc(status) %>%
- filter(!is.na(status)) %>%
+ #filter(!is.na(status)) %>%
  arrange(desc(n)) %>%
  rename(`Status` = status)
 
@@ -282,7 +282,8 @@ ggplot(post_computing,
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14) +
     theme(legend.position = "bottom", 
-          legend.title=element_blank())  
+          legend.title=element_blank())
+# Why does strongly agree appear first in this plot but last in the plot above?
 ```
 ## Pre-Workshop
 
@@ -364,3 +365,24 @@ RawData.y <- as.numeric(as.character(data_merged$RawData.y))
 # Paired t-test
 t.test(RawData.x,RawData.y, paired = TRUE)
 ```
+```{r}
+#Change from character to numerica
+RawData.x <- revalue(data_merged$RawData.x, c("Strongly disagree" = "1",
+                                      "Disagree" = "2",
+                                      "Neutral" = "3",
+                                      "Agree" = "4",
+                                      "Strongly agree" = "5"))
+
+RawData.y <- revalue(data_merged$RawData.y, c("Strongly disagree" = "1",
+                                      "Disagree" = "2",
+                                      "Neutral" = "3",
+                                      "Agree" = "4",
+                                      "Strongly agree" = "5"))
+```
+
+```{r}
+data <-data.frame(RawData.x, RawData.y)
+# Paired t-test
+t.test(data ~ group, sleep, paired=TRUE)
+```
+
