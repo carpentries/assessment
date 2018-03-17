@@ -12,6 +12,8 @@ library(RColorBrewer)
 library(srvyr)
 library(beeswarm)
 library(NPS)
+library(broom)
+library(assertr)
 opts_chunk$set(echo = FALSE,
                message = FALSE,
                warning = FALSE)
@@ -64,7 +66,7 @@ discipline <-
  gather(col, discipline) %>%
  group_by(discipline) %>%
  tally_and_perc(discipline) %>%
- #filter(!is.na(discipline)) %>%
+ filter(!is.na(discipline)) %>%
  arrange(desc(n)) %>%
  rename(`Discipline` = discipline)
 
@@ -86,7 +88,7 @@ status <-
  gather(col, status) %>%
  group_by(status) %>%
  tally_and_perc(status) %>%
- #filter(!is.na(status)) %>%
+ filter(!is.na(status)) %>%
  arrange(desc(n)) %>%
  rename(`Status` = status)
 
@@ -138,7 +140,7 @@ predata %>%
   nest(-key) %>% 
   mutate(tallies = purrr::map(data, ~tally_and_perc(.x, value))) %>% 
   unnest(tallies)
-kable(pre_computing, format = 'markdown', row.names = NA, col.names = c ("Statement", "Level of Agreement", "n", "%"))
+#kable(pre_computing, format = 'markdown', row.names = NA, col.names = c ("Statement", "Level of Agreement", "n", "%"))
 ```
 
 # Post-Workshop
@@ -152,7 +154,7 @@ postdata %>%
   nest(-key) %>% 
   mutate(tallies = purrr::map(data, ~tally_and_perc(.x, value)))  %>% 
   unnest(tallies) 
-kable(post_computing, format = 'markdown', row.names = NA, col.names = c ("Statement", "Level of Agreement", "n", "%"))
+#kable(post_computing, format = 'markdown', row.names = NA, col.names = c ("Statement", "Level of Agreement", "n", "%"))
 ```
 
 ```{r}
@@ -285,110 +287,8 @@ ggplot(post_computing,
           legend.title=element_blank())
 # Why does strongly agree appear first in this plot but last in the plot above?
 ```
-## Pre-Workshop
 
-__WriteProgram__: I can write a small program/script/macro to solve a problem in my own work.
-```{r}
-# I can write a small program/script/macro to solve a problem in my own work.
-levels_write_pre <-
-    c("Strongly disagree",
-    "Disagree",
-    "Neutral",
-    "Agree",
-    "Strongly agree")
-levels_write_pre = factor(levels_write_pre)
-
-predata$WriteScript = factor(predata$WriteScript, levels = levels_write_pre)
-
-data_write_pre_tally <- 
-  predata %>% 
-  group_by(WriteScript) %>% 
-  tally() %>%
-  filter(!is.na(WriteScript)) 
-```
-
-```{r write_program_pre}
-ggplot(data_write_pre_tally, 
-       aes(`WriteScript`, y = 100 * (n/sum(n)),
-           n)) +
-  geom_bar(stat = "identity", fill="purple") +
-  geom_text(aes(label=n), size= 4, vjust=-0.25) +
-  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-  theme_classic() +
-  xlab("Self-Reported Pre-Workshop Scores") +
-  ylab("% Respondents") +
-  ggtitle("I can write a small program/script/macro to solve a problem \nin my own work.") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
-```
-
-```{r}
-## # This is the code to join both dataframes by UniqueId so that we can run paired analyses
-## #predata$uniqueID = predata[["UniqueID"]]
-## #predata[["UniqueID"]] = NULL
-
-## # Which in the table of unique IDs appeared only once?
-## # Which gave us the position of the vector. We needed to pull out the names, not positions
-## # Which of the unique IDs are in this list. Only give us the rows in predata which match this condition
-## # and give us all the columns. We assigned it to a new data frame.
-## list_unique_ids_pre = names(which(table(predata$uniqueID) == 1))
-## predata_unique = predata[which(predata$uniqueID %in% list_unique_ids_pre),]
-
-## # Do the same for the post data
-## postdata$uniqueID = postdata[["UniqueID"]]
-## postdata[["UniqueID"]] = NULL
-
-## list_unique_ids_post = names(which(table(postdata$uniqueID) == 1))
-## postdata_unique = postdata[which(postdata$uniqueID %in% list_unique_ids_post),]
-
-## # Now we are ready to combine. Pre responses are labeled with an 'x' and post with a 'y'.
-## # This is Erin's technique
-## # combined_data <- merge(predata_unique, postdata_unique, by = c("uniqueID"))
-
-## # This is from DataCamp
-## # Join both data frames
-## data_merged <- predata_unique %>%
-##   inner_join(postdata_unique, by = c("uniqueID"))
-```
-
-__RawData__ 
-Having access to the original, raw data is important to be able to repeat an analysis.
-
-
-```{r}
-# Convert from factor to numeric
-RawData.x <- as.numeric(as.character(data_merged$RawData.x))
-RawData.y <- as.numeric(as.character(data_merged$RawData.y))
-```
-
-```{r}
-# Paired t-test
-##t.test(RawData.x,RawData.y, paired = TRUE)
-```
-```{r}
-#Change from character to numerica
-## RawData.x <- revalue(data_merged$RawData.x, c("Strongly disagree" = "1",
-##                                       "Disagree" = "2",
-##                                       "Neutral" = "3",
-##                                       "Agree" = "4",
-##                                       "Strongly agree" = "5"))
-
-## RawData.y <- revalue(data_merged$RawData.y, c("Strongly disagree" = "1",
-##                                       "Disagree" = "2",
-##                                       "Neutral" = "3",
-##                                       "Agree" = "4",
-##                                       "Strongly agree" = "5"))
-```
-
-```{r}
-##data <-data.frame(RawData.x, RawData.y)
-# Paired t-test
-##t.test(data ~ group, sleep, paired=TRUE)
-```
-
-#### François
-
-
+## Paired Analyses Table
 ```{r}
 
 prep_paired_data <- . %>%
