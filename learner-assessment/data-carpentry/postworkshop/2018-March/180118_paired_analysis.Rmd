@@ -47,13 +47,28 @@ tally_and_perc <- function(df, colname, na.rm = FALSE){
 
 ## Workshop Location
 
-```{r}
+```{r respondents_country}
 data_country_tally <-
-  predata %>% 
-  tally_and_perc(`Country`, na.rm = TRUE) %>%
+predata %>%
+  group_by(Country) %>%
+  tally(sort = TRUE) %>%
+  mutate(perc = round(100 * (n/sum(n)), 1)) %>% # add the % col
+  filter(!is.na(Country)) %>%
   arrange(desc(n))
 
-kable(data_country_tally, format='markdown')
+ggplot(data_country_tally,
+       aes(reorder(Country, perc),
+           perc)) +
+  geom_bar(stat = "identity", fill = "maroon") +
+  theme_classic() +
+  xlab("") +
+  ylab("Breakdown of Respondents by Country") +
+  coord_flip() +
+  ggtitle("") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_bw(base_size = 14)
+
+#kable(data_country_tally, format='markdown')
 ```
 
 ## Respondents Discipline
@@ -127,8 +142,9 @@ impact_post <-
 # How do I tell R that I want the factors in this order always?
 ```
 
-# Pre-Workshop
+
 ```{r}
+# Pre-Workshop
 # Compute for all tools.
 
 # Before the workshop
@@ -143,9 +159,9 @@ predata %>%
 #kable(pre_computing, format = 'markdown', row.names = NA, col.names = c ("Statement", "Level of Agreement", "n", "%"))
 ```
 
-# Post-Workshop
+
 ```{r}
-# After the workshop
+# Post-Workshop
 post_computing <- 
 postdata %>%
   select(`RawData`:`AnalysesEasier`) %>% 
@@ -222,20 +238,6 @@ grid.arrange(computing_before,
 
 # Why are the levels showing in a different order on the grid?
 ```
-
-# Recommending Data Carpentry Workshops
-Learners were asked how likely they are to recommend this workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter). The scoring for this question based on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors. 
-
-```{r}
-postdata$`LikelyToRecommend` %>%
-    npc(breaks = list(0:64, 65:84, 85:100)) %>%
-    data.frame(category = .) %>%
-    filter(!is.na(category)) %>%
-    count(category) %>%
-    mutate("%" = (n / sum(n))*100) %>%
-    kable(, format = 'markdown', row.names = NA, col.names = c ("Promoter Score", "n", "%"))
-```
-
 
 ```{r agreement_pre}
    ggplot(pre_computing, 
@@ -343,4 +345,18 @@ t_test <- paired_data %>%
 kable(select(t_test, skill, ends_with("feeling"), starts_with("n"), 
              p.value))
  
+```
+
+# Recommending Data Carpentry Workshops
+Learners were asked how likely they are to recommend this workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter). The scoring for this question based on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors. 
+
+
+```{r}
+postdata$`LikelyToRecommend` %>%
+    npc(breaks = list(0:64, 65:84, 85:100)) %>%
+    data.frame(category = .) %>%
+    filter(!is.na(category)) %>%
+    count(category) %>%
+    mutate("%" = (n / sum(n))*100) %>%
+    kable(, format = 'markdown', row.names = NA, col.names = c ("Promoter Score", "n", "%"))
 ```
