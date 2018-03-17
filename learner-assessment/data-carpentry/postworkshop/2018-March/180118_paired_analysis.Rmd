@@ -196,7 +196,7 @@ computing_before <-
     ylab("% Respondents") +
     ggtitle("Respondent Ability Pre-Workshop") +
     theme(plot.title = element_text(hjust = 0.5)) +
-    theme_classic(base_size = 14) +
+    theme_classic(base_size = 10) +
     theme(legend.position = "bottom", 
           legend.title=element_blank()) 
 ```
@@ -223,7 +223,7 @@ computing_after <-
     ylab("% Respondents") +
     ggtitle("Level of Confidence Post-Workshop") +
     theme(plot.title = element_text(hjust = 0.5)) +
-    theme_classic(base_size = 14) +
+    theme_classic(base_size = 10) +
     theme(legend.position = "bottom", 
           legend.title=element_blank())  
 # + guides(fill = guide_legend(nrow = 2)) # wraps legend
@@ -232,9 +232,9 @@ computing_after <-
 ```{r change_in_confidence} 
 # Put the two plots together
 library(gridExtra)
-grid.arrange(computing_before, 
-             computing_after,
-             ncol = 1)
+#grid.arrange(computing_before, 
+#             computing_after,
+#             ncol = 1)
 
 # Why are the levels showing in a different order on the grid?
 ```
