@@ -84,8 +84,6 @@ kable(postdata_when_taking_tally, format = 'markdown', row.names = NA, col.names
 
 ### Demographics
 
-__Domain of research/study__
-
 ```{r}
 # What is your downain of research/study? 
 # Responses are in columns 'Domain' through 'Column63'
@@ -110,7 +108,7 @@ kable(domain_perc,
       format = "markdown",
       digits = getOption("digits"),
       row.names = NA,
-      col.names = NA,
+      col.names = c("Domain of research/work/study", "n", "%"),
     caption = NULL,
     escape = TRUE)
 ```
@@ -145,9 +143,7 @@ ggplot(postdata_position_tally,
   theme_classic(base_size = 10)
 ```
 
-In the interest of improving diversity, we collect additional demographic information for U.S. participants. This information is completely voluntary.
-
-__How would you describe yourself?__
+In the interest of improving diversity, we collect additional demographic information for U.S. participants. This information is completely voluntary. Trainees were asked to self-report how they identify themselves by selecting among various racial/ethnic groups and to describe their gender identity.
 
 ```{r}
 # How would you describe yourself?
@@ -174,8 +170,6 @@ postdata_race_tally <-
 kable(postdata_race_tally,, format = 'markdown', row.names = NA, col.names = c("Racial/Ethnic Identity", "n", "%"))
 ```
 
-__What is your gender?__
-
 ```{r}
 # What is your gender?
 gender = c("Female", "Male", "Other", "Prefer not to say")
@@ -196,7 +190,7 @@ kable(postdata_gender_tally, format = 'markdown', col.names = c("Gender Identity
 
 ## Feedback about the overall training event.
 
-We are interested to know how much of the information presented at Carpentries instructor training events is new. 
+We are interested to know how much of the information presented at Carpentries instructor training events is new. The following table shows that about one third of trainees fall into either some, about half, or most of the information being new to them.
 
 ```{r new_information}
 # How much of the information presented at this training event was new to you?
@@ -234,7 +228,7 @@ ggplot(postdata_newinfo_tally,
   theme_classic(base_size = 14)
 ```
 
-Trainees were asked to rate their level of agreement about the following:
+Trainees were asked to rate their level of agreement about the following statements as it relates to the overall training event.
 
 + __Worth__: The training was worth my time.
 + __Recommend__: I would recommend this training to a friend/colleague.
@@ -291,7 +285,7 @@ postdata_pace_tally <-
   filter(!is.na(Pace)) %>%
   mutate(perc = round(n/sum(n) * 100, 0))
 
-kable(postdata_pace_tally, format = 'markdown', col.names = c("Workshop Pace", "n", "%"))
+kable(postdata_pace_tally, format = 'markdown', col.names = c("Training Pace", "n", "%"))
 ```
 
 ```{r training_pace}
@@ -309,7 +303,7 @@ ggplot(postdata_pace_tally,
   theme_classic(base_size = 14)
 ```
 
-Trainees were asked to  balance of lecture to hands-on work?__
+Trainees were also asked to rate the balance of lecture to hands-on work.
 
 ```{r}
 # How was the balance of lecture to hands-on work?
@@ -342,7 +336,7 @@ ggplot(postdata_handson_tally,
   theme_classic() +
   xlab("Balance of Lecture") +
   ylab("% Trainees") +
-  ggtitle("Trainees Perception of Workshop Balance: \nLecture vs. Hands-On") +
+  ggtitle("Trainees Perception of Workshop: \nBalance of Lecture vs. Hands-On") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
 ```
@@ -566,7 +560,7 @@ postdata %>%
           legend.title=element_blank()) 
 ```
 
-__Change in confidence with Carpentries teaching practices__
+## Change in confidence with Carpentries teaching practices
 
 Trainees were asked to rate their ability before the training, and their change in confidence after the training, for the following items:
 
@@ -705,7 +699,7 @@ checkout_tally <-
   filter(!is.na(CompleteTraining)) %>%
   mutate(perc = round(n/sum(n) * 100, 0))
 
-kable(checkout_tally)
+kable(checkout_tally, format = 'markdown', col.names = c("Clear on Checkout Process?", "n", "%"))
 ```
 
 ```{r understanding_of_checkout}
@@ -723,18 +717,20 @@ ggplot(checkout_tally,
   theme_classic(base_size = 14)
 ```
 
-__Likely to Recommend__
+## Recommending Carpentries' Instructor Training
 
-Trainees were asked how likely they are to recommend a Software and/or Data Carpentry workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter). The scoring for this question based on a 0 to 10 scale. Trainees scoring from 0 to 6 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 9 to 10 are called *Promoters*, and are considered likely to recommend a workshop. Trainees between 7 and 8 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors.
+Trainees were asked how likely they are to recommend a Software and/or Data Carpentry workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter). The scoring for this question based on a 0 to 10 scale. Trainees scoring from 0 to 6.4 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 8.5 to 10 are called *Promoters*, and are considered likely to recommend a workshop. Trainees between 6.5 and 8.4 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors.
 
 ```{r}
+npr <-
 postdata$LikelyToRecommend %>%
     npc(breaks = list(0:6, 7:8, 9:10)) %>%
     data.frame(category = .) %>%
     filter(!is.na(category)) %>%
     count(category) %>%
-    mutate("%" = (n / sum(n))*100) %>%
-    kable()
+    mutate("%" = (n / sum(n))*100)
+
+kable(npr,format = 'markdown', colnames = c("Net Promoter Score", "n", "%"))
 ```
 
 ```{r}
