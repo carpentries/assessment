@@ -21,7 +21,7 @@ postdata <- readr::read_csv("https://raw.githubusercontent.com/carpentries/asses
 
 ```{r}
 # Function that makes a table of counts and percentages
-# question_n is set by default to the number of respondents in the survey. This value may have to be set by question.
+# question_n is set by default to the number of trainees in the survey. This value may have to be set by question.
 question_n <- nrow(postdata)
 
 tally_and_perc <- function(df, colname, na.rm = FALSE, question_n){
@@ -62,8 +62,7 @@ This analysis of The Carpentries Instructor Training [post-workshop survey](http
 
 There were a total 573 trainees who completed this survey in between June 2016 and February 2018.
 
-### When are respondents completing the post instructor training survey?
-
+### When are trainees completing the post instructor training survey?
 
 ```{r}
 # When are you taking this survey?
@@ -139,8 +138,8 @@ ggplot(postdata_position_tally,
   geom_text(aes(label=n), size= 4, vjust=-0.25) +
   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
   theme_classic() +
-  xlab("Respondents' Position") +
-  ylab("% Respondents") +
+  xlab("Trainees' Position") +
+  ylab("% Trainees") +
   ggtitle("Breakdown of Instructor Trainees by Position") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 10)
@@ -197,7 +196,45 @@ kable(postdata_gender_tally, format = 'markdown', col.names = c("Gender Identity
 
 ## Feedback about the overall training event.
 
-Respondents were asked to rate their level of agreement about the following:
+We are interested to know how much of the information presented at Carpentries instructor training events is new. 
+
+```{r new_information}
+# How much of the information presented at this training event was new to you?
+newinfo = c("None of it", 
+            "Some of it", 
+            "About half of it", 
+            "Most of it", 
+            "Al of it")
+newinfo = factor(newinfo)
+
+postdata$NewInformation = factor(postdata$NewInformation, levels = newinfo)
+
+postdata_newinfo_tally <-
+  postdata %>%
+  group_by(NewInformation) %>%
+  tally() %>%
+  filter(!is.na(NewInformation)) %>%
+  mutate(perc = round(n/sum(n) * 100, 0))
+
+kable(postdata_newinfo_tally, format = 'markdown', col.names = c("How much information was new?", "n", "%"))
+```
+
+```{r new_information_presented}
+ggplot(postdata_newinfo_tally,
+       aes(NewInformation, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="orange") +
+  geom_text(aes(label=n), size= 4, vjust=-0.25) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("New Information") +
+  ylab("% Trainees") +
+  ggtitle("New Information Trainees were Presented") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+```
+
+Trainees were asked to rate their level of agreement about the following:
 
 + __Worth__: The training was worth my time.
 + __Recommend__: I would recommend this training to a friend/colleague.
@@ -238,7 +275,8 @@ title <- "Perception of Instructor Training Impact"
 plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
 ```
 
-__How did you perceive the pace of the training?__
+Trainees were asked how they perceived the pace of the training.
+
 ```{r}
 # How did you perceive the pace of the training?
 pace = c("Too slow", "Slightly slow", "Just right", "Slightly fast", "Too fast")
@@ -265,13 +303,13 @@ ggplot(postdata_pace_tally,
   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
   theme_classic() +
   xlab("Pace") +
-  ylab("% Respondents") +
+  ylab("% Trainees") +
   ggtitle("Trainees Perception of Workshop Pace") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
 ```
 
-__How was the balance of lecture to hands-on work?__
+Trainees were asked to  balance of lecture to hands-on work?__
 
 ```{r}
 # How was the balance of lecture to hands-on work?
@@ -303,7 +341,7 @@ ggplot(postdata_handson_tally,
   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
   theme_classic() +
   xlab("Balance of Lecture") +
-  ylab("% Respondents") +
+  ylab("% Trainees") +
   ggtitle("Trainees Perception of Workshop Balance: \nLecture vs. Hands-On") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
@@ -311,7 +349,7 @@ ggplot(postdata_handson_tally,
 
 ## About the Instructors and Helpers
 
-__Please select how you felt the instructor trainers(s) performed.__
+Trainees were asked to select how they felt the instructor trainers(s) performed based on the following:
 
 + __Enthusiastic__: Instructor trainer(s) were enthusiastic.
 + __Considerate__: Instructor trainer(s) were considerate.
@@ -344,47 +382,6 @@ title <- "Perception of How Instructor Trainers Performed"
 plot(lc_often_train, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
 ```
 
-
-
-__Feedback about workshop topics__
-
-How much of the information presented at this training event was new to you?
-
-```{r new_information}
-# How much of the information presented at this training event was new to you?
-newinfo = c("None of it", 
-            "Some of it", 
-            "About half of it", 
-            "Most of it", 
-            "Al of it")
-newinfo = factor(newinfo)
-
-postdata$NewInformation = factor(postdata$NewInformation, levels = newinfo)
-
-postdata_newinfo_tally <-
-  postdata %>%
-  group_by(NewInformation) %>%
-  tally() %>%
-  filter(!is.na(NewInformation)) %>%
-  mutate(perc = round(n/sum(n) * 100, 0))
-
-kable(postdata_newinfo_tally, format = 'markdown', col.names = c("How much information was new?", "n", "%"))
-```
-
-```{r new_information_presented}
-ggplot(postdata_newinfo_tally,
-       aes(NewInformation, y = 100 * (n/sum(n)),
-           n)) +
-  geom_bar(stat = "identity", fill="orange") +
-  geom_text(aes(label=n), size= 4, vjust=-0.25) +
-  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-  theme_classic() +
-  xlab("New Information") +
-  ylab("% Respondents") +
-  ggtitle("New Information Trainees were Presented") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
-```
 
 
 Trainees were asked to describe their experience with the following topics before the training, and their change in knowledge of these topics after the training. The topics are as follows:
@@ -454,7 +451,7 @@ experience_pre_plot <-
                              experience_pre))) +
     geom_col(position = "dodge") +
     geom_text(aes(label=n), 
-              size= 4,
+              size= 4, vjust=-0.25,
               position=position_dodge(width=1)) +
     scale_x_discrete(labels = function(x) lapply(strwrap(x,
                                                          width = 10,
@@ -463,7 +460,7 @@ experience_pre_plot <-
                                                  collapse = "\n")) +
     theme_classic() +
     xlab("") +
-    ylab("% Respondents") +
+    ylab("% Trainees") +
     ggtitle("Experience with Material Pre-Workshop") +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14) +
@@ -483,7 +480,7 @@ experience_post_plot <-
                              (experience_pre))))) +
     geom_col(position = "dodge") +
     geom_text(aes(label=n), 
-              size= 4,
+              size= 4, vjust=-0.25,
               position=position_dodge(width=1)) +
     scale_x_discrete(labels = function(x) lapply(strwrap(x,
                                                          width = 10,
@@ -492,7 +489,7 @@ experience_post_plot <-
                                                  collapse = "\n")) +
     theme_classic() +
     xlab("") +
-    ylab("% Respondents") +
+    ylab("% Trainees") +
     ggtitle("Change in Knowledge Post-Workshop") +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14) +
@@ -552,7 +549,7 @@ postdata %>%
                              change_in_motivation_factors))) +
     geom_col(position = "dodge") +
     geom_text(aes(label=n), 
-              size= 4,
+              size= 4, vjust=-0.25,
               position=position_dodge(width=1)) +
     scale_x_discrete(labels = function(x) lapply(strwrap(x,
                                                          width = 10,
@@ -561,7 +558,7 @@ postdata %>%
                                                  collapse = "\n")) +
     theme_classic() +
     xlab("") +
-    ylab("% Respondents") +
+    ylab("% Trainees") +
     ggtitle("Change in motivation to learn more teaching pedagogy") +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14) +
@@ -571,12 +568,14 @@ postdata %>%
 
 __Change in confidence with Carpentries teaching practices__
 
-+ Teach using live coding  
-+ Set up a workshop website  
-+ Use a concept map for lesson planning  
-+ Write a multiple choice question with diagnostic power  
-+ Write effective learning objectives  
+Trainees were asked to rate their ability before the training, and their change in confidence after the training, for the following items:
 
++ __ConceptMaps__: Use a concept map for lesson planning 
++ __Learning Objectives__: Write effective learning objectives
++ __LiveCoding__: Teach using live coding  
++ __MCQ__: Write a multiple choice question with diagnostic power 
++ __Website__: Set up a workshop website  
+ 
 ```{r}
 # Code chunk for Pre/Post plots for ability to do a series of tasks.
 # The before and after columns are different, so we can't put them on the same plot.
@@ -633,22 +632,21 @@ ability_before_plot <-
                              ability_before))) +
     geom_col(position = "dodge") +
     geom_text(aes(label=n), 
-              size= 4,
+              size= 4, vjust=-0.25,
               position=position_dodge(width=1)) +
     scale_x_discrete(labels = function(x) lapply(strwrap(x,
-                                                         width = 10,
+                                                         width = 5,
                                                          simplify = FALSE),
                                                  paste,
                                                  collapse = "\n")) +
     theme_classic() +
     xlab("") +
-    ylab("% Respondents") +
+    ylab("% Trainees") +
     ggtitle("Ability to use these methods before the workshop") +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14) +
     theme(legend.position = "bottom", 
-          legend.title=element_blank()) + 
- guides(fill = guide_legend(nrow = 3)) # wraps legend
+          legend.title=element_blank())
 ```
 
 ```{r}
@@ -662,16 +660,16 @@ confidence_after_plot <-
                              confidence_after)))) +
     geom_col(position = "dodge") +
     geom_text(aes(label=n), 
-              size= 4,
+              size= 4, vjust=-0.25,
               position=position_dodge(width=1)) +
     scale_x_discrete(labels = function(x) lapply(strwrap(x,
-                                                         width = 10,
+                                                         width = 5,
                                                          simplify = FALSE),
                                                  paste,
                                                  collapse = "\n")) +
     theme_classic() +
     xlab("") +
-    ylab("% Respondents") +
+    ylab("% Trainees") +
     ggtitle("Confidence to use methods after workshop") +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14) +
@@ -688,7 +686,7 @@ grid.arrange(ability_before_plot,
              ncol = 1)
 ```
 
-Learners were asked if they have a clear understanding of what needs to be done to complete instructor training.
+Trainees were asked if they have a clear understanding of what needs to be done to complete instructor training.
 
 ```{r}
 # Do you have a clearn understanding of what needs to be done to complete instructor training?
@@ -719,7 +717,7 @@ ggplot(checkout_tally,
   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
   theme_classic() +
   xlab("Understanding of Checkout Process") +
-  ylab("% Respondents") +
+  ylab("% Trainees") +
   ggtitle("Trainees Understanding of Checkout Process") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
@@ -727,7 +725,7 @@ ggplot(checkout_tally,
 
 __Likely to Recommend__
 
-Trainees were asked how likely they are to recommend a Software and/or Data Carpentry workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter). The scoring for this question based on a 0 to 10 scale. Respondents scoring from 0 to 6 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 9 to 10 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 7 and 8 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors.
+Trainees were asked how likely they are to recommend a Software and/or Data Carpentry workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter). The scoring for this question based on a 0 to 10 scale. Trainees scoring from 0 to 6 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 9 to 10 are called *Promoters*, and are considered likely to recommend a workshop. Trainees between 7 and 8 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors.
 
 ```{r}
 postdata$LikelyToRecommend %>%
@@ -756,7 +754,7 @@ ggplot(data_recommend_tally,
   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
   theme_classic() +
   xlab("Likely to Recommend") +
-  ylab("% Respondents") +
+  ylab("% Trainees") +
   ggtitle("Likely to Recommend") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
