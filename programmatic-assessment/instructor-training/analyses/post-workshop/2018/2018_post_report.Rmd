@@ -60,9 +60,9 @@ sum(idx)
 
 This analysis of The Carpentries Instructor Training [post-workshop survey](https://github.com/carpentries/assessment/blob/master/programmatic-assessment/instructor-training/surveys/current_survey.pdf) serves to offer recommendations for changes to curriculum and assessment of The Carpentries instructor training program.
 
-There were a total 573 trainees who completed this survey in between 2016 and February 2018.
+There were a total 573 trainees who completed this survey in between June 2016 and February 2018.
 
-__When are respondents completing the post instructor training survey?__
+### When are respondents completing the post instructor training survey?
 
 
 ```{r}
@@ -79,7 +79,7 @@ postdata_when_taking_tally <-
   filter(!is.na(WhenTaking)) %>%
   mutate(perc = round(n/sum(n) * 100, 0))
 
-kable(postdata_when_taking_tally)
+kable(postdata_when_taking_tally, format = 'markdown', row.names = NA, col.names = c("When are you taking the survey?", "n", "%"))
 # Come back and fix table column headers
 ```
 
@@ -90,7 +90,6 @@ __Domain of research/study__
 ```{r}
 # What is your downain of research/study? 
 # Responses are in columns 'Domain' through 'Column63'
-
 n_responses_to_domain_question <-
   n_responses_to_the_question(postdata,
                               from_colname = Domain,
@@ -121,7 +120,7 @@ __Position__
 
 ```{r trainees_position}
 # What is your current position?
-position = c("Undergraduate Student", "Graduate Student", "Post-doctoral researcher", "Faculty", "Research staff (including research programmer", "Support staff (including technical support)", "Librarian/archivist", "Commercial software developer", "Other (please specify)")
+position = c("Undergraduate Student", "Graduate Student", "Post-doctoral researcher", "Faculty", "Research staff (including research programmer)", "Support staff (including technical support)", "Librarian/archivist", "Commercial software developer", "Other (please specify)")
 position = factor(position)
 
 postdata$Position = factor(postdata$Position, levels = position)
@@ -144,7 +143,7 @@ ggplot(postdata_position_tally,
   ylab("% Respondents") +
   ggtitle("Breakdown of Instructor Trainees by Position") +
   theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
+  theme_classic(base_size = 10)
 ```
 
 In the interest of improving diversity, we collect additional demographic information for U.S. participants. This information is completely voluntary.
@@ -170,9 +169,10 @@ postdata_race_tally <-
   group_by(Race) %>%
   tally() %>%
   filter(!is.na(Race)) %>%
+  arrange(desc(n)) %>%
   mutate(perc = round(n/sum(n) * 100, 0))
 
-kable(postdata_race_tally)
+kable(postdata_race_tally,, format = 'markdown', row.names = NA, col.names = c("Racial/Ethnic Identity", "n", "%"))
 ```
 
 __What is your gender?__
@@ -189,9 +189,10 @@ postdata_gender_tally <-
   group_by(Gender) %>%
   tally() %>%
   filter(!is.na(Gender)) %>%
+  arrange(desc(n)) %>%
   mutate(perc = round(n/sum(n) * 100, 0))
 
-kable(postdata_gender_tally)
+kable(postdata_gender_tally, format = 'markdown', col.names = c("Gender Identity", "n", "%"))
 ```
 
 ## Feedback about the overall training event.
@@ -252,7 +253,7 @@ postdata_pace_tally <-
   filter(!is.na(Pace)) %>%
   mutate(perc = round(n/sum(n) * 100, 0))
 
-kable(postdata_pace_tally)
+kable(postdata_pace_tally, format = 'markdown', col.names = c("Workshop Pace", "n", "%"))
 ```
 
 ```{r training_pace}
@@ -290,7 +291,7 @@ postdata_handson_tally <-
   filter(!is.na(HandsOn)) %>%
   mutate(perc = round(n/sum(n) * 100, 0))
 
-kable(postdata_handson_tally)
+kable(postdata_handson_tally, format = 'markdown', col.names = c("Balance of Lecture to Hands-On", "n", "%"))
 ```
 
 ```{r training_balance_of_lecture}
@@ -303,7 +304,7 @@ ggplot(postdata_handson_tally,
   theme_classic() +
   xlab("Balance of Lecture") +
   ylab("% Respondents") +
-  ggtitle("Trainees Perception of Workshop Balance: Lecture vs. Active") +
+  ggtitle("Trainees Perception of Workshop Balance: \nLecture vs. Hands-On") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
 ```
@@ -367,7 +368,7 @@ postdata_newinfo_tally <-
   filter(!is.na(NewInformation)) %>%
   mutate(perc = round(n/sum(n) * 100, 0))
 
-kable(postdata_newinfo_tally)
+kable(postdata_newinfo_tally, format = 'markdown', col.names = c("How much information was new?", "n", "%"))
 ```
 
 ```{r new_information_presented}
@@ -463,7 +464,7 @@ experience_pre_plot <-
     theme_classic() +
     xlab("") +
     ylab("% Respondents") +
-    ggtitle("Experience with Tools Pre-Workshop") +
+    ggtitle("Experience with Material Pre-Workshop") +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14) +
     theme(legend.position = "bottom", 
@@ -565,7 +566,7 @@ postdata %>%
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14) +
     theme(legend.position = "bottom", 
-          legend.title=element_blank())
+          legend.title=element_blank()) 
 ```
 
 __Change in confidence with Carpentries teaching practices__
@@ -646,7 +647,8 @@ ability_before_plot <-
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14) +
     theme(legend.position = "bottom", 
-          legend.title=element_blank())
+          legend.title=element_blank()) + 
+ guides(fill = guide_legend(nrow = 3)) # wraps legend
 ```
 
 ```{r}
@@ -675,7 +677,7 @@ confidence_after_plot <-
     theme_classic(base_size = 14) +
     theme(legend.position = "bottom", 
           legend.title=element_blank()) +
-  guides(fill = guide_legend(nrow = 2))
+  guides(fill = guide_legend(nrow = 3))
 ```
 
 ```{r before_after_confidence_comparison}
