@@ -434,10 +434,10 @@ postdata %>%
   mutate(key = gsub("Post", "", key))
 ```
 
-```{r}
+```{r experience_pre_plot}
 # Plot pre and post as two grouped bar plots, then combine.
 # Pre
-experience_pre_plot <- 
+#experience_pre_plot <- 
    ggplot(pre_experience, 
          aes(x = key,
              y = `%`,
@@ -463,10 +463,10 @@ experience_pre_plot <-
   guides(fill = guide_legend(nrow = 2)) # wraps legend
 ```
 
-```{r}
+```{r experience_post_plot}
 # Plot pre and post as two grouped bar plots, then combine.
 # Post
-experience_post_plot <- 
+#experience_post_plot <- 
    ggplot(post_experience, 
          aes(x = key,
              y = `%`,
@@ -494,10 +494,10 @@ experience_post_plot <-
 
 ```{r pre_post_experience_comparison}
 # put the two plots together
-library(gridExtra)
-grid.arrange(experience_pre_plot, 
-             experience_post_plot,
-             ncol = 1)
+#library(gridExtra)
+#grid.arrange(experience_pre_plot, 
+#             experience_post_plot,
+#             ncol = 1)
 ```
 
 Trainees were asked how their motivation to learn more about the topics below changed:
@@ -557,7 +557,7 @@ postdata %>%
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14) +
     theme(legend.position = "bottom", 
-          legend.title=element_blank()) 
+          legend.title=element_blank())
 ```
 
 ## Change in confidence with Carpentries teaching practices
@@ -618,7 +618,7 @@ postdata %>%
 ```{r}
 # Plot before and after as two grouped bar plots, then combine.
 # Before
-ability_before_plot <- 
+#ability_before_plot <- 
    ggplot(before_ability, 
          aes(x = key,
              y = `%`,
@@ -646,7 +646,7 @@ ability_before_plot <-
 ```{r}
 # Plot before and after as two grouped bar plots, then combine.
 # After
-confidence_after_plot <- 
+#confidence_after_plot <- 
    ggplot(after_confidence, 
          aes(x = key,
              y = `%`,
@@ -674,10 +674,10 @@ confidence_after_plot <-
 
 ```{r before_after_confidence_comparison}
 # put the two plots together
-library(gridExtra)
-grid.arrange(ability_before_plot, 
-             confidence_after_plot,
-             ncol = 1)
+#library(gridExtra)
+#grid.arrange(ability_before_plot, 
+#             confidence_after_plot,
+#             ncol = 1)
 ```
 
 Trainees were asked if they have a clear understanding of what needs to be done to complete instructor training.
@@ -722,15 +722,15 @@ ggplot(checkout_tally,
 Trainees were asked how likely they are to recommend a Software and/or Data Carpentry workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter). The scoring for this question based on a 0 to 10 scale. Trainees scoring from 0 to 6.4 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 8.5 to 10 are called *Promoters*, and are considered likely to recommend a workshop. Trainees between 6.5 and 8.4 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors.
 
 ```{r}
-npr <-
-postdata$LikelyToRecommend %>%
+nps <-
+  postdata$LikelyToRecommend %>%
     npc(breaks = list(0:6, 7:8, 9:10)) %>%
     data.frame(category = .) %>%
     filter(!is.na(category)) %>%
     count(category) %>%
     mutate("%" = (n / sum(n))*100)
 
-kable(npr,format = 'markdown', colnames = c("Net Promoter Score", "n", "%"))
+kable(nps,format = 'markdown', colnames = c("Net Promoter Score", "n", "%"))
 ```
 
 ```{r}
