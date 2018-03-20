@@ -1,38 +1,27 @@
-# About
+# The Carpentries Assessment
 
-**Assessing Workshop Outcomes for Learners**
- 
-Assessment plays a key role in ensuring the success, longevity, and evolution of the Carpentries workshops. The primary goal of our assessment efforts is to evaluate the impact we are having teaching data skills throughout our global community. Our assessment efforts are meant to guide the development, implementation, and instruction of our workshops. We are committed to providing directed feedback to our community regarding our assessment targets and using information collected from assessment to improve how we teach data skills and build learning communities.
+This repository contains assessment data, source code, and analyses for The Carpentries workshops and programmatic assessment.
 
-Our assessment tools will cover content knowledge, self-efficacy, and metacognitive strategies. Additionally, evaluation will occur at the end of each workshop and 6 months after a workshop with data releases published bi-annually, and an annual review of our impact will be published on our [website](http://www.datacarpentry.org/assessment/).
+The Carpentries teach core computational and data skills to researchers. We also train instructors to teach workshops on computational skills. We value a culture of assessment, and consistently assess learner outcomes from workshops (short term),  programmatic efforts (instructor training), and the long-term impact we have on learners.
 
-We are committed to supporting our learners, accommodating their differences, and encouraging them to grow individually and become part of our community of practice. We also encourage them to understand, reflect upon, and monitor their own learning.
-
-We assess our learners by measuring changes in their attitudes, motivation, and self-efficacy. Our pre-workshop survey includes questions about learners attitudes about the content covered in their workshop, and their objectives (i.e. what they hope to learn).
-
-We also ask questions to measure learners' mindset (growth vs. fixed). Our objective is to measure their confidence in their ability to learn, not necessarily execute specific tasks.
-
-Additionally, we measure learner’s perception of skill growth and whether or not they plan to recommend our workshops to colleagues.
-
-This repository contains projects lead by Kari L. Jordan, Director of Assessment and Community Equity. The projects in this repo are open for comments/feedback and collaboration.
+Assessment projects are led by Kari L. Jordan, Director of Assessment and Community Equity. The data, code and reports in this repository are publicly available under the CC-BY 4.0 license. The projects in this repository are open for comments/feedback and collaboration.
 
 # Content
-+ [assessment-network](https://github.com/carpentries/assessment/tree/master/assessment-network): Contains minutes from the Assessment Network meetings. This group collaborates and shares resources on assessment within the open source/research computing space. 
-+ [learner-assessment](https://github.com/carpentries/assessment/tree/master/learner-assessment): Contains our evaluation of the impact we are having teaching data skills throughout our global community. Includes the following sub-folders with data, reports, and figures:
-     + [long-term-survey](https://github.com/carpentries/assessment/tree/master/learner-assessment/long-term-survey)
-     + [data-carpentry](https://github.com/carpentries/assessment/tree/master/learner-assessment/data-carpentry)
-     + [software-carpentry](https://github.com/carpentries/assessment/tree/master/learner-assessment/software-carpentry)
-     + [library-carpentry](https://github.com/carpentries/assessment/tree/master/learner-assessment/library-carpentry)
-     + [surveys](https://github.com/carpentries/assessment/tree/master/learner-assessment/surveys): Contains all of the current and archived surveys for the Carpentries.
-+ [programmatic-assessment](https://github.com/carpentries/assessment/tree/master/programmatic-assessment)
+The repository currently contains assessment of the following:
+
++ [Workshops](https://github.com/carpentries/assessment/tree/master/learner-assessment): Evaluation of the impact we are having with our workshops teaching data and computational skills throughout our global community. Includes sub-folders with data, reports, and figures.
++ [Programs](https://github.com/carpentries/assessment/tree/master/programmatic-assessment): Evaluation of The Carpentries Instructor Training post-workshop survey. Includes recommendations for changes to curriculum and general assessment of our instructor training program.
+
+Additionally, the repository contains minutes from the [assessment-network](https://github.com/carpentries/assessment/tree/master/assessment-network) meetings. This group collaborates and shares resources on assessment within the open source/research computing space. 
 
 # Reports  
-+ __Software Carpentry:__ 
++ __Software Carpentry__ 
   + [2017-July](https://carpentries.github.io/assessment/learner-assessment/software-carpentry/postworkshop/2017-July/2017-July-post.html) Post-Workshop Survey Report  
-+ __Data Carpentry:__
++ __Data Carpentry__
   + [2018-January](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/postworkshop/2018-January/report.html) Post-Workshop Survey Report  
   + [2017-December](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/postworkshop/2017-December/report.html) Post-Workshop Survey Report  
   + [2017-September](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/archived-analysis/2017-September-archived-analysis.html) Archived [pre](https://github.com/carpentries/assessment/blob/master/learner-assessment/surveys/dc_presurvey_archived.pdf) AND [post](https://github.com/carpentries/assessment/blob/master/learner-assessment/surveys/dc_postsurvey_archived.pdf) Workshop Summary Plots.
-+ __Carpentries Long-Term Survey:__
-  + [2017-October](https://carpentries.github.io/assessment/learner-assessment/long-term-survey/2017-October/longtermreport_October2017.html) Report
++ __Carpentries Long-Term Survey__
   + [2018-January](https://carpentries.github.io/assessment/learner-assessment/long-term-survey/2018-January/2018_January_long_term_report.html) Report
+  + [2017-October](https://carpentries.github.io/assessment/learner-assessment/long-term-survey/2017-October/longtermreport_October2017.html) Report
+
