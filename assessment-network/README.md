@@ -25,3 +25,6 @@ To join the Assessment Network, submit a [request to join](mailto:kariljordan@ca
 | Susanne Grossman-Clarke  | Environmental Data Initiative  | Outreach & Training Coordinator  | EST  |
 | Kristin Bass  | Rockman et al.  | Senior Researcher  | PST  |
 | Sue McClatchy  | The Jackson Laboratory  | Bioinformatician  | EST  |
+
+# Etherpad
+For information about upcoming meetings, see our [Etherpad](http://pad.software-carpentry.org/assessment-network)
