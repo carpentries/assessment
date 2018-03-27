@@ -113,6 +113,8 @@ kable(domain_perc,
     escape = TRUE)
 ```
 
+Nearly half (49%) of our instructor trainees are from the life sciences, with another third (29.5%) coming from either computing or mathematics/statistics. These figures highlight the need to expand our training efforts into other disciplines, particularly those in which we are developing new curricula, including social sciences, economics, business, and chemistry. To ensure that new curricula are able to be delivered to researchers in the target domains, it is essential that we train instructors in those domains who will be able to teach those curricula.
+
 __Position__
 
 ```{r trainees_position}
@@ -143,7 +145,7 @@ ggplot(postdata_position_tally,
   theme_classic(base_size = 10)
 ```
 
-In the interest of improving diversity, we collect additional demographic information for U.S. participants. This information is completely voluntary. Trainees were asked to self-report how they identify themselves by selecting among various racial/ethnic groups and to describe their gender identity.
+To inform our efforts to improve the diversity of our instructor community, we collect additional demographic information from U.S. participants. This information is completely voluntary. Trainees were asked to self-report how they identify themselves by selecting among various racial/ethnic groups and to describe their gender identity.
 
 ```{r}
 # How would you describe yourself?
@@ -170,6 +172,9 @@ postdata_race_tally <-
 kable(postdata_race_tally,, format = 'markdown', row.names = NA, col.names = c("Racial/Ethnic Identity", "n", "%"))
 ```
 
+Our US instructor body is not representative of the US population as a whole, illustrating the need for us to actively recruit from and provide more opportunities for involvement for researchers and other professionals from diverse ethnic and racial backgrounds. As many of our instructors come from member institutions, one avenue to increasing the diversity of our instructor body is working with historically black colleges and universities, hispanic serving institutions, and tribal colleges to promote membership within those institutions. 
+
+
 ```{r}
 # What is your gender?
 gender = c("Female", "Male", "Other", "Prefer not to say")
@@ -187,6 +192,8 @@ postdata_gender_tally <-
 
 kable(postdata_gender_tally, format = 'markdown', col.names = c("Gender Identity", "n", "%"))
 ```
+
+Although a large proportion of our instructors are female, we have not yet reached gender parity in our instructor community. (Note to Kari: It would be informative to know whether this is representative of the applications we receive or if we're disproportionatly selecting male applicants. I analyzed this about a year ago (carpentry-private-data/instructor-assessment/scripts/training-requests.html) and we were accepting a higher proportion of female applicants at that time compared to application rates.)
 
 ## Feedback about the overall training event.
 
