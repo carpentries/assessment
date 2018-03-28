@@ -9,13 +9,13 @@ library(NPS)
 opts_chunk$set(echo = FALSE,
                message = FALSE,
                warning = FALSE)
-opts_chunk$set(fig.path='figures/2018_') #puts all figures in figures folder
+opts_chunk$set(fig.path='instructor-training/figures/2018-') #puts all figures in figures folder
 ```
 
 
 ```{r include=FALSE}
 # Load dataset
-postdata <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/programmatic-assessment/instructor-training/analyses/post-workshop/2018/2018-03-01_data.csv")
+postdata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/programmatic-assessment/instructor-training/data/2018-instructor-training-data.csv")
 
 ```
 
