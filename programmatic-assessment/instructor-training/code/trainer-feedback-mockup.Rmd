@@ -17,7 +17,7 @@ opts_chunk$set(echo = FALSE,
 
 ```{r include=FALSE}
 # Load dataset
-postdata <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/programmatic-assessment/instructor-training/analyses/post-workshop/2018/2018-03-01_data.csv")
+postdata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/programmatic-assessment/instructor-training/data/2018-instructor-training-data.csv")
 
 ```
 
