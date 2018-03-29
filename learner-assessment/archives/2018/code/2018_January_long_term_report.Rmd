@@ -4,21 +4,22 @@ __Contributors:__ [Kari L. Jordan](https://github.com/kariljordan), [Naupaka Zim
 __January 2018__
 ```{r setup, include=FALSE}
 library(knitr)
-opts_chunk$set(echo = FALSE,
-               message = FALSE,
-               warning = FALSE)
 library(tidyverse)
 library(likert)
 library(testthat)
+opts_chunk$set(echo = FALSE,
+               message = FALSE,
+               warning = FALSE)
+opts_chunk$set(fig.path='figures/') #puts all figures in figures folder
 ```
 
 
 ```{r include=FALSE}
 # round1data was collected March 2017
-round1data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/long-term-survey/2018-January/data_20170701.csv")
+round1data <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/archives/2018/data/data_20170701.csv")
 
 # The survey was sent out again in October 2017. round2data includes the March 2017 data and the October 2017 data. Demographic questions (race/gender) were added to the survey.
-round2data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/long-term-survey/2018-January/data_20171108.csv")
+round2data <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/archives/2018/data/data_20171108.csv")
 ```
 
 ```{r}
@@ -94,7 +95,9 @@ round2data_status_tally <-
   tally() %>%
   filter(!is.na(Status)) %>%
   mutate(perc = round(n/sum(n) * 100, 0))
+```
 
+```{r longterm_status}
 ggplot(round2data_status_tally,
        aes(Status, y = 100 * (n/sum(n)),
            n)) +
@@ -107,7 +110,6 @@ ggplot(round2data_status_tally,
   ggtitle("") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
-ggsave("figures/status.png")
 ```
 
 __Field of work, research, or study.__
@@ -151,7 +153,9 @@ round2data_workshops_tally <-
 
 # Use the code below to include a table of the number of workshops respondents attended
 #kable(round2data_workshops_tally, format = "markdown", row.names = FALSE, col.names = c("# Wrkshps", "n"), caption = "Number of Workshops Attended")
+```
 
+```{r longterm_number_workshops_attended}
 ggplot(round2data_workshops_tally,
        aes(`NumWorkshops`, y = 100 * (n/sum(n)),
            n)) +
@@ -164,7 +168,6 @@ ggplot(round2data_workshops_tally,
   ggtitle("") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
-ggsave("figures/number_workshops_attended.png")
 ```
 
 __Time since completing last Carpentries workshop__
@@ -178,7 +181,9 @@ __Time since completing last Carpentries workshop__
 
 # Use the code below to include a table of how long ago respondents attended a workshop
 # kable(round2data_time_since_tally, format = "markdown", row.names = FALSE, col.names = c("Time", "n"), caption = "How Recently Did Respondents Complete a Workshop?")
+```
 
+```{r longterm_time_since_attending_workshop}
 ggplot(round2data_time_since_tally,
        aes(`TimeSinceWorkshop`, y = 100 * (n/sum(n)),
            n)) +
@@ -191,7 +196,6 @@ ggplot(round2data_time_since_tally,
   ggtitle("") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
-ggsave("figures/time_since_attending_workshop.png")
 ```
 
 
@@ -411,7 +415,7 @@ behaviors_adopted_by_group %>%
         escape = TRUE)
 ```
 
-```{r, fig.height=6}
+```{r longterm_behaviors_adopted, fig.height=6}
 # Remove other column since it's full of NAs
 # Might take this out of final report, but it helps visualize differences
 behaviors_adopted_by_group %>%
@@ -456,7 +460,9 @@ programming = factor(programming)
    filter(!is.na(`ProgrammingBefore`))
 
   kable(round2data_usage_tally, caption = "")
+```
 
+```{r longterm_programming_usage_pre_absolute}
   ggplot(round2data_usage_tally,
         aes(`ProgrammingBefore`, n)) +
    geom_bar(stat = "identity", fill="grey") +
@@ -468,12 +474,11 @@ programming = factor(programming)
    ggtitle("Figure 5: Programming Usage Pre-Workshop") +
    theme(plot.title = element_text(hjust = 0.5)) +
    theme_classic(base_size = 14)
-ggsave("figures/programming_usage_pre_absolute.png")
 # Why aren't the levels showing in the correct order on the plot?
 ```
 
 
-```{r}
+```{r longterm_programming_usage_pre_percent}
 # The code below is for pre-workshop programming usage reported as a percentage.
 # Programming Pre-Carpentry Workshop [Percentage Plot]
  round2data %>%
@@ -496,7 +501,6 @@ ggsave("figures/programming_usage_pre_absolute.png")
      ggtitle("Figure 6: Programming Usage Pre-Workshop") +
      theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14)
-ggsave("figures/programming_usage_pre_percent.png")
 ```
 
 __Since completing a Carpentries workshop, how often do you currently use programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell?__
@@ -516,7 +520,9 @@ __Since completing a Carpentries workshop, how often do you currently use progra
    filter(!is.na(`ProgrammingSince`))
 
  kable(round2data_usage_tally)
+```
 
+```{r longterm_programming_usage_post_absolute}
   ggplot(round2data_usage_tally,
         aes(`ProgrammingSince`, n)) +
    geom_bar(stat = "identity", fill="grey") +
@@ -528,10 +534,9 @@ __Since completing a Carpentries workshop, how often do you currently use progra
    ggtitle("Figure 7: Programming Usage Post-Workshop") +
    theme(plot.title = element_text(hjust = 0.5)) +
    theme_classic(base_size = 14)
-ggsave("figures/programming_usage_post_absolute.png")
 ```
 
-```{r}
+```{r longterm_programming_usage_post_percent}
 # The code below is for post-workshop programming usage as a percent
 #Programming Usage Post-Carpentry Workshop [Percentage Plot]
 round2data %>%
@@ -540,6 +545,7 @@ group_by(`ProgrammingSince`) %>%
 tally() %>%
 filter(!is.na(`ProgrammingSince`)) %>%
 mutate(`ProgrammingSince` = factor(`ProgrammingSince`, levels = programming)) %>%
+
 ggplot(aes(x = `ProgrammingSince`, y = 100 * (n/sum(n)))) +
 geom_bar(stat = "identity", position = "dodge", fill = "grey", na.rm = TRUE ) +
 geom_text(aes(label=n), size= 4, vjust=-0.25) + # Adds count to top of bar
@@ -554,7 +560,6 @@ scale_x_discrete(labels = function(x) lapply(strwrap(x,
     ggtitle("Figure 8: Programming Usage Post-Workshop") +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14)
-ggsave("figures/programming_usage_post_percent.png")
 ```
 
 __Comparing pre/post programming usage__
@@ -582,7 +587,9 @@ round2data %>%
   mutate( perc = 100 * (n/sum(n))) %>%
   filter(!is.na(key),
          !is.na(value))
+```
 
+```{r longterm_change_in_programming_usage}
   ggplot(pre_and_post_usage,
          aes(x = factor(value,
                         levels = programming),
@@ -604,12 +611,11 @@ round2data %>%
     ggtitle("") +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14)
-ggsave("figures/change_in_programming_usage.png")
 ```
 
 ## Pre-post programming usage by group
 
-```{r, fig.height=14}
+```{r}
 # The code below is for Pre/Post plots of programming usage
 # It includes tips from Ben and Naupaka
 # Make the unique values the same
@@ -626,7 +632,9 @@ pre_and_post_usage_by_group <-
   mutate(percent = 100 * (n / sum(n))) %>%
   filter(!is.na(when),
          !is.na(value))
+```
 
+```{r longterm_change_in_programming_usage_by_group, fig.height=14}
 ggplot(pre_and_post_usage_by_group,
        aes(x = factor(value,
                       levels = programming),
@@ -653,7 +661,6 @@ ggplot(pre_and_post_usage_by_group,
   ggtitle("Figure 10: Programming Usage Pre/Post by Status") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
-ggsave("figures/change_in_programming_usage_by_group.png")
 ```
 
 
@@ -697,7 +704,9 @@ contrib_0_to_1 <- as.vector(range0to1(contrib))[c(3,5,9,7,11,1)]
 stdres$sign = ifelse(stdres$Residual >= 0,
                           "positive",
                           "negative")
+```
 
+```{r longterm_programming_post_workshop}
 # get the categories in a sensible order
 ggplot(stdres,
        aes(factor(Frequency,
@@ -723,7 +732,6 @@ ggplot(stdres,
                  keyheight = 0.4,
                  default.unit = "inch")
       )
-ggsave("figures/programming_post_workshop.png")
 ```
 
 # Workshop Impact
@@ -751,7 +759,9 @@ data_change.in.confidence_tally <-
 
 # Use the code below for a table of the data.
 # kable(data_change.in.confidence_tally, format = "markdown", row.names = FALSE, col.names = c("Change in Confidence", "%"))
+```
 
+```{r longterm_change_in_confidence}
 ggplot(data_change.in.confidence_tally,
        aes(`Change-In-Confidence`, y = 100 * (n/sum(n)),
            n)) +
@@ -764,7 +774,6 @@ ggplot(data_change.in.confidence_tally,
    ggtitle("Figure 12: Change in Confidence 6 Months Later") +
    theme(plot.title = element_text(hjust = 0.5)) +
    theme_bw(base_size = 14)
-ggsave("figures/change_in_confidence.png")
 ```
 
 __Change in Confidence by Status__
@@ -774,9 +783,7 @@ status <- unique(round1data$Position)
 status <- factor(status[!is.na(status)])
 ```
 
-
-
-```{r}
+```{r include=FALSE}
 # What is your position?
 status <- factor(status, levels(status)[c(7, 3, 6, 2, 1, 5, 4)])
 # Display ordering.
@@ -799,7 +806,9 @@ test_output <- change_in_confidence_by_status %>%
   group_by(Position) %>%
   summarize(total = sum(perc))
 expect_equal(test_output$total, rep(100, length(status)))
+```
 
+```{r longterm_change_in_confidence_by_status}
 ggplot(data = change_in_confidence_by_status,
        aes(x = `Change-In-Confidence`, y = Position)) +
   geom_tile(aes(fill = perc), colour = "white") +
@@ -816,8 +825,6 @@ ggplot(data = change_in_confidence_by_status,
     axis.ticks = element_blank(),
     panel.background = element_blank()
   )
-
-ggsave("figures/change_in_confidence_by_status.png")
 ```
 
 
@@ -829,7 +836,9 @@ change_in_conf_eng <- round1data %>%
   tally() %>%
   filter(!is.na(`Change-In-Confidence`)) %>%
   mutate(perc = n / sum(n) * 100)
+```
 
+```{r longterm_change_in_confidence_eng}
 ggplot(change_in_conf_eng,
        aes(`Change-In-Confidence`, y = perc, n)) +
    geom_bar(stat = "identity", fill = "grey") +
@@ -843,7 +852,6 @@ ggplot(change_in_conf_eng,
    ggtitle("") +
    theme(plot.title = element_text(hjust = 0.5)) +
    theme_bw(base_size = 14)
-ggsave("figures/change_in_confidence_eng.png")
 ```
 
 ```{r include=FALSE}
@@ -863,7 +871,9 @@ test_output <- change_in_conf_eng_by_status %>%
   group_by(Position) %>%
   summarize(total = sum(perc))
 expect_equal(test_output$total, rep(100, length(status)))
+```
 
+```{r longterm_change_in_conf_eng_by_status}
 ggplot(data = change_in_conf_eng_by_status,
        aes(x = `Change-In-Confidence`, y = Position)) +
   geom_tile(aes(fill = perc), colour = "white") +
@@ -880,7 +890,6 @@ ggplot(data = change_in_conf_eng_by_status,
     axis.ticks = element_blank(),
     panel.background = element_blank()
   )
-ggsave("figures/change_in_conf_eng_by_status.png")
 ```
 
 # Usage of Tools for Research and/or Work
@@ -1035,10 +1044,11 @@ received_professional_recognition <-
   select(Agree, `Strongly agree`) %>%
   sum() %>%
   round(0)
+```
 
+```{r longterm_workshop_impact_heatmap}
 title <- "Figure: Perception of Workshop Impact"
 plot(data_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
-ggsave("figures/workshop_impact_heatmap.png")
 ```
 
 # Breakdown of respondents by Country
@@ -1057,7 +1067,9 @@ round1data %>%
   mutate(perc = round(100 * (n/sum(n)), 1)) %>% # add the % col
   filter(!is.na(Country)) %>%
   arrange(desc(n))
+```
 
+```{r longterm_percent_by_country}
 ggplot(round1data_country_tally,
        aes(reorder(Country, perc),
            perc)) +
@@ -1069,7 +1081,6 @@ ggplot(round1data_country_tally,
   ggtitle("") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_bw(base_size = 14)
-ggsave("figures/percent_by_country.png")
 ```
 
 # Respondent Demographics
@@ -1175,7 +1186,9 @@ table_of_status_by_field %>%
   filter(value %in% top_12_fields) %>%
   spread(Status, n) %>%
   kable()
+```
 
+```{r longterm_respondents_by_field}
 # plot of the same
 table_of_status_by_field %>%
   as_tibble() %>%
