@@ -9,25 +9,23 @@ opts_chunk$set(echo = FALSE,
                message = FALSE,
                warning = FALSE)
 library(tidyverse)
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-library(readr)
-library(purrr)
-library(tibble)
 library(DBI)
 library(ggmap)
 library(likert)
 library(mapproj)
 library(RColorBrewer)
 library(srvyr)
+opts_chunk$set(echo = FALSE,
+               message = FALSE,
+               warning = FALSE)
+opts_chunk$set(fig.path='figures/') #puts all figures in figures folder
 ```
 Data Carpentry is piloting a pre/post workshop survey that includes skills-based questions. A [PDF](https://github.com/carpentries/assessment/blob/master/learner-assessment/data-carpentry/preworkshop/2017-pilot/presurvey.pdf) of the survey questions, the data used in this analysis, and full R code are located on the Data Carpentry [assessment](https://github.com/carpentries/assessment/tree/master/learner-assessment/data-carpentry/preworkshop/2017-pilot) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
 
 The following is a summary of the responses that have been collected since March 2017. As of 2017-10-20, 261 responses have been collected for the [pre-workshop survey](https://github.com/carpentries/assessment/blob/master/learner-assessment/data-carpentry/preworkshop/2017-pilot/presurvey.pdf).
 
 ```{r echo=FALSE}
-data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/data-carpentry/preworkshop/2017-pilot/20171020_data.csv")
+data <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/archives/2017/data/20171020_data.csv")
 ```
 
 ```{r}
@@ -500,11 +498,12 @@ levels = c("Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"
 data_agree_likert <- likert(data.frame(lapply(data_agree, factor, levels, ordered=TRUE)))
 ```
 
-```{r}
+```{r workshop_impact_heatmap}
 title <- "Perception of Confidence, Motivation, and Tools"		
 plot(data_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
-ggsave("figures/workshop_impact_heatmap.png")
+```
 
+```{r workshop_impact_likert}
 title <- "Perception of Confidence, Motivation, and Tools"
  theme_update(plot.title = element_text(hjust = 0.5))
 plot(data_agree_likert) + ggtitle(title) 
@@ -513,7 +512,6 @@ plot(data_agree_likert) + ggtitle(title)
  data_agree <- map_if(data_agree,
                      is.character,
                      as.factor)
-ggsave("figures/workshop_impact_likert.png")
  # The plot works, but the labels are not in the correct order.
 ```
 ```
