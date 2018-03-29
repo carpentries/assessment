@@ -9,19 +9,17 @@ __July 2017__
 
 ```{r setup, include=FALSE}
 library(knitr)
-opts_chunk$set(echo = FALSE,
-               message = FALSE,
-               warning = FALSE)
 library(tidyverse)
-library(tidyr)
-library(readr)
-library(tibble)
 library(DBI)
 library(ggmap)
 library(likert)
 library(mapproj)
 library(RColorBrewer)
 library(forcats)
+opts_chunk$set(echo = FALSE,
+               message = FALSE,
+               warning = FALSE)
+opts_chunk$set(fig.path='figures/') #puts all figures in figures folder
 ```
 For nearly 20 years, Software Carpentry has developed material and trained instructors to teach computing skills to researchers in science, medicine, engineering, and other disciplines. This report is an analysis of the post-workshop survey responses collected for Software Carpentry's workshops from March 2015 through July 2017. In this two year period, nearly 4,000 responses were collected.
 
@@ -30,7 +28,7 @@ A [PDF](https://github.com/carpentries/assessment/blob/master/learner-assessment
 Community members are invited to contribute code to this analysis. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
 
 ```{r include=FALSE}
-data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/software-carpentry/postworkshop/2017-July/data.csv")
+data <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/archives/2017/data/2017-July-data.csv")
 ```
 ### Respondent Demographics
 A host of initiatives have been developed and implemented globally to address gender disparities in computing. Software Carpentry's volunteer instructors have hosted hundreds of workshops since 1998, and the post-workshop survey data shows __parity__ in attendance of males compared to females.
@@ -77,7 +75,9 @@ data %>%
   mutate(Status_ord = fct_relevel(Status, 
                                   ordered_status)) %>% 
   tally_and_perc(Status_ord, na.rm = TRUE) 
+```
 
+```{r swc_status}
 ggplot(data_status_tally, 
        aes(Status_ord,
            y = `%`,
@@ -97,7 +97,6 @@ ggplot(data_status_tally,
   ggtitle("Majority of Respondents were Graduate Students") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14) 
-ggsave("figures/status.png")
 ```
 
 ```{r include=FALSE}
@@ -207,7 +206,9 @@ names(likert_cols) <-
     "Recommend",
     "Worth"
     )
+```
 
+```{r swc_content_perception}
 lc <- likert(data.frame(likert_cols))
 title <- "Perception of Workshop Atmosphere & Content"
  theme_update(plot.title = element_text(hjust = 0.5))
@@ -225,7 +226,6 @@ likert_cols %>%
   spread(key, perc) %>% 
   slice(match(ordered_agree,
               value))
-ggsave("figures/content_perception.png")
 ``` 
 
 The data strongly suggests that Software Carpentry provides a welcoming environment for its learners where the material not only matches the workshop description, but is worth the time learners spend learning it. Learners acquire skills they are able to apply to their research and/or job function in the time allotted over the two-day period. Lastly, learners feel impressed to recommend the workshop to a friend or colleague.
@@ -257,12 +257,15 @@ names(likert_cols_often_Inst) <-
   gsub("Instructors-", "", names(likert_cols_often_Inst))
   
 lc_often_inst <- likert(data.frame(likert_cols_often_Inst))
+```
 
+```{r swc_instructors_perception}
 plot(lc_often_inst) +
   ggtitle("Perception of Workshop Instructors") + 
 guides(fill = guide_legend(nrow = 2)) # wraps legend
+```
 
-ggsave("figures/instructors_perception.png")
+```{r swc_helpers_perception}
 
 # To relabel the y-axis, see the previous chunk
 
@@ -294,9 +297,10 @@ lc_often_h <- likert(data.frame(likert_cols_often_h))
 plot(lc_often_h) +
   ggtitle("Perception of Workshop Helpers") + 
 guides(fill = guide_legend(nrow = 2)) # wraps legend
+```
 
-ggsave("figures/helpers_perception.png")
 
+```{r}
 # To relabel the y-axis, see the previous chunk
 
 # let's double check the plot with a table:
@@ -364,7 +368,9 @@ data_new_information_tally %>%
   filter(new_info_fct == "All of it") %>% 
   pull(`%`) %>% 
   round(0)
+```
 
+```{r swc_new_information}
 ggplot(data_new_information_tally, 
        aes(new_info_fct, 
            y = `%`,
@@ -385,8 +391,9 @@ ggplot(data_new_information_tally,
                 "% Respondents Learned Mostly New Information")) +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
-ggsave("figures/new_information.png")
+
 ```
+
 ```{r include=FALSE}
 # Code chunk to include data in markdown report
 New_Information <- round(prop.table(table(data$`New-Information`)) * 100)
@@ -415,7 +422,9 @@ likert_cols_little <-
 names(likert_cols_little) <- gsub("-Pre", "", names(likert_cols_little) )
 
 lc_little <- likert(data.frame(likert_cols_little))
+```
 
+```{r swc_pre_knowledge}
 plot(lc_little) +
   ggtitle("Self-Reported Knowledge of Tools Covered Pre-Workshop") + 
 guides(fill = guide_legend(nrow = 2)) # wraps legend
@@ -431,8 +440,8 @@ likert_cols_little %>%
   spread(key, perc) %>% 
   slice(match(ordered_little,
               value))
-ggsave("figures/pre_knowledge.png")
 ```
+
 ```{r include=FALSE}
 # Code chunk to include data in markdown report
 Knowledge_SQL <- round(prop.table(table(data$`SQL-Pre`)) * 100)
@@ -470,7 +479,9 @@ likert_cols_intim <-
 names(likert_cols_intim) <- gsub(".Perception", "", names(likert_cols_intim))
 
 lc_intim <- likert(data.frame(likert_cols_intim))
+```
 
+```{r swc_pre_intimidation}
 plot(lc_intim) +
   ggtitle("Self-Reported Feeling of Intimidation Pre-Workshop") + 
 guides(fill = guide_legend(nrow = 2)) # wraps legend
@@ -486,8 +497,8 @@ likert_cols_intim %>%
   spread(key, perc) %>% 
   slice(match(ordered_intim,
               value))
-ggsave("figures/pre_intimidation.png")
 ```
+
 ```{r}
 # Code chunk to include data in markdown report
 Perception_SQL <- round(prop.table(table(data$`SQL-Perception`)) * 100)
@@ -541,12 +552,16 @@ likert_cols_incre <-
 names(likert_cols_incre) <- gsub(".Knowledge.Increase", "", names(likert_cols_incre) )
 
 lc_incre <- likert(data.frame(likert_cols_incre))
+```
 
+```{r swc_knowledge_increase}
 # looks right!
 plot(lc_incre) +
   ggtitle("Self-Reported Knowledge Increase Post-Workshop") + 
 guides(fill = guide_legend(nrow = 2)) # wraps legend
+```
 
+```{r}
 # let's double check the plot with a table:
 xx <- 
 likert_cols_incre %>% 
@@ -558,8 +573,8 @@ likert_cols_incre %>%
   spread(key, perc) %>% 
   slice(match(ordered_icre,
               value))
-ggsave("figures/knowledge_increase.png")
 ```
+
 ```{r}
 # Code chunk to include data in markdown report
 Knowledge_Increase_SQL <- round(prop.table(table(data$`SQL-Knowledge-Increase`)) * 100)
@@ -676,13 +691,14 @@ tools_after <-
           legend.title=element_blank()) + 
 guides(fill = guide_legend(nrow = 2)) # wraps legend
           
-  
+```
+
+```{r swc_prepost_knowledge}
 # put the two plots together
 library(gridExtra)
 grid.arrange(tools_before, 
              tools_after,
              ncol = 1) 
-ggsave("figures/prepost_knowledge.png")
 ```
 
 ### Motivation to Learn Post-Workshop
@@ -709,7 +725,9 @@ data %>%
   mutate(tallies = purrr::map(data, ~tally_and_perc(.x, value))) %>% 
   unnest(tallies)  %>% 
   mutate(key = gsub("After-|-Motivation", "", key))
-  
+```
+
+```{r swc_post_motivation}
 # Plot
 
    ggplot(post_motivation, 
@@ -733,7 +751,6 @@ data %>%
           legend.title=element_blank()) +
     guides(fill=guide_legend(nrow=2,
                              byrow=TRUE)) 
-   ggsave("figures/post_motivation.png")
 ```
 
 ### Respondent Ability to Perform Computing Tasks
@@ -839,13 +856,14 @@ computing_after <-
           legend.title=element_blank()) + 
 guides(fill = guide_legend(nrow = 2)) # wraps legend
           
-  
+```
+
+```{r swc_prepost_confidence}
 # Put the two plots together
 library(gridExtra)
 grid.arrange(computing_before, 
              computing_after,
              ncol = 1)
-ggsave("figures/prepost_confidence.png")
 ```
 
 Let's take a closer look with a table. The data shows an increase in confidence for nearly all of the computing tasks outlined above.
