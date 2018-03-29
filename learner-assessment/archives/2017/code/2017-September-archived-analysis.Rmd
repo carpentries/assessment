@@ -12,5 +12,5 @@ Data Carpentry is continually developing our Assesment efforts. On July 25th, 20
 
 ## Plots
 ```{r calls, echo = FALSE, message = FALSE, warning = FALSE}
-source(file = "scripts/calls.R")
+source(file = "archives/2017/code/calls.R")
 ```

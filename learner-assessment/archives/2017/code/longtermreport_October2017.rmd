@@ -14,23 +14,21 @@ opts_chunk$set(echo = FALSE,
                message = FALSE,
                warning = FALSE)
 library(tidyverse)
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-library(readr)
-library(purrr)
-library(tibble)
 library(DBI)
 library(ggmap)
 library(likert)
 library(mapproj)
 library(RColorBrewer)
 library(srvyr)
+opts_chunk$set(echo = FALSE,
+               message = FALSE,
+               warning = FALSE)
+opts_chunk$set(fig.path='figures/') #puts all figures in figures folder
 ```
 
 
 ```{r include=FALSE}
-data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/long-term-survey/2017-October/data.csv")
+data <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/archives/2017/data/longterm_October2017.csv")
 ```
 
 
@@ -190,7 +188,9 @@ data_position_tally <-
 # Use the line below to include a table
 
 #kable(data_position_tally, format = "markdown", row.names = FALSE, col.names = c("Position", "n"))
+```
 
+```{r longterm_status}
 ggplot(data_position_tally, 
        aes(Position, y = 100 * (n/sum(n)),
            n)) +
@@ -203,7 +203,6 @@ ggplot(data_position_tally,
   ggtitle("Majority of Respondents were Graduate Students") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
-ggsave("figures/status.png")
 ```
 
 ```{r include=FALSE}
@@ -228,7 +227,9 @@ data %>%
   mutate(perc = round(100 * (n/sum(n)), 1)) %>% # add the % col
   filter(!is.na(Country)) %>%
   arrange(desc(n))
+```
 
+```{r longterm_percent_by_country}
 ggplot(data_country_tally,
        aes(reorder(Country, perc),
            perc)) +
@@ -240,8 +241,9 @@ ggplot(data_country_tally,
   ggtitle("Carpentry Workshop Respondents by Country") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_bw(base_size = 14)
-ggsave("figures/percent_by_country.png")
+```
 
+```{r}
 # Use code below for in-line text.
 USA <- data_country_tally[data_country_tally$Country == 'USA', ]$n
 USA_perc <- filter(data_country_tally, Country == "USA") %>% pull(perc)
@@ -306,7 +308,9 @@ The response rate from learners who attended a workshop more than a year ago spe
 
 # Use the code below to include a table of how long ago respondents attended a workshop
 # kable(data_howlong_tally, format = "markdown", row.names = FALSE, col.names = c("Time", "n"), caption = "How Recently Did Respondents Complete a Workshop?")
+```
 
+```{r longterm_time_since_attending_workshop}
 ggplot(data_howlong_tally, 
        aes(`How-Long-Ago`, y = 100 * (n/sum(n)),
            n)) +
@@ -319,7 +323,6 @@ ggplot(data_howlong_tally,
   ggtitle("Majority Attended Workshop Over a Year Ago") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
-ggsave("figures/time_since_attending_workshop.png")
 ```
 
 ```{r}
@@ -331,7 +334,9 @@ data_workshops_tally <-
 
 # Use the code below to include a table of the number of workshops respondents attended
 #kable(data_workshops_tally, format = "markdown", row.names = FALSE, col.names = c("# Wrkshps", "n"), caption = "Number of Workshops Attended")
+```
 
+```{r longterm_number_workshops_attended}
 ggplot(data_workshops_tally, 
        aes(`How-Many-Workshops`, y = 100 * (n/sum(n)),
            n)) +
@@ -344,7 +349,6 @@ ggplot(data_workshops_tally,
   ggtitle("Majority Attended One Carpentry Workshop") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
-ggsave("figures/number_workshops_attended.png")
 ```
 
 ### Workshop Content
@@ -483,11 +487,13 @@ programming = factor(programming)
    filter(!is.na(`Programming-Usage-Before-Workshop`)) 
 
   kable(data_usage_tally, caption = "Prior Programming of Respondents")
- 
+```
+
+```{r longterm_programming_usage_pre}
   ggplot(data_usage_tally, 
         aes(`Programming-Usage-Before-Workshop`, n)) +
    geom_bar(stat = "identity", fill="orange") +
-   geom_text(aes(label=n), size= 4) +
+   geom_text(aes(label=n), size= 4, vjust=-0.25) +
    scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
    theme_classic() +
    xlab("Programming Usage") +
@@ -497,7 +503,7 @@ programming = factor(programming)
    theme_classic(base_size = 14)
 ```
 
-```{r include=FALSE}
+```{r longterm_programming_usage_before}
 # The code below is for pre-workshop programming usage reported as a percentage.
 # Programming Pre-Carpentry Workshop [Percentage Plot]
  data %>%
@@ -506,9 +512,9 @@ programming = factor(programming)
    tally() %>%
    filter(!is.na(`Programming-Usage-Before-Workshop`)) %>%
    mutate(`Programming-Usage-Before-Workshop` =     factor(`Programming-Usage-Before-Workshop`, levels = programming)) %>%
-   ggplot(aes(x = `Programming-Usage-Before-Workshop`, y = 100 * (n/sum(n)))) +
+ggplot(aes(x = `Programming-Usage-Before-Workshop`, y = 100 * (n/sum(n)))) +
      geom_bar(stat = "identity", position = "dodge", fill = "orange") +
-     geom_text(aes(label=n), size= 4) +
+     geom_text(aes(label=n), size= 4, vjust=-0.25) +
      scale_x_discrete(labels = function(x) lapply(strwrap(x,
                                                           width = 10,
                                                           simplify = FALSE),
@@ -537,11 +543,13 @@ programming = factor(programming)
    filter(!is.na(`Programming-Usage-Since-Workshop`)) 
  
  kable(data_usage_tally)
- 
+```
+
+```{r longterm_programming_usage_after}
   ggplot(data_usage_tally, 
         aes(`Programming-Usage-Since-Workshop`, n)) +
    geom_bar(stat = "identity", fill="orange") +
-   geom_text(aes(label=n), size= 4) +
+   geom_text(aes(label=n), size= 4, vjust=-0.25) +
    scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
    theme_classic() +
    xlab("Programming Usage") +
@@ -551,7 +559,7 @@ programming = factor(programming)
    theme_classic(base_size = 14)
 ```
 
-```{r include=FALSE}
+```{r longterm_programming_usage_increased}
 # The code below is for post-workshop programming usage as a percent
 #Programming Usage Post-Carpentry Workshop [Percentage Plot]
 data %>%
@@ -562,7 +570,7 @@ filter(!is.na(`Programming-Usage-Since-Workshop`)) %>%
 mutate(`Programming-Usage-Since-Workshop` = factor(`Programming-Usage-Since-Workshop`, levels = programming)) %>%
 ggplot(aes(x = `Programming-Usage-Since-Workshop`, y = 100 * (n/sum(n)))) +
 geom_bar(stat = "identity", position = "dodge", fill = "orange", na.rm = TRUE ) +
-geom_text(aes(label=n), size= 4) + # Adds count to top of bar
+geom_text(aes(label=n), size= 4, vjust=-0.25) + # Adds count to top of bar
 scale_x_discrete(labels = function(x) lapply(strwrap(x,
                                                          width = 10,
                                                          simplify = FALSE),
@@ -599,7 +607,9 @@ data %>%
   mutate( perc = 100 * (n/sum(n))) %>%
   filter(!is.na(key),
          !is.na(value)) 
+```
 
+```{r longterm_change_in_programming_usage}
   ggplot(pre_and_post_usage, 
          aes(x = factor(value, 
                         levels = programming), 
@@ -621,7 +631,9 @@ data %>%
     ggtitle("Respondents' Programming Usage Increased") +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14)
-  ggsave("figures/change_in_programming_usage.png") 
+```
+
+```{r}
   
 # Get some % change values to use in the text
 delta_pre_have_not_been_using <- 
@@ -682,7 +694,9 @@ contrib_0_to_1 <- as.vector(range0to1(contrib))[c(3,5,9,7,11,1)]
 stdres$sign = ifelse(stdres$Residual >= 0, 
                           "positive", 
                           "negative")
+```
 
+```{r programming_post_workshop}
 # get the categories in a sensible order
 ggplot(stdres,
        aes(factor(Frequency, 
@@ -708,7 +722,6 @@ ggplot(stdres,
                  keyheight = 0.4,
                  default.unit = "inch")
       )
-ggsave("figures/programming_post_workshop.png")
 ```
 
 A chi-square test indicates that the use of programming significantly increases post-workshop. The chi-squared standardized residuals for the post-workshop values show that significantly more respondents program daily six months (or more) after the workshop than would have been expected had the workshop had no effect on their practice. Similarly, significantly fewer respondents program less than once per year six months (or more) after the workshop.
@@ -772,10 +785,9 @@ The figure below shows respondents' perception of workshop impact on several fac
 + *Coding*: I have improved my coding practices as a result of completing the workshop. 
 + *Career*: I have used skills I learned at the workshop to advance my career. 
 
-```{r}
+```{r longterm_workshop_impact_heatmap}
 title <- "Perception of Workshop Impact"		
 plot(data_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
-ggsave("figures/workshop_impact_heatmap.png")
 ```
 
 We see an overwhelmingly positive indication that, after taking the workshop, respondents feel motivated to seek more knowledge and have gained confidence in working with data. Additionally, respondents are making their analyses more reproducible and improving their coding practices (i.e. keeping raw data raw, sharing source code openly, and using scripts). As this survey was administered to learners who had taken a workshop at least six months ago, this feeling of confidence has obviously persisted. This is quite impactful, as both the [Data Carpentry](https://carpentries.github.io/assessment-projects//data-carpentry-projects/postworkshop_analysis.html) and [Software Carpentry](https://carpentries.github.io/assessment-projects/software-carpentry-projects/analysis-postworkshop.html) post workshop survey results show learners having self-reported improved understanding of how to import and work with data. 
@@ -784,7 +796,7 @@ We see an overwhelmingly positive indication that, after taking the workshop, re
 
 Additionally, `r perc_agree_or_strongly_agree_improved_3_things`% of respondents agree or strongly agree that they have improved their coding practices, made their analyses reproducible, or improved their research productivity. They also believe the skills they learned helped them advance their career: `r received_professional_recognition`% of our respondents have received professional recognition as a result of using the tools they learned in a Carpentries workshop.
 
-```{r include=FALSE}
+```{r longterm_impact}
 
 title <- "Perception of Workshop Impact"
  theme_update(plot.title = element_text(hjust = 0.5))
@@ -879,8 +891,7 @@ behaviors_co_occurences  <- as.data.frame(crossprod(bigm>0))
 kable(behaviors_co_occurences, row.names = TRUE, caption = "Matrix of Common Behaviors Adopted Post-Workshop")
 ```
 
-```{r heatmap, fig.width=8, fig.height = 8}
-library(tidyverse)
+```{r longterm_heatmap, fig.width=8, fig.height = 8}
 library(viridis)
 library(stringr)
 wrap_width <-  30
@@ -902,9 +913,6 @@ behaviors_co_occurences  %>%
   theme(axis.text.x = element_text(angle = 90, size = text_size, vjust = 0.5, hjust = 1),
         axis.text.y = element_text(size = text_size))  +
   ggtitle("Heatmap of behaviour co-occurances")
-
-ggsave("figures/behaviors_heatmap.png")
-
 ```
 
 ### Change in Confidence 
@@ -941,8 +949,7 @@ more_than_perc_more_confident <- mround(perc_more_confident,5)
 Our goal is for learners to leave a workshop with increased confidence about using the tools they were taught. More than `r more_than_perc_more_confident`% of the respondents are now more confident in using the tools they learned than before attending the workshop.
 
 
-```{r}
-
+```{r longterm_change_in_confidence}
 # Use the code below for a table of the data.
 # kable(data_change.in.confidence_tally, format = "markdown", row.names = FALSE, col.names = c("Change in Confidence", "%"))
 
@@ -958,7 +965,6 @@ ggplot(data_change.in.confidence_tally,
    ggtitle("Respondents are More Confident Post-Workshop") +
    theme(plot.title = element_text(hjust = 0.5)) +
    theme_bw(base_size = 14)
-ggsave("figures/change_in_confidence.png")
 ```
 
 ### Usage of Tools for Research and/or Work
