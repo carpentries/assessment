@@ -22,10 +22,10 @@ opts_chunk$set(fig.path='figures/') #puts all figures in figures folder
 
 ```{r}
 # Pre-Workshop Data
-predata <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/data-carpentry/postworkshop/2018-March/180118_dcpre.csv")
+predata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/archives/2018/data/180118_dcpre.csv")
 
 # Post-Workshop Data
-postdata <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/data-carpentry/postworkshop/2018-March/180108_dcpost.csv")
+postdata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/archives/2018/data/180108_dcpost.csv")
 ```
 
 ```{r}
