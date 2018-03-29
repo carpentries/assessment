@@ -4,16 +4,7 @@ January 2018
 
 ```{r setup, include=FALSE}
 library(knitr)
-opts_chunk$set(echo = FALSE,
-               message = FALSE,
-               warning = FALSE)
 library(tidyverse)
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-library(readr)
-library(purrr)
-library(tibble)
 library(DBI)
 library(ggmap)
 library(likert)
@@ -23,11 +14,15 @@ library(srvyr)
 library(beeswarm)
 library(NPS)
 library(xtable)
+opts_chunk$set(echo = FALSE,
+               message = FALSE,
+               warning = FALSE)
+opts_chunk$set(fig.path='figures/') #puts all figures in figures folder
 ```
 This analysis was completed using Data Carpentry's post-workshop surveys collected August 7, 2017 through January 8, 2018. A PDF of the survey questions, the data used in this analysis, and full R code are located on the Carpentries [assessment](https://github.com/carpentries/assessment/tree/master/learner-assessment/data-carpentry/postworkshop/2018/January) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
 
 ```{r echo=FALSE}
-data <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/data-carpentry/postworkshop/2018-January/data_180108.csv")
+data <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/archives/2018/data/data_180108.csv")
 data <- mutate_if(data,  is.character, ~ gsub("[\u2018\u2019\u201A\u201B\u2032\u2035]", "'", .))
 ```
 
@@ -78,7 +73,9 @@ data_workshop_tally <-
   group_by(Workshop) %>% 
   tally() %>%
   filter(!is.na(Workshop)) 
+```
 
+```{r dc_post_workshop_attended}
 ggplot(data_workshop_tally, 
        aes(`Workshop`, y = 100 * (n/sum(n)),
            n)) +
@@ -91,8 +88,9 @@ ggplot(data_workshop_tally,
   ggtitle("") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
-ggsave("figures/workshop_attended.png")
+```
 
+```{r}
 data %>% 
   tally_and_perc(`Workshop`, na.rm = TRUE) %>% 
   kable()
@@ -112,7 +110,9 @@ data_programminglanguage_tally <-
   group_by(ToolCovered) %>% 
   tally() %>%
   filter(!is.na(ToolCovered)) 
+```
 
+```{r dcpost_language_covered}
 ggplot(data_programminglanguage_tally, 
        aes(`ToolCovered`, y = 100 * (n/sum(n)),
            n)) +
@@ -125,8 +125,9 @@ ggplot(data_programminglanguage_tally,
   ggtitle("") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
-ggsave("figures/language_covered.png")
+```
 
+```{r}
 data %>% 
   tally_and_perc(`ToolCovered`, na.rm = TRUE) %>% 
   kable()
@@ -169,11 +170,12 @@ levels = c("Strongly disagree",
               levels=factlevel)}
 
 newdata_agree_likert <- likert(data.frame(lapply(newdata_agree, factor, levels, ordered=TRUE)))
+```
 
+```{r dcpost_postworkshop_impact_heat}
 #Heatmap
 title <- "Perception of Workshop Impact"
 plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
-ggsave("figures/postworkshop_impact_heat.png")
 ```
 
 
@@ -184,6 +186,7 @@ Learners were asked to rate their level of agreement with several statements reg
 + __InstructorsEnthusiastic__: The instructors were enthusiastic about the workshop.
 + __InstructorsComfortable__: I felt comfortable interacting with the instructors. 
 + __InstructorsClear__: I was able to get clear answers to my questions from the instructors.  
+
 ```{r}
 # Please rate your level of agreement with the following statements:
 #Subsetting a portion of the Likert items from Organize-Data to Use-command-line
@@ -209,11 +212,10 @@ levels = c("Strongly disagree",
 newdata_agree_likert <- likert(data.frame(lapply(newdata_agree, factor, levels, ordered=TRUE)))
 ```
 
-```{r}
+```{r dcpost_perception_instructors_heat}
 #Heatmap
 title <- "Perception of Data Carpentry Instructors"
 plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
-ggsave("figures/perception_instructors_heat.png")
 ```
 
 ### Recommending Data Carpentry Workshops
@@ -235,7 +237,9 @@ data_recommend_tally <-
   group_by(Recommend) %>% 
   tally() %>%
   filter(!is.na(Recommend))
+```
 
+```{r dcpost_likely_to_recommend}
 ggplot(data_recommend_tally, 
        aes(`Recommend`, y = 100 * (n/sum(n)),
            n)) +
@@ -248,7 +252,6 @@ ggplot(data_recommend_tally,
   ggtitle("Likely to Recommend") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
-ggsave("figures/likely_to_recommend.png")
 ```
 
 
