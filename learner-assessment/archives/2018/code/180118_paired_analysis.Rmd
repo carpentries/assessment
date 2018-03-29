@@ -348,7 +348,6 @@ kable(select(t_test, skill, ends_with("feeling"), starts_with("n"),
 # Recommending Data Carpentry Workshops
 Learners were asked how likely they are to recommend this workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter). The scoring for this question based on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors. 
 
-
 ```{r}
 postdata$`LikelyToRecommend` %>%
     npc(breaks = list(0:64, 65:84, 85:100)) %>%
