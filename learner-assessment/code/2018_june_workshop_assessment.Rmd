@@ -2,8 +2,8 @@
 June 2018
 
 ```{r setup, include=FALSE}
-library(knitr)
 library(tidyverse)
+library(knitr)
 library(DBI)
 library(ggmap)
 library(likert)
@@ -21,75 +21,165 @@ opts_chunk$set(fig.path='figures/') #puts all figures in figures folder
 ```
 
 ```{r}
-# Pre-Workshop Data
-predata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/archives/2018/data/180118_dcpre.csv")
+# Data Carpentry Pre-Workshop Data
+dcpredata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/data/180118_dcpre.csv")
 
-# Post-Workshop Data
-postdata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/archives/2018/data/180108_dcpost.csv")
+# Data Carpentry Post-Workshop Data
+dcpostdata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/data/180108_dcpost.csv")
+
+# Software Carpentry Pre-Workshop Data
+swcpredata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/data/171231_swcpre.csv")
+
+# Software Carpentry Post-Workshop Data
+swcpostdata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/data/171231_swcpost.csv")
 ```
 
 ```{r}
 # Function that makes a table of counts and percentages
-tally_and_perc <- function(df, colname, na.rm = FALSE){
+# question_n is set by default to the number of respondents in the survey. This value may have to be set by question.
+question_n <- nrow(dcpredata)
+
+tally_and_perc <- function(df, colname, na.rm = FALSE, question_n){
   quo_colname <- enquo(colname)
 
-  df %>% 
-    group_by(!!quo_colname) %>% 
-    tally() %>% 
+  df %>%
+    group_by(!!quo_colname) %>%
+    tally() %>%
     filter(if_else(rep(na.rm, nrow(.)),
                   !is.na(!!quo_colname),
-                  as.logical(rep(1, nrow(.))))) %>% 
-    mutate(`%` = round(n / sum(n) * 100, 1)) 
+                  as.logical(rep(1, nrow(.))))) %>%
+    mutate(`%` = round(n / question_n * 100, 1))
+}
+
+# function to compute number of non-NA responses to a question
+
+n_responses_to_the_question <- function(df, from_colname, to_colname) {
+
+  quo_from_colname <- enquo(from_colname)
+  quo_to_colname <- enquo(to_colname)
+
+  rowsums <-
+df %>%
+  select(UQ(quo_from_colname):UQ(quo_to_colname)) %>%
+  # check that each row has a value for at least one col
+  # convert to numeric, if NA, then put a zero, otherwise 1
+  map_df(., ~ifelse(is.na(.x), 0, 1)) %>%
+  # sum to see if any rows have no reponses
+  rowSums()
+
+# for all behaviors
+idx <- ifelse(rowsums == 0, FALSE, TRUE)
+sum(idx)
 }
 ```
 
-# Pre-Workshop Survey Demographics
+The Carpentries Assessment Team releases short and long-term assessment results twice per year in June and January. The following results include analyses from both Data Carpentry and Software Carpentry's pre- and post-workshop surveys.
 
-## Workshop Location
+# Pre-Workshop Survey Demographics: Workshop Location
 
-```{r respondents_country}
-data_country_tally <-
-predata %>%
+```{r}
+# Tally Data Carpentry's pre-workshop respondents by Country
+dcpredata_country_tally <-
+dcpredata %>%
   group_by(Country) %>%
   tally(sort = TRUE) %>%
   mutate(perc = round(100 * (n/sum(n)), 1)) %>% # add the % col
   filter(!is.na(Country)) %>%
   arrange(desc(n))
+```
 
-ggplot(data_country_tally,
+
+```{r dc_respondents_by_country}
+# Plot Data Carpentry's respondents by Country
+ggplot(dcpredata_country_tally,
        aes(reorder(Country, perc),
            perc)) +
   geom_bar(stat = "identity", fill = "maroon") +
   theme_classic() +
   xlab("") +
-  ylab("Breakdown of Respondents by Country") +
+  ylab("Percentage of Respondents") +
   coord_flip() +
-  ggtitle("") +
+  ggtitle("Breakdown of Data Carpentry's Survey \nRespondents by Country") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_bw(base_size = 14)
-
 #kable(data_country_tally, format='markdown')
 ```
 
-## Respondents Discipline
+In Software Carpentry's pre-workshop survey, respondents are asked whether or not their workshop takes place in the United States.
 
 ```{r}
-# Responses are in columns 'Discipline' through 'Column13'
-discipline <-
- predata %>%
- select(`Discipline`:Column13) %>%
- gather(col, discipline) %>%
- group_by(discipline) %>%
- tally_and_perc(discipline) %>%
- filter(!is.na(discipline)) %>%
- arrange(desc(n)) %>%
- rename(`Discipline` = discipline)
-
-kable(discipline, format = 'markdown', row.names = NA, col.names = c ("Respondents Discipline", "n", "%"))
-# The percentages in the table are incorrect
+# Tally Software Carpentry's pre-workshop respondents by Country
+swcpredata_country_tally <-
+swcpredata %>%
+  group_by(USWorkshop) %>%
+  tally(sort = TRUE) %>%
+  mutate(perc = round(100 * (n/sum(n)), 1)) %>% # add the % col
+  filter(!is.na(USWorkshop)) %>%
+  arrange(desc(n))
+kable(swcpredata_country_tally, format='markdown', col.names = c("SWC Workshops in US", "n", "%"))
 ```
 
-## Respondents Status
+# Pre-Workshop Survey Demographics: Domain of research/work/study
+
+```{r}
+# Tally Data Carpentry's pre-workshop respondents by Discipline
+# Responses are in columns 'Discipline' through 'Column13'
+dcdiscipline <-
+ dcpredata %>%
+ select(Discipline:Column13) %>%
+ gather(col, dcdiscipline) %>%
+ group_by(dcdiscipline) %>%
+ tally_and_perc(dcdiscipline,na.rm = TRUE) %>%
+ filter(!is.na(dcdiscipline)) %>%
+ arrange(desc(n)) %>%
+ rename(`Discipline` = dcdiscipline)
+
+kable(dcdiscipline, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry's Respondents Discipline", "n", "%"))
+# Getting error message: Error in mutate_impl(.data, dots) : Evaluation error: argument "question_n" is missing, with no default.
+```
+
+```{r}
+# Tally Software Carpentry's pre-workshop respondents by Discipline
+# Responses are in columns 'Domain' through 'Column61'
+swcdiscipline <-
+ swcpredata %>%
+ select(Domain:Column61) %>%
+ gather(col, swcdiscipline) %>%
+ group_by(swcdiscipline) %>%
+ tally_and_perc(swcdiscipline,na.rm = TRUE) %>%
+ filter(!is.na(swcdiscipline)) %>%
+ arrange(desc(n)) %>%
+ rename(`Domain` = swcdiscipline)
+
+kable(swcdiscipline, format = 'markdown', row.names = NA, col.names = c ("Software Carpentry's Respondents Discipline", "n", "%"))
+# Getting error message: Error in mutate_impl(.data, dots) : Evaluation error: argument "question_n" is missing, with no default.
+```
+
+# Pre-Workshop Survey Demographics: Respondents Status
+this is where i left off
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ```{r}
 # Responses are in columns 'Discipline' through 'Column22'
