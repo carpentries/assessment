@@ -1,3 +1,5 @@
+### What are some programmatic metrics to explore?
+
 * Count workshops by year
 * Count learners by year
 * Count  organized workshops by year
