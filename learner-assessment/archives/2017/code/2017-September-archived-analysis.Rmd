@@ -1,0 +1,16 @@
+# Analysis of the Data Carpentry's Archived Pre- and Post-Workshop Survey
+__Authors__: [Kari L. Jordan](https://github.com/kariljordan) and [Paula Andrea Martinez](https://twitter.com/orchid00)  
+__Published__: September 2017 
+
+```{r setup, include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Summary
+
+Data Carpentry is continually developing our Assesment efforts. On July 25th, 2017, [Paula Andrea](https://twitter.com/orchid00) joined [Kari L. Jordan](https://twitter.com/drkariljordan) to work on producing visualizations of the archived pre- and post-workshop survey data. 
+
+## Plots
+```{r calls, echo = FALSE, message = FALSE, warning = FALSE}
+source(file = "archives/2017/code/calls.R")
+```
