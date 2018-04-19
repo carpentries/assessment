@@ -1,0 +1,182 @@
+---
+title: "Instructor Trainer Feedback Report"
+output: flexdashboard::flex_dashboard
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(tidyverse)
+library(likert)
+library(flexdashboard)
+library(plotly)
+opts_chunk$set(echo = FALSE,
+               message = FALSE,
+               warning = FALSE)
+```
+
+
+```{r include=FALSE}
+# Load dataset
+postdata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/programmatic-assessment/instructor-training/data/2018-instructor-training-data.csv")
+
+```
+
+```{r}
+# Function that makes a table of counts and percentages
+# question_n is set by default to the number of respondents in the survey. This value may have to be set by question.
+question_n <- nrow(postdata)
+
+tally_and_perc <- function(df, colname, na.rm = FALSE, question_n){
+  quo_colname <- enquo(colname)
+
+  df %>%
+    group_by(!!quo_colname) %>%
+    tally() %>%
+    filter(if_else(rep(na.rm, nrow(.)),
+                  !is.na(!!quo_colname),
+                  as.logical(rep(1, nrow(.))))) %>%
+    mutate(`%` = round(n / question_n * 100, 1))
+}
+
+# function to compute number of non-NA responses to a question
+
+n_responses_to_the_question <- function(df, from_colname, to_colname) {
+
+  quo_from_colname <- enquo(from_colname)
+  quo_to_colname <- enquo(to_colname)
+
+  rowsums <-
+df %>%
+  select(UQ(quo_from_colname):UQ(quo_to_colname)) %>%
+  # check that each row has a value for at least one col
+  # convert to numeric, if NA, then put a zero, otherwise 1
+  map_df(., ~ifelse(is.na(.x), 0, 1)) %>%
+  # sum to see if any rows have no reponses
+  rowSums()
+
+# for all behaviors
+idx <- ifelse(rowsums == 0, FALSE, TRUE)
+sum(idx)
+}
+```
+
+Thank you for being a valuable member of The Carpentries community! We value the work you put into teaching a workshop. This report is an analysis of the [post-workshop survey](https://github.com/carpentries/assessment/blob/master/programmatic-assessment/instructor-training/surveys/current_survey.pdf) results from your workshop. It serves to offer feedback from your learners, and opportunities for your continued growth and development. Should you have questions, or want to talk more about the information in this report, please contact XXXXXX.
+
+__Feedback about the overall training event.__
+
+Respondents were asked to rate their level of agreement about the following:
+
++ The amount of information covered was reasonable for alloted time.
++ The overall atmosphere was welcoming.
++ I learned skills that I will be able to use in my teaching.
++ The material preented matched the description of the training event.
++ I would recommend this training to a friend/colleague.
++ The training was worth my time.
+
+```{r}
+# Please give us some feedback about the overall training event.
+# Subsetting a portion of the Likert items from InformationReasonableTime to Worth
+myvars <- c("InformationReasonableTime", 
+            "AtmosphereWelcoming", "LearnedSkills", "Material", "Recommend", "Worth") 
+newdata <- postdata[myvars]            
+
+cols_with_Agree <- map_lgl(newdata, ~`%in%`("Agree", .x))
+newdata_agree <-  newdata[ , cols_with_Agree]
+
+levels = c("Strongly Disagree",
+   "Disagree",
+   "Neither Agree nor Disagree",
+   "Agree",
+   "Strongly Agree")
+
+ factorfunction <- function(newdata, factlevel){
+  factor(newdata, 
+         levels=factlevel, 
+         ordered = TRUE)
+    fct_unify(newdata, 
+              levels=factlevel)}
+
+newdata_agree_likert <- likert(data.frame(lapply(newdata_agree, factor, levels, ordered=TRUE)))
+```
+
+Respondents were asked to rate how they perceived the pace of the training.
+
+Column
+-------------------------------------
+### Instructor Training Impact
+```{r}
+#Heatmap
+title <- ""
+plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
+```
+
+
+```{r}
+# How did you perceive the pace of the training?
+pace = c("Too slow", "Slightly slow", "Just right", "Slightly fast", "Too fast")
+pace = factor(pace)
+
+postdata$Pace = factor(postdata$Pace, levels = pace)
+
+postdata_pace_tally <-
+  postdata %>%
+  group_by(Pace) %>%
+  tally() %>%
+  filter(!is.na(Pace)) %>%
+  mutate(perc = round(n/sum(n) * 100, 0))
+```
+
+Column
+-------------------------------------
+### Pace of the Training
+```{r}
+ggplot(postdata_pace_tally,
+       aes(Pace, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="orange") +
+  geom_text(aes(label=n), size= 4, vjust=-0.25) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Pace") +
+  ylab("% Respondents") +
+  ggtitle("") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+```
+
+
+```{r}
+# How was the balance of lecture to hands-on work?
+handson = c("Too much lecture", 
+            "Slightly too much lecture", 
+            "Balanced (lecture/hands-on)", 
+            "Slightly too much hands-on", 
+            "Too much hands-on")
+handson = factor(handson)
+
+postdata$HandsOn = factor(postdata$HandsOn, levels = handson)
+
+postdata_handson_tally <-
+  postdata %>%
+  group_by(HandsOn) %>%
+  tally() %>%
+  filter(!is.na(HandsOn)) %>%
+  mutate(perc = round(n/sum(n) * 100, 0))
+```
+
+
+### Balance of Lecture to Hands-On
+```{r}
+ggplot(postdata_handson_tally,
+       aes(HandsOn, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="orange") +
+  geom_text(aes(label=n), size= 4, vjust=-0.25) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Balance of Lecture") +
+  ylab("% Respondents") +
+  ggtitle("") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+```

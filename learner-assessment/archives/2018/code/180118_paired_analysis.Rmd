@@ -1,0 +1,359 @@
+## [DRAFT] Data Carpentry's Paired Pre and Post-Workshop Survey Report 
+March 2018
+
+```{r setup, include=FALSE}
+library(knitr)
+library(tidyverse)
+library(DBI)
+library(ggmap)
+library(likert)
+library(mapproj)
+library(RColorBrewer)
+library(srvyr)
+library(beeswarm)
+library(NPS)
+library(broom)
+library(assertr)
+opts_chunk$set(echo = FALSE,
+               message = FALSE,
+               warning = FALSE)
+opts_chunk$set(fig.path='figures/') #puts all figures in figures folder
+```
+
+```{r}
+# Pre-Workshop Data
+predata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/archives/2018/data/180118_dcpre.csv")
+
+# Post-Workshop Data
+postdata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/archives/2018/data/180108_dcpost.csv")
+```
+
+```{r}
+# Function that makes a table of counts and percentages
+tally_and_perc <- function(df, colname, na.rm = FALSE){
+  quo_colname <- enquo(colname)
+
+  df %>% 
+    group_by(!!quo_colname) %>% 
+    tally() %>% 
+    filter(if_else(rep(na.rm, nrow(.)),
+                  !is.na(!!quo_colname),
+                  as.logical(rep(1, nrow(.))))) %>% 
+    mutate(`%` = round(n / sum(n) * 100, 1)) 
+}
+```
+
+# Pre-Workshop Survey Demographics
+
+## Workshop Location
+
+```{r respondents_country}
+data_country_tally <-
+predata %>%
+  group_by(Country) %>%
+  tally(sort = TRUE) %>%
+  mutate(perc = round(100 * (n/sum(n)), 1)) %>% # add the % col
+  filter(!is.na(Country)) %>%
+  arrange(desc(n))
+
+ggplot(data_country_tally,
+       aes(reorder(Country, perc),
+           perc)) +
+  geom_bar(stat = "identity", fill = "maroon") +
+  theme_classic() +
+  xlab("") +
+  ylab("Breakdown of Respondents by Country") +
+  coord_flip() +
+  ggtitle("") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_bw(base_size = 14)
+
+#kable(data_country_tally, format='markdown')
+```
+
+## Respondents Discipline
+
+```{r}
+# Responses are in columns 'Discipline' through 'Column13'
+discipline <-
+ predata %>%
+ select(`Discipline`:Column13) %>%
+ gather(col, discipline) %>%
+ group_by(discipline) %>%
+ tally_and_perc(discipline) %>%
+ filter(!is.na(discipline)) %>%
+ arrange(desc(n)) %>%
+ rename(`Discipline` = discipline)
+
+kable(discipline, format = 'markdown', row.names = NA, col.names = c ("Respondents Discipline", "n", "%"))
+# The percentages in the table are incorrect
+```
+
+## Respondents Status
+
+```{r}
+# Responses are in columns 'Discipline' through 'Column22'
+ordered_status = c("Undergraduate Student", "Graduate Student", "Postdoctoral Researcher", "Faculty", "Industry Employee", "Government Employee", "Research Staff", "Management/Administrator", "Retired/Not Employed", "Other (please specify)")
+
+predata$Status = factor(predata$Status, levels = ordered_status)
+
+status <-
+ predata %>%
+ select(`Status`:Column22) %>%
+ gather(col, status) %>%
+ group_by(status) %>%
+ tally_and_perc(status) %>%
+ filter(!is.na(status)) %>%
+ arrange(desc(n)) %>%
+ rename(`Status` = status)
+
+kable(status, caption = "Status")
+# The percentages in the table are incorrect
+```
+
+## Pre/Post Comparison
+
+Learners were asked to rate their level of agreement with the following statements related to Data Carpentry's workshop goals and learning objectives. The figure below provides a visual representation of their responses, comparing them before the workshop and after the workshop. Axis labels and the corresponding question are as follows:  
+
++ __AnalysesEasier__: Using a programming language (like R or Python) can make my analyses easier to reproduce. 
++ __OvercomeProblem__: While working on a programming project, if I get stuck, I can find ways of overcoming the problem. 
++ __ProgrammingSoftware__: I am confident in my ability to make use of programming software to work with data.
++ __RawData__: Having access to the original, raw data is important to be able to repeat an analysis.
++ __SearchOnline__: I know how to search for answers to my technical questions online.
++ __WriteScript__: I can write a small program/script/macro to solve a problem in my own work.  
+
+```{r}
+# Ability to perform various computing tasks before and after completing the workshop
+impact_pre <-
+    c("Strongly disagree",
+    "Disagree",
+    "Neutral",
+    "Agree",
+    "Strongly agree")
+
+impact_post <- 
+  c("Strongly disagree",
+    "Disagree",
+    "Neutral",
+    "Agree",
+    "Strongly agree")
+# How do I tell R that I want the factors in this order always?
+```
+
+
+```{r}
+# Pre-Workshop
+# Compute for all tools.
+
+# Before the workshop
+pre_computing <- 
+predata %>%
+  select(`RawData`:`AnalysesEasier`) %>% 
+  gather() %>% 
+  filter(value %in% impact_pre) %>% 
+  nest(-key) %>% 
+  mutate(tallies = purrr::map(data, ~tally_and_perc(.x, value))) %>% 
+  unnest(tallies)
+#kable(pre_computing, format = 'markdown', row.names = NA, col.names = c ("Statement", "Level of Agreement", "n", "%"))
+```
+
+
+```{r}
+# Post-Workshop
+post_computing <- 
+postdata %>%
+  select(`RawData`:`AnalysesEasier`) %>% 
+  gather() %>% 
+  filter(value %in% impact_post) %>% 
+  nest(-key) %>% 
+  mutate(tallies = purrr::map(data, ~tally_and_perc(.x, value)))  %>% 
+  unnest(tallies) 
+#kable(post_computing, format = 'markdown', row.names = NA, col.names = c ("Statement", "Level of Agreement", "n", "%"))
+```
+
+```{r}
+# Plot before a grouped bar plot, then combine.
+
+computing_before <- 
+   ggplot(pre_computing, 
+         aes(x = key,
+             y = `%`,
+             fill = fct_relevel(value, 
+                             impact_pre))) +
+    geom_col(position = "dodge") +
+    geom_text(aes(label=n), 
+              size= 4, vjust=-0.25,
+              position=position_dodge(width=1)) +
+    scale_x_discrete(labels = function(x) lapply(strwrap(x,
+                                                         width = 10,
+                                                         simplify = FALSE),
+                                                 paste,
+                                                 collapse = "\n")) +
+    theme_classic() +
+    xlab("") +
+    ylab("% Respondents") +
+    ggtitle("Respondent Ability Pre-Workshop") +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme_classic(base_size = 10) +
+    theme(legend.position = "bottom", 
+          legend.title=element_blank()) 
+```
+
+```{r}
+# Plot after a grouped bar plot, then combine.
+computing_after <- 
+   ggplot(post_computing, 
+         aes(x = key,
+             y = `%`,
+             fill = fct_rev(fct_relevel(value, 
+                             (impact_post))))) +
+    geom_col(position = "dodge") +
+    geom_text(aes(label=n), 
+              size= 4, vjust=-0.25,
+              position=position_dodge(width=1)) +
+    scale_x_discrete(labels = function(x) lapply(strwrap(x,
+                                                         width = 10,
+                                                         simplify = FALSE),
+                                                 paste,
+                                                 collapse = "\n")) +
+    theme_classic() +
+    xlab("") +
+    ylab("% Respondents") +
+    ggtitle("Level of Confidence Post-Workshop") +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme_classic(base_size = 10) +
+    theme(legend.position = "bottom", 
+          legend.title=element_blank())  
+# + guides(fill = guide_legend(nrow = 2)) # wraps legend
+```          
+
+```{r change_in_confidence} 
+# Put the two plots together
+library(gridExtra)
+#grid.arrange(computing_before, 
+#             computing_after,
+#             ncol = 1)
+
+# Why are the levels showing in a different order on the grid?
+```
+
+```{r agreement_pre}
+   ggplot(pre_computing, 
+         aes(x = key,
+             y = `%`,
+             fill = fct_relevel(value, 
+                             impact_pre))) +
+    geom_col(position = "dodge") +
+    geom_text(aes(label=n), 
+              size= 4, vjust=-0.25,
+              position=position_dodge(width=1)) +
+    scale_x_discrete(labels = function(x) lapply(strwrap(x,
+                                                         width = 10,
+                                                         simplify = FALSE),
+                                                 paste,
+                                                 collapse = "\n")) +
+    theme_classic() +
+    xlab("") +
+    ylab("% Respondents") +
+    ggtitle("Level of Agreement Pre-Workshop") +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme_classic(base_size = 14) +
+    theme(legend.position = "bottom", 
+          legend.title=element_blank())
+```
+
+```{r agreement_post}
+ggplot(post_computing, 
+         aes(x = key,
+             y = `%`,
+             fill = fct_rev(fct_relevel(value, 
+                             (impact_post))))) +
+    geom_col(position = "dodge") +
+    geom_text(aes(label=n), 
+              size= 4, vjust=-0.25,
+              position=position_dodge(width=1)) +
+    scale_x_discrete(labels = function(x) lapply(strwrap(x,
+                                                         width = 10,
+                                                         simplify = FALSE),
+                                                 paste,
+                                                 collapse = "\n")) +
+    theme_classic() +
+    xlab("") +
+    ylab("% Respondents") +
+    ggtitle("Level of Agreement Post-Workshop") +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme_classic(base_size = 14) +
+    theme(legend.position = "bottom", 
+          legend.title=element_blank())
+# Why does strongly agree appear first in this plot but last in the plot above?
+```
+
+## Paired Analyses Table
+```{r}
+
+prep_paired_data <- . %>%
+    select(UniqueID, `RawData`:`AnalysesEasier`) %>%
+    filter(!is.na(UniqueID)) %>%
+    gather(skill, feeling, -UniqueID) %>%
+    mutate(feeling_score = case_when(
+               feeling == "Strongly disagree" ~ 1,
+               feeling == "Disagree"          ~ 2,
+               feeling == "Neutral"           ~ 3,
+               feeling == "Agree"             ~ 4, 
+               feeling == "Strongly agree"    ~ 5,
+               is.na(feeling)                 ~ NA_real_, 
+               TRUE                           ~ 999
+           )) %>%
+    assert(in_set(NA, 1, 2, 3, 4, 5), feeling_score)
+
+
+pre_paired <- predata %>%
+    prep_paired_data %>%
+    rename_at(vars(-UniqueID, -skill), ~ paste0("pre_", .))
+    
+post_paired <- postdata %>%
+    prep_paired_data %>%
+    rename_at(vars(-UniqueID, -skill), ~ paste0("post_", .))
+
+paired_data <- inner_join(pre_paired, post_paired, by = c("UniqueID", "skill"))
+
+
+t_test_results <- paired_data %>%
+    group_by(skill) %>%
+    nest() %>% 
+    mutate(t_test_res = purrr::map(data, function(x) {
+        t.test(x$pre_feeling_score, x$post_feeling_score, paired = TRUE,
+               alt = "less") %>%
+            broom::tidy()
+    })) %>%
+    unnest(t_test_res)
+
+t_test <- paired_data %>%
+    group_by(skill) %>%
+    summarize(
+        mean_pre_feeling = mean(pre_feeling_score, na.rm = TRUE),
+        n_pre = sum(!is.na(pre_feeling_score)),
+        sd_pre_feeling = sd(pre_feeling_score, na.rm = TRUE),
+        mean_post_feeling = mean(post_feeling_score, na.rm = TRUE),
+        n_post = sum(!is.na(post_feeling_score)),
+        sd_post_feeling = sd(post_feeling_score, na.rm = TRUE)
+    ) %>%
+    left_join(t_test_results, by = "skill")
+
+kable(select(t_test, skill, ends_with("feeling"), starts_with("n"), 
+             p.value))
+ 
+```
+
+# Recommending Data Carpentry Workshops
+Learners were asked how likely they are to recommend this workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter). The scoring for this question based on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors. 
+
+```{r}
+postdata$`LikelyToRecommend` %>%
+    npc(breaks = list(0:64, 65:84, 85:100)) %>%
+    data.frame(category = .) %>%
+    filter(!is.na(category)) %>%
+    count(category) %>%
+    mutate("%" = (n / sum(n))*100) %>%
+    kable(, format = 'markdown', row.names = NA, col.names = c ("Promoter Score", "n", "%"))
+```
