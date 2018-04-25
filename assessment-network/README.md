@@ -11,7 +11,7 @@ To join the Assessment Network, submit a [request to join](mailto:kariljordan@ca
 | Louisa Bellis  |  University of Cambridge  | EXCELERATE Training Quality & Impact Coordinator  |  BST/GMT |
 | Kim Gurwitz  | Elixir, University of Cambridge  | Training Impact Coordinator  | GMT  |
 | Alycia Crall  | National Ecological Observatory Network (NEON)  | Science Educator and Evaluator  | MT  |
-| Elizabeth Wickes  | University of Illinois at Urbana-Champaign  | Data Curation Specialist  |   |
+| Elizabeth Wickes  | University of Illinois at Urbana-Champaign  | Lecturer  |  CST |
 | Matthew B. Jones  | National Center for Ecological Analysis and Synthesis (NCEAS)  | Director of Informatics  | AK  |
 | Kate Hertweck  | University of Texas at Tyler  | Assistant Professor of Biology  | TX (US Central)  |
 | Ian Carroll  | National Socio-Environmental Synthesis Center (SESYNC)  | Data Science Instructor  | EST  |
