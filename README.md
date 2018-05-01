@@ -16,12 +16,12 @@ Additionally, the repository contains minutes from the [assessment-network](http
 
 # Reports  
 + __Software Carpentry__ 
-  + [2017-July](https://carpentries.github.io/assessment/learner-assessment/software-carpentry/postworkshop/2017-July/2017-July-post.html) Post-Workshop Survey Report  
+  + [2017-July](https://carpentries.github.io/assessment/learner-assessment/archives/2017/code/2017-July-post.html) Post-Workshop Survey Report  
 + __Data Carpentry__
-  + [2018-January](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/postworkshop/2018-January/report.html) Post-Workshop Survey Report  
-  + [2017-December](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/postworkshop/2017-December/report.html) Post-Workshop Survey Report  
-  + [2017-September](https://carpentries.github.io/assessment/learner-assessment/data-carpentry/archived-analysis/2017-September-archived-analysis.html) Archived [pre](https://github.com/carpentries/assessment/blob/master/learner-assessment/surveys/dc_presurvey_archived.pdf) AND [post](https://github.com/carpentries/assessment/blob/master/learner-assessment/surveys/dc_postsurvey_archived.pdf) Workshop Summary Plots.
+  + [2018-January](https://carpentries.github.io/assessment/learner-assessment/archives/2018/code/2018-January-post.html) Post-Workshop Survey Report  
+  + [2017-December](https://carpentries.github.io/assessment/learner-assessment/archives/2017/code/2017-December-post.html) Post-Workshop Survey Report  
+  + [2017-September](https://carpentries.github.io/assessment/learner-assessment/archives/2017/code/2017-September-archived-analysis.html) Archived Pre and Post-Workshop Summary Plots.
+  
 + __Carpentries Long-Term Survey__
-  + [2018-January](https://carpentries.github.io/assessment/learner-assessment/long-term-survey/2018-January/2018_January_long_term_report.html) Report
-  + [2017-October](https://carpentries.github.io/assessment/learner-assessment/long-term-survey/2017-October/longtermreport_October2017.html) Report
-
+  + [2018-January](https://carpentries.github.io/assessment/learner-assessment/archives/2018/code/2018_January_long_term_report.html) Report
+  + [2017-October](https://carpentries.github.io/assessment/learner-assessment/archives/2017/code/longtermreport_October2017.html) Report

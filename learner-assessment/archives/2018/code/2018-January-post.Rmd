@@ -1,0 +1,281 @@
+# DRAFT
+# Data Carpentry's Post-Workshop Survey Report 
+January 2018
+
+```{r setup, include=FALSE}
+library(knitr)
+library(tidyverse)
+library(DBI)
+library(ggmap)
+library(likert)
+library(mapproj)
+library(RColorBrewer)
+library(srvyr)
+library(beeswarm)
+library(NPS)
+library(xtable)
+opts_chunk$set(echo = FALSE,
+               message = FALSE,
+               warning = FALSE)
+opts_chunk$set(fig.path='figures/') #puts all figures in figures folder
+```
+This analysis was completed using Data Carpentry's post-workshop surveys collected August 7, 2017 through January 8, 2018. A PDF of the survey questions, the data used in this analysis, and full R code are located on the Carpentries [assessment](https://github.com/carpentries/assessment/tree/master/learner-assessment/data-carpentry/postworkshop/2018/January) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
+
+```{r echo=FALSE}
+data <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/archives/2018/data/data_180108.csv")
+data <- mutate_if(data,  is.character, ~ gsub("[\u2018\u2019\u201A\u201B\u2032\u2035]", "'", .))
+```
+
+
+```{r}
+# Function that makes a table of counts and percentages
+tally_and_perc <- function(df, colname, na.rm = FALSE){
+  quo_colname <- enquo(colname)
+
+  df %>% 
+    group_by(!!quo_colname) %>% 
+    tally() %>% 
+    filter(if_else(rep(na.rm, nrow(.)),
+                  !is.na(!!quo_colname),
+                  as.logical(rep(1, nrow(.))))) %>% 
+    mutate(`%` = round(n / sum(n) * 100, 1)) 
+}
+```
+
+### Workshop Location
+The majority of respondents attended workshops in the United States, however, we see representation in multiple countries including Canada, Ethiopia, South Africa, and Switzerland.
+```{r}
+data %>% 
+  tally_and_perc(`Country`, na.rm = TRUE) %>%
+  kable()
+```
+
+```{r include=FALSE}
+#Data to include in-line
+#Which workshop did you attend?
+Workshop_Attended <- round(prop.table(table(data$Workshop))* 100)
+Workshop_Attended
+
+# In the report the in-line text says 53% although the table and plot show 64% for Ecology. Does this have to do with the function and not removing the NAs?
+```
+### Workshop Attended and Tools Covered 
+Respondents were asked which workshop they attended: Ecology, Genomics, Geospatial, Reproducible Research, or Social Sciences. The majority of respondents (`r Workshop_Attended[1]`%) attended an Ecology workshop.
+
+```{r}
+# Q: Which workshop did you attend?
+workshop = c("Ecology", "Genomics", "Geospatial", "Reproducible Research", "Social Sciences", "I don't know.")
+workshop = factor(workshop)
+
+data$Workshop = factor(data$Workshop, levels = workshop)
+
+data_workshop_tally <- 
+  data %>% 
+  group_by(Workshop) %>% 
+  tally() %>%
+  filter(!is.na(Workshop)) 
+```
+
+```{r dc_post_workshop_attended}
+ggplot(data_workshop_tally, 
+       aes(`Workshop`, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="purple") +
+  geom_text(aes(label=n), size= 4, vjust=-0.25) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Workshop") +
+  ylab("% Respondents") +
+  ggtitle("") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+```
+
+```{r}
+data %>% 
+  tally_and_perc(`Workshop`, na.rm = TRUE) %>% 
+  kable()
+```
+
+As the majority of workshop respondents attended an Ecology workshop, it is no surprise that R was covered in most workshops.
+
+```{r}
+# Q: Which of the following programming languages was covered in your workshop?
+programminglanguage = c("R", "Python", "Neither", "I don't know./I don't remember.")
+programminglanguage = factor(programminglanguage)
+
+data$ToolCovered = factor(data$ToolCovered, levels = programminglanguage)
+
+data_programminglanguage_tally <- 
+  data %>% 
+  group_by(ToolCovered) %>% 
+  tally() %>%
+  filter(!is.na(ToolCovered)) 
+```
+
+```{r dcpost_language_covered}
+ggplot(data_programminglanguage_tally, 
+       aes(`ToolCovered`, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="purple") +
+  geom_text(aes(label=n), size= 4, vjust=-0.25) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Programming Language Covered") +
+  ylab("% Respondents") +
+  ggtitle("") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+```
+
+```{r}
+data %>% 
+  tally_and_perc(`ToolCovered`, na.rm = TRUE) %>% 
+  kable()
+```
+
+### Perception of Workshop Impact   
+Learners were asked to rate their level of agreement with the following statements related to Data Carpentry's workshop goals and learning objectives. The figure below provides a visual representation of their responses. Axis labels and the corresponding question are as follows:  
+
++ __WriteProgram__: I can write a small program/script/macro to solve a problem in my own work.  
++ __TechnicalQuestions__: I know how to search for answers to my technical questions online.  
++ __RawData__: Having access to the original, raw data is important to be able to repeat an analysis.    
++ __ProgrammingEasier__: Using a programming language (like R or Python) can make my analyses easier to reproduce.   
++ __OvercomeProblem__: While working on a programming project, if I get stuck, I can find ways of overcoming the problem.   
++ __ImmediatelyApply__: I can immediately apply what I learned at this workshop. 
++ __ConfidentProgramming__: I am confident in my ability to make use of programming software to work with data.   
++ __ConfidenceSoftware__: Using a programming language (like R or Python) can make me more efficient at working with data.  
++ __ComfortableLearning__: I felt comfortable learning in this workshop environment. 
+
+
+```{r}
+# Please rate your level of agreement with the following statements:
+#Subsetting a portion of the Likert items from Organize-Data to Use-command-line
+myvars <- c("RawData", "WriteProgram", "TechnicalQuestions", "OvercomeProblem", "ConfidenceSoftware", "ProgrammingEasier", "ImmediatelyApply", "ComfortableLearning", "ConfidentProgramming")
+newdata <- data[myvars]
+
+cols_with_Agree <- map_lgl(newdata, ~`%in%`("Agree", .x))
+newdata_agree <-  newdata[ , cols_with_Agree]
+
+levels = c("Strongly disagree",
+   "Disagree",
+   "Neutral",
+   "Agree",
+   "Strongly agree")
+
+ factorfunction <- function(newdata, factlevel){
+  factor(newdata, 
+         levels=factlevel, 
+         ordered = TRUE)
+    fct_unify(newdata, 
+              levels=factlevel)}
+
+newdata_agree_likert <- likert(data.frame(lapply(newdata_agree, factor, levels, ordered=TRUE)))
+```
+
+```{r dcpost_postworkshop_impact_heat}
+#Heatmap
+title <- "Perception of Workshop Impact"
+plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
+```
+
+
+### Evaluation of Data Carpentry Instructors    
+Learners were asked to rate their level of agreement with several statements regarding their instructor's knowledge, instructional method, and enthusiasm. Their responses are in the figure below, and axis labels corresponding to the statements are as follows:
+
++ __InstructorsKnowledge__: The instructors were knowledgeable about the material being taught.
++ __InstructorsEnthusiastic__: The instructors were enthusiastic about the workshop.
++ __InstructorsComfortable__: I felt comfortable interacting with the instructors. 
++ __InstructorsClear__: I was able to get clear answers to my questions from the instructors.  
+
+```{r}
+# Please rate your level of agreement with the following statements:
+#Subsetting a portion of the Likert items from Organize-Data to Use-command-line
+myvars <- c("InstructorsClear", "InstructorsEnthusiastic", "InstructorsComfortable", "InstructorsKnowledgeable")
+newdata <- data[myvars]
+
+cols_with_Agree <- map_lgl(newdata, ~`%in%`("Agree", .x))
+newdata_agree <-  newdata[ , cols_with_Agree]
+
+levels = c("Strongly disagree",
+   "Disagree",
+   "Neutral",
+   "Agree",
+   "Strongly agree")
+
+ factorfunction <- function(newdata, factlevel){
+  factor(newdata, 
+         levels=factlevel, 
+         ordered = TRUE)
+    fct_unify(newdata, 
+              levels=factlevel)}
+
+newdata_agree_likert <- likert(data.frame(lapply(newdata_agree, factor, levels, ordered=TRUE)))
+```
+
+```{r dcpost_perception_instructors_heat}
+#Heatmap
+title <- "Perception of Data Carpentry Instructors"
+plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
+```
+
+### Recommending Data Carpentry Workshops
+Learners were asked how likely they are to recommend this workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter). The scoring for this question based on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors. 
+
+```{r}
+data$`Recommend` %>%
+    npc(breaks = list(0:64, 65:84, 85:100)) %>%
+    data.frame(category = .) %>%
+    filter(!is.na(category)) %>%
+    count(category) %>%
+    mutate("%" = (n / sum(n))*100) %>%
+    kable(, format = 'markdown', row.names = NA, col.names = c ("Promoter Score", "n", "%"))
+```
+
+```{r}
+data_recommend_tally <- 
+  data %>% 
+  group_by(Recommend) %>% 
+  tally() %>%
+  filter(!is.na(Recommend))
+```
+
+```{r dcpost_likely_to_recommend}
+ggplot(data_recommend_tally, 
+       aes(`Recommend`, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="purple") +
+  geom_text(aes(label=n), size= 4, vjust=-0.25) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Likely to Recommend") +
+  ylab("% Respondents") +
+  ggtitle("Likely to Recommend") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+```
+
+
+### Accessibility Issues 
+Learners were asked whether there were any accessibility issues that affected their ability to participate in their workshop. A breakdown of their responses are as follows:
+
+```{r}
+# Accessibility Issues
+data %>% 
+  tally_and_perc(`AccessibilityIssues`, na.rm = TRUE) %>% 
+  kable(, format = 'markdown', row.names = NA, col.names = c ("Accessibility Issues", "n", "%"))
+```
+
+A summary of the open-ended responses for those having accessibility issues is as follows:
+
++ Internet problems/poor internet 
++ Difficulty working with windows on a PC 
++ Small workshop room, view being obstructed by pillars in the room 
++ Difficulty hearing instructors if sitting in the back of the room 
++ Firefox not being able to run SQLIte 
++ Workshop pace 
++ Administrative rights to the computer being used in the workshop 
++ Space on personal computers to run software 
+
+### Summary
+This analysis of Data Carpentry's post-workshop surveys is automated quarterly. For questions, or to get involved with The Carpentries assessment efforts, please [contact Kari L. Jordan](kariljordan@carpentries.org).
+
