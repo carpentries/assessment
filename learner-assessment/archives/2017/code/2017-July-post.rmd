@@ -23,7 +23,7 @@ opts_chunk$set(fig.path='figures/') #puts all figures in figures folder
 ```
 For nearly 20 years, Software Carpentry has developed material and trained instructors to teach computing skills to researchers in science, medicine, engineering, and other disciplines. This report is an analysis of the post-workshop survey responses collected for Software Carpentry's workshops from March 2015 through July 2017. In this two year period, nearly 4,000 responses were collected.
 
-A [PDF](https://github.com/carpentries/assessment/blob/master/learner-assessment/software-carpentry/surveys/postsurvey.pdf) of the survey questions, the data used in this analysis, and full R code are located on the [assessment](https://github.com/carpentries/assessment) repo on GitHub. Special thank you to Ben Marwick, Naupaka Zimmerman, Erin Becker, and Jonah Duckles. These individuals made valuable contributions to the code that was used to create the figures in this report.
+A [PDF](https://github.com/carpentries/assessment/blob/master/learner-assessment/documents/swc_postsurvey.pdf) of the survey questions, the data used in this analysis, and full R code are located on the [assessment](https://github.com/carpentries/assessment) repo on GitHub. Special thank you to Ben Marwick, Naupaka Zimmerman, Erin Becker, and Jonah Duckles. These individuals made valuable contributions to the code that was used to create the figures in this report.
 
 Community members are invited to contribute code to this analysis. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
 
