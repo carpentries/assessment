@@ -37,7 +37,7 @@ tally_and_perc <- function(df, colname, na.rm = FALSE){
 
 The Carpentries Assessment Team releases short and long-term assessment results twice per year in June and January. The following results include analyses from both Data Carpentry and Software Carpentry's pre- and post-workshop surveys.
 
-### Data Carpentry
+### Data Carpentry (Pre-Workshop)
 
 ```{r}
 # Load DC pre and post-workshop data
@@ -48,7 +48,7 @@ dcpredata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/asse
 dcpostdata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/data/180108_dcpost.csv")
 ```
 
-# Pre-Workshop Survey Demographics: Workshop Location
+# Demographics: Workshop Location
 
 Data Carpentry learners are asked what country their workshop is held.
 
@@ -79,7 +79,7 @@ ggplot(dcpredata_country_tally,
 #kable(data_country_tally, format='markdown')
 ```
 
-# Pre-Workshop Survey Demographics: Domain of Research/Work/Study
+# Demographics: Domain of Research/Work/Study
 
 ```{r}
 # Tally Data Carpentry's pre-workshop respondents by Discipline
@@ -97,7 +97,7 @@ dcdiscipline <-
 kable(dcdiscipline, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry's Respondents by Discipline", "n", "%"))
 ```
 
-# Pre-Workshop Survey Demographics: Respondents Position
+# Demographics: Respondents' Position
 
 ```{r }
 # Data Carpentry Respondents by Status
@@ -147,7 +147,7 @@ ggplot(dcpredata_status_tally,
   theme_classic(base_size = 14) 
 ```
 
-# Pre-Workshop Survey Questions: Operating System 
+# Demographics: Operating System 
 
 Learners are asked what operating system is on the computer they are bringing to the workshop.
 
@@ -167,7 +167,8 @@ dcpredata %>%
 kable(OS)
 
 ```
-## Programming Usage
+
+# Respondents' Programming Usage
 
 How often do you currently use any of the following?
 
@@ -186,7 +187,7 @@ dcpredata %>%
 kable(Programming)
 ```
 
-## Satisfaction
+# Respondents' Satisfaction with Current Data Management Practices
 
 ```{r}
 # Please rate your level of satisfaction with your current data management and analysis workflow.
@@ -207,7 +208,7 @@ kable(Satisfaction, format = 'markdown', row.names = NA, col.names = c ("Satisfa
 # I want these to show in Likert order, not alpha-order
 ```
 
-## Why Are You Attending
+# Why did respondents attend a Data Carpentry Workshop?
 
 Why are you attending this workshop?
 
@@ -227,7 +228,7 @@ dcpredata %>%
 kable(WhyAttending, format = 'markdown', row.names = NA, col.names = c ("Why are you attending this workshop?", "n", "%"))
 ```
 
-## Workshop Exposure
+# How were Respondents' exposed to their Data Carpentry Workshop?
 
 How did you find out about this workshop?
 
@@ -247,7 +248,7 @@ dcpredata %>%
 kable(Exposure, format = 'markdown', row.names = NA, col.names = c ("How did you find out about this workshop?", "n", "%"))
 ```
 
-## Programming Language Covered
+# Programming Language Covered in Workshop
 
 Which programming language is being covered?
 
@@ -265,7 +266,7 @@ dcpredata %>%
 kable(ProgrammingLanguage, format = 'markdown', row.names = NA, col.names = c ("Which language is being covered?", "n", "%"))
 ```
 
-## Pre/Post Comparison
+# Pre/Post Comparison for Data Carpentry's Workshop Outcomeds
 
 Learners were asked to rate their level of agreement with the following statements related to Data Carpentry's workshop goals and learning objectives. The figure below provides a visual representation of their responses, comparing them before the workshop and after the workshop. Axis labels and the corresponding question are as follows:  
 
@@ -505,26 +506,229 @@ kable(select(t_test, skill, ends_with("feeling"), starts_with("n"),
 With what gender do you most identify?
 
 ```{r}
-gender = c("Female", "Male", "I prefer not to say")
+gender = c("Female", "Male", "Transgender female", "Transgender male", "Gender variant/non-conforming", "Prefer not to answer", "Not listed (please specify")
 gender = factor(gender)
 
-round2data$Gender = factor(round2data$Gender, levels = gender)
+dcpredata$Gender = factor(dcpredata$Gender, levels = gender)
 
-round2data_gender_tally <-
-  round2data %>%
+dcpredata_gender_tally <-
+  dcpredata %>%
   group_by(Gender) %>%
   tally() %>%
   filter(!is.na(Gender)) %>%
   mutate(perc = round(n/sum(n) * 100, 0))
 
-kable(round2data_gender_tally)
+kable(dcpredata_gender_tally, format = 'markdown', row.names = NA, col.names = c ("Gender Identity", "n", "%"))
+```
+
+```{r}
+# function to compute number of non-NA responses to a question
+
+n_responses_to_the_question <- function(df, from_colname, to_colname) {
+
+  quo_from_colname <- enquo(from_colname)
+  quo_to_colname <- enquo(to_colname)
+
+  rowsums <-
+df %>%
+  select(UQ(quo_from_colname):UQ(quo_to_colname)) %>%
+  # check that each row has a value for at least one col
+  # convert to numeric, if NA, then put a zero, otherwise 1
+  map_df(., ~ifelse(is.na(.x), 0, 1)) %>%
+  # sum to see if any rows have no reponses
+  rowSums()
+
+# for all behaviors
+idx <- ifelse(rowsums == 0, FALSE, TRUE)
+sum(idx)
+}
+```
+
+How would you describe yourself?
+
+```{r}
+# Responses are in columns 'Race' through 'Column48'
+n_responses_race <-
+  n_responses_to_the_question(dcpredata,
+                              from_colname = Race,
+                              to_colname = Column48)
+
+race_perc <-
+  dcpredata %>%
+    select(Race:Column48) %>%
+    gather(col, race_perc) %>%
+    group_by(race_perc) %>%
+    tally_and_perc(race_perc,
+                 na.rm = TRUE,
+                 question_n = n_responses_race) %>%
+  filter(!is.na(race_perc)) %>%
+  arrange(desc(n)) %>%
+  rename(Race = race_perc)
+
+kable(race_perc, format = 'markdown', row.names = NA, col.names = c ("Racial/Ethnic Identity", "n", "%"))
+```
+
+### Data Carpentry (Post-Workshop)
+
+Respondents were asked which workshop they attended: Ecology, Genomics, Geospatial, Reproducible Research, or Social Sciences. The majority of respondents (`r Workshop_Attended[1]`%) attended an Ecology workshop.
+
+```{r}
+#Which workshop did you attend?
+workshop = c("Ecology", "Genomics", "Geospatial", "Reproducible Research", "Social Sciences", "I don't know.")
+workshop = factor(workshop)
+
+dcpostdata$Workshop = factor(dcpostdata$Workshop, levels = workshop)
+
+dcpostdata_workshop_tally <- 
+  dcpostdata %>% 
+  group_by(Workshop) %>% 
+  tally() %>%
+  filter(!is.na(Workshop)) 
+```
+
+```{r dc_post_workshop_attended}
+ggplot(dcpostdata_workshop_tally, 
+       aes(`Workshop`, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="purple") +
+  geom_text(aes(label=n), size= 4, vjust=-0.25) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Workshop Attended") +
+  ylab("% Respondents") +
+  ggtitle("Percentage of Respondents by Data Carpentry Workshop") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+```
+
+
+# Perception of Workshop Atmosphere
+
+I felt comfortbale learning in this workshop environment.
+
+```{r}
+
+comfortable = c("Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree")
+comfortable = factor(comfortable)
+
+dcpostdata$Comfortable = factor(dcpostdata$Comfortable, levels = comfortable)
+
+dcpostdata_comfortable_tally <- 
+  dcpostdata %>% 
+  group_by(Comfortable) %>% 
+  tally() %>%
+  filter(!is.na(Comfortable)) 
+```
+
+```{r dc_post_workshop_comfortable_environment}
+ggplot(dcpostdata_comfortable_tally, 
+       aes(`Comfortable`, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="purple") +
+  geom_text(aes(label=n), size= 4, vjust=-0.25) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Level of Agreement") +
+  ylab("% Respondents") +
+  ggtitle("I felt comfortable learning in this workshop environment") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+```
+
+I can immediately apply what I learned at this workshop
+
+```{r}
+apply = c("Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree")
+apply = factor(apply)
+
+dcpostdata$ImmediatelyApply = factor(dcpostdata$ImmediatelyApply, levels = apply)
+
+dcpostdata_apply_tally <- 
+  dcpostdata %>% 
+  group_by(ImmediatelyApply) %>% 
+  tally() %>%
+  filter(!is.na(ImmediatelyApply)) 
+```
+
+```{r dc_post_workshop_immediately_apply}
+ggplot(dcpostdata_apply_tally, 
+       aes(`ImmediatelyApply`, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="purple") +
+  geom_text(aes(label=n), size= 4, vjust=-0.25) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Level of Agreement") +
+  ylab("% Respondents") +
+  ggtitle("I can immediately apply what I learned at this workshop") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+```
+
+Were there any accessibility issues that affected your ability to participate in this workshop?
+
+```{r}
+issues <- 
+dcpostdata %>%
+  select(AccessibilityIssues) %>% 
+  gather(col, 
+         AccessibilityIssues) %>% 
+  tally_and_perc(AccessibilityIssues, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Accessibility Issues` = AccessibilityIssues)
+
+# Table
+kable(issues)
+```
+
+# Perception of Instructors and Helpers
+
+Respondents were asked to rate their level of agreement with several statements regarding their instructor's knowledge, instructional method, and enthusiasm. Their responses are in the figure below, and axis labels corresponding to the statements are as follows:
+
++ __InstructorsKnowledge__: The instructors were knowledgeable about the material being taught.
++ __InstructorsEnthusiastic__: The instructors were enthusiastic about the workshop.
++ __InstructorsComfortable__: I felt comfortable interacting with the instructors. 
++ __InstructorsClear__: I was able to get clear answers to my questions from the instructors.  
+
+```{r}
+# Please rate your level of agreement with the following statements:
+#Subsetting a portion of the Likert items from InstructorsClearAnswers to InstructorsKnowledgeable
+myvars <- c("InstructorsClearAnswers", "InstructorsEnthusiastic", "InstructorsInteracting", "InstructorsKnowledgeable")
+newdata <- dcpostdata[myvars]
+
+cols_with_Agree <- map_lgl(newdata, ~`%in%`("Agree", .x))
+newdata_agree <-  newdata[ , cols_with_Agree]
+
+levels = c("Strongly disagree",
+   "Disagree",
+   "Neutral",
+   "Agree",
+   "Strongly agree")
+
+ factorfunction <- function(newdata, factlevel){
+  factor(newdata, 
+         levels=factlevel, 
+         ordered = TRUE)
+    fct_unify(newdata, 
+              levels=factlevel)}
+
+newdata_agree_likert <- likert(data.frame(lapply(newdata_agree, factor, levels, ordered=TRUE)))
+```
+
+```{r dcpost_perception_instructors_heat}
+#Heatmap
+title <- "Perception of Data Carpentry Instructors"
+plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
+
+# Is there a way to add spaces to the words in the legend?
 ```
 
 # Recommending Data Carpentry Workshops
 Learners were asked how likely they are to recommend this workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter). The scoring for this question based on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors. 
 
 ```{r}
-postdata$`LikelyToRecommend` %>%
+dcpostdata$`LikelyToRecommend` %>%
     npc(breaks = list(0:64, 65:84, 85:100)) %>%
     data.frame(category = .) %>%
     filter(!is.na(category)) %>%
