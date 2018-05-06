@@ -21,61 +21,36 @@ opts_chunk$set(fig.path='figures/') #puts all figures in figures folder
 ```
 
 ```{r}
-# Data Carpentry Pre-Workshop Data
-dcpredata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/data/180118_dcpre.csv")
-
-# Data Carpentry Post-Workshop Data
-dcpostdata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/data/180108_dcpost.csv")
-
-# Software Carpentry Pre-Workshop Data
-swcpredata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/data/171231_swcpre.csv")
-
-# Software Carpentry Post-Workshop Data
-swcpostdata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/data/171231_swcpost.csv")
-```
-
-```{r}
 # Function that makes a table of counts and percentages
-# question_n is set by default to the number of respondents in the survey. This value may have to be set by question.
-question_n <- nrow(dcpredata)
-
-tally_and_perc <- function(df, colname, na.rm = FALSE, question_n){
+tally_and_perc <- function(df, colname, na.rm = FALSE){
   quo_colname <- enquo(colname)
 
-  df %>%
-    group_by(!!quo_colname) %>%
-    tally() %>%
+  df %>% 
+    group_by(!!quo_colname) %>% 
+    tally() %>% 
     filter(if_else(rep(na.rm, nrow(.)),
                   !is.na(!!quo_colname),
-                  as.logical(rep(1, nrow(.))))) %>%
-    mutate(`%` = round(n / question_n * 100, 1))
-}
-
-# function to compute number of non-NA responses to a question
-
-n_responses_to_the_question <- function(df, from_colname, to_colname) {
-
-  quo_from_colname <- enquo(from_colname)
-  quo_to_colname <- enquo(to_colname)
-
-  rowsums <-
-df %>%
-  select(UQ(quo_from_colname):UQ(quo_to_colname)) %>%
-  # check that each row has a value for at least one col
-  # convert to numeric, if NA, then put a zero, otherwise 1
-  map_df(., ~ifelse(is.na(.x), 0, 1)) %>%
-  # sum to see if any rows have no reponses
-  rowSums()
-
-# for all behaviors
-idx <- ifelse(rowsums == 0, FALSE, TRUE)
-sum(idx)
+                  as.logical(rep(1, nrow(.))))) %>% 
+    mutate(`%` = round(n / sum(n) * 100, 1)) 
 }
 ```
 
 The Carpentries Assessment Team releases short and long-term assessment results twice per year in June and January. The following results include analyses from both Data Carpentry and Software Carpentry's pre- and post-workshop surveys.
 
+### Data Carpentry
+
+```{r}
+# Load DC pre and post-workshop data
+# Data Carpentry Pre-Workshop Data
+dcpredata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/data/180118_dcpre.csv")
+
+# Data Carpentry Post-Workshop Data
+dcpostdata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/data/180108_dcpost.csv")
+```
+
 # Pre-Workshop Survey Demographics: Workshop Location
+
+Data Carpentry learners are asked what country their workshop is held.
 
 ```{r}
 # Tally Data Carpentry's pre-workshop respondents by Country
@@ -87,7 +62,6 @@ dcpredata %>%
   filter(!is.na(Country)) %>%
   arrange(desc(n))
 ```
-
 
 ```{r dc_respondents_by_country}
 # Plot Data Carpentry's respondents by Country
@@ -105,21 +79,7 @@ ggplot(dcpredata_country_tally,
 #kable(data_country_tally, format='markdown')
 ```
 
-In Software Carpentry's pre-workshop survey, respondents are asked whether or not their workshop takes place in the United States.
-
-```{r}
-# Tally Software Carpentry's pre-workshop respondents by Country
-swcpredata_country_tally <-
-swcpredata %>%
-  group_by(USWorkshop) %>%
-  tally(sort = TRUE) %>%
-  mutate(perc = round(100 * (n/sum(n)), 1)) %>% # add the % col
-  filter(!is.na(USWorkshop)) %>%
-  arrange(desc(n))
-kable(swcpredata_country_tally, format='markdown', col.names = c("SWC Workshops in US", "n", "%"))
-```
-
-# Pre-Workshop Survey Demographics: Domain of research/work/study
+# Pre-Workshop Survey Demographics: Domain of Research/Work/Study
 
 ```{r}
 # Tally Data Carpentry's pre-workshop respondents by Discipline
@@ -129,76 +89,180 @@ dcdiscipline <-
  select(Discipline:Column13) %>%
  gather(col, dcdiscipline) %>%
  group_by(dcdiscipline) %>%
- tally_and_perc(dcdiscipline,na.rm = TRUE) %>%
+ tally_and_perc(dcdiscipline, na.rm = TRUE) %>%
  filter(!is.na(dcdiscipline)) %>%
  arrange(desc(n)) %>%
  rename(`Discipline` = dcdiscipline)
 
-kable(dcdiscipline, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry's Respondents Discipline", "n", "%"))
-# Getting error message: Error in mutate_impl(.data, dots) : Evaluation error: argument "question_n" is missing, with no default.
+kable(dcdiscipline, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry's Respondents by Discipline", "n", "%"))
 ```
 
-```{r}
-# Tally Software Carpentry's pre-workshop respondents by Discipline
-# Responses are in columns 'Domain' through 'Column61'
-swcdiscipline <-
- swcpredata %>%
- select(Domain:Column61) %>%
- gather(col, swcdiscipline) %>%
- group_by(swcdiscipline) %>%
- tally_and_perc(swcdiscipline,na.rm = TRUE) %>%
- filter(!is.na(swcdiscipline)) %>%
- arrange(desc(n)) %>%
- rename(`Domain` = swcdiscipline)
+# Pre-Workshop Survey Demographics: Respondents Position
 
-kable(swcdiscipline, format = 'markdown', row.names = NA, col.names = c ("Software Carpentry's Respondents Discipline", "n", "%"))
-# Getting error message: Error in mutate_impl(.data, dots) : Evaluation error: argument "question_n" is missing, with no default.
-```
-
-# Pre-Workshop Survey Demographics: Respondents Status
-this is where i left off
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-```{r}
-# Responses are in columns 'Discipline' through 'Column22'
+```{r }
+# Data Carpentry Respondents by Status
+# Responses are in columns 'Status' through 'Column22'
 ordered_status = c("Undergraduate Student", "Graduate Student", "Postdoctoral Researcher", "Faculty", "Industry Employee", "Government Employee", "Research Staff", "Management/Administrator", "Retired/Not Employed", "Other (please specify)")
 
-predata$Status = factor(predata$Status, levels = ordered_status)
-
-status <-
- predata %>%
+dcpredata_status_tally <-
+ dcpredata %>%
  select(`Status`:Column22) %>%
- gather(col, status) %>%
- group_by(status) %>%
- tally_and_perc(status) %>%
- filter(!is.na(status)) %>%
+ gather(col, dcpredata_status_tally) %>%
+ group_by(dcpredata_status_tally) %>%
+ tally_and_perc(dcpredata_status_tally) %>%
+ filter(!is.na(dcpredata_status_tally)) %>%
  arrange(desc(n)) %>%
- rename(`Status` = status)
+ rename(`Status` = dcpredata_status_tally)
 
-kable(status, caption = "Status")
-# The percentages in the table are incorrect
+kable(dcpredata_status_tally, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry's Respondents by Position", "n", "%"))
+```
+
+```{r dc_learners_status}
+# This plot is not working
+
+dcpredata_status_tally <- 
+dcpredata %>% 
+  mutate(Status_ord = fct_relevel(Status, 
+                                  ordered_status)) %>% 
+  tally_and_perc(Status_ord, na.rm = TRUE)
+
+ggplot(dcpredata_status_tally, 
+       aes(Status_ord,
+           y = `%`,
+           n)) +
+  geom_bar(stat = "identity", 
+           fill = "darkcyan") +
+  geom_text(aes(label = n), 
+            size= 4,
+            nudge_y = 3) + ## This moves the numbers up a bit so they're easier to read. 
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, 
+                                                       width = 10, 
+                                                       simplify = FALSE), 
+                                               paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Position") +
+  ylab("% Respondents") +
+  ggtitle("Data Carpentry Respondents by Position") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14) 
+```
+
+# Pre-Workshop Survey Questions: Operating System 
+
+Learners are asked what operating system is on the computer they are bringing to the workshop.
+
+```{r}
+# Operating System
+OS <- 
+dcpredata %>%
+  select(OS) %>% 
+  gather(col, 
+         OS) %>% 
+  tally_and_perc(OS, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Operating System` = OS)
+
+# Table
+kable(OS)
+
+```
+## Programming Usage
+
+How often do you currently use any of the following?
+
+```{r}
+Programming <- 
+dcpredata %>%
+  select(`CurrentProgramming`) %>% 
+  gather(col, 
+         Programming) %>% 
+  tally_and_perc(Programming, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Current Programming Usage` = Programming)
+
+# Table
+kable(Programming)
+```
+
+## Satisfaction
+
+```{r}
+# Please rate your level of satisfaction with your current data management and analysis workflow.
+
+levels = c("Very unsatisfied", "Unsatisfied", "Neutral", "Satisfied", "Very satisfied", "Not sure", "Not applicable")
+
+Satisfaction <- 
+dcpredata %>%
+  select(`CurrentSatisfaction`) %>% 
+  gather(col, 
+         Satisfaction) %>% 
+  tally_and_perc(Satisfaction, 
+                 na.rm = TRUE) %>% 
+  rename(`CurrentSatisfaction` = Satisfaction)
+
+kable(Satisfaction, format = 'markdown', row.names = NA, col.names = c ("Satisfaction with current data management practices", "n", "%"))
+
+# I want these to show in Likert order, not alpha-order
+```
+
+## Why Are You Attending
+
+Why are you attending this workshop?
+
+```{r}
+# Responses are in columns 'WhyAttending' through 'Column29'
+
+WhyAttending <- 
+dcpredata %>%
+  select(`WhyAttending`:`Column29`) %>% 
+  gather(col, 
+         WhyAttending) %>% 
+  tally_and_perc(WhyAttending, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Why are you attending? Check all that apply.` = WhyAttending)
+
+kable(WhyAttending, format = 'markdown', row.names = NA, col.names = c ("Why are you attending this workshop?", "n", "%"))
+```
+
+## Workshop Exposure
+
+How did you find out about this workshop?
+
+```{r}
+# Responses are in columns 'Exposure-Workshop' through 'Column31'
+
+Exposure <- 
+dcpredata %>%
+  select(`Exposure`:`Column35`) %>% 
+  gather(col, 
+         Exposure) %>% 
+  tally_and_perc(Exposure, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Exposure` = Exposure)
+
+kable(Exposure, format = 'markdown', row.names = NA, col.names = c ("How did you find out about this workshop?", "n", "%"))
+```
+
+## Programming Language Covered
+
+Which programming language is being covered?
+
+```{r}
+ProgrammingLanguage <- 
+dcpredata %>%
+  select(`ProgrammingLanguageCovered`) %>% 
+  gather(col, 
+         ProgrammingLanguage) %>% 
+  tally_and_perc(ProgrammingLanguage, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Which language is being covered?` = ProgrammingLanguage)
+
+kable(ProgrammingLanguage, format = 'markdown', row.names = NA, col.names = c ("Which language is being covered?", "n", "%"))
 ```
 
 ## Pre/Post Comparison
@@ -227,6 +291,7 @@ impact_post <-
     "Neutral",
     "Agree",
     "Strongly agree")
+
 # How do I tell R that I want the factors in this order always?
 ```
 
@@ -237,7 +302,7 @@ impact_post <-
 
 # Before the workshop
 pre_computing <- 
-predata %>%
+dcpredata %>%
   select(`RawData`:`AnalysesEasier`) %>% 
   gather() %>% 
   filter(value %in% impact_pre) %>% 
@@ -251,7 +316,7 @@ predata %>%
 ```{r}
 # Post-Workshop
 post_computing <- 
-postdata %>%
+dcpostdata %>%
   select(`RawData`:`AnalysesEasier`) %>% 
   gather() %>% 
   filter(value %in% impact_post) %>% 
@@ -320,9 +385,9 @@ computing_after <-
 ```{r change_in_confidence} 
 # Put the two plots together
 library(gridExtra)
-#grid.arrange(computing_before, 
-#             computing_after,
-#             ncol = 1)
+grid.arrange(computing_before, 
+             computing_after,
+             ncol = 1)
 
 # Why are the levels showing in a different order on the grid?
 ```
@@ -397,11 +462,11 @@ prep_paired_data <- . %>%
     assert(in_set(NA, 1, 2, 3, 4, 5), feeling_score)
 
 
-pre_paired <- predata %>%
+pre_paired <- dcpredata %>%
     prep_paired_data %>%
     rename_at(vars(-UniqueID, -skill), ~ paste0("pre_", .))
     
-post_paired <- postdata %>%
+post_paired <- dcpostdata %>%
     prep_paired_data %>%
     rename_at(vars(-UniqueID, -skill), ~ paste0("post_", .))
 
@@ -435,6 +500,26 @@ kable(select(t_test, skill, ends_with("feeling"), starts_with("n"),
  
 ```
 
+# Demographic Data for U.S. Participants
+
+With what gender do you most identify?
+
+```{r}
+gender = c("Female", "Male", "I prefer not to say")
+gender = factor(gender)
+
+round2data$Gender = factor(round2data$Gender, levels = gender)
+
+round2data_gender_tally <-
+  round2data %>%
+  group_by(Gender) %>%
+  tally() %>%
+  filter(!is.na(Gender)) %>%
+  mutate(perc = round(n/sum(n) * 100, 0))
+
+kable(round2data_gender_tally)
+```
+
 # Recommending Data Carpentry Workshops
 Learners were asked how likely they are to recommend this workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter). The scoring for this question based on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors. 
 
@@ -446,4 +531,101 @@ postdata$`LikelyToRecommend` %>%
     count(category) %>%
     mutate("%" = (n / sum(n))*100) %>%
     kable(, format = 'markdown', row.names = NA, col.names = c ("Promoter Score", "n", "%"))
+```
+
+
+
+
+
+
+
+
+### Software Carpentry
+
+```{r}
+# Load SWC pre and post-workshop data
+# Software Carpentry Pre-Workshop Data
+swcpredata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/data/171231_swcpre.csv")
+
+# Software Carpentry Post-Workshop Data
+swcpostdata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/data/171231_swcpost.csv")
+```
+
+# Pre-Workshop Survey Demographics: Workshop Location
+In Software Carpentry's pre-workshop survey, respondents are asked whether or not their workshop takes place in the United States.
+
+```{r}
+# Tally Software Carpentry's pre-workshop respondents by Country
+swcpredata_country_tally <-
+swcpredata %>%
+  group_by(USWorkshop) %>%
+  tally(sort = TRUE) %>%
+  mutate(perc = round(100 * (n/sum(n)), 1)) %>% # add the % col
+  filter(!is.na(USWorkshop)) %>%
+  arrange(desc(n))
+kable(swcpredata_country_tally, format='markdown', col.names = c("SWC Workshops in US", "n", "%"))
+```
+
+# Pre-Workshop Survey Demographics: Domain of Research/Work/Study
+
+```{r}
+# Tally Software Carpentry's pre-workshop respondents by Discipline
+# Responses are in columns 'Domain' through 'Column61'
+swcdiscipline <-
+ swcpredata %>%
+ select(Domain:Column61) %>%
+ gather(col, swcdiscipline) %>%
+ group_by(swcdiscipline) %>%
+ tally_and_perc(swcdiscipline,na.rm = TRUE) %>%
+ filter(!is.na(swcdiscipline)) %>%
+ arrange(desc(n)) %>%
+ rename(`Domain` = swcdiscipline)
+
+kable(swcdiscipline, format = 'markdown', row.names = NA, col.names = c ("Software Carpentry's Respondents by Discipline", "n", "%"))
+```
+
+
+
+
+```{r }
+# Software Carpentry Respondents by Position
+ordered_status <- c(    
+    "Undergraduate Student",
+    "Graduate Student",
+    "Post-doctoral researcher",
+    "Faculty",
+    "Research staff (including research programmer)",
+    "Support staff (including technical support)",
+    "Librarian/archivist",
+    "Commercial software developer",
+    "Other (please specify)"
+  )
+
+swcpredata_status_tally <- 
+swcpredata %>% 
+  mutate(Status_ord = fct_relevel(Status, 
+                                  ordered_status)) %>% 
+  tally_and_perc(Status_ord, na.rm = TRUE) 
+```
+
+```{r swc_learners_status}
+ggplot(swcpredata_status_tally, 
+       aes(Status_ord,
+           y = `%`,
+           n)) +
+  geom_bar(stat = "identity", 
+           fill = "darkcyan") +
+  geom_text(aes(label = n), 
+            size= 4,
+            nudge_y = 3) + ## This moves the numbers up a bit so they're easier to read. 
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, 
+                                                       width = 10, 
+                                                       simplify = FALSE), 
+                                               paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Status") +
+  ylab("% Respondents") +
+  ggtitle("Software Carpentry Respondents by Position") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14) 
 ```
