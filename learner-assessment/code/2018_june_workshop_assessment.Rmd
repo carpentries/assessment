@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 ## [DRAFT] Carpentries Pre- and Post-Workshop Assessment Results
 June 2018
 
@@ -548,29 +553,31 @@ How would you describe yourself?
 
 ```{r}
 # Responses are in columns 'Race' through 'Column48'
-n_responses_race <-
-  n_responses_to_the_question(dcpredata,
-                              from_colname = Race,
-                              to_colname = Column48)
+#n_responses_race <-
+#  n_responses_to_the_question(dcpredata,
+#                              from_colname = Race,
+#                              to_colname = Column48)
 
-race_perc <-
-  dcpredata %>%
-    select(Race:Column48) %>%
-    gather(col, race_perc) %>%
-    group_by(race_perc) %>%
-    tally_and_perc(race_perc,
-                 na.rm = TRUE,
-                 question_n = n_responses_race) %>%
-  filter(!is.na(race_perc)) %>%
-  arrange(desc(n)) %>%
-  rename(Race = race_perc)
+#race_perc <-
+#  dcpredata %>%
+#    select(Race:Column48) %>%
+#    gather(col, race_perc) %>%
+#    group_by(race_perc) %>%
+#    tally_and_perc(race_perc,
+#                 na.rm = TRUE,
+#                 question_n = n_responses_race) %>%
+#  filter(!is.na(race_perc)) %>%
+#  arrange(desc(n)) %>%
+#  rename(Race = race_perc)
 
-kable(race_perc, format = 'markdown', row.names = NA, col.names = c ("Racial/Ethnic Identity", "n", "%"))
+#kable(race_perc, format = 'markdown', row.names = NA, col.names = c ("Racial/Ethnic Identity", "n", "%"))
+
+#I commented out this chunk because I got an error message.
 ```
 
 ### Data Carpentry (Post-Workshop)
 
-Respondents were asked which workshop they attended: Ecology, Genomics, Geospatial, Reproducible Research, or Social Sciences. The majority of respondents (`r Workshop_Attended[1]`%) attended an Ecology workshop.
+
 
 ```{r}
 #Which workshop did you attend?
@@ -585,6 +592,7 @@ dcpostdata_workshop_tally <-
   tally() %>%
   filter(!is.na(Workshop)) 
 ```
+
 
 ```{r dc_post_workshop_attended}
 ggplot(dcpostdata_workshop_tally, 
