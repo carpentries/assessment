@@ -110,7 +110,7 @@ data_status_tally %>%
   kable
 ```
 
-`r Status[3]`% of Software Carpentry's post-workshop survey respondents are __Graduate Students__. 
+ 
 
 A breakdown of respondents by research domain/field of work or study is provided below. Respondents were asked to check all that apply. The majority of Software Carpentry learners work in __Life Sciences__.
 ```{r}
