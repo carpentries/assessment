@@ -26,22 +26,48 @@ opts_chunk$set(fig.path='figures/') #puts all figures in figures folder
 ```
 
 
+```{r load-dc-data}
+# Load DC pre and post-workshop data
+# Data Carpentry Pre-Workshop Data
+dcpredata <- readr::read_csv("data/180118_dcpre.csv")
 
-# Overview
-```{r}
-# In this section we will include:
-# number of workshops
-# number of learners
-# topics covered
-# time period covered
-# general outline of the report
-# NPS
+# Data Carpentry Post-Workshop Data
+dcpostdata <- readr::read_csv("data/180108_dcpost.csv")
+```
+
+```{r load-swc-data}
+# Load SWC pre and post-workshop data
+# Software Carpentry Pre-Workshop Data
+swcpredata <- readr::read_csv("data/171231_swcpre.csv")
+
+# Software Carpentry Post-Workshop Data
+swcpostdata <- readr::read_csv("data/2017-July-data.csv")
 ```
 
 
 
+# Overview
+
+```{r}
+# In this section we will include:
+## number of workshops
+
+## number of learners
+n_learners_pre_dc <- nrow(dcpredata)
+n_learners_post_dc <- nrow(dcpostdata)
+n_learners_pre_swc <- nrow(swcpredata)
+n_learners_post_swc <- nrow(swcpostdata)
+## topics covered
+## time period covered
+## general outline of the report
+## NPS
+```
+This is an overview of the number of learners attending
+Data Carpentry and Software Carpentry workshops. `r n_learners_pre_dc` learners have attended Data Carpentry workshops, and `r n_learners_pre_swc` have attended Software Carpentry workshops. 
+
 
 # Motivation for Attending Carpentries Workshops
+
 ```{r}
 # In this section we will include:
 # Why are you attending this workshop (SWC, DC)
@@ -51,6 +77,7 @@ opts_chunk$set(fig.path='figures/') #puts all figures in figures folder
 ```
 
 # Workshop Environment
+
 ```{r}
 # In this section we will include:
 # Environment (SWC/DC)
@@ -155,15 +182,6 @@ tally_and_perc <- function(df, colname, na.rm = FALSE){
 The Carpentries Assessment Team releases short and long-term assessment results twice per year in June and January. The following results include analyses from both Data Carpentry and Software Carpentry's pre- and post-workshop surveys.
 
 ### Data Carpentry (Pre-Workshop)
-
-```{r}
-# Load DC pre and post-workshop data
-# Data Carpentry Pre-Workshop Data
-dcpredata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/data/180118_dcpre.csv")
-
-# Data Carpentry Post-Workshop Data
-dcpostdata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/data/180108_dcpost.csv")
-```
 
 # Demographics: Workshop Location
 
@@ -591,6 +609,40 @@ post_paired <- dcpostdata %>%
 paired_data <- inner_join(pre_paired, post_paired, by = c("UniqueID", "skill"))
 
 
+paired_data %>%
+    select(UniqueID, skill,
+           pre_feeling_score,
+           post_feeling_score) %>%
+    gather(score, type, -UniqueID, -skill) %>%
+    group_by(skill, score) %>%
+    summarize(
+        mean = mean(type, na.rm = TRUE),
+        sd = sd(type, na.rm = TRUE)
+    ) %>%
+    ggplot(aes(x = skill, y = mean, color = score)) +
+    geom_point() +
+    coord_flip() +
+    ylim(c(0, 5))
+
+paired_data %>%
+    select(UniqueID, skill,
+           pre_feeling_score,
+           post_feeling_score) %>%
+    gather(score, type, -UniqueID, -skill) %>%
+    mutate(score = fct_rev(score)) %>% 
+    ggplot(aes(x = score, y = type)) +
+    geom_point(position = position_jitter(height = .1, width = .1), alpha = .2) +
+    facet_wrap(~ skill) +
+    geom_line(aes(group = UniqueID), alpha = .2)
+
+
+    ggplot(aes(x = score, y = type)) +
+    geom_point(aes(color = UniqueID)) + #, position = position_jitter(height = .1)) +
+    geom_line(aes(color = UniqueID, group = UniqueID)) + #, position = "jitter") +
+    theme(legend.position="none")
+
+    
+
 t_test_results <- paired_data %>%
     group_by(skill) %>%
     nest() %>% 
@@ -860,14 +912,6 @@ dcpostdata$`LikelyToRecommend` %>%
 
 ### Software Carpentry (Pre-Workshop)
 
-```{r}
-# Load SWC pre and post-workshop data
-# Software Carpentry Pre-Workshop Data
-swcpredata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/data/171231_swcpre.csv")
-
-# Software Carpentry Post-Workshop Data
-swcpostdata <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/archives/2017/data/2017-July-data.csv")
-```
 
 ```{r}
 # Function that makes a table of counts and percentages
