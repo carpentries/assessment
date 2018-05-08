@@ -38,6 +38,9 @@ opts_chunk$set(fig.path='figures/') #puts all figures in figures folder
 # NPS
 ```
 
+
+
+
 # Motivation for Attending Carpentries Workshops
 ```{r}
 # In this section we will include:
