@@ -1,7 +1,7 @@
 ---
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 ## [DRAFT] Carpentries Pre- and Post-Workshop Assessment Results
 June 2018
@@ -271,7 +271,7 @@ dcpredata %>%
 kable(ProgrammingLanguage, format = 'markdown', row.names = NA, col.names = c ("Which language is being covered?", "n", "%"))
 ```
 
-# Pre/Post Comparison for Data Carpentry's Workshop Outcomeds
+# Pre/Post Comparison for Data Carpentry's Workshop Outcomes
 
 Learners were asked to rate their level of agreement with the following statements related to Data Carpentry's workshop goals and learning objectives. The figure below provides a visual representation of their responses, comparing them before the workshop and after the workshop. Axis labels and the corresponding question are as follows:  
 
