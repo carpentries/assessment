@@ -44,8 +44,6 @@ swcpredata <- readr::read_csv("data/171231_swcpre.csv")
 swcpostdata <- readr::read_csv("data/2017-July-data.csv")
 ```
 
-
-
 # Overview
 
 ```{r}
@@ -57,20 +55,62 @@ n_learners_pre_dc <- nrow(dcpredata)
 n_learners_post_dc <- nrow(dcpostdata)
 n_learners_pre_swc <- nrow(swcpredata)
 n_learners_post_swc <- nrow(swcpostdata)
-## topics covered
-## time period covered
-## general outline of the report
-## NPS
-```
-This is an overview of the number of learners attending
-Data Carpentry and Software Carpentry workshops. `r n_learners_pre_dc` learners have attended Data Carpentry workshops, and `r n_learners_pre_swc` have attended Software Carpentry workshops. 
 
+## topics covered
+workshop = c("Ecology", "Genomics", "Geospatial", "Reproducible Research", "Social Sciences", "I don't know.")
+workshop = factor(workshop)
+
+dcpostdata$Workshop = factor(dcpostdata$Workshop, levels = workshop)
+
+dcpostdata_workshop_tally <- 
+  dcpostdata %>% 
+  group_by(Workshop) %>% 
+  tally() %>%
+  filter(!is.na(Workshop)) 
+
+## time period covered
+
+## general outline of the report
+
+## NPS
+net_promoter_score <- 
+    dcpostdata$`LikelyToRecommend` %>%
+    npc(breaks = list(0:64, 65:84, 85:100)) %>%
+    data.frame(category = .) %>%
+    filter(!is.na(category)) %>%
+    count(category) %>%
+    mutate("%" = (n / sum(n))*100) %>%
+    #kable(, format = 'markdown', row.names = NA, col.names = c ("Promoter Score", "n", "%"))
+
+# I want to use in-line text to say that 75% of respondents are promoters using 
+# `r net_promoter_score[3]%` but I believe that's not the way to do it.
+```
+
+This is an overview of the number of learners attending Data Carpentry and Software Carpentry workshops. `r n_learners_pre_dc` learners have attended Data Carpentry workshops, and `r n_learners_pre_swc` have attended Software Carpentry workshops. 
+
+Learners were asked how likely they are to recommend this workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter). The scoring for this question based on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors. 
 
 # Motivation for Attending Carpentries Workshops
 
 ```{r}
 # In this section we will include:
 # Why are you attending this workshop (SWC, DC)
+# Data Carpentry
+# Responses are in columns 'WhyAttending' through 'Column29'
+WhyAttending <- 
+dcpredata %>%
+  select(`WhyAttending`:`Column29`) %>% 
+  gather(col, 
+         WhyAttending) %>% 
+  tally_and_perc(WhyAttending, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Why are you attending? Check all that apply.` = WhyAttending)
+
+kable(WhyAttending, format = 'markdown', row.names = NA, col.names = c ("Why are you attending this workshop?", "n", "%"))
+
+
+
 # Satisfaction with current data management practices (DC)
 # Programming usage (DC)
 # How did you find out about this workshop? (SWC, DC)
@@ -343,25 +383,7 @@ kable(Satisfaction, format = 'markdown', row.names = NA, col.names = c ("Satisfa
 # I want these to show in Likert order, not alpha-order
 ```
 
-# Why did respondents attend a Data Carpentry Workshop?
 
-Why are you attending this workshop?
-
-```{r}
-# Responses are in columns 'WhyAttending' through 'Column29'
-
-WhyAttending <- 
-dcpredata %>%
-  select(`WhyAttending`:`Column29`) %>% 
-  gather(col, 
-         WhyAttending) %>% 
-  tally_and_perc(WhyAttending, 
-                 na.rm = TRUE) %>% 
-  arrange(desc(n)) %>% 
-  rename(`Why are you attending? Check all that apply.` = WhyAttending)
-
-kable(WhyAttending, format = 'markdown', row.names = NA, col.names = c ("Why are you attending this workshop?", "n", "%"))
-```
 
 # How were Respondents' exposed to their Data Carpentry Workshop?
 
@@ -739,23 +761,7 @@ How would you describe yourself?
 #I commented out this chunk because I got an error message.
 ```
 
-### Data Carpentry (Post-Workshop)
 
-
-
-```{r}
-#Which workshop did you attend?
-workshop = c("Ecology", "Genomics", "Geospatial", "Reproducible Research", "Social Sciences", "I don't know.")
-workshop = factor(workshop)
-
-dcpostdata$Workshop = factor(dcpostdata$Workshop, levels = workshop)
-
-dcpostdata_workshop_tally <- 
-  dcpostdata %>% 
-  group_by(Workshop) %>% 
-  tally() %>%
-  filter(!is.na(Workshop)) 
-```
 
 
 ```{r dc_post_workshop_attended}
@@ -896,18 +902,7 @@ plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.co
 # Is there a way to add spaces to the words in the legend?
 ```
 
-# Recommending Data Carpentry Workshops
-Learners were asked how likely they are to recommend this workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter). The scoring for this question based on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors. 
 
-```{r}
-dcpostdata$`LikelyToRecommend` %>%
-    npc(breaks = list(0:64, 65:84, 85:100)) %>%
-    data.frame(category = .) %>%
-    filter(!is.na(category)) %>%
-    count(category) %>%
-    mutate("%" = (n / sum(n))*100) %>%
-    kable(, format = 'markdown', row.names = NA, col.names = c ("Promoter Score", "n", "%"))
-```
 
 
 ### Software Carpentry (Pre-Workshop)
