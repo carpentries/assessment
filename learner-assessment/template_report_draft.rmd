@@ -25,14 +25,30 @@ opts_chunk$set(echo = FALSE,
 opts_chunk$set(fig.path='figures/') #puts all figures in figures folder
 ```
 
+```{r}
+# Function that makes a table of counts and percentages
+# @françois please help with creating a different function if this isn't the best way
+# to do tally's and percentages
+tally_and_perc <- function(df, colname, na.rm = FALSE){
+  quo_colname <- enquo(colname)
+
+  df %>% 
+    group_by(!!quo_colname) %>% 
+    tally() %>% 
+    filter(if_else(rep(na.rm, nrow(.)),
+                  !is.na(!!quo_colname),
+                  as.logical(rep(1, nrow(.))))) %>% 
+    mutate(`%` = round(n / sum(n) * 100, 1)) 
+}
+```
 
 ```{r load-dc-data}
 # Load DC pre and post-workshop data
 # Data Carpentry Pre-Workshop Data
-dcpredata <- readr::read_csv("data/180118_dcpre.csv")
+dcpredata <- readr::read_csv("data/180511_dcpre.csv")
 
 # Data Carpentry Post-Workshop Data
-dcpostdata <- readr::read_csv("data/180108_dcpost.csv")
+dcpostdata <- readr::read_csv("data/180511_dcpost.csv")
 ```
 
 ```{r load-swc-data}
@@ -53,8 +69,8 @@ swcpostdata <- readr::read_csv("data/2017-July-data.csv")
 ## number of learners
 n_learners_pre_dc <- nrow(dcpredata)
 n_learners_post_dc <- nrow(dcpostdata)
-n_learners_pre_swc <- nrow(swcpredata)
-n_learners_post_swc <- nrow(swcpostdata)
+#n_learners_pre_swc <- nrow(swcpredata)
+#n_learners_post_swc <- nrow(swcpostdata)
 
 ## topics covered
 workshop = c("Ecology", "Genomics", "Geospatial", "Reproducible Research", "Social Sciences", "I don't know.")
@@ -79,11 +95,12 @@ net_promoter_score <-
     data.frame(category = .) %>%
     filter(!is.na(category)) %>%
     count(category) %>%
-    mutate("%" = (n / sum(n))*100) %>%
-    #kable(, format = 'markdown', row.names = NA, col.names = c ("Promoter Score", "n", "%"))
+    mutate("%" = (n / sum(n))*100)
+    kable(net_promoter_score, format = 'markdown', row.names = NA, col.names = c ("Promoter Score", "n", "%"))
 
-# I want to use in-line text to say that 75% of respondents are promoters using 
-# `r net_promoter_score[3]%` but I believe that's not the way to do it.
+# Instead of showing the table, I want to use in-line text to say that 
+# 77% of respondents are promoters using `r net_promoter_score[3]%` 
+# but I believe that's not the way to do it.
 ```
 
 This is an overview of the number of learners attending Data Carpentry and Software Carpentry workshops. `r n_learners_pre_dc` learners have attended Data Carpentry workshops, and `r n_learners_pre_swc` have attended Software Carpentry workshops. 
@@ -109,10 +126,36 @@ dcpredata %>%
 
 kable(WhyAttending, format = 'markdown', row.names = NA, col.names = c ("Why are you attending this workshop?", "n", "%"))
 
-
-
 # Satisfaction with current data management practices (DC)
+levels = c("Very unsatisfied", "Unsatisfied", "Neutral", "Satisfied", "Very satisfied", "Not sure", "Not applicable")
+
+Satisfaction <- 
+dcpredata %>%
+  select(`CurrentSatisfaction`) %>% 
+  gather(col, 
+         Satisfaction) %>% 
+  tally_and_perc(Satisfaction, 
+                 na.rm = TRUE) %>% 
+  rename(`CurrentSatisfaction` = Satisfaction)
+
+kable(Satisfaction, format = 'markdown', row.names = NA, col.names = c ("Satisfaction with current data management practices", "n", "%"))
+
+# @françois I want the results from the table above to show in Likert order
+# from Very unsatisfied to Very satisfied, not alphabetical-order. Help please.
+
+
 # Programming usage (DC)
+Programming <- 
+dcpredata %>%
+  select(`CurrentProgramming`) %>% 
+  gather(col, 
+         Programming) %>% 
+  tally_and_perc(Programming, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Current Programming Usage` = Programming)
+kable(Programming)
+
 # How did you find out about this workshop? (SWC, DC)
 ```
 
@@ -204,20 +247,7 @@ kable(WhyAttending, format = 'markdown', row.names = NA, col.names = c ("Why are
 
 
 
-```{r}
-# Function that makes a table of counts and percentages
-tally_and_perc <- function(df, colname, na.rm = FALSE){
-  quo_colname <- enquo(colname)
 
-  df %>% 
-    group_by(!!quo_colname) %>% 
-    tally() %>% 
-    filter(if_else(rep(na.rm, nrow(.)),
-                  !is.na(!!quo_colname),
-                  as.logical(rep(1, nrow(.))))) %>% 
-    mutate(`%` = round(n / sum(n) * 100, 1)) 
-}
-```
 
 The Carpentries Assessment Team releases short and long-term assessment results twice per year in June and January. The following results include analyses from both Data Carpentry and Software Carpentry's pre- and post-workshop surveys.
 
@@ -343,45 +373,11 @@ kable(OS)
 
 ```
 
-# Respondents' Programming Usage
 
-How often do you currently use any of the following?
 
-```{r}
-Programming <- 
-dcpredata %>%
-  select(`CurrentProgramming`) %>% 
-  gather(col, 
-         Programming) %>% 
-  tally_and_perc(Programming, 
-                 na.rm = TRUE) %>% 
-  arrange(desc(n)) %>% 
-  rename(`Current Programming Usage` = Programming)
 
-# Table
-kable(Programming)
-```
 
-# Respondents' Satisfaction with Current Data Management Practices
 
-```{r}
-# Please rate your level of satisfaction with your current data management and analysis workflow.
-
-levels = c("Very unsatisfied", "Unsatisfied", "Neutral", "Satisfied", "Very satisfied", "Not sure", "Not applicable")
-
-Satisfaction <- 
-dcpredata %>%
-  select(`CurrentSatisfaction`) %>% 
-  gather(col, 
-         Satisfaction) %>% 
-  tally_and_perc(Satisfaction, 
-                 na.rm = TRUE) %>% 
-  rename(`CurrentSatisfaction` = Satisfaction)
-
-kable(Satisfaction, format = 'markdown', row.names = NA, col.names = c ("Satisfaction with current data management practices", "n", "%"))
-
-# I want these to show in Likert order, not alpha-order
-```
 
 
 
