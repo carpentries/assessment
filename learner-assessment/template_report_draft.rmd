@@ -52,12 +52,13 @@ dcpostdata <- readr::read_csv("data/180511_dcpost.csv")
 ```
 
 ```{r load-swc-data}
+# Kari needs to pull the latest SWC data
 # Load SWC pre and post-workshop data
 # Software Carpentry Pre-Workshop Data
-swcpredata <- readr::read_csv("data/171231_swcpre.csv")
+# swcpredata <- readr::read_csv("data/171231_swcpre.csv")
 
 # Software Carpentry Post-Workshop Data
-swcpostdata <- readr::read_csv("data/2017-July-data.csv")
+# swcpostdata <- readr::read_csv("data/2017-July-data.csv")
 ```
 
 # Overview
@@ -71,18 +72,6 @@ n_learners_pre_dc <- nrow(dcpredata)
 n_learners_post_dc <- nrow(dcpostdata)
 #n_learners_pre_swc <- nrow(swcpredata)
 #n_learners_post_swc <- nrow(swcpostdata)
-
-## topics covered
-workshop = c("Ecology", "Genomics", "Geospatial", "Reproducible Research", "Social Sciences", "I don't know.")
-workshop = factor(workshop)
-
-dcpostdata$Workshop = factor(dcpostdata$Workshop, levels = workshop)
-
-dcpostdata_workshop_tally <- 
-  dcpostdata %>% 
-  group_by(Workshop) %>% 
-  tally() %>%
-  filter(!is.na(Workshop)) 
 
 ## time period covered
 
@@ -112,8 +101,7 @@ Learners were asked how likely they are to recommend this workshop to a friend o
 ```{r}
 # In this section we will include:
 # Why are you attending this workshop (SWC, DC)
-# Data Carpentry
-# Responses are in columns 'WhyAttending' through 'Column29'
+# Data Carpentry Responses are in columns 'WhyAttending' through 'Column29'
 WhyAttending <- 
 dcpredata %>%
   select(`WhyAttending`:`Column29`) %>% 
@@ -124,7 +112,7 @@ dcpredata %>%
   arrange(desc(n)) %>% 
   rename(`Why are you attending? Check all that apply.` = WhyAttending)
 
-kable(WhyAttending, format = 'markdown', row.names = NA, col.names = c ("Why are you attending this workshop?", "n", "%"))
+kable(WhyAttending, format = 'markdown', row.names = NA, col.names = c ("Why learners attend DC workshops", "n", "%"))
 
 # Satisfaction with current data management practices (DC)
 levels = c("Very unsatisfied", "Unsatisfied", "Neutral", "Satisfied", "Very satisfied", "Not sure", "Not applicable")
@@ -152,11 +140,22 @@ dcpredata %>%
          Programming) %>% 
   tally_and_perc(Programming, 
                  na.rm = TRUE) %>% 
-  arrange(desc(n)) %>% 
   rename(`Current Programming Usage` = Programming)
 kable(Programming)
 
 # How did you find out about this workshop? (SWC, DC)
+# Data Carpentry Responses are in columns 'Exposure-Workshop' through 'Column31'
+Exposure <- 
+dcpredata %>%
+  select(`Exposure`:`Column35`) %>% 
+  gather(col, 
+         Exposure) %>% 
+  tally_and_perc(Exposure, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Exposure` = Exposure)
+
+kable(Exposure, format = 'markdown', row.names = NA, col.names = c ("How do learners find out about DC workshops", "n", "%"))
 ```
 
 # Workshop Environment
@@ -164,23 +163,163 @@ kable(Programming)
 ```{r}
 # In this section we will include:
 # Environment (SWC/DC)
+# Data Carpentry: I felt comfortable learning in this workshop environment
+comfortable = c("Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree")
+comfortable = factor(comfortable)
+
+dcpostdata$Comfortable = factor(dcpostdata$Comfortable, levels = comfortable)
+
+dcpostdata_comfortable_tally <- 
+  dcpostdata %>% 
+  group_by(Comfortable) %>% 
+  tally() %>%
+  filter(!is.na(Comfortable)) 
+
 # Perception of instructors and helpers (SWC/DC)
+# Data Carpentry
+# Subsetting a portion of the Likert items from InstructorsClearAnswers to InstructorsKnowledgeable
+myvars <- c("InstructorsClearAnswers", "InstructorsEnthusiastic", "InstructorsInteracting", "InstructorsKnowledgeable")
+newdata <- dcpostdata[myvars]
+
+cols_with_Agree <- map_lgl(newdata, ~`%in%`("Agree", .x))
+newdata_agree <-  newdata[ , cols_with_Agree]
+
+levels = c("Strongly disagree",
+   "Disagree",
+   "Neutral",
+   "Agree",
+   "Strongly agree")
+
+ factorfunction <- function(newdata, factlevel){
+  factor(newdata, 
+         levels=factlevel, 
+         ordered = TRUE)
+    fct_unify(newdata, 
+              levels=factlevel)}
+
+newdata_agree_likert <- likert(data.frame(lapply(newdata_agree, factor, levels, ordered=TRUE)))
+
 # Applicability (DC)
+# Data Carpentry: I can immediately apply what I learned at this workshop
+apply = c("Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree")
+apply = factor(apply)
+
+dcpostdata$ImmediatelyApply = factor(dcpostdata$ImmediatelyApply, levels = apply)
+
+dcpostdata_apply_tally <- 
+  dcpostdata %>% 
+  group_by(ImmediatelyApply) %>% 
+  tally() %>%
+  filter(!is.na(ImmediatelyApply)) 
+
 # How much information was new??? (SWC)
+
 # Accessibility (DC)
+# Data Carpentry: Were there any accessibility issues that affected your ability 
+# to participate in this workshop?
+issues <- 
+dcpostdata %>%
+  select(AccessibilityIssues) %>% 
+  gather(col, 
+         AccessibilityIssues) %>% 
+  tally_and_perc(AccessibilityIssues, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Accessibility Issues` = AccessibilityIssues)
+```
+
+
+```{r dc_post_workshop_comfortable_environment}
+# DC plot for workshop environment
+ggplot(dcpostdata_comfortable_tally, 
+       aes(`Comfortable`, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="purple") +
+  geom_text(aes(label=n), size= 4, vjust=-0.25) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Level of Agreement") +
+  ylab("% Respondents") +
+  ggtitle("Data Carpentry Respondents felt comfortable learning \nin their workshop environment") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+```
+
+
+Respondents were asked to rate their level of agreement with several statements regarding their instructor's knowledge, instructional method, and enthusiasm. Their responses are in the figure below, and axis labels corresponding to the statements are as follows:
+
++ __InstructorsKnowledge__: The instructors were knowledgeable about the material being taught.
++ __InstructorsEnthusiastic__: The instructors were enthusiastic about the workshop.
++ __InstructorsComfortable__: I felt comfortable interacting with the instructors. 
++ __InstructorsClear__: I was able to get clear answers to my questions from the instructors. 
+
+```{r dcpost_perception_instructors_heat}
+# Heatmap for Data Carpentry perception of instructors and helpers
+title <- "Perception of Data Carpentry Instructors"
+plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
+
+# Is there a way to add spaces to the words in the legend?
+```
+
+
+```{r dc_post_workshop_immediately_apply}
+# Data Carpentry plot for Immediately Apply what you learned
+ggplot(dcpostdata_apply_tally, 
+       aes(`ImmediatelyApply`, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="purple") +
+  geom_text(aes(label=n), size= 4, vjust=-0.25) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Level of Agreement") +
+  ylab("% Respondents") +
+  ggtitle("Data Carpentry respondents can immediately apply \nwhat they learned at the workshop") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+```
+
+```{r}
+# Data Carpentry table for accessibility issues
+kable(issues, format = 'markdown', row.names = NA, col.names = c ("Respondents having accessibility issues", "n", "%"))
 ```
 
 # Workshop Type
 ```{r}
 # In this section we will include:
 # Workshop topics (DC)
+# Data Carpentry: Which workshop are you attending?
+workshop = c("Ecology", "Genomics", "Geospatial", "Reproducible Research", "Social Sciences", "I don't know.")
+workshop = factor(workshop)
+
+dcpostdata$Workshop = factor(dcpostdata$Workshop, levels = workshop)
+
+dcpostdata_workshop_tally <- 
+  dcpostdata %>% 
+  group_by(Workshop) %>% 
+  tally_and_perc(Workshop) %>%
+  filter(!is.na(Workshop))
+  kable(dcpostdata_workshop_tally, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry Workshop Attending", "n", "%"))
+
 # Language covered (DC, SWC)
+# Data Carpentry: Which programming language is being covered?
+ProgrammingLanguage <- 
+dcpredata %>%
+  select(`ProgrammingLanguageCovered`) %>% 
+  gather(col, 
+         ProgrammingLanguage) %>% 
+  tally_and_perc(ProgrammingLanguage, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Which language is being covered?` = ProgrammingLanguage)
+
+kable(ProgrammingLanguage, format = 'markdown', row.names = NA, col.names = c ("Language being covered", "n", "%"))
 ```
 
 # Effect of Workshops on Learners Self-Reported Perspectives: Skills & Confidence
 ```{r}
 # In this section we will include:
 # Perspectives of self-reported skills and confidence (SWC/DC)
+
 ```
 
 # Workshop Experience
@@ -381,43 +520,14 @@ kable(OS)
 
 
 
-# How were Respondents' exposed to their Data Carpentry Workshop?
 
-How did you find out about this workshop?
 
-```{r}
-# Responses are in columns 'Exposure-Workshop' through 'Column31'
 
-Exposure <- 
-dcpredata %>%
-  select(`Exposure`:`Column35`) %>% 
-  gather(col, 
-         Exposure) %>% 
-  tally_and_perc(Exposure, 
-                 na.rm = TRUE) %>% 
-  arrange(desc(n)) %>% 
-  rename(`Exposure` = Exposure)
 
-kable(Exposure, format = 'markdown', row.names = NA, col.names = c ("How did you find out about this workshop?", "n", "%"))
-```
 
-# Programming Language Covered in Workshop
 
-Which programming language is being covered?
 
-```{r}
-ProgrammingLanguage <- 
-dcpredata %>%
-  select(`ProgrammingLanguageCovered`) %>% 
-  gather(col, 
-         ProgrammingLanguage) %>% 
-  tally_and_perc(ProgrammingLanguage, 
-                 na.rm = TRUE) %>% 
-  arrange(desc(n)) %>% 
-  rename(`Which language is being covered?` = ProgrammingLanguage)
 
-kable(ProgrammingLanguage, format = 'markdown', row.names = NA, col.names = c ("Which language is being covered?", "n", "%"))
-```
 
 # Pre/Post Comparison for Data Carpentry's Workshop Outcomes
 
@@ -776,127 +886,18 @@ ggplot(dcpostdata_workshop_tally,
 ```
 
 
-# Perception of Workshop Atmosphere
 
-I felt comfortbale learning in this workshop environment.
 
-```{r}
 
-comfortable = c("Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree")
-comfortable = factor(comfortable)
 
-dcpostdata$Comfortable = factor(dcpostdata$Comfortable, levels = comfortable)
 
-dcpostdata_comfortable_tally <- 
-  dcpostdata %>% 
-  group_by(Comfortable) %>% 
-  tally() %>%
-  filter(!is.na(Comfortable)) 
-```
 
-```{r dc_post_workshop_comfortable_environment}
-ggplot(dcpostdata_comfortable_tally, 
-       aes(`Comfortable`, y = 100 * (n/sum(n)),
-           n)) +
-  geom_bar(stat = "identity", fill="purple") +
-  geom_text(aes(label=n), size= 4, vjust=-0.25) +
-  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-  theme_classic() +
-  xlab("Level of Agreement") +
-  ylab("% Respondents") +
-  ggtitle("I felt comfortable learning in this workshop environment") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
-```
 
-I can immediately apply what I learned at this workshop
 
-```{r}
-apply = c("Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree")
-apply = factor(apply)
 
-dcpostdata$ImmediatelyApply = factor(dcpostdata$ImmediatelyApply, levels = apply)
+ 
 
-dcpostdata_apply_tally <- 
-  dcpostdata %>% 
-  group_by(ImmediatelyApply) %>% 
-  tally() %>%
-  filter(!is.na(ImmediatelyApply)) 
-```
 
-```{r dc_post_workshop_immediately_apply}
-ggplot(dcpostdata_apply_tally, 
-       aes(`ImmediatelyApply`, y = 100 * (n/sum(n)),
-           n)) +
-  geom_bar(stat = "identity", fill="purple") +
-  geom_text(aes(label=n), size= 4, vjust=-0.25) +
-  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-  theme_classic() +
-  xlab("Level of Agreement") +
-  ylab("% Respondents") +
-  ggtitle("I can immediately apply what I learned at this workshop") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
-```
-
-Were there any accessibility issues that affected your ability to participate in this workshop?
-
-```{r}
-issues <- 
-dcpostdata %>%
-  select(AccessibilityIssues) %>% 
-  gather(col, 
-         AccessibilityIssues) %>% 
-  tally_and_perc(AccessibilityIssues, 
-                 na.rm = TRUE) %>% 
-  arrange(desc(n)) %>% 
-  rename(`Accessibility Issues` = AccessibilityIssues)
-
-# Table
-kable(issues)
-```
-
-# Perception of Instructors and Helpers
-
-Respondents were asked to rate their level of agreement with several statements regarding their instructor's knowledge, instructional method, and enthusiasm. Their responses are in the figure below, and axis labels corresponding to the statements are as follows:
-
-+ __InstructorsKnowledge__: The instructors were knowledgeable about the material being taught.
-+ __InstructorsEnthusiastic__: The instructors were enthusiastic about the workshop.
-+ __InstructorsComfortable__: I felt comfortable interacting with the instructors. 
-+ __InstructorsClear__: I was able to get clear answers to my questions from the instructors.  
-
-```{r}
-# Please rate your level of agreement with the following statements:
-#Subsetting a portion of the Likert items from InstructorsClearAnswers to InstructorsKnowledgeable
-myvars <- c("InstructorsClearAnswers", "InstructorsEnthusiastic", "InstructorsInteracting", "InstructorsKnowledgeable")
-newdata <- dcpostdata[myvars]
-
-cols_with_Agree <- map_lgl(newdata, ~`%in%`("Agree", .x))
-newdata_agree <-  newdata[ , cols_with_Agree]
-
-levels = c("Strongly disagree",
-   "Disagree",
-   "Neutral",
-   "Agree",
-   "Strongly agree")
-
- factorfunction <- function(newdata, factlevel){
-  factor(newdata, 
-         levels=factlevel, 
-         ordered = TRUE)
-    fct_unify(newdata, 
-              levels=factlevel)}
-
-newdata_agree_likert <- likert(data.frame(lapply(newdata_agree, factor, levels, ordered=TRUE)))
-```
-
-```{r dcpost_perception_instructors_heat}
-#Heatmap
-title <- "Perception of Data Carpentry Instructors"
-plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
-
-# Is there a way to add spaces to the words in the legend?
-```
 
 
 
