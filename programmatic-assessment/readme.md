@@ -27,5 +27,5 @@ Check out [this list](report_ideas.md) for some suggestions -- or add your own i
 
 
 ##### Jupyter Notebook files 
-* [final\_report\_draft.ipynb](./workshops/clean_data_analysis.ipynb): Static graphs and charts of workshop data. Draft content to be used in final report.
+* [final\_report\_draft.ipynb](./workshops/final_report_draft.ipynb): Static graphs and charts of workshop data. Draft content to be used in final report.
 
