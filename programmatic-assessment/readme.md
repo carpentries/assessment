@@ -39,3 +39,5 @@ Replace `final_report_draft.ipynb` with other file names as appropriate.
 Replace `--to pdf` with `to --html` to convert to html instead of pdf.
 A file extension is not required for the output file name; nbconvert will add the .pdf or .html extension as appropriate.
 See [nbconvert documentation](http://nbconvert.readthedocs.io/en/latest/config_options.html) for more options.
+
+Rendered html pages can be viewed by visting http://htmlpreview.github.io/ and entering in the link to the html page from github.
