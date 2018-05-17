@@ -4,7 +4,7 @@ pandas==0.19.2
 matplotlib==2.0.0
 ipywidgets==7.2.1
 pycountry==18.2.23
-
+nbconvert==5.3.1
 
 
 
