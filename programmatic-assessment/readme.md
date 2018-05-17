@@ -33,8 +33,7 @@ Check out [this list](report_ideas.md) for some suggestions -- or add your own i
 ##### Convert to pdf or html
 Convert to pdf, hiding all code cells using this shell command:
 
-```jupyter nbconvert --to pdf final_report_draft.ipynb --TemplateExporter.exclude_input=True --TemplateExporter.exclude_input_prompt=True --TemplateExporter.exclude_output_prompt=True --output outputs/sample_report
-```
+```jupyter nbconvert --to pdf final_report_draft.ipynb --TemplateExporter.exclude_input=True --TemplateExporter.exclude_input_prompt=True --TemplateExporter.exclude_output_prompt=True --output outputs/sample_report```
 
 Replace `final_report_draft.ipynb` with other file names as appropriate.
 Replace `--to pdf` with `to --html` to convert to html instead of pdf.
