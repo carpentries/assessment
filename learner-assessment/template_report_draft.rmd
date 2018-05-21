@@ -52,13 +52,12 @@ dcpostdata <- readr::read_csv("data/180511_dcpost.csv")
 ```
 
 ```{r load-swc-data}
-# Kari needs to pull the latest SWC data
 # Load SWC pre and post-workshop data
 # Software Carpentry Pre-Workshop Data
-# swcpredata <- readr::read_csv("data/171231_swcpre.csv")
+swcpredata <- readr::read_csv("data/180521_swcpre.csv")
 
 # Software Carpentry Post-Workshop Data
-# swcpostdata <- readr::read_csv("data/2017-July-data.csv")
+swcpostdata <- readr::read_csv("data/180521_swcpost.csv")
 ```
 
 # Overview
@@ -70,8 +69,8 @@ dcpostdata <- readr::read_csv("data/180511_dcpost.csv")
 ## number of learners
 n_learners_pre_dc <- nrow(dcpredata)
 n_learners_post_dc <- nrow(dcpostdata)
-#n_learners_pre_swc <- nrow(swcpredata)
-#n_learners_post_swc <- nrow(swcpostdata)
+n_learners_pre_swc <- nrow(swcpredata)
+n_learners_post_swc <- nrow(swcpostdata)
 
 ## time period covered
 
@@ -113,6 +112,18 @@ dcpredata %>%
   rename(`Why are you attending? Check all that apply.` = WhyAttending)
 
 kable(WhyAttending, format = 'markdown', row.names = NA, col.names = c ("Why learners attend DC workshops", "n", "%"))
+
+# Software Carpentry Responses are in columns 'WhyAttending' through 'Column7'
+WhyAttending <- 
+swcpredata %>%
+  select(WhyAttending:Column7) %>% 
+  gather(col, 
+         WhyAttending) %>% 
+  tally_and_perc(WhyAttending, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Why are you attending? Check all that apply.` = WhyAttending)
+kable(WhyAttending, format = 'markdown', row.names = NA, col.names = c ("Why learners attend SWC workshops", "n", "%"))
 
 # Satisfaction with current data management practices (DC)
 levels = c("Very unsatisfied", "Unsatisfied", "Neutral", "Satisfied", "Very satisfied", "Not sure", "Not applicable")
