@@ -23,9 +23,21 @@ Check out [this list](report_ideas.md) for some suggestions -- or add your own i
 * [badges\_by\_country\_by\_year.csv](./workshops/data_files/badges_by_country_by_year.csv):  Count of all badges awarded each year by country
 * [badges\_by\_training\_event.csv](./workshops/data_files/badges_by_training_event.csv): List of all training events with number of participants and number getting badged
 * [badges\_by\_year\_agg.csv](./workshops/data_files/badges_by_year_agg.csv): Count of all Trainer, Software Carpentry Instructor, Data Carpentry Instructor, and Maintainer badges awarded by year.  An individual can have multiple badges.
-* [workshops.csv](./workshops/data_files/workshops.csv):  List of all lifetime Carpentries workshops. (Note `administrator_id` column does not have valid data.)
+* [workshops.csv](./workshops/data_files/workshops.csv):  List of all lifetime Carpentries workshops.
 
 
 ##### Jupyter Notebook files 
-* [final\_report\_draft.ipynb](./workshops/clean_data_analysis.ipynb): Static graphs and charts of workshop data. Draft content to be used in final report.
+* [final\_report\_draft.ipynb](./workshops/final_report_draft.ipynb): Static graphs and charts of workshop data. Draft content to be used in final report.
 
+
+##### Convert to pdf or html
+Convert to pdf, hiding all code cells using this shell command:
+
+```jupyter nbconvert --to pdf final_report_draft.ipynb --TemplateExporter.exclude_input=True --TemplateExporter.exclude_input_prompt=True --TemplateExporter.exclude_output_prompt=True --output outputs/sample_report```
+
+Replace `final_report_draft.ipynb` with other file names as appropriate.
+Replace `--to pdf` with `to --html` to convert to html instead of pdf.
+A file extension is not required for the output file name; nbconvert will add the .pdf or .html extension as appropriate.
+See [nbconvert documentation](http://nbconvert.readthedocs.io/en/latest/config_options.html) for more options.
+
+Rendered html pages can be viewed by visting http://htmlpreview.github.io/ and entering in the link to the html page from github.
