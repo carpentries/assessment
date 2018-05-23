@@ -719,7 +719,7 @@ confidence = factor(confidence)
 
 impactdata$ChangeInConfidence = factor(impactdata$ChangeInConfidence, levels = confidence)
 
-impactdata_change.in.confidence_tally <-
+impactdata_change_in_confidence_tally <-
   impactdata %>%
   group_by(ChangeInConfidence) %>%
   tally() %>%
@@ -728,20 +728,20 @@ impactdata_change.in.confidence_tally <-
   
 
 # Use the code below for a table of the data.
-kable(data_change.in.confidence_tally, format = "markdown", row.names = FALSE, col.names = c("Change in Confidence", "n", "%"))
+kable(impactdata_change_in_confidence_tally, format = "markdown", row.names = FALSE, col.names = c("Respondents Change in Confidence", "n", "%"))
 ```
 
 ```{r longterm_change_in_confidence}
-ggplot(data_change.in.confidence_tally,
-       aes(`Change-In-Confidence`, y = 100 * (n/sum(n)),
+ggplot(impactdata_change_in_confidence_tally,
+       aes(ChangeInConfidence, y = 100 * (n/sum(n)),
            n)) +
-   geom_bar(stat = "identity", fill = "grey") +
+   geom_bar(stat = "identity", fill = "darkcyan") +
    geom_text(aes(label=n), size= 4, vjust=-0.25) +
    scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
    theme_classic() +
    xlab("Change in Confidence") +
    ylab("% Respondents") +
-   ggtitle("Figure 12: Change in Confidence 6 Months Later") +
+   ggtitle("Respondents Change in Confidence 6 or More \nMonths After a Workshop") +
    theme(plot.title = element_text(hjust = 0.5)) +
    theme_bw(base_size = 14)
 ```
@@ -749,7 +749,7 @@ ggplot(data_change.in.confidence_tally,
 __Change in Confidence by Status__
 
 ```{r include=FALSE}
-status <- unique(round1data$Position)
+status <- unique(impactdata$Status)
 status <- factor(status[!is.na(status)])
 ```
 
@@ -759,13 +759,13 @@ status <- factor(status, levels(status)[c(7, 3, 6, 2, 1, 5, 4)])
 # Display ordering.
 print(levels(status))
 
-round1data$Position <-
-  factor(round1data$Position, levels = levels(status))
+impactdata$Position <-
+  factor(impactdata$Status, levels = levels(status))
 
-change_in_confidence_by_status <- round1data %>%
-  group_by(`Change-In-Confidence`, Position) %>%
+change_in_confidence_by_status <- impactdata %>%
+  group_by(ChangeInConfidence, Position) %>%
   tally() %>%
-  filter(!is.na(`Change-In-Confidence`)) %>%
+  filter(!is.na(ChangeInConfidence)) %>%
   group_by(Position) %>%
   mutate(n_status = sum(n)) %>%
   filter(!is.na(Position)) %>%
@@ -780,14 +780,14 @@ expect_equal(test_output$total, rep(100, length(status)))
 
 ```{r longterm_change_in_confidence_by_status}
 ggplot(data = change_in_confidence_by_status,
-       aes(x = `Change-In-Confidence`, y = Position)) +
+       aes(x = ChangeInConfidence, y = Position)) +
   geom_tile(aes(fill = perc), colour = "white") +
   geom_text(aes(label = paste0(round(perc, 1), "%"))) +
   scale_fill_gradient("Percent",
                       low = "white",
                       high = "blue",
                       limits = c(0, 100)) +
-  xlab("Change in Confidence") +
+  xlab("Change in Confidence with Tools by Position") +
   theme(
     axis.text.x = element_text(angle = 30, hjust = 1),
     panel.grid.major = element_blank(),
@@ -797,82 +797,19 @@ ggplot(data = change_in_confidence_by_status,
   )
 ```
 
-
-```{r}
-# Focus on Engineering
-change_in_conf_eng <- round1data %>%
-  filter(grepl("Engineering", Column6)) %>%
-  group_by(`Change-In-Confidence`) %>%
-  tally() %>%
-  filter(!is.na(`Change-In-Confidence`)) %>%
-  mutate(perc = n / sum(n) * 100)
-```
-
-```{r longterm_change_in_confidence_eng}
-ggplot(change_in_conf_eng,
-       aes(`Change-In-Confidence`, y = perc, n)) +
-   geom_bar(stat = "identity", fill = "grey") +
-   geom_text(aes(label=n), size= 4, vjust=-0.25) +
-   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10,
-                                                        simplify = FALSE), paste,
-                                                collapse="\n")) +
-   theme_classic() +
-   xlab("Change in Confidence (Engineering)") +
-   ylab("% Respondents") +
-   ggtitle("") +
-   theme(plot.title = element_text(hjust = 0.5)) +
-   theme_bw(base_size = 14)
-```
-
-```{r include=FALSE}
-# Breakdown by status.
-change_in_conf_eng_by_status <- round1data %>%
-  filter(grepl("Engineering", Column6)) %>%
-  group_by(`Change-In-Confidence`, Position) %>%
-  tally() %>%
-  filter(!is.na(`Change-In-Confidence`)) %>%
-  group_by(Position) %>%
-  mutate(n_status = sum(n)) %>%
-  filter(!is.na(Position)) %>%
-  mutate(perc = n / n_status * 100)
-
-# Check that percentage total is 100 for each status (Position).
-test_output <- change_in_conf_eng_by_status %>%
-  group_by(Position) %>%
-  summarize(total = sum(perc))
-expect_equal(test_output$total, rep(100, length(status)))
-```
-
-```{r longterm_change_in_conf_eng_by_status}
-ggplot(data = change_in_conf_eng_by_status,
-       aes(x = `Change-In-Confidence`, y = Position)) +
-  geom_tile(aes(fill = perc), colour = "white") +
-  geom_text(aes(label = n)) +
-  scale_fill_gradient("Percent",
-                      low = "white",
-                      high = "blue",
-                      limits = c(0, 100)) +
-  xlab("Change in Confidence (Engineering)") +
-  theme(
-    axis.text.x = element_text(angle = 30, hjust = 1),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    axis.ticks = element_blank(),
-    panel.background = element_blank()
-  )
-```
 
 # Usage of Tools for Research and/or Work
+
 If you are using the tools you learned in a Carpentries workshop, how are they helping you? Check all that apply.
 
-```{r}
+```{r longterm_change_in_conf_eng_by_status}
 # Data are in columns 'How-Tools-Learned-Help' through 'Column37'
 
 # how many responses do we have to this question?
 
 n_reponses_tools_learned_help <-
-    n_responses_to_the_question(round2data,
-                              from_colname = `HowToolsHelped`,
+    n_responses_to_the_question(impactdata,
+                              from_colname = HowToolsHelped,
                               to_colname = Column37)
 
 # How many responded to either of these?
@@ -883,7 +820,7 @@ n_reponses_tools_learned_help <-
 relevant_cols <- c("HowToolsHelped", "Column34", "Column35")
 
 rowsums <-
-  round2data %>%
+  impactdata %>%
   select(one_of(relevant_cols)) %>%
   # check that each row has a value for at least one col
   # convert to numeric, if NA, then put a zero, otherwise 1
@@ -895,8 +832,8 @@ idx <- ifelse(rowsums == 0, FALSE, TRUE)
 number_that_tools_helped <- sum(idx)
 
 how_help <-
-round2data %>%
-  select(`HowToolsHelped`:Column37) %>%
+impactdata %>%
+  select(HowToolsHelped:Column37) %>%
   gather(col, how_help) %>%
   group_by(how_help) %>%
   tally() %>%
@@ -905,22 +842,18 @@ round2data %>%
   rename(`HowToolsHelped` = how_help)
 
 tools_helped <-
-round2data %>%
-  select(`HowToolsHelped`:Column37) %>%
+impactdata %>%
+  select(HowToolsHelped:Column37) %>%
   gather(col, tools_helped) %>%
   group_by(tools_helped) %>%
   tally_and_perc(tools_helped, na.rm = TRUE, question_n = n_reponses_tools_learned_help) %>%
   filter(!is.na(tools_helped)) %>%
   arrange(desc(n)) %>%
   rename(`How Tools Covered Have Helped` = tools_helped)
+
+kable(tools_helped, format = "markdown", row.names = FALSE, col.names = c("How Tools Covered Help Respondents", "n", "%"))
 ```
 
-```{r}
-kable(tools_helped,
-      format = "markdown",
-      row.names = FALSE,
-      caption = "Self-Reported Perception of How Tools Help Respondents")
-```
 
 # Contributions to Academic Writing
 Has completing a Carpentries workshop contributed to your writing of a research article, thesis, dissertation, or grant proposal?
@@ -930,8 +863,8 @@ Has completing a Carpentries workshop contributed to your writing of a research 
 
 # how many responded to this question?
 rowsums <-
-round2data %>%
-  select(`Writing`) %>%
+impactdata %>%
+  select(Writing) %>%
   # check that each row has a value for at least one col
   # convert to numeric, if NA, then put a zero, otherwise 1
   map_df(., ~ifelse(is.na(.x), 0, 1)) %>%
@@ -943,18 +876,19 @@ idx <- ifelse(rowsums == 0, FALSE, TRUE)
 n_responsed_to_writing <-  sum(idx)
 
 # table about writing
-round2data %>%
-  tally_and_perc(`Writing`,
+impactdata %>%
+  tally_and_perc(Writing,
                  na.rm = TRUE,
                  question_n = n_responsed_to_writing) %>%
-  kable()
+  
+  kable(,format = 'markdown', row.names = NA, col.names = c("Have Tools Contributed to Respondents' Writing?", "n", "%"))
 
 
 writing = c("No.", "Not sure.", "Yes.")
 writing = factor(writing)
 
-round2data$`Writing` = factor(round2data$`Writing`, levels = writing)
-Contributed_Writing <- round(prop.table(table(round2data$`Writing`)) * 100)
+impactdata$Writing = factor(impactdata$Writing, levels = writing)
+Contributed_Writing <- round(prop.table(table(impactdata$Writing)) * 100)
 ```
 
 # Perception of Workshop Impact
@@ -968,18 +902,19 @@ The statements below reflect ways in which completing a Carpentries workshop may
 + I have improved my coding practices as a result of completing the workshop.
 + My research productivity has improved as a result of completing the workshop.
 + I have gained confidence in working with data as a result of completing the workshop.
+
 ```{r}
 # Jonah's fix to include the correct levels. Variable was renamed to 'levels'
 # because 'order' is the name of a function in R.
 
-cols_with_Agree <- map_lgl(round2data, ~`%in%`("Agree", .x))
-data_agree <-  round2data[ , cols_with_Agree]
+cols_with_Agree <- map_lgl(impactdata, ~`%in%`("Agree", .x))
+data_agree <-  impactdata[ , cols_with_Agree]
 
 levels = c("Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree")
 
 # Beth's tip to both order the factors based on levels and unify the factors
  factorfunction <- function(mydata, factlevel){
-  factor(mydata,
+  factor(impactdata,
          levels=factlevel,
          ordered = TRUE)
     fct_unify(mydata,
@@ -1016,10 +951,12 @@ received_professional_recognition <-
   round(0)
 ```
 
+
 ```{r longterm_workshop_impact_heatmap}
-title <- "Figure: Perception of Workshop Impact"
+title <- "Respondents Perception of Workshop Impact"
 plot(data_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
 ```
+
 
 # Breakdown of respondents by Country
 
@@ -1028,10 +965,8 @@ __In what country was the workshop you attended held?__
 ```{r}
 # Plot includes Ben's tip to add a percent column to the data_country_tally data frame
 # before it goes into the ggplot() function to use reorder on that column name in the ggplot() function
-# This plot uses round1data because we asked what Country they attended a workshop in that version of the
-# survey
-round1data_country_tally <-
-round1data %>%
+impactdata_country_tally <-
+impactdata %>%
   group_by(Country) %>%
   tally(sort = TRUE) %>%
   mutate(perc = round(100 * (n/sum(n)), 1)) %>% # add the % col
@@ -1039,11 +974,12 @@ round1data %>%
   arrange(desc(n))
 ```
 
+
 ```{r longterm_percent_by_country}
-ggplot(round1data_country_tally,
+ggplot(impactdata_country_tally,
        aes(reorder(Country, perc),
            perc)) +
-  geom_bar(stat = "identity", fill = "grey") +
+  geom_bar(stat = "identity", fill = "darkcyan") +
   theme_classic() +
   xlab("") +
   ylab("Figure X: Breakdown of Respondents by Country") +
@@ -1051,7 +987,11 @@ ggplot(round1data_country_tally,
   ggtitle("") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_bw(base_size = 14)
+
+# There are only a few responses to this question because it was omitted during the second round
+# of the survey
 ```
+
 
 # Respondent Demographics
 
