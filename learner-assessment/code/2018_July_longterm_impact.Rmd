@@ -1,7 +1,6 @@
-## Analysis of the Carpentries Long-Term Feedback Survey: Round 2
-__Contributors:__ [Kari L. Jordan](https://github.com/kariljordan), [Naupaka Zimmerman](https://github.com/naupaka), [Marianne Corvellec](https://github.com/mkcor), [Elizabeth Wickes](https://github.com/elliewix), [Jonah Duckles](https://github.com/jduckles) 
+## Analysis of The Carpentries Long-Term Impact
+__2018 July__ 
 
-__January 2018__
 ```{r setup, include=FALSE}
 library(knitr)
 library(tidyverse)
