@@ -13,18 +13,15 @@ opts_chunk$set(fig.path='figures/') #puts all figures in figures folder
 ```
 
 
-```{r include=FALSE}
-# round1data was collected March 2017
-round1data <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/archives/2018/data/data_20170701.csv")
-
-# The survey was sent out again in October 2017. round2data includes the March 2017 data and the October 2017 data. Demographic questions (race/gender) were added to the survey.
-round2data <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/archives/2018/data/data_20171108.csv")
+```{r load-long-term-data}
+# Data archived 2018-05-23
+impactdata <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/data/180523_longterm.csv")
 ```
 
 ```{r}
 # Function that makes a table of counts and percentages
-# question_n is set by default to the number of respondents in the survey (504). This value may have to be set by question.
-question_n <- nrow(round2data)
+# question_n is set by default to the number of respondents in the survey. This value may have to be set by question.
+question_n <- nrow(impactdata)
 
 tally_and_perc <- function(df, colname, na.rm = FALSE, question_n){
   quo_colname <- enquo(colname)
@@ -62,21 +59,21 @@ sum(idx)
 
 ### Demographics
 
-```{r include=FALSE}
+```{r}
 # Is this your first time completing this survey?
 first_time = c("Yes", "No", "I don't know.")
 first_time = factor(first_time)
 
-round2data$FirstSurvey = factor(round2data$FirstSurvey, levels = first_time)
+impactdata$FirstSurvey = factor(impactdata$FirstSurvey, levels = first_time)
 
-round2data_firsttime_tally <-
-  round2data %>%
+impactdata_firsttime_tally <-
+  impactdata %>%
   group_by(FirstSurvey) %>%
   tally() %>%
   filter(!is.na(FirstSurvey)) %>%
   mutate(perc = round(n/sum(n) * 100, 0))
 
-kable(round2data_firsttime_tally)
+kable(impactdata_firsttime_tally, format = 'markdown', row.names = NA, col.names = c ("Learners Taking Survey for First Time", "n", "%"))
 ```
 
 __Respondents Status__
@@ -86,10 +83,10 @@ __Respondents Status__
 status = c("Undergraduate Student", "Graduate Student", "Postdoc", "Faculty", "Industry", "Academic Research Staff", "Other Academic Staff", "Other (please specify)")
 status = factor(status)
 
-round2data$Status = factor(round2data$Status, levels = status)
+impactdata$Status = factor(impactdata$Status, levels = status)
 
-round2data_status_tally <-
-  round2data %>%
+impactdata_status_tally <-
+  impactdata %>%
   group_by(Status) %>%
   tally() %>%
   filter(!is.na(Status)) %>%
@@ -97,16 +94,16 @@ round2data_status_tally <-
 ```
 
 ```{r longterm_status}
-ggplot(round2data_status_tally,
+ggplot(impactdata_status_tally,
        aes(Status, y = 100 * (n/sum(n)),
            n)) +
-  geom_bar(stat = "identity", fill="grey") +
+  geom_bar(stat = "identity", fill="darkcyan") +
   geom_text(aes(label=n), size= 4, vjust=-0.25) +
   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
   theme_classic() +
-  xlab("Figure 1: Respondents' Status") +
+  xlab("Position/Status") +
   ylab("% Respondents") +
-  ggtitle("") +
+  ggtitle("Marjority Respondents are Graduate Students") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
 ```
@@ -116,12 +113,12 @@ __Field of work, research, or study.__
 # Field of work, research, or study. Responses are in columns 'Field' through 'Column12'
 
 n_responses_to_field_question <-
-  n_responses_to_the_question(round2data,
+  n_responses_to_the_question(impactdata,
                               from_colname = Field,
                               to_colname = Column12)
 
 field_perc <-
-round2data %>%
+impactdata %>%
   select(Field:Column12) %>%
   gather(col, field_perc) %>%
   group_by(field_perc) %>%
@@ -136,7 +133,7 @@ kable(field_perc,
       format = "markdown",
       digits = getOption("digits"),
       row.names = NA,
-      col.names = NA,
+      col.names = c("Respondents Field of Research/Work/Study", "n", "%"),
     caption = NULL,
     escape = TRUE)
 ```
@@ -144,75 +141,78 @@ kable(field_perc,
 __Number of Carpentries workshops attended__
 ```{r}
 # Number of workshops attended
-round2data_workshops_tally <-
-  round2data %>%
-  group_by(`NumWorkshops`) %>%
+impactdata_workshops_tally <-
+  impactdata %>%
+  group_by(NumWorkshops) %>%
   tally() %>%
-  filter(!is.na(`NumWorkshops`))
+  filter(!is.na(NumWorkshops)) %>%
+   mutate(perc = round(n/sum(n) * 100, 0))
 
 # Use the code below to include a table of the number of workshops respondents attended
-#kable(round2data_workshops_tally, format = "markdown", row.names = FALSE, col.names = c("# Wrkshps", "n"), caption = "Number of Workshops Attended")
+kable(impactdata_workshops_tally, format = "markdown", row.names = FALSE, col.names = c("Number of Workshops Respondents Attended", "n", "%"))
 ```
 
 ```{r longterm_number_workshops_attended}
-ggplot(round2data_workshops_tally,
-       aes(`NumWorkshops`, y = 100 * (n/sum(n)),
+ggplot(impactdata_workshops_tally,
+       aes(NumWorkshops, y = 100 * (n/sum(n)),
            n)) +
-  geom_bar(stat = "identity", fill="grey") +
+  geom_bar(stat = "identity", fill="darkcyan") +
   geom_text(aes(label=n), size= 4, vjust=-0.25) +
   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
   theme_classic() +
-  xlab("Figure 2: Number of Workshops Attended") +
+  xlab("Number of Workshops Attended") +
   ylab("% Respondents") +
-  ggtitle("") +
+  ggtitle("Some respondents attend multiple workshops") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
 ```
 
 __Time since completing last Carpentries workshop__
+
 ```{r}
 # How long ago did you attend a workshop?
- round2data_time_since_tally <-
-  round2data %>%
-  group_by(`TimeSinceWorkshop`) %>%
+ impactdata_time_since_tally <-
+  impactdata %>%
+  group_by(TimeSinceWorkshop) %>%
   tally() %>%
-  filter(!is.na(`TimeSinceWorkshop`))
+  filter(!is.na(TimeSinceWorkshop)) %>%
+  mutate(perc = round(n/sum(n) * 100, 0))
 
 # Use the code below to include a table of how long ago respondents attended a workshop
-# kable(round2data_time_since_tally, format = "markdown", row.names = FALSE, col.names = c("Time", "n"), caption = "How Recently Did Respondents Complete a Workshop?")
+kable(impactdata_time_since_tally, format = "markdown", row.names = FALSE, col.names = c("Time Since Completing a Workshop", "n", "%"))
 ```
 
 ```{r longterm_time_since_attending_workshop}
-ggplot(round2data_time_since_tally,
-       aes(`TimeSinceWorkshop`, y = 100 * (n/sum(n)),
+ggplot(impactdata_time_since_tally,
+       aes(TimeSinceWorkshop, y = 100 * (n/sum(n)),
            n)) +
-  geom_bar(stat = "identity", fill="grey") +
+  geom_bar(stat = "identity", fill="darkcyan") +
   geom_text(aes(label=n), size= 4 , vjust=-0.25) +
   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
   theme_classic() +
-  xlab("Figure 3: Time Since Attending Carpentry Workshop") +
+  xlab("Time Since Attending Carpentry Workshop") +
   ylab("% Respondents") +
-  ggtitle("") +
+  ggtitle("Majority Respondents Attended a Workshop One Year Ago") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
 ```
 
 
-```{r include=FALSE}
+```{r}
 # Last Carpentries workshop attended
 workshop_attended = c("Data Carpentry", "Library Carpentry", "Software Carpentry", "I don't know.")
 workshop_attended = factor(workshop_attended)
 
-round2data$WhichCarpentry = factor(round2data$WhichCarpentry, levels = workshop_attended)
+impactdata$WhichCarpentry = factor(impactdata$WhichCarpentry, levels = workshop_attended)
 
- round2data_workshop_attended_tally <-
-  round2data %>%
-  group_by(`WhichCarpentry`) %>%
+impactdata_workshop_attended_tally <-
+  impactdata %>%
+  group_by(WhichCarpentry) %>%
   tally() %>%
-  filter(!is.na(`WhichCarpentry`)) %>%
+  filter(!is.na(WhichCarpentry)) %>%
   mutate(perc = round(n/sum(n) * 100, 0))
 
-kable(round2data_workshop_attended_tally)
+kable(impactdata_workshop_attended_tally,format = "markdown", row.names = FALSE, col.names = c("Workshop Respondents Attended", "n", "%"))
 ```
 
 # Workshop Content
@@ -221,20 +221,20 @@ __What content was covered at the last Carpentries workshop you completed? Selec
 ```{r}
 # What content was covered
 # Responses are in columns 'ContentCovered' through 'Column23'
-# Ben's tip to use 'gather' to go from wide to long format
 workshop_tools <-
- round2data %>%
- select(`ContentCovered`:Column23) %>%
+ impactdata %>%
+ select(ContentCovered:Column23) %>%
  gather(col, workshop_tools) %>%
  group_by(workshop_tools) %>%
  tally() %>%
  filter(!is.na(workshop_tools)) %>%
+ mutate(perc = round(n/sum(n) * 100, 0)) %>%
  arrange(desc(n)) %>%
  rename(`ContentCovered` = workshop_tools)
 
 # Use the line below to provide a table of the tools covered.
 # Respondents were asked to check all that apply.
-kable(workshop_tools, caption = "Tools Covered")
+kable(workshop_tools, format = "markdown", row.names = FALSE, col.names = c("Content Covered in Respondents Workshops", "n", "%"))
 
 # Ben's tip to use in-line text
 # This code produces results to use in the text of the report
@@ -256,12 +256,12 @@ __Combination of tools covered in respondents' workshops.__
 # The code segment below from Ben Marwick will show the most combinations of tools covered in our workshops.
 
 n_responses_to_tools_question <-
-  n_responses_to_the_question(round2data,
+  n_responses_to_the_question(impactdata,
                               from_colname = ContentCovered,
                               to_colname = Column23)
 
 tools_cols <-
-round2data %>%
+impactdata %>%
   select(ContentCovered:Column23)
 
 list_of_tools_per_person <- list()
@@ -318,28 +318,28 @@ kable(tool_co_occurences, row.names = TRUE, caption = "Matrix of Common Tools Co
 __Behaviors Adopted__
 
 Which of the following behaviors have you adopted as a result of completing a Carpentries workshop? Check all that apply.
-```{r include = FALSE}
+```{r}
 # Code for behaviors adopted
-# Responses are in columns 'Behaviors-Adopted' through 'Column32'
+# Responses are in columns 'Behaviors' through 'Column32'
 
 # How many responses do we have to this question?
 
 responses_to_behaviours <-
-  n_responses_to_the_question(round2data,
-                              from_colname = `Behaviors`,
+  n_responses_to_the_question(impactdata,
+                              from_colname = Behaviors,
                               to_colname = Column32)
 
 
 # Use 'gather' to go from wide to long format
-Behaviors_Adopted <-
-round2data %>%
-  select(`Behaviors`:Column32) %>%
-  gather(col, Behaviors_Adopted) %>%
-  group_by(Behaviors_Adopted) %>%
-  tally_and_perc(Behaviors_Adopted,
+Behaviors <-
+impactdata %>%
+  select(Behaviors:Column32) %>%
+  gather(col, Behaviors) %>%
+  group_by(Behaviors) %>%
+  tally_and_perc(Behaviors,
                  na.rm = TRUE,
                  question_n = responses_to_behaviours) %>%
-  filter(!is.na(Behaviors_Adopted)) %>%
+  filter(!is.na(Behaviors)) %>%
   arrange(desc(n))
 
 #  how many rate either of these three?
@@ -350,7 +350,7 @@ round2data %>%
 relevant_cols <- c("Behaviors-Adopted", "Column28", "Column30")
 
 rowsums <-
-  round2data %>%
+  impactdata %>%
   select(one_of(relevant_cols)) %>%
   # check that each row has a value for at least one col
   # convert to numeric, if NA, then put a zero, otherwise 1
@@ -366,22 +366,22 @@ number_that_adopted_any_of_those_three <- sum(idx)
 
 ```{r}
 # Respondents were asked to check all that apply.
-kable(Behaviors_Adopted,
+kable(Behaviors,
       format = "markdown",
       digits = getOption("digits"),
       row.names = NA,
-      col.names = NA,
+      col.names = c("Behaviors Respondents Adopted", "n", "%"),
       caption = NULL,
       format.args = list(),
       escape = TRUE)
 ```
 
-## Behaviors by Group
+## Behaviors Adopted by Status/Position
 
 ```{r}
 # Need the count of responses in each Status grouping in order to caluclate
 # percentages in the next step
-respondant_counts_by_group <- round2data %>%
+respondant_counts_by_group <- impactdata %>%
   group_by(Status) %>%
   tally() %>%
   rename(group_sum = n)
@@ -389,17 +389,17 @@ respondant_counts_by_group <- round2data %>%
 # Calulate summary of numer of respondants selecting each bahavior by group
 # Uses a join to the respondant_counts_by_group tibble in order to calulate
 # persentages
-behaviors_adopted_by_group <- round2data %>%
+behaviors_adopted_by_group <- impactdata %>%
   select(Status, Behaviors:Column32) %>%
-  gather(col, Behaviors_Adopted, -Status) %>%
-  group_by(Behaviors_Adopted, Status) %>%
+  gather(col, Behaviors, -Status) %>%
+  group_by(Behaviors, Status) %>%
   select(-col) %>%
   na.omit() %>%
   table() %>%
   as_tibble() %>%
   left_join(respondant_counts_by_group) %>%
   mutate(Percent = (n / group_sum) * 100) %>%
-  select(Status, Behaviors_Adopted, Percent)
+  select(Status, Behaviors, Percent)
 
 # Make a table but remove "Other" column beacuse it's full of NAs
 behaviors_adopted_by_group %>%
@@ -419,7 +419,7 @@ behaviors_adopted_by_group %>%
 # Might take this out of final report, but it helps visualize differences
 behaviors_adopted_by_group %>%
   filter(!grepl("Other", Status)) %>%
-  ggplot(aes(x = Behaviors_Adopted,
+  ggplot(aes(x = Behaviors,
              y = Status,
              fill = Percent)) +
     geom_tile() +
@@ -428,7 +428,7 @@ behaviors_adopted_by_group %>%
                         low = "white",
                         high = "blue",
                         limits = c(0, 100)) +
-    ggtitle("Figure 4: Behaviors Adopted by Group (percent of respondants)") +
+    ggtitle("Behaviors Adopted by Group (percent of respondants)") +
     theme(axis.text.x = element_text(angle = 45,
                                      hjust = 1),
           panel.grid.major = element_blank(),
@@ -444,50 +444,34 @@ __Before completing a Carpentries workshop, how often did you use programming la
 
 ```{r}
 # The code below can be used to get a table and plot of the number of respondents for programming usage pre workshop
-# Naupaka's tip so pre- and post-responses match
-round2data_paired_plot <- round2data
-levels(round2data$`ProgrammingBefore`)[2] <- "I have not been using tools like these."
+impactdata_paired_plot <- impactdata
+levels(impactdata$`ProgrammingBefore`)[2] <- "I have not been using tools like these."
 
 # Programming Usage Pre-Carpentry Workshop [Absolute Plot]
 programming = c("I had not been using tools like these.", "Less than once per year.", "Several times per year.", "Monthly.", "Weekly.", "Daily.")
 programming = factor(programming)
 
-  round2data_usage_tally <-
-   round2data %>%
-   group_by(`ProgrammingBefore`) %>%
+  impactdata_usage_tally <-
+   impactdata %>%
+   group_by(ProgrammingBefore) %>%
    tally() %>%
-   filter(!is.na(`ProgrammingBefore`))
+   mutate(`%` = round(n / sum(n) * 100, 1)) %>%
+   filter(!is.na(ProgrammingBefore))
 
-  kable(round2data_usage_tally, caption = "")
-```
-
-```{r longterm_programming_usage_pre_absolute}
-  ggplot(round2data_usage_tally,
-        aes(`ProgrammingBefore`, n)) +
-   geom_bar(stat = "identity", fill="grey") +
-   geom_text(aes(label=n), size= 4, vjust=-0.25) +
-   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-   theme_classic() +
-   xlab("Programming Usage Pre-Workshop [Absolute]") +
-   ylab("# Respondents") +
-   ggtitle("Figure 5: Programming Usage Pre-Workshop") +
-   theme(plot.title = element_text(hjust = 0.5)) +
-   theme_classic(base_size = 14)
-# Why aren't the levels showing in the correct order on the plot?
+  kable(impactdata_usage_tally, format = "markdown", row.names = FALSE, col.names = c("Respondents Programming Usage Pre-Workshop", "n", "%"))
 ```
 
 
 ```{r longterm_programming_usage_pre_percent}
 # The code below is for pre-workshop programming usage reported as a percentage.
-# Programming Pre-Carpentry Workshop [Percentage Plot]
- round2data %>%
-  select(`ProgrammingBefore`) %>%
-   group_by(`ProgrammingBefore`) %>%
+impactdata %>%
+  select(ProgrammingBefore) %>%
+   group_by(ProgrammingBefore) %>%
    tally() %>%
-   filter(!is.na(`ProgrammingBefore`)) %>%
-   mutate(`ProgrammingBefore` =     factor(`ProgrammingBefore`, levels = programming)) %>%
+   filter(!is.na(ProgrammingBefore)) %>%
+   mutate(ProgrammingBefore =     factor(ProgrammingBefore, levels = programming)) %>%
    ggplot(aes(x = `ProgrammingBefore`, y = 100 * (n/sum(n)))) +
-     geom_bar(stat = "identity", position = "dodge", fill = "grey") +
+     geom_bar(stat = "identity", position = "dodge", fill = "darkcyan") +
      geom_text(aes(label=n), size= 4, vjust=-0.25) +
      scale_x_discrete(labels = function(x) lapply(strwrap(x,
                                                           width = 10,
@@ -495,9 +479,9 @@ programming = factor(programming)
                                                   paste,
                                                   collapse = "\n")) +
      theme_classic() +
-     xlab("Programming Usage Pre-Workshop [%]") +
+     xlab("Timeframe") +
      ylab("% respondents") +
-     ggtitle("Figure 6: Programming Usage Pre-Workshop") +
+     ggtitle("Respondents Programming Usage Pre-Workshop") +
      theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14)
 ```
@@ -510,43 +494,29 @@ __Since completing a Carpentries workshop, how often do you currently use progra
   programming = c("I have not been using tools like these.", "Less than once per year.", "Several times per year.", "Monthly.", "Weekly.", "Daily.")
   programming = factor(programming)
 
- round2data$`ProgrammingSince` = factor(round2data$`ProgrammingSince`, levels = programming)
+ impactdata$ProgrammingSince = factor(impactdata$ProgrammingSince, levels = programming)
 
-  round2data_usage_tally <-
-   round2data %>%
-   group_by(`ProgrammingSince`) %>%
+  impactdata_usage_tally <-
+   impactdata %>%
+   group_by(ProgrammingSince) %>%
    tally() %>%
-   filter(!is.na(`ProgrammingSince`))
+   mutate(`%` = round(n / sum(n) * 100, 1)) %>%
+   filter(!is.na(ProgrammingSince))
 
- kable(round2data_usage_tally)
-```
-
-```{r longterm_programming_usage_post_absolute}
-  ggplot(round2data_usage_tally,
-        aes(`ProgrammingSince`, n)) +
-   geom_bar(stat = "identity", fill="grey") +
-   geom_text(aes(label=n), size= 4, vjust=-0.25) +
-   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-   theme_classic() +
-   xlab("Programming Usage Post-Workshop [Absolute]") +
-   ylab("# Respondents") +
-   ggtitle("Figure 7: Programming Usage Post-Workshop") +
-   theme(plot.title = element_text(hjust = 0.5)) +
-   theme_classic(base_size = 14)
+ kable(impactdata_usage_tally, format = "markdown", row.names = FALSE, col.names = c("Respondents Programming Usage Since Attending a Workshop", "n", "%"))
 ```
 
 ```{r longterm_programming_usage_post_percent}
 # The code below is for post-workshop programming usage as a percent
-#Programming Usage Post-Carpentry Workshop [Percentage Plot]
-round2data %>%
-select(`ProgrammingSince`) %>%
-group_by(`ProgrammingSince`) %>%
+impactdata %>%
+select(ProgrammingSince) %>%
+group_by(ProgrammingSince) %>%
 tally() %>%
-filter(!is.na(`ProgrammingSince`)) %>%
-mutate(`ProgrammingSince` = factor(`ProgrammingSince`, levels = programming)) %>%
+filter(!is.na(ProgrammingSince)) %>%
+mutate(ProgrammingSince = factor(ProgrammingSince, levels = programming)) %>%
 
-ggplot(aes(x = `ProgrammingSince`, y = 100 * (n/sum(n)))) +
-geom_bar(stat = "identity", position = "dodge", fill = "grey", na.rm = TRUE ) +
+ggplot(aes(x = ProgrammingSince, y = 100 * (n/sum(n)))) +
+geom_bar(stat = "identity", position = "dodge", fill = "darkcyan", na.rm = TRUE ) +
 geom_text(aes(label=n), size= 4, vjust=-0.25) + # Adds count to top of bar
 scale_x_discrete(labels = function(x) lapply(strwrap(x,
                                                          width = 10,
@@ -554,9 +524,9 @@ scale_x_discrete(labels = function(x) lapply(strwrap(x,
                                                  paste,
                                                  collapse = "\n")) +
     theme_classic() +
-    xlab("Programming Usage Post-Workshop") +
+    xlab("Timeframe") +
     ylab("% respondents") +
-    ggtitle("Figure 8: Programming Usage Post-Workshop") +
+    ggtitle("Respondents Programming Usage Since Attending a Workshop") +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14)
 ```
@@ -567,19 +537,19 @@ __Comparing pre/post programming usage__
 # The code below is for Pre/Post plots of programming usage
 # It includes tips from Ben and Naupaka
 # Make the unique values the same
-round2data$`ProgrammingBefore` <-
+impactdata$ProgrammingBefore <-
   gsub("I had not been using tools like these.",
        "I have not been using tools like these.",
-       round2data$`ProgrammingBefore`)
+       impactdata$ProgrammingBefore)
 
-round2data$`ProgrammingBefore` <-
-  factor(round2data$`ProgrammingBefore`,
+impactdata$ProgrammingBefore <-
+  factor(impactdata$ProgrammingBefore,
          levels = programming)
 
 pre_and_post_usage <-
-round2data %>%
-  select(`ProgrammingBefore`,
-          `ProgrammingSince`) %>%
+impactdata %>%
+  select(ProgrammingBefore,
+          ProgrammingSince) %>%
   gather() %>%
   group_by(key, value) %>%
   tally() %>%
@@ -603,11 +573,11 @@ round2data %>%
                                                  paste,
                                                  collapse = "\n")) +
     theme_classic() +
-    xlab("Figure 9: Respondents' Programming Usage Increased") +
+    xlab("Timeframe") +
     ylab("% Respondents") +
     scale_fill_discrete(name = "",
                         labels = c("Before Workshop", "After Workshop")) +
-    ggtitle("") +
+    ggtitle("Pre/Post Workshop Comparison of Programming Usage") +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14)
 ```
@@ -619,7 +589,7 @@ round2data %>%
 # It includes tips from Ben and Naupaka
 # Make the unique values the same
 pre_and_post_usage_by_group <-
-  round2data %>%
+  impactdata %>%
   select(Status,
          ProgrammingBefore,
          ProgrammingSince) %>%
@@ -653,11 +623,11 @@ ggplot(pre_and_post_usage_by_group,
                                                paste,
                                                collapse = "\n")) +
   theme_classic() +
-  xlab("Figure 10: Respondents' Programming Usage Increased (Grouped)") +
-  ylab("% Respondents (actual counts above bars)") +
+  xlab("Timeframe") +
+  ylab("% Respondents") +
   scale_fill_discrete(name = "",
                       labels = c("Before Workshop", "After Workshop")) +
-  ggtitle("Figure 10: Programming Usage Pre/Post by Status") +
+  ggtitle("Pre/Post Workshop Comparison of Programming Usage by Status") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
 ```
@@ -714,7 +684,7 @@ ggplot(stdres,
            fill = sign)) +
   geom_col(position = "dodge",
            aes(alpha = contrib_0_to_1)) +
-  xlab("Figure 11: Respondents program significantly more often") +
+  xlab(" Respondents program significantly more often") +
   ylab("Chi-square standardized residuals of\npost-workshop frequencies") +
   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse = "\n")) +
   scale_fill_manual(name = "",
@@ -742,22 +712,23 @@ How would you rate your change in confidence in the tools that were covered duri
 ```{r}
 # Code for change in confidence
 confidence <-
-  c("I'm less confident now.",
-    "I'm equally confident now.",
-    "I'm more confident now.")
+  c("I am less confident now.",
+    "I am equally confident now.",
+    "I am more confident now.")
 confidence = factor(confidence)
 
-round1data$`Change-In-Confidence` = factor(round1data$`Change-In-Confidence`, levels = confidence)
+impactdata$ChangeInConfidence = factor(impactdata$ChangeInConfidence, levels = confidence)
 
-data_change.in.confidence_tally <-
-  round1data %>%
-  group_by(`Change-In-Confidence`) %>%
+impactdata_change.in.confidence_tally <-
+  impactdata %>%
+  group_by(ChangeInConfidence) %>%
   tally() %>%
-  filter(!is.na(`Change-In-Confidence`)) %>%
-  mutate(perc = round(n / sum(n) * 100, 0 ))
+  mutate(`%` = round(n / sum(n) * 100, 1)) %>%
+  filter(!is.na(ChangeInConfidence))
+  
 
 # Use the code below for a table of the data.
-# kable(data_change.in.confidence_tally, format = "markdown", row.names = FALSE, col.names = c("Change in Confidence", "%"))
+kable(data_change.in.confidence_tally, format = "markdown", row.names = FALSE, col.names = c("Change in Confidence", "n", "%"))
 ```
 
 ```{r longterm_change_in_confidence}
