@@ -23,6 +23,9 @@ Check out [this list](report_ideas.md) for some suggestions -- or add your own i
 * [badges\_by\_country\_by\_year.csv](./workshops/data_files/badges_by_country_by_year.csv):  Count of all badges awarded each year by country
 * [badges\_by\_training\_event.csv](./workshops/data_files/badges_by_training_event.csv): List of all training events with number of participants and number getting badged
 * [badges\_by\_year\_agg.csv](./workshops/data_files/badges_by_year_agg.csv): Count of all Trainer, Software Carpentry Instructor, Data Carpentry Instructor, and Maintainer badges awarded by year.  An individual can have multiple badges.
+* [days\_badge\_to\_teach.csv](./workshops/data_files/days_badge_to_teach.csv): Anonymized ist of days between badging and teaching for all instructors
+* [num\_wkshps\_taught.csv](./workshops/data_files/num_wkshps_taught.csv): Anonymized list of all instructors and number of workshops taught
+* [trainers.csv](./workshops/data_files/trainers.csv): List of all Trainers with badge date and country.
 * [workshops.csv](./workshops/data_files/workshops.csv):  List of all lifetime Carpentries workshops.
 
 
