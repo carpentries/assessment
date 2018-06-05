@@ -981,10 +981,10 @@ ggplot(impactdata_country_tally,
            perc)) +
   geom_bar(stat = "identity", fill = "darkcyan") +
   theme_classic() +
-  xlab("") +
-  ylab("Figure X: Breakdown of Respondents by Country") +
+  xlab("Country") +
+  ylab("% Respondents") +
   coord_flip() +
-  ggtitle("") +
+  ggtitle("Percentage of Respondents by Country") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_bw(base_size = 14)
 
@@ -997,82 +997,95 @@ ggplot(impactdata_country_tally,
 
 __What is your gender?__
 
-Gender was added to the survey during the second round of data collection. We only have seven data points, so do not include this information in the report.
+Gender was added to the survey during the second round of data collection. 
+
 ```{r}
 # What is your gender?
-# Gender was added to the survey during the second round of data collection. That is why I used round2data
-# in the code below. Only six people responded with their gender, so we aren't including this information.
+# Gender was added to the survey during the second round of data collection. 
 gender = c("Female", "Male", "I prefer not to say")
 gender = factor(gender)
 
-round2data$Gender = factor(round2data$Gender, levels = gender)
+impactdata$Gender = factor(impactdata$Gender, levels = gender)
 
-round2data_gender_tally <-
-  round2data %>%
+impactdata_gender_tally <-
+ impactdata %>%
   group_by(Gender) %>%
   tally() %>%
   filter(!is.na(Gender)) %>%
   mutate(perc = round(n/sum(n) * 100, 0))
 
-kable(round2data_gender_tally)
-```
+kable(impactdata_gender_tally, format = 'markdown', row.names = NA, col.names = c("Respondents' Gender Identity", "n", "%"))
 
+```
 
 __How would you describe yourself?__
 
-Ethnicity was added to the survey in the second round of data collection. We only have eight responses, so do not include this information in the report.
+Ethnicity was added to the survey in the second round of data collection. 
+
 ```{r}
 # How would you describe yourself?
 # Responses are in columns 'Race' through 'Column50'
-# Using 'gather' to go from wide to long format
-
 n_responses_race <-
-  n_responses_to_the_question(round2data,
+  n_responses_to_the_question(impactdata,
                               from_colname = Race,
                               to_colname = Column50)
 
 race_perc <-
-  round2data %>%
+  impactdata %>%
     select(Race:Column50) %>%
     gather(col, race_perc) %>%
     group_by(race_perc) %>%
-    tally_and_perc(race_perc,
-                 na.rm = TRUE,
-                 question_n = n_responses_race) %>%
-  filter(!is.na(race_perc)) %>%
-  arrange(desc(n)) %>%
-  rename(Race = race_perc)
+    tally() %>%
+    filter(!is.na(race_perc)) %>%
+    mutate(perc = round(n/sum(n) * 100, 0)) %>%
+    rename(Race = race_perc)
 
-kable(race_perc)
-# Only 8 persons responded to this question, so we will not include this in the report.
+kable(race_perc, format = 'markdown', row.names = NA, col.names = c("Respondents' Racial/Ethnic Identity", "n", "%"))
 ```
+
+# Number of Workshops Attended
 
 ```{r}
 # Table of number of workshops that participants have attended
-round2data %>% 
-  filter(!is.na(NumWorkshops)) %>%
-  select(NumWorkshops) %>%
+numworkshops = c("1", "2", "3+")
+numworkshops = factor(numworkshops)
+
+impactdata$NumWorkshops = factor(impactdata$NumWorkshops, levels = numworkshops)
+
+impactdata_numworkshops_tally <-
+ impactdata %>%
   group_by(NumWorkshops) %>%
   tally() %>%
-  kable(col.names = c("Number of Workshops Attended",
-                      "n"), 
-        caption = "Number of workshops attended (Post-survey)")
+  filter(!is.na(NumWorkshops)) %>%
+  mutate(perc = round(n/sum(n) * 100, 0))
+
+kable(impactdata_numworkshops_tally, format = 'markdown', row.names = NA, col.names = c("Number of Workshops Respondents Attended", "n", "%"))
 ```
+# Time Since Attending a Workshop
+
 
 ```{r}
 # Table of time since workshop attendance
-round2data %>% 
-  filter(!is.na(TimeSinceWorkshop)) %>%
-  select(TimeSinceWorkshop) %>%
+timesinceworkshop = c("0-6 months ago", "6 months - 1 year ago", "More than 1 year ago")
+timesinceworkshop = factor(timesinceworkshop)
+
+impactdata$TimeSinceWorkshop = factor(impactdata$TimeSinceWorkshop, levels = timesinceworkshop)
+
+impactdata_timesinceworkshop_tally <-
+ impactdata %>%
   group_by(TimeSinceWorkshop) %>%
   tally() %>%
-  kable(col.names = c("Time Since Last Attending Workshop",
-                      "n"), 
-        caption = "Time since workshop attendence (Post-survey)")
+  filter(!is.na(TimeSinceWorkshop)) %>%
+  mutate(perc = round(n/sum(n) * 100, 0))
+
+kable(impactdata_timesinceworkshop_tally, format = 'markdown', row.names = NA, col.names = c("Time Since Attending a Workshop", "n", "%"))
 ```
 
+# Respondents by Field and Career Stage 
+
 ```{r}
-table_of_status_by_field <- round2data %>%
+# Table of participant counts in each category (multiple selection was possible)
+table_of_status_by_field <- impactdata %>%
   select(Status, Field:FieldOther) %>%
   gather(key = "Field",
          value = "value",
@@ -1090,7 +1103,7 @@ top_12_fields <- table_of_status_by_field  %>%
   head(12) %>%
   pull(value)
 
-# table of participant counts in each category (multiple selection was possible)
+
 table_of_status_by_field %>%
   as_tibble() %>%
   filter(value %in% top_12_fields) %>%
@@ -1098,8 +1111,9 @@ table_of_status_by_field %>%
   kable()
 ```
 
+
 ```{r longterm_respondents_by_field}
-# plot of the same
+# Plot of participant counts in each category (multiple selection was possible)
 table_of_status_by_field %>%
   as_tibble() %>%
   filter(value %in% top_12_fields) %>%
@@ -1111,7 +1125,7 @@ table_of_status_by_field %>%
     scale_fill_gradient("n",
                         low = "white",
                         high = "blue") +
-    labs(title = "Number of Respondants by Field (top 12 most common) and Career Stage",
+    labs(title = "Number of Respondants by Field and Career Stage \n(top 12 most common)",
          subtitle = "Note: Multiple selections possible per person",
          y = "Field",
          x = "Career Stage/Status") +
@@ -1124,7 +1138,6 @@ table_of_status_by_field %>%
 
 ```
 
-
 # Involvement in the Carpentries
 
 Please indicate your involvement in the Carpentry community since completing a Carpentry workshop. Check all that apply.
@@ -1132,16 +1145,19 @@ Please indicate your involvement in the Carpentry community since completing a C
 # Code for involvement (rows Involvement through Column57)
 # I want to use the tally_and_perc function, but don't know where to put the question_n
 Carpentry_Involvement <-
-round2data %>%
-  select(`Involvement`:Column57) %>%
+impactdata %>%
+  select(Involvement:Column57) %>%
   gather(col, Carpentry_Involvement) %>%
   group_by(Carpentry_Involvement) %>%
   tally() %>%
   filter(!is.na(Carpentry_Involvement)) %>%
+  mutate(perc = round(n/sum(n) * 100, 0)) %>%
   arrange(desc(n)) %>%
   rename(`Involvement Since Attending a Carpentry Workshop` = Carpentry_Involvement)
-kable(Carpentry_Involvement)
+
+kable(Carpentry_Involvement, format = 'markdown', col.names = c("Respondents Involvement with The Carpentries", "n", "%"))
 ```
+
 
 __Matrix of involvement__
 
@@ -1149,8 +1165,8 @@ __Matrix of involvement__
 # Code for matrix of involvement (thanks Ben for the tip!)
 # Combinations of tools for individual
 involvement_cols <-
-round2data %>%
-  select(`Involvement`:Column57)
+impactdata %>%
+  select(Involvement:Column57)
 
 # Matrix tool-by-tool
 
@@ -1169,6 +1185,7 @@ kable(involvement_co_occurences,
       caption = "Matrix of Common Involvement")
 ```
 
+
 # Continuous Learning
 
 Which of the following learning activities (for data management and analysis) have you participated in since completing a Carpentry workshop? Check all that apply.
@@ -1176,8 +1193,8 @@ Which of the following learning activities (for data management and analysis) ha
 # Code chunk for continuous learning
 
 Learning_Activities <-
-round2data %>%
-  select(`ContinuousLearning`:Column63) %>%
+impactdata %>%
+  select(ContinuousLearning:Column63) %>%
   gather(col, Learning_Activities) %>%
   group_by(Learning_Activities) %>%
   tally() %>%
@@ -1190,17 +1207,17 @@ round2data %>%
 kable(Learning_Activities,
       format = "markdown",
       row.names = FALSE,
-      col.names = c("Continuous Learning", "n", "%"),
-      caption = "Respondents Self-Reported Continuous Learning Activities")
+      col.names = c("Respondents' Continuous Learning Activities", "n", "%"))
 ```
+
 
 __Matrix of continuous learning activities__
 ```{r}
 # Code for matrix of continuous learning (thanks Ben for the tip!)
 # Combinations of involvement for individual
 learning_cols <-
-round2data %>%
-  select(`ContinuousLearning`:Column63)
+impactdata %>%
+  select(ContinuousLearning:Column63)
 
 # Matrix
 m <- as.matrix(learning_cols)
@@ -1222,7 +1239,7 @@ __Have you recommended a Carpentry workshop to a friend or colleague?__
 ```{r}
 # Code chunk for whether respondents recommended a workshop
 recommended <-
-round2data %>%
+impactdata %>%
   select(Recommended) %>%
   gather(col, Recommended) %>%
   group_by(Recommended) %>%
@@ -1233,26 +1250,28 @@ round2data %>%
   rename(`Recommended a Workshop?` = Recommended)
 
 # Table for responses of recommendations
-kable(recommended)
+kable(recommended, format = 'markdown', col.names = c("Respondents who Recommended a Workshop", "n", "%"))
 ```
 
-# Other
-```{r include=FALSE}
+
+# Responses for "Other" Column: Field
+```{r}
 # If interested in seeing the open-ended responses for Position: Other, run this code.
-round2data_field_other_tally <-
-  round2data %>%
-  group_by(`FieldOther`) %>%
+impactdata_field_other_tally <-
+  impactdata %>%
+  group_by(FieldOther) %>%
   tally() %>%
   filter(!is.na(`FieldOther`))
-kable(round2data_field_other_tally, format = "markdown", row.names = FALSE, col.names = c("Field-Other", "# Respondents"))
+kable(impactdata_field_other_tally, format = "markdown", row.names = FALSE, col.names = c("Field of Research/Work/Study: Other", "# Respondents"))
 ```
 
-```{r include=FALSE}
+# Responses for "Other" Column: Status
+```{r}
 # If interested in seeing the open-ended responses for Status: Other, run this code.
-round2data_status_other_tally <-
-  round2data %>%
-  group_by(`StatusOther`) %>%
+impactdata_status_other_tally <-
+  impactdata %>%
+  group_by(StatusOther) %>%
   tally() %>%
-  filter(!is.na(`StatusOther`))
-kable(round2data_status_other_tally, format = "markdown", row.names = FALSE, col.names = c("Status-Other", "# Respondents"))
+  filter(!is.na(StatusOther))
+kable(impactdata_status_other_tally, format = "markdown", row.names = FALSE, col.names = c("Status: Other", "# Respondents"))
 ```
