@@ -30,7 +30,7 @@ Check out [this list](report_ideas.md) for some suggestions -- or add your own i
 
 
 ##### Jupyter Notebook files 
-* [final\_report\_draft.ipynb](./workshops/final_report_draft.ipynb): Static graphs and charts of workshop data. Draft content to be used in final report.
+* [final\_report\_outline.ipynb](./workshops/final_report_outline.ipynb): Static graphs and charts of workshop data. Final report in progress; noting gaps and areas to fill in.
 
 
 ##### Convert to pdf or html
