@@ -24,6 +24,8 @@ This repository contains projects lead by Kari L. Jordan, Director of Assessment
 + [figures]()
 
 # Reports  
++ __Short-Term Reports__
+ + [2018-July](https://carpentries.github.io/assessment/learner-assessment/template_report_draft.html)
 + __Software Carpentry__ 
   + [2017-July](https://carpentries.github.io/assessment/learner-assessment/archives/2017/code/2017-July-post.html) Post-Workshop Survey Report  
 + __Data Carpentry__
