@@ -607,11 +607,12 @@ paired_data %>%
            pre_feeling_score,
            post_feeling_score) %>%
     gather(score, type, -UniqueID, -skill) %>%
+    mutate(skill = gsub("([A-Z])", " \\1", skill)) %>%
     group_by(skill, score) %>%
     summarize(
         mean = mean(type, na.rm = TRUE),
         sd = sd(type, na.rm = TRUE)
-    ) %>%
+    ) %>% 
     ggplot(aes(x = skill, y = mean, color = score)) +
     geom_point(size=5) +
     coord_flip() +
@@ -621,7 +622,8 @@ paired_data %>%
                         labels = c("Pre-workshop Score",
                                    "Post-workshop Score"), 
                         end = .7, discrete=TRUE) +
-    theme(text = element_text(size = 24))
+    labs(title = "Pre and Post comparison of skills and perception") +
+    theme(text = element_text(size = 16))
 
 ```
 
