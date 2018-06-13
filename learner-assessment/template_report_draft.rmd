@@ -19,6 +19,7 @@ library(beeswarm)
 library(NPS)
 library(broom)
 library(assertr)
+library(viridis)
 opts_chunk$set(echo = FALSE,
                message = FALSE,
                warning = FALSE)
