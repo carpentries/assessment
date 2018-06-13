@@ -323,28 +323,26 @@ cols_with_Agree <- map_lgl(newdata, ~`%in%`("Agree", .x))
 newdata_agree <-  newdata[ , cols_with_Agree]
 
 levels = c("Strongly disagree",
-   "Disagree",
-   "Neutral",
-   "Agree",
-   "Strongly agree")
-
- factorfunction <- function(newdata, factlevel){
-  factor(newdata, 
-         levels=factlevel, 
-         ordered = TRUE)
-    fct_unify(newdata, 
-              levels=factlevel)}
+           "Disagree",
+           "Neutral",
+           "Agree",
+           "Strongly agree")
 
 newdata_agree_likert <- likert(data.frame(lapply(newdata_agree, factor, levels, ordered=TRUE)))
+
+newdata_agree_likert$results$Item <-  gsub("([A-Z])"," \\1",
+                                           newdata_agree_likert$results$Item)
+
+names(newdata_agree_likert$items) <-  gsub("([A-Z])"," \\1",
+                                           names(newdata_agree_likert$items))
+                                                                                                         
 ```
 
-```{r dcpost_perception_instructors_heat}
-# Data Carpentry
-# Heatmap for Data Carpentry perception of instructors and helpers
+```{r dcpost_perception_instructors_heat}					
+## Data Carpentry
+## Heatmap for Data Carpentry perception of instructors and helpers
 title <- "Perception of Data Carpentry Instructors"
 plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "darkcyan", legend.position = "bottom") + ggtitle(title)
-
-# Is there a way to add spaces to the words in the legend?
 ```
 
 
