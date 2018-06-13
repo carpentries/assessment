@@ -605,9 +605,16 @@ paired_data %>%
         sd = sd(type, na.rm = TRUE)
     ) %>%
     ggplot(aes(x = skill, y = mean, color = score)) +
-    geom_point() +
+    geom_point(size=5) +
     coord_flip() +
-    ylim(c(0, 5))
+    ylim(c(0, 5)) +
+    theme_minimal() +
+    scale_color_viridis(breaks = c("pre_feeling_score", "post_feeling_score"),
+                        labels = c("Pre-workshop Score",
+                                   "Post-workshop Score"), 
+                        end = .7, discrete=TRUE) +
+    theme(text = element_text(size = 24))
+
 ```
 
 ```{r}
@@ -1170,7 +1177,7 @@ kable(dcpredata_status_tally, format = 'markdown', row.names = NA, col.names = c
 # Data Carpentry plot of learners by position/status
 # This plot is not working
 ggplot(dcpredata_status_tally, 
-       aes(ordered_status,
+       aes(Status,
            y = `%`,
            n)) +
   geom_bar(stat = "identity", 
