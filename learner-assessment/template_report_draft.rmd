@@ -23,7 +23,7 @@ library(viridis)
 opts_chunk$set(echo = FALSE,
                message = FALSE,
                warning = FALSE)
-opts_chunk$set(fig.path='figures/') #puts all figures in figures folder
+opts_chunk$set(fig.path='figures/', fig.width = 10,  fig.retina = 2) #puts all figures in figures folder
 ```
 
 ```{r}
