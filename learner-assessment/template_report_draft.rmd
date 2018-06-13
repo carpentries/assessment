@@ -1028,12 +1028,22 @@ net_promoter_score <-
     filter(!is.na(category)) %>%
     count(category) %>%
     mutate("%" = (n / sum(n))*100)
-    kable(net_promoter_score, format = 'markdown', row.names = NA, col.names = c ("Promoter Score", "n", "%"))
 
-# Instead of showing the table, I want to use in-line text to say that 
-# 77% of respondents are promoters using `r net_promoter_score[3]%` 
-# but I believe that's not the way to do it.
+kable(net_promoter_score, format = 'markdown', row.names = NA, col.names = c ("Promoter Score", "n", "%"))
+
+percent_promoters <- net_promoter_score %>%
+    filter(category == "Promoter") %>%
+    pull(`%`) %>%
+    round()
+## Instead of showing the table, I want to use in-line text to say that 
+## 77% of respondents are promoters using `r net_promoter_score[3]%` 
+## but I believe that's not the way to do it.
 ```
+
+`r percent_promoters`% of the respondants are promoters.
+
+
+
 ```{r}
 # NPS 
 # Software Carpentry
