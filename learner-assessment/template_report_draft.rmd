@@ -104,7 +104,15 @@ n_learners_post_swc <- nrow(swcpostdata)
 
 ```{r}
 ## time period covered
+all_dates <- c(dcpredata$Date, dcpostdata$Date,
+               swcpredata$Date, swcpostdata$Date)
+all_dates <- as.Date(all_dates, format = "%m/%d/%Y")
+min_date <- min(all_dates)
+max_date <- max(all_dates)
 ```
+
+This report covers the period from `r format(as.Date(min_date,format="%B %d, %Y"))` to `r format(as.Date(max_date, format="%B %d, %Y"))`.
+
 
 ```{r}
 ## general outline of the report
