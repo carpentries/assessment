@@ -166,21 +166,20 @@ kable(WhyAttending, format = 'markdown', row.names = NA, col.names = c ("Why lea
 ```{r}
 # Satisfaction with current data management practices 
 # Data Carpentry
-levels = c("Very unsatisfied", "Unsatisfied", "Neutral", "Satisfied", "Very satisfied", "Not sure", "Not applicable")
+satisfaction_levels <- c("Very unsatisfied", "Unsatisfied", "Neutral", "Satisfied", "Very satisfied", "Not sure", "Not applicable")
 
-Satisfaction <- 
-dcpredata %>%
-  select(`CurrentSatisfaction`) %>% 
-  gather(col, 
-         Satisfaction) %>% 
-  tally_and_perc(Satisfaction, 
-                 na.rm = TRUE) %>% 
-  rename(`CurrentSatisfaction` = Satisfaction)
+Satisfaction <- dcpredata %>%
+    select(`CurrentSatisfaction`) %>% 
+    gather(col, 
+           Satisfaction) %>% 
+    tally_and_perc(Satisfaction, 
+                   na.rm = TRUE) %>% 
+    rename(`CurrentSatisfaction` = Satisfaction) %>%
+    mutate(CurrentSatisfaction = factor(CurrentSatisfaction, levels = satisfaction_levels)) %>%
+    arrange(CurrentSatisfaction)
+
 
 kable(Satisfaction, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry Learners satisfaction with current data management practices", "n", "%"))
-
-# @françois I want the results from the table above to show in Likert order
-# from Very unsatisfied to Very satisfied, not alphabetical-order. Help please.
 ```
 
 ```{r}
