@@ -627,6 +627,28 @@ paired_data %>%
 
 ```
 
+```{r, fig.height=16}
+paired_data %>%
+    mutate(diff_score = post_feeling_score- pre_feeling_score) %>%
+    filter(!is.na(diff_score)) %>% 
+    mutate(diff_score = factor(diff_score)) %>%
+    mutate(skill = gsub("([a-z])([A-Z])", "\\1 \\2", skill)) %>%
+    count(skill, diff_score) %>%
+    group_by(skill) %>%
+    mutate(total = sum(n),
+           prop = n/total) %>% 
+    ggplot(aes(x = diff_score, y = prop, fill = diff_score))+
+    geom_col() +
+    theme_minimal() +
+    facet_grid(skill ~ .) +
+    labs(title = "Distribution of the change in score before and after workshop") +
+    scale_fill_viridis(name = "score difference", discrete = TRUE) +
+    theme(legend.position = "top")
+
+```
+
+
+
 ```{r}
 # Data Carpentry paired analysis table to compare DC pre scores with post scores
 t_test_results <- paired_data %>%
