@@ -185,17 +185,19 @@ kable(Satisfaction, format = 'markdown', row.names = NA, col.names = c ("Data Ca
 ```{r}
 # Programming usage 
 # Data Carpentry
-Programming <- 
-dcpredata %>%
-  select(`CurrentProgramming`) %>% 
-  gather(col, 
-         Programming) %>% 
-  tally_and_perc(Programming, 
-                 na.rm = TRUE) %>% 
-  rename(`Current Programming Usage` = Programming)
-kable(Programming, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry Learners current programming usage", "n", "%"))
+usage_levels <- c("Never", "Less than once per year",
+                  "Several times per year",
+                  "Monthly", "Weekly", "Daily")
 
-# How do I get the table above to show in order (least to greatest)?
+Programming <- dcpredata %>%
+    select(`CurrentProgramming`) %>% 
+    gather(col, Programming) %>% 
+    tally_and_perc(Programming, na.rm = TRUE) %>%
+    mutate(Programming = factor(Programming, levels = usage_levels)) %>%
+    arrange(Programming) %>% 
+    rename(`Current Programming Usage` = Programming)
+
+kable(Programming, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry Learners current programming usage", "n", "%"))
 ```
 
 ```{r}
