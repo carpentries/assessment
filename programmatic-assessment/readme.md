@@ -1,6 +1,8 @@
 Programmatic Assessment
 =======================
 
+### Workshops folder
+
 This folder contains raw data and Jupyter notebooks used in Carpentries programmatic assessment.
 
 #### To help us explore and analyze this data:
@@ -9,7 +11,7 @@ Clone this repo locally and install necessary modules from [../requirements.txt]
 
 OR 
 
-Visit this [Binder page]( http://mybinder.org/v2/gh/carpentries/assessment/master) for an online hosted environment.
+Visit this [Binder page]( http://mybinder.org/v2/gh/carpentries/assessment/master) for an online hosted environment.  Warning: Binder hosted projects are often slow to load. You may need to try a few times.
 
 #### What results are we looking to show?
 
@@ -30,7 +32,7 @@ Check out [this list](report_ideas.md) for some suggestions -- or add your own i
 
 
 ##### Jupyter Notebook files 
-* [final\_report\_outline.ipynb](./workshops/final_report_outline.ipynb): Static graphs and charts of workshop data. Final report in progress; noting gaps and areas to fill in.
+* [final\_notebook\_report.ipynb](./workshops/final_notebook_report.ipynb): Static graphs and charts of workshop data. Final report in progress; noting gaps and areas to fill in.
 
 
 ##### Convert to pdf or html
@@ -43,4 +45,4 @@ Replace `--to pdf` with `to --html` to convert to html instead of pdf.
 A file extension is not required for the output file name; nbconvert will add the .pdf or .html extension as appropriate.
 See [nbconvert documentation](http://nbconvert.readthedocs.io/en/latest/config_options.html) for more options.
 
-Rendered html pages can be viewed by visting http://htmlpreview.github.io/ and entering in the link to the html page from github.
+Rendered html pages can be viewed following the path within the github repo under the `carpentries.github.io` domain.  For example: https://carpentries.github.io/assessment/programmatic-assessment/workshops/outputs/final_report.html.
