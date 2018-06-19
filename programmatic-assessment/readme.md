@@ -46,3 +46,7 @@ A file extension is not required for the output file name; nbconvert will add th
 See [nbconvert documentation](http://nbconvert.readthedocs.io/en/latest/config_options.html) for more options.
 
 Rendered html pages can be viewed following the path within the github repo under the `carpentries.github.io` domain.  For example: https://carpentries.github.io/assessment/programmatic-assessment/workshops/outputs/final_report.html.
+
+### Instructor Training folder
+
+This folder contains historic data from The Carpentries Instructor Training program. It is not currently being maintained or updated. Contact team@carpentries.org or leave an issue in this repo with questions.
