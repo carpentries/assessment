@@ -147,14 +147,11 @@ kable(WhyAttending, format = 'markdown', row.names = NA, col.names = c ("Why lea
 satisfaction_levels <- c("Very unsatisfied", "Unsatisfied", "Neutral", "Satisfied", "Very satisfied", "Not sure", "Not applicable")
 
 Satisfaction <- dcpredata %>%
-    select(`CurrentSatisfaction`) %>% 
-    gather(col, 
-           Satisfaction) %>% 
-    tally_and_perc(Satisfaction, 
-                   na.rm = TRUE) %>% 
-    rename(`CurrentSatisfaction` = Satisfaction) %>%
-    mutate(CurrentSatisfaction = factor(CurrentSatisfaction, levels = satisfaction_levels)) %>%
-    arrange(CurrentSatisfaction)
+    select(`CurrentSatisfaction`) %>%
+    mutate(CurrentSatisfaction = replace(CurrentSatisfaction, is.na(CurrentSatisfaction), "Didn't answer")) %>% 
+    gather(col, Satisfaction) %>%
+    tally_and_perc(Satisfaction, na.rm = FALSE) %>% 
+    arrange(factor(Satisfaction, levels = satisfaction_levels))
 
 
 kable(Satisfaction, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry Learners satisfaction with current data management practices", "n", "%"))
