@@ -1164,6 +1164,7 @@ swcpredata_country_tally <-
     mutate(perc = round(100 * (n/sum(n)), 1)) %>% # add the % col
     arrange(desc(n))
 
+
 kable(swcpredata_country_tally, format='markdown', col.names = c("Software Carpentry Workshops in US", "n", "%"))
 ```
 
