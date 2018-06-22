@@ -736,7 +736,6 @@ likert_cols <-
     mutate_all(funs(fct_relevel(., ordered_agree))) %>% 
     filter_all(all_vars(!is.na(.)))
 
-lc <- likert(data.frame(likert_cols))
 ```
 
 ```{r dc_post_perception_likert}
@@ -759,7 +758,6 @@ likert_cols %>%
   slice(match(ordered_agree,
               value))
 
-# How do I de-select the variables that start with Instructors?
 ```
 
 
