@@ -417,12 +417,17 @@ ggplot(dcpostdata_apply_tally,
 ```
 
 ```{r}
-# How much information was new??? 
-# Software Carpentry: How much information presented at the SWC workshop was new.
-newinfo = c("None of it", "Some of it", "About half of it", "Most of it", "All of it")
-newinfo = factor(newinfo)
+## How much information was new??? 
+## Software Carpentry: How much information presented at the SWC workshop was
+## new.
+swcpostdata$NewInformation <- iconv(swcpostdata$NewInformation,
+                                    "latin1", "ASCII", sub=" ")
+swcpostdata$NewInformation <- gsub("\\s+", " ", swcpostdata$NewInformation)
 
-swcpostdata$NewInformation = factor(swcpostdata$NewInformation, levels = newinfo)
+newinfo <- c("None of it", "Some of it",
+             "About half of it", "Most of it", "All of it")
+
+swcpostdata$NewInformation <- factor(swcpostdata$NewInformation, levels = newinfo)
 
 swcpostdata_newinfo_tally <- 
   swcpostdata %>% 
@@ -452,7 +457,6 @@ ggplot(swcpostdata_newinfo_tally,
   ggtitle("Software Carpentry Respondents Learned \nMostly New Information") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
-# How do I get the answer choices to show in the correct order?
 ```
 
 ```{r}
