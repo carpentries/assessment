@@ -1156,23 +1156,23 @@ In Software Carpentry's pre-workshop survey, respondents are asked whether or no
 ```{r}
 # Tally Software Carpentry's pre-workshop respondents by Country
 swcpredata_country_tally <-
-swcpredata %>%
-  group_by(USWorkshop) %>%
-  tally(sort = TRUE) %>%
-  mutate(perc = round(100 * (n/sum(n)), 1)) %>% # add the % col
-  filter(!is.na(USWorkshop)) %>%
-  arrange(desc(n))
-kable(swcpredata_country_tally, format='markdown', col.names = c("Software Carpentry Workshops in US", "n", "%"))
+    swcpredata %>%
+    mutate(USWorkshop = replace(USWorkshop, is.na(USWorkshop),
+                                "Didn't answer")) %>% 
+    group_by(USWorkshop) %>%
+    tally(sort = TRUE) %>%
+    mutate(perc = round(100 * (n/sum(n)), 1)) %>% # add the % col
+    arrange(desc(n))
 
-# This doesn't equal 100%
+kable(swcpredata_country_tally, format='markdown', col.names = c("Software Carpentry Workshops in US", "n", "%"))
 ```
 
 ```{r}
-# Domain 
-# Tally Data Carpentry's pre-workshop respondents by Discipline
-# Responses are in columns 'Discipline' through 'Column13'
+## Domain 
+## Tally Data Carpentry's pre-workshop respondents by Discipline
+## Responses are in columns 'Discipline' through 'Column13'
 dcdiscipline <-
- dcpredata %>%
+    dcpredata %>%
  select(Discipline:Column13) %>%
  gather(col, dcdiscipline) %>%
  group_by(dcdiscipline) %>%
