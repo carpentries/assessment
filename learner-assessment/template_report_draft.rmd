@@ -44,29 +44,6 @@ tally_and_perc <- function(df, colname, na.rm = FALSE){
 }
 ```
 
-```{r}
-# function to compute number of non-NA responses to a question
-# @françois do we need this function? 
-n_responses_to_the_question <- function(df, from_colname, to_colname) {
-
-  quo_from_colname <- enquo(from_colname)
-  quo_to_colname <- enquo(to_colname)
-
-  rowsums <-
-df %>%
-  select(UQ(quo_from_colname):UQ(quo_to_colname)) %>%
-  # check that each row has a value for at least one col
-  # convert to numeric, if NA, then put a zero, otherwise 1
-  map_df(., ~ifelse(is.na(.x), 0, 1)) %>%
-  # sum to see if any rows have no reponses
-  rowSums()
-
-# for all behaviors
-idx <- ifelse(rowsums == 0, FALSE, TRUE)
-sum(idx)
-}
-```
-
 ```{r load-dc-data}
 # Load DC pre and post-workshop data
 # Data Carpentry Pre-Workshop Data
