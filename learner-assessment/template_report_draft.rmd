@@ -728,11 +728,13 @@ ordered_agree <-
    "Strongly agree")
 
 likert_cols <- 
- dcpostdata %>% 
-   select(which(map_lgl(dcpostdata, ~`%in%`("Agree", .x)))) %>% 
-   mutate_if(is.character, as.factor) %>% 
-   mutate_all(funs(fct_relevel(., ordered_agree))) %>% 
-  filter_all(all_vars(!is.na(.)))
+    dcpostdata %>%
+    select(which(map_lgl(dcpostdata, ~`%in%`("Agree", .x)))) %>%
+    select(-matches("Instructor"), -matches("Comfortable"),
+           -matches("WorkWithData"), -matches("Immediately")) %>%
+    mutate_if(is.character, as.factor) %>% 
+    mutate_all(funs(fct_relevel(., ordered_agree))) %>% 
+    filter_all(all_vars(!is.na(.)))
 
 lc <- likert(data.frame(likert_cols))
 ```
