@@ -521,14 +521,16 @@ ggplot(dcpostdata_workshop_tally,
 # Language covered 
 # Data Carpentry: Which programming language is being covered?
 ProgrammingLanguage <- 
-dcpredata %>%
-  select(`ProgrammingLanguageCovered`) %>% 
-  gather(col, 
-         ProgrammingLanguage) %>% 
-  tally_and_perc(ProgrammingLanguage, 
-                 na.rm = TRUE) %>% 
-  arrange(desc(n)) %>% 
-  rename(`Which language is being covered?` = ProgrammingLanguage)
+    dcpredata %>%
+    select(`ProgrammingLanguageCovered`) %>% 
+    gather(col, 
+           ProgrammingLanguage) %>% 
+    tally_and_perc(ProgrammingLanguage, 
+                   na.rm = TRUE) %>% 
+    arrange(factor(ProgrammingLanguage,
+                   levels = c("R", "Python", "I don't know/I don't remember",
+                              "Neither"))) %>% 
+    rename(`Which language is being covered?` = ProgrammingLanguage)
 
 kable(ProgrammingLanguage, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry: Language Covered in Workshops", "n", "%"))
 
