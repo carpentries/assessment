@@ -20,6 +20,7 @@ library(NPS)
 library(broom)
 library(assertr)
 library(viridis)
+library(patchwork)
 opts_chunk$set(echo = FALSE,
                message = FALSE,
                warning = FALSE)
@@ -701,21 +702,23 @@ lc <- likert(data.frame(likert_cols))
 # Data Carpentry pre-workshop neutral centered graph
 lc <- likert(data.frame(likert_cols))
 title <- "Data Carpentry Respondents: Pre-Workshop Perception of Tools"
- theme_update(plot.title = element_text(hjust = 0.5))
-plot(lc) + ggtitle(title)+ 
-guides(fill = guide_legend(nrow = 2)) # wraps legend
+theme_update(plot.title = element_text(hjust = 0.5))
 
-# Double check the plot with a table:
+likert_pre <- plot(lc) +
+    ggtitle(title)+ 
+    guides(fill = guide_legend(nrow = 2)) # wraps legend
+
+## Double check the plot with a table:
 xx <- 
-likert_cols %>% 
-  gather(key, value) %>% 
-  group_by(key, value) %>% 
-  tally() %>% 
-  mutate(perc = round(n / sum(n) * 100, 1)) %>% 
-  select(-n) %>% 
-  spread(key, perc) %>% 
-  slice(match(ordered_agree,
-              value))
+    likert_cols %>% 
+    gather(key, value) %>% 
+    group_by(key, value) %>% 
+    tally() %>% 
+    mutate(perc = round(n / sum(n) * 100, 1)) %>% 
+    select(-n) %>% 
+    spread(key, perc) %>% 
+    slice(match(ordered_agree,
+                value))
 ``` 
 
 ```{r}
@@ -751,24 +754,34 @@ names(lc$items) <-  gsub("([a-z])([A-Z])", "\\1 \\2",
 
 title <- "Data Carpentry Respondents: Post-Workshop Perception of Tools"
 theme_update(plot.title = element_text(hjust = 0.5))
-plot(lc) + ggtitle(title)+ 
-guides(fill = guide_legend(nrow = 2)) # wraps legend
 
-# Double check the plot with a table:
+likert_post <- plot(lc) +
+    ggtitle(title)+ 
+    guides(fill = guide_legend(nrow = 2)) # wraps legend
+
+
+## Double check the plot with a table:
 xx <- 
-likert_cols %>% 
-  gather(key, value) %>% 
-  group_by(key, value) %>% 
-  tally() %>% 
-  mutate(perc = round(n / sum(n) * 100, 1)) %>% 
-  select(-n) %>% 
-  spread(key, perc) %>% 
-  slice(match(ordered_agree,
-              value))
+    likert_cols %>% 
+    gather(key, value) %>% 
+    group_by(key, value) %>% 
+    tally() %>% 
+    mutate(perc = round(n / sum(n) * 100, 1)) %>% 
+    select(-n) %>% 
+    spread(key, perc) %>% 
+    slice(match(ordered_agree,
+                value))
 
 ```
 
 
+```{r dc_pre_post_likert, fig.height=16}
+
+(likert_pre + theme(legend.position="none"))  +
+    likert_post +
+    plot_layout(ncol=1)
+
+```
 
 Software Carpentry Respondets were asked to tell us about their experience with these topics before the workshop:
 
