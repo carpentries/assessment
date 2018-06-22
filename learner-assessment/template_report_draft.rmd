@@ -688,11 +688,11 @@ ordered_agree <-
    "Strongly agree")
 
 likert_cols <- 
- dcpredata %>% 
-   select(which(map_lgl(dcpredata, ~`%in%`("Agree", .x)))) %>% 
-   mutate_if(is.character, as.factor) %>% 
-   mutate_all(funs(fct_relevel(., ordered_agree))) %>% 
-  filter_all(all_vars(!is.na(.)))
+    dcpredata %>% 
+    select(which(map_lgl(dcpredata, ~`%in%`("Agree", .x)))) %>% 
+    mutate_if(is.character, as.factor) %>% 
+    mutate_all(funs(fct_relevel(., ordered_agree))) %>% 
+    filter_all(all_vars(!is.na(.)))
 
 lc <- likert(data.frame(likert_cols))
 ```
