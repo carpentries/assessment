@@ -1074,16 +1074,17 @@ percent_promoters <- net_promoter_score %>%
 ```{r}
 # NPS 
 # Software Carpentry
-recommend = c("Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree")
+recommend <- c("Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree")
 
 Recommend <- 
-swcpostdata %>%
-  select(Recommend) %>% 
-  gather(col, 
-         Recommend) %>% 
-  tally_and_perc(Recommend, 
-                 na.rm = TRUE) %>% 
-  rename(Recommend = Recommend)
+    swcpostdata %>%
+    select(Recommend) %>% 
+    gather(col, 
+           Recommend) %>% 
+    tally_and_perc(Recommend, 
+                   na.rm = TRUE) %>%
+    arrange(factor(Recommend, levels = recommend)) %>% 
+    rename(Recommend = Recommend)
 
 kable(Recommend, format = 'markdown', row.names = NA, col.names = c ("SWC Respondents Recommending Workshops", "n", "%"))
 
