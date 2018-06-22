@@ -741,8 +741,16 @@ likert_cols <-
 ```{r dc_post_perception_likert}
 # Data Carpentry post-workshop neutral centered graph
 lc <- likert(data.frame(likert_cols))
+
+lc$results$Item <-  gsub("([a-z])([A-Z])", "\\1 \\2",
+                         lc$results$Item)
+
+names(lc$items) <-  gsub("([a-z])([A-Z])", "\\1 \\2",
+                         names(lc$items))
+
+
 title <- "Data Carpentry Respondents: Post-Workshop Perception of Tools"
- theme_update(plot.title = element_text(hjust = 0.5))
+theme_update(plot.title = element_text(hjust = 0.5))
 plot(lc) + ggtitle(title)+ 
 guides(fill = guide_legend(nrow = 2)) # wraps legend
 
