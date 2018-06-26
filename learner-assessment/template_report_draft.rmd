@@ -713,6 +713,30 @@ paired_data %>%
 ```
 
 As the scoring for the above factors is ordinal from strongly disagree (1) to strongly agree (5), we show the mode (most frequent responses)
+
+
+```{r distribution-shift}
+
+paired_data %>%
+    select(UniqueID, skill,
+           pre = pre_feeling_score, post = post_feeling_score) %>%
+    filter(!is.na(pre) & !is.na(post)) %>%
+    gather(pre_post, score, -UniqueID, -skill) %>%
+    mutate(skill = gsub("([a-z])([A-Z])", "\\1 \\2", skill)) %>%
+    ggplot() +
+    geom_bar(aes(x = score, fill = factor(pre_post, levels = c("pre", "post"))),
+             position = "dodge") +
+    facet_wrap(~ skill) +
+    scale_fill_viridis(
+        name = "",
+        breaks = c("pre", "post"),
+        labels = c("Pre-workshop", "Post-workshop"),
+        discrete = TRUE, end = .7) +
+    theme_minimal()
+
+```
+
+
 ```{r, fig.height=16}
 paired_data %>%
     mutate(diff_score = post_feeling_score- pre_feeling_score) %>%
