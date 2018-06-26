@@ -131,9 +131,9 @@ dcpredata %>%
 kable(WhyAttending, format = 'markdown', row.names = NA, col.names = c ("Why learners attend Data Carpentry workshops", "n", "%"))
 ```
 
-`r WhyAttending[1]`%
+XX% of Data Carpentry learners attend workshops to learn skills they can apply to their work in the future.
 
-SWC workshops teach automation with the Unix shell, a very traditional and fundamental tool. It lets the users interact with the computer at a base level, by running commands interactively or by scripting. In SWC workshops, we teach version control of source code with Git. We also teach GitHub, a popular Git-based web service for hosting code repositories and facilitating contribution and collaboration. We do warn learners that their research institutions might recommend or require them to use other hosting platforms.
+Software Carpentry workshops teach automation with the Unix shell, a tool that allows users to run commands interactively or by scripting. In Software Carpentry workshops, version control of source code with Git and GitHub are also taught for learners to learn facilitating contribution and collaboration on online repositories. Programming in R or Python is also taught. Software Carpentry's curriculum teaches basic lab skills for scientific computing. Compared to Data Carpentry's learners, Software Carpentry's tend to have more experience witht the tools covered in the workshops, and learners come to learn new and/or additional topics (XX%).
 ```{r}
 # Why are you attending this workshop?
 # Software Carpentry Responses are in columns 'WhyAttending' through 'Column7'
@@ -149,6 +149,7 @@ swcpredata %>%
 kable(WhyAttending, format = 'markdown', row.names = NA, col.names = c ("Why learners attend Software Carpentry Workshops", "n", "%"))
 ```
 
+The majority (XX%) of Data Carpentry's respondents are either unsatisfied or feel neutral about being satisfied with their current data management practices. By data management practices, we include behaviors such as keeping your raw data raw, reusing code, and using databases, queries, and scripts to manage large datasets.
 ```{r}
 # Satisfaction with current data management practices 
 # Data Carpentry
@@ -164,6 +165,8 @@ Satisfaction <- dcpredata %>%
 
 kable(Satisfaction, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry Learners satisfaction with current data management practices", "n", "%"))
 ```
+
+In terms of current programming usage, XX% of learners either never use programming, or use programming less than once per year, but no more than several times per year. Only XX% program on a daily basis. This is no surprise, as Data Carpentry workshops tend to attract novices.
 
 ```{r}
 # Programming usage 
@@ -183,6 +186,7 @@ Programming <- dcpredata %>%
 kable(Programming, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry Learners current programming usage", "n", "%"))
 ```
 
+Data Carpentry workshops are mainly populated by "word-of-mouth". XX% of respondents learned about the workshop from either a friend, colleague, or their advisor or supervisor.
 ```{r}
 # How did you find out about this workshop? 
 # Data Carpentry Responses are in columns 'Exposure-Workshop' through 'Column31'
@@ -199,6 +203,7 @@ dcpredata %>%
 kable(Exposure, format = 'markdown', row.names = NA, col.names = c ("How respondents find out about Data Carpentry workshops", "n", "%"))
 ```
 
+On the contrary, the majority of Software Carpentry workshop respondents (XX%) find out about workshops through instituion mailing lists or flyers.
 ```{r}
 # How did you find out about this workshop? 
 # Software Carpentry Responses are in columns 'Exposure' through 'Column21'
@@ -214,7 +219,12 @@ swcpredata %>%
 
 kable(Exposure, format = 'markdown', row.names = NA, col.names = c ("How respondents find out about Software Carpentry workshops", "n", "%"))
 ```
-### Workshop Type
+
+In summary, both Data and Software Carpentry workshop respondents attend workshops to learn about or improve upon their current data management and analysis skills.
+
+### Workshop Type and Perception of Workshop Environment/Experience
+As previously mentioned, Data Carpentry workshops are domain specific, and curricula include Ecology, Genomics, Geospatial, Social Sciences, and Reproducible Research. XX% of respondents learned R in their workshop, while XX% learned Python.
+
 
 ```{r}
 # In this section we will include:
@@ -274,7 +284,8 @@ kable(ProgrammingLanguage, format = 'markdown', row.names = NA, col.names = c ("
 # I want these to show in this order: R, Python, I don't know/I don't remember, Neither
 ```
 
-### Workshop Environment
+## Workshop Environment
+The Carpentries is committed to making participation in our workshops a harassment-free experience for everyone, regardless of who you are, where you come from, or your experience with the tools we teach. We establish norms for interaction by having, discussing, and enforcing a Code of Conduct such that our workshops provide open and inclusive learning environments. XX% of Data Carpentry respondents either agree or strongly agree that they felt comfortable learning in their workshop environment, and XX% of Software Carpentry's respondents agreed or strongly agreed the workshop atmosphere was welcoming.
 
 ```{r}
 # In this section we will include:
@@ -347,7 +358,7 @@ ggplot(swcpostdata_atmosphere_tally,
   theme_classic(base_size = 14)
 ```
 
-Data Carpentry respondents were asked to rate their level of agreement with several statements regarding their instructor's knowledge, instructional method, and enthusiasm. Their responses are in the figure below, and axis labels corresponding to the statements are as follows:
+Data Carpentry respondents were asked to rate their level of agreement with several statements regarding their instructor's knowledge, instructional method, and enthusiasm. Their responses are in the figure below, and axis labels correspond to the statements as follows:
 
 + __Instructors Knowledge__: The instructors were knowledgeable about the material being taught.
 + __Instructors Interacting__: I felt comfortable interacting with the instructors. 
@@ -386,7 +397,7 @@ names(newdata_agree_likert$items) <-  gsub("([A-Z])"," \\1",
 title <- "Perception of Data Carpentry Instructors"
 plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "darkcyan", legend.position = "bottom") + ggtitle(title)
 ```
-
+The largest impact we see is that XX% of respondents said they felt comfortable interacting with the instructors. We know that our instructors *are* the reason why our workshops are so well received. It's also great to see that XX% and XX% of respondents felt our instructors were knowledgeable about the material being taught, and were enthusiastic about the workshop, respectively. We would like to explore what training would help our instructors so that the percentage of respondents who felt they were able to get clear answers to their questions from the instructors would increase.
 
 Software Carpentry respondents were asked to rate how they felt instructors and helpers worked as a team based on the following criteria:
 
@@ -395,7 +406,7 @@ Software Carpentry respondents were asked to rate how they felt instructors and 
 + __Clear Answers__: Instructors/Helpers gave clear answers to your questions. 
 + __Communicators__: Instructors/Helpers were good communicators.    
   
-The two Likert plots below provide an analysis of respondent answers.
+The two Likert plots below provide an analysis of respondent's answers for both instructors and helpers.
 
 ```{r}
 # Software Carpentry: Perception of SWC workshop instructors/helpers
@@ -447,6 +458,9 @@ The two Likert plots below provide an analysis of respondent answers.
  guides(fill = guide_legend(nrow = 2)) # wraps legend
 ```
 
+From the figures above, we see that Software Carpentry instructors and helpers are considerate, enthusiastic, give clear answers to questions, and are good communicators. As a whole, our instructors work as a team and are successful in creating a warm and welcoming workshop environment.
+
+One of the goals for Data Carpentry's lessons is that learners are able to immediately apply what they learned at the workshop. The figure below shows that XX% either agree or strongly agree that they're able to immediately apply what they learned.
 ```{r}
 # Applicability 
 # Data Carpentry: I can immediately apply what I learned at this workshop
@@ -480,6 +494,7 @@ ggplot(dcpostdata_apply_tally,
   theme_classic(base_size = 14)
 ```
 
+As the majority of Software Carpentry learners attend workshops to learn new skills it is great to see that XX% of learners either learned mostly or all new information during the workshop.
 ```{r}
 ## How much information was new??? 
 ## Software Carpentry: How much information presented at the SWC workshop was
@@ -523,6 +538,15 @@ ggplot(swcpostdata_newinfo_tally,
   theme_classic(base_size = 14)
 ```
 
+### Workshop Experience
+```{r}
+# In this section we will include:
+# Accessibility
+# NPS (SWC/DC)
+# Qualitative Analysis (SWC/DC)
+```
+We want to be proactive in ensuring learners have access to whatever they need to participate in a workshop. Both Data and Software Carpentry learners are asked to inform workshop organizers if there is anything they need that would make their workshop experience better. Data Carpentry's respondents were asked if they had accessibility issues, and XX% reported they did. After reading the open-ended responses, we see that the issues were related to not being able to hear and/or see in the back of the room.
+
 ```{r}
 # Accessibility 
 # Data Carpentry: Were there any accessibility issues that affected your ability 
@@ -540,12 +564,8 @@ dcpostdata %>%
 kable(issues, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry Respondents Having Accessibility Issues", "n", "%"))
 ```
 
-### Workshop Experience
-```{r}
-# In this section we will include:
-# NPS (SWC/DC)
-# Qualitative Analysis (SWC/DC)
-```
+We use the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter) to measure learners' likelihood of recommending workshops to a friend or colleague. The scoring for this question is on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors.
+
 
 ```{r}
 # NPS 
@@ -558,62 +578,61 @@ net_promoter_score <-
     count(category) %>%
     mutate("%" = (n / sum(n))*100)
 
-kable(net_promoter_score, format = 'markdown', row.names = NA, col.names = c ("Promoter Score", "n", "%"))
+kable(net_promoter_score, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry Promoter Score", "n", "%"))
 
 percent_promoters <- net_promoter_score %>%
     filter(category == "Promoter") %>%
     pull(`%`) %>%
     round()
-
-percent_promoters
-## Instead of showing the table, I want to use in-line text to say that 
-## 77% of respondents are promoters using `r net_promoter_score[3]%` 
-## but I believe that's not the way to do it.
 ```
 
-We use the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter) to measure learners' likelihood of recommending workshops to a friend or colleague. The scoring for this question is on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors. `r percent_promoters`% of the respondants are promoters.
+`r percent_promoters`% of Data Carpentry respondants are promoters (i.e. would recommend a workshop). 
 
 ```{r}
-# NPS 
 # Software Carpentry
-recommend <- c("Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree")
+# Q: I would recommend this workshop to a friend/colleague
+# I will only include the promoter score info
+#recommend <- c("Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree")
 
-Recommend <- 
-    swcpostdata %>%
-    select(Recommend) %>% 
-    gather(col, 
-           Recommend) %>% 
-    tally_and_perc(Recommend, 
-                   na.rm = TRUE) %>%
-    arrange(factor(Recommend, levels = recommend)) %>% 
-    rename(Recommend = Recommend)
+#Recommend <- 
+#    swcpostdata %>%
+#    select(Recommend) %>% 
+#    gather(col, 
+#           Recommend) %>% 
+#    tally_and_perc(Recommend, 
+#                   na.rm = TRUE) %>%
+#    arrange(factor(Recommend, levels = recommend)) %>% 
+#    rename(Recommend = Recommend)
 
-kable(Recommend, format = 'markdown', row.names = NA, col.names = c ("SWC Respondents Recommending Workshops", "n", "%"))
+#kable(Recommend, format = 'markdown', row.names = NA, col.names = c ("SWC Respondents Recommending Workshops", "n", "%"))
 
 # How do I get the answer choices to show in the right order?
 ```
 
 ```{r}
+# NPS
 # Software Carpentry
-net_promoter_score <- 
+net_promoter_score_swc <- 
     swcpostdata$`LikelyToRecommend` %>%
     npc(breaks = list(0:6.4, 6.5:8.4, 8.5:10)) %>%
     data.frame(category = .) %>%
     filter(!is.na(category)) %>%
     count(category) %>%
     mutate("%" = (n / sum(n))*100)
-    kable(net_promoter_score, format = 'markdown', row.names = NA, col.names = c ("Promoter Score", "n", "%"))
-
-# Instead of showing the table, I want to use in-line text to say that 
-# 64% of respondents are promoters using `r net_promoter_score[3]%` 
-# but I believe that's not the way to do it.
+    kable(net_promoter_score, format = 'markdown', row.names = NA, col.names = c ("Software Carpentry Promoter Score", "n", "%"))
+    
+    percent_promoters_swc <- net_promoter_score_swc %>%
+    filter(category == "Promoter") %>%
+    pull(`%`) %>%
+    round()
 ```
 
-
+For Software Carpentry respondents, `r percent_promoters_swc[3]`% are promoters.
 ```{r}
 # Qualitative Analysis (SWC/DC)
 ```
 
+In summary, Data and Software Carpentry workshops provide a warm and welcoming environment whether learners are brand new to programming or have some experience. Attendees are recommending workshops to their friends and colleagues, and we know that our instructors and helpers are the major reason why.
 
 ### Effect of Workshops on Learners Self-Reported Perspectives: Skills & Confidence
 
@@ -688,6 +707,7 @@ paired_data %>%
 
 ```
 
+As the scoring for the above factors is ordinal from strongly disagree (1) to strongly agree (5), we show the mode (most frequent responses)
 ```{r, fig.height=16}
 paired_data %>%
     mutate(diff_score = post_feeling_score- pre_feeling_score) %>%
