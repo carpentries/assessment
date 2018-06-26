@@ -3,8 +3,9 @@ output:
   html_document: default
   pdf_document: default
 ---
-## [DRAFT] Carpentries Pre- and Post-Workshop Assessment Results
-June 2018
+# [DRAFT] Analysis of Software and Data Carpentry's Pre- and Post-Workshop Surveys
+### Authors: The Carpentries Assessment Team
+### Published: July 2018
 
 ```{r setup, include=FALSE}
 library(tidyverse)
@@ -62,8 +63,6 @@ swcpredata <- readr::read_csv("data/180521_swcpre.csv")
 swcpostdata <- readr::read_csv("data/180521_swcpost.csv")
 ```
 
-# Overview
-
 ```{r}
 # In this section we will include:
 # number of workshops
@@ -89,18 +88,21 @@ min_date <- min(all_dates)
 max_date <- max(all_dates)
 ```
 
-This report covers the period from `r format(as.Date(min_date,format="%B %d, %Y"))` to `r format(as.Date(max_date, format="%B %d, %Y"))`.
+### Overview
+Since XXXX, Software and Data Carpentry have collected information on learner demographics, perception of tools and confidence in working with data. As we continue in our goal to streamline processes as The Carpentries, the Assessment Team completed an analysis of the pre- and post-workshop surveys for both Software and Data Carpentry. The goal of this analysis is to understand the impact our workshops are having on learners, and how we can improve our surveys and assessment infrastructure. This report covers the workshops from `r format(as.Date(min_date,format="%B %d, %Y"))` to `r format(as.Date(max_date, format="%B %d, %Y"))`.
 
+As an overview, `r n_learners_pre_dc` learners have responded to Data Carpentry's surveys, while `r n_learners_pre_swc` have responded to Software Carpentry's. 
 
-```{r}
-## general outline of the report
-```
+This report includes the following:
 
-This is an overview of the number of learners attending Data Carpentry and Software Carpentry workshops. `r n_learners_pre_dc` learners have attended Data Carpentry workshops, and `r n_learners_pre_swc` have attended Software Carpentry workshops. 
+- Motivation for Attending Carpentries Workshops
+- Workshop Type and Perception of Workshop Environment/Experience
+- Effect of Workshops on Learner's Self-Reported Perspectives, Skills, and Confidence
+- Ability to Perform Computing Tasks
+- Demographics
+- Summary
 
-Learners were asked how likely they are to recommend this workshop to a friend or colleague using the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter). The scoring for this question based on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors. 
-
-# Motivation for Attending Carpentries Workshops
+### Motivation for Attending Carpentries Workshops
 
 ```{r}
 # In this section we will include:
@@ -109,6 +111,9 @@ Learners were asked how likely they are to recommend this workshop to a friend o
 # Programming usage (DC)
 # How did you find out about this workshop? (SWC, DC)
 ```
+Learners attend Carpentries workshops for many reasons. Data Carpentry's workshops are domain specific and focus on the fundamental data skills needed to conduct research. Data Carpentry's Ecology and Social Sciences curricula begin with a lesson on data organization and includes data cleaning with OpenRefine. From there, learners spend time learning a base programming language, either Python or R.
+
+Data Carpentry's Genomics curriculum also includes programming, however the focus of this curriculum is best practices for organization of bioinformatics projects and data, use of command line utilities and tools to analyze sequence quality and perform variant calling, and connecting to and using cloud computing.
 
 ```{r}
 # Why are you attending this workshop?
@@ -126,6 +131,9 @@ dcpredata %>%
 kable(WhyAttending, format = 'markdown', row.names = NA, col.names = c ("Why learners attend Data Carpentry workshops", "n", "%"))
 ```
 
+`r WhyAttending[1]`%
+
+SWC workshops teach automation with the Unix shell, a very traditional and fundamental tool. It lets the users interact with the computer at a base level, by running commands interactively or by scripting. In SWC workshops, we teach version control of source code with Git. We also teach GitHub, a popular Git-based web service for hosting code repositories and facilitating contribution and collaboration. We do warn learners that their research institutions might recommend or require them to use other hosting platforms.
 ```{r}
 # Why are you attending this workshop?
 # Software Carpentry Responses are in columns 'WhyAttending' through 'Column7'
@@ -206,8 +214,67 @@ swcpredata %>%
 
 kable(Exposure, format = 'markdown', row.names = NA, col.names = c ("How respondents find out about Software Carpentry workshops", "n", "%"))
 ```
+### Workshop Type
 
-# Workshop Environment
+```{r}
+# In this section we will include:
+# Workshop topics (DC)
+# Language covered (DC, SWC)
+```
+
+```{r}
+# Workshop topics
+# Data Carpentry: Which workshop are you attending?
+workshop = c("Ecology", "Genomics", "Geospatial", "Reproducible Research", "Social Sciences", "I don't know.")
+workshop = factor(workshop)
+
+dcpostdata$Workshop = factor(dcpostdata$Workshop, levels = workshop)
+
+dcpostdata_workshop_tally <- 
+  dcpostdata %>% 
+  group_by(Workshop) %>% 
+  tally_and_perc(Workshop) %>%
+  filter(!is.na(Workshop))
+  #kable(dcpostdata_workshop_tally, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry Workshop Attending", "n", "%"))
+```
+
+```{r dc_post_workshop_attended}
+# Data Carpentry: Plot for which workshop are you attending?
+ggplot(dcpostdata_workshop_tally, 
+       aes(`Workshop`, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="darkcyan") +
+  geom_text(aes(label=n), size= 4, vjust=-0.25) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Workshop Attended") +
+  ylab("% Respondents") +
+  ggtitle("Marjority of Data Carpentry Respondents by \nAttend Ecology Workshops") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+```
+
+```{r}
+# Language covered 
+# Data Carpentry: Which programming language is being covered?
+ProgrammingLanguage <- 
+    dcpredata %>%
+    select(`ProgrammingLanguageCovered`) %>% 
+    gather(col, 
+           ProgrammingLanguage) %>% 
+    tally_and_perc(ProgrammingLanguage, 
+                   na.rm = TRUE) %>% 
+    arrange(factor(ProgrammingLanguage,
+                   levels = c("R", "Python", "I don't know/I don't remember",
+                              "Neither"))) %>% 
+    rename(`Which language is being covered?` = ProgrammingLanguage)
+
+kable(ProgrammingLanguage, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry: Language Covered in Workshops", "n", "%"))
+
+# I want these to show in this order: R, Python, I don't know/I don't remember, Neither
+```
+
+### Workshop Environment
 
 ```{r}
 # In this section we will include:
@@ -473,69 +540,82 @@ dcpostdata %>%
 kable(issues, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry Respondents Having Accessibility Issues", "n", "%"))
 ```
 
-
-# Workshop Type
-
+### Workshop Experience
 ```{r}
 # In this section we will include:
-# Workshop topics (DC)
-# Language covered (DC, SWC)
+# NPS (SWC/DC)
+# Qualitative Analysis (SWC/DC)
 ```
 
 ```{r}
-# Workshop topics
-# Data Carpentry: Which workshop are you attending?
-workshop = c("Ecology", "Genomics", "Geospatial", "Reproducible Research", "Social Sciences", "I don't know.")
-workshop = factor(workshop)
+# NPS 
+# Data Carpentry
+net_promoter_score <- 
+    dcpostdata$`LikelyToRecommend` %>%
+    npc(breaks = list(0:64, 65:84, 85:100)) %>%
+    data.frame(category = .) %>%
+    filter(!is.na(category)) %>%
+    count(category) %>%
+    mutate("%" = (n / sum(n))*100)
 
-dcpostdata$Workshop = factor(dcpostdata$Workshop, levels = workshop)
+kable(net_promoter_score, format = 'markdown', row.names = NA, col.names = c ("Promoter Score", "n", "%"))
 
-dcpostdata_workshop_tally <- 
-  dcpostdata %>% 
-  group_by(Workshop) %>% 
-  tally_and_perc(Workshop) %>%
-  filter(!is.na(Workshop))
-  #kable(dcpostdata_workshop_tally, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry Workshop Attending", "n", "%"))
+percent_promoters <- net_promoter_score %>%
+    filter(category == "Promoter") %>%
+    pull(`%`) %>%
+    round()
+
+percent_promoters
+## Instead of showing the table, I want to use in-line text to say that 
+## 77% of respondents are promoters using `r net_promoter_score[3]%` 
+## but I believe that's not the way to do it.
 ```
 
-```{r dc_post_workshop_attended}
-# Data Carpentry: Plot for which workshop are you attending?
-ggplot(dcpostdata_workshop_tally, 
-       aes(`Workshop`, y = 100 * (n/sum(n)),
-           n)) +
-  geom_bar(stat = "identity", fill="darkcyan") +
-  geom_text(aes(label=n), size= 4, vjust=-0.25) +
-  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-  theme_classic() +
-  xlab("Workshop Attended") +
-  ylab("% Respondents") +
-  ggtitle("Marjority of Data Carpentry Respondents by \nAttend Ecology Workshops") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
-```
+We use the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter) to measure learners' likelihood of recommending workshops to a friend or colleague. The scoring for this question is on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors. `r percent_promoters`% of the respondants are promoters.
 
 ```{r}
-# Language covered 
-# Data Carpentry: Which programming language is being covered?
-ProgrammingLanguage <- 
-    dcpredata %>%
-    select(`ProgrammingLanguageCovered`) %>% 
+# NPS 
+# Software Carpentry
+recommend <- c("Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree")
+
+Recommend <- 
+    swcpostdata %>%
+    select(Recommend) %>% 
     gather(col, 
-           ProgrammingLanguage) %>% 
-    tally_and_perc(ProgrammingLanguage, 
-                   na.rm = TRUE) %>% 
-    arrange(factor(ProgrammingLanguage,
-                   levels = c("R", "Python", "I don't know/I don't remember",
-                              "Neither"))) %>% 
-    rename(`Which language is being covered?` = ProgrammingLanguage)
+           Recommend) %>% 
+    tally_and_perc(Recommend, 
+                   na.rm = TRUE) %>%
+    arrange(factor(Recommend, levels = recommend)) %>% 
+    rename(Recommend = Recommend)
 
-kable(ProgrammingLanguage, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry: Language Covered in Workshops", "n", "%"))
+kable(Recommend, format = 'markdown', row.names = NA, col.names = c ("SWC Respondents Recommending Workshops", "n", "%"))
 
-# I want these to show in this order: R, Python, I don't know/I don't remember, Neither
+# How do I get the answer choices to show in the right order?
+```
+
+```{r}
+# Software Carpentry
+net_promoter_score <- 
+    swcpostdata$`LikelyToRecommend` %>%
+    npc(breaks = list(0:6.4, 6.5:8.4, 8.5:10)) %>%
+    data.frame(category = .) %>%
+    filter(!is.na(category)) %>%
+    count(category) %>%
+    mutate("%" = (n / sum(n))*100)
+    kable(net_promoter_score, format = 'markdown', row.names = NA, col.names = c ("Promoter Score", "n", "%"))
+
+# Instead of showing the table, I want to use in-line text to say that 
+# 64% of respondents are promoters using `r net_promoter_score[3]%` 
+# but I believe that's not the way to do it.
 ```
 
 
-# Effect of Workshops on Learners Self-Reported Perspectives: Skills & Confidence
+```{r}
+# Qualitative Analysis (SWC/DC)
+```
+
+
+### Effect of Workshops on Learners Self-Reported Perspectives: Skills & Confidence
 
 Learners were asked to rate their level of agreement with the following statements related to Data Carpentry's workshop goals and learning objectives. The figure below provides a visual representation of their responses, comparing them before the workshop and after the workshop. Axis labels and the corresponding question are as follows:  
 
@@ -625,7 +705,6 @@ paired_data %>%
     labs(title = "Distribution of the change in score before and after workshop") +
     scale_fill_viridis(name = "score difference", discrete = TRUE) +
     theme(legend.position = "top")
-
 ```
 
 
@@ -920,7 +999,7 @@ grid.arrange(tools_before,
              ncol = 1) 
 ```
 
-# Respondent Ability to Perform Computing Tasks
+### Respondent Ability to Perform Computing Tasks
 Motivation is important, but being confident in your ability to complete specific computing tasks is an equally important goal of Software Carpentry. The grid below shows respondents' self-reported ability to complete tasks including: 
 
 * Using pipes to connect shell commands 
@@ -1035,81 +1114,8 @@ grid.arrange(computing_before,
              ncol = 1)
 ```
 
-# Workshop Experience
-```{r}
-# In this section we will include:
-# NPS (SWC/DC)
-# Qualitative Analysis (SWC/DC)
-```
 
-```{r}
-# NPS 
-# Data Carpentry
-net_promoter_score <- 
-    dcpostdata$`LikelyToRecommend` %>%
-    npc(breaks = list(0:64, 65:84, 85:100)) %>%
-    data.frame(category = .) %>%
-    filter(!is.na(category)) %>%
-    count(category) %>%
-    mutate("%" = (n / sum(n))*100)
-
-kable(net_promoter_score, format = 'markdown', row.names = NA, col.names = c ("Promoter Score", "n", "%"))
-
-percent_promoters <- net_promoter_score %>%
-    filter(category == "Promoter") %>%
-    pull(`%`) %>%
-    round()
-## Instead of showing the table, I want to use in-line text to say that 
-## 77% of respondents are promoters using `r net_promoter_score[3]%` 
-## but I believe that's not the way to do it.
-```
-
-`r percent_promoters`% of the respondants are promoters.
-
-
-
-```{r}
-# NPS 
-# Software Carpentry
-recommend <- c("Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree")
-
-Recommend <- 
-    swcpostdata %>%
-    select(Recommend) %>% 
-    gather(col, 
-           Recommend) %>% 
-    tally_and_perc(Recommend, 
-                   na.rm = TRUE) %>%
-    arrange(factor(Recommend, levels = recommend)) %>% 
-    rename(Recommend = Recommend)
-
-kable(Recommend, format = 'markdown', row.names = NA, col.names = c ("SWC Respondents Recommending Workshops", "n", "%"))
-
-# How do I get the answer choices to show in the right order?
-```
-
-```{r}
-# Software Carpentry
-net_promoter_score <- 
-    swcpostdata$`LikelyToRecommend` %>%
-    npc(breaks = list(0:6.4, 6.5:8.4, 8.5:10)) %>%
-    data.frame(category = .) %>%
-    filter(!is.na(category)) %>%
-    count(category) %>%
-    mutate("%" = (n / sum(n))*100)
-    kable(net_promoter_score, format = 'markdown', row.names = NA, col.names = c ("Promoter Score", "n", "%"))
-
-# Instead of showing the table, I want to use in-line text to say that 
-# 64% of respondents are promoters using `r net_promoter_score[3]%` 
-# but I believe that's not the way to do it.
-```
-
-
-```{r}
-# Qualitative Analysis (SWC/DC)
-```
-
-# Demographics
+### Demographics
 ```{r}
 # In this section we will include
 # Workshop Location (DC): 
@@ -1395,7 +1401,7 @@ kable(swcpostdata_race_tally, format = 'markdown', row.names = NA, col.names = c
 # % adds up to 101, is this right?
 ```
 
-# Summary
+### Summary
 
 
 
