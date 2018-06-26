@@ -681,6 +681,11 @@ post_paired <- dcpostdata %>%
 
 paired_data <- inner_join(pre_paired, post_paired, by = c("UniqueID", "skill"))
 
+dist_mode <- function(x) {
+    ux <- unique(x)
+    ux[which.max(tabulate(match(x, ux)))]
+}
+
 
 paired_data %>%
     select(UniqueID, skill,
@@ -690,10 +695,10 @@ paired_data %>%
     mutate(skill = gsub("([A-Z])", " \\1", skill)) %>%
     group_by(skill, score) %>%
     summarize(
-        median = median(type, na.rm = TRUE),
+        mode = dist_mode(type),
         sd = sd(type, na.rm = TRUE)
     ) %>% 
-    ggplot(aes(x = skill, y = median, color = score)) +
+    ggplot(aes(x = skill, y = mode, color = score)) +
     geom_point(size=5) +
     coord_flip() +
     ylim(c(0, 5)) +
