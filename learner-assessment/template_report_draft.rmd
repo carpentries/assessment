@@ -690,10 +690,10 @@ paired_data %>%
     mutate(skill = gsub("([A-Z])", " \\1", skill)) %>%
     group_by(skill, score) %>%
     summarize(
-        mean = mean(type, na.rm = TRUE),
+        median = median(type, na.rm = TRUE),
         sd = sd(type, na.rm = TRUE)
     ) %>% 
-    ggplot(aes(x = skill, y = mean, color = score)) +
+    ggplot(aes(x = skill, y = median, color = score)) +
     geom_point(size=5) +
     coord_flip() +
     ylim(c(0, 5)) +
