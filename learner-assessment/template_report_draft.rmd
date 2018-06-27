@@ -1282,6 +1282,7 @@ kable(swcpredata_country_tally, format='markdown', col.names = c("Software Carpe
 ```
 
 As previously mentioned, Data Carpentry's curricula is domain specific to Ecology, Genomics, Geospatial, and the Social Sciences. We see this in the distribution of respondents by discipline. XX% are in the Life Science, while XX%, XX%, and XX% are in Agricultural or Environmental Sciences, Bioinformatics/Genomics, and Biomedical/Health Sciences, respectively.
+
 ```{r}
 ## Domain 
 ## Tally Data Carpentry's pre-workshop respondents by Discipline
