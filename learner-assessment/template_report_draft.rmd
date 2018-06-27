@@ -133,7 +133,8 @@ kable(WhyAttending, format = 'markdown', row.names = NA, col.names = c ("Why lea
 
 XX% of Data Carpentry learners attend workshops to learn skills they can apply to their work in the future.
 
-Software Carpentry workshops teach automation with the Unix shell, a tool that allows users to run commands interactively or by scripting. In Software Carpentry workshops, version control of source code with Git and GitHub are also taught for learners to learn facilitating contribution and collaboration on online repositories. Programming in R or Python is also taught. Software Carpentry's curriculum teaches basic lab skills for scientific computing. Compared to Data Carpentry's learners, Software Carpentry's tend to have more experience witht the tools covered in the workshops, and learners come to learn new and/or additional topics (XX%).
+Software Carpentry workshops teach automation with the Unix shell, a tool that allows users to run commands interactively or by scripting. In Software Carpentry workshops, version control of source code with Git and GitHub are also taught for learners to learn facilitating contribution and collaboration on online repositories. Programming in R or Python is also taught. Software Carpentry's curriculum teaches basic lab skills for scientific computing. Compared to Data Carpentry's learners, Software Carpentry's tend to have more experience witht the tools covered in the workshops, and learners come to learn new and/or additional topics (XX%). It's also interesting to note that XX% of Software Carpentry respondents are first-time learners.
+
 ```{r}
 # Why are you attending this workshop?
 # Software Carpentry Responses are in columns 'WhyAttending' through 'Column7'
@@ -148,7 +149,23 @@ swcpredata %>%
   rename(`Why are you attending? Check all that apply.` = WhyAttending)
 kable(WhyAttending, format = 'markdown', row.names = NA, col.names = c ("Why learners attend Software Carpentry Workshops", "n", "%"))
 ```
+```{r}
+# 1st time attending 
+# Software Carpentry: Will this be your first time attending a SWC workshop (as a learner)?
+firsttime = c("Yes", "No")
+firsttime = factor(firsttime)
 
+swcpredata$FirstTime = factor(swcpredata$FirstTime, levels = firsttime)
+
+swcpredata_gender_tally <-
+  swcpredata %>%
+  group_by(FirstTime) %>%
+  tally() %>%
+  filter(!is.na(FirstTime)) %>%
+  mutate(perc = round(n/sum(n) * 100, 0))
+
+kable(swcpredata_gender_tally, format = 'markdown', row.names = NA, col.names = c ("Software Carpentry 1st Time Learners", "n", "%"))
+```
 The majority (XX%) of Data Carpentry's respondents are either unsatisfied or feel neutral about being satisfied with their current data management practices. By data management practices, we include behaviors such as keeping your raw data raw, reusing code, and using databases, queries, and scripts to manage large datasets.
 ```{r}
 # Satisfaction with current data management practices 
@@ -259,7 +276,7 @@ ggplot(dcpostdata_workshop_tally,
   theme_classic() +
   xlab("Workshop Attended") +
   ylab("% Respondents") +
-  ggtitle("Marjority of Data Carpentry Respondents by \nAttend Ecology Workshops") +
+  ggtitle("Marjority of Data Carpentry Respondents \nAttend Ecology Workshops") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_classic(base_size = 14)
 ```
@@ -619,7 +636,7 @@ net_promoter_score_swc <-
     filter(!is.na(category)) %>%
     count(category) %>%
     mutate("%" = (n / sum(n))*100)
-    kable(net_promoter_score, format = 'markdown', row.names = NA, col.names = c ("Software Carpentry Promoter Score", "n", "%"))
+    kable(net_promoter_score_swc, format = 'markdown', row.names = NA, col.names = c ("Software Carpentry Promoter Score", "n", "%"))
     
     percent_promoters_swc <- net_promoter_score_swc %>%
     filter(category == "Promoter") %>%
@@ -627,7 +644,7 @@ net_promoter_score_swc <-
     round()
 ```
 
-For Software Carpentry respondents, `r percent_promoters_swc[3]`% are promoters.
+For Software Carpentry respondents, `r percent_promoters_swc`% are promoters.
 ```{r}
 # Qualitative Analysis (SWC/DC)
 ```
@@ -635,6 +652,24 @@ For Software Carpentry respondents, `r percent_promoters_swc[3]`% are promoters.
 In summary, Data and Software Carpentry workshops provide a warm and welcoming environment whether learners are brand new to programming or have some experience. Attendees are recommending workshops to their friends and colleagues, and we know that our instructors and helpers are the major reason why.
 
 ### Effect of Workshops on Learners Self-Reported Perspectives: Skills & Confidence
+In our workshops, we recommend that learners use their own machines. It is important for learners to leave the workshop with their own machine set up to do real work. Our instructors teach on three major platforms: UNIX/Linux, Mac OS X, and Windows. We see a very close representation of Windows (XX%) and Apple/Mac OS (XX%) users in our Data Carpentry workshops, and even a few UNIX/Linux users (XX%).
+
+```{r}
+# OS 
+# Data Carpentry
+OS <- 
+dcpredata %>%
+  select(OS) %>% 
+  gather(col, 
+         OS) %>% 
+  tally_and_perc(OS, 
+                 na.rm = TRUE) %>% 
+  arrange(desc(n)) %>% 
+  rename(`Operating System` = OS)
+
+# Table
+kable(OS, format = 'markdown', row.names = NA, col.names = c ("OS Respondents Use in Data Carpentry Workshops", "n", "%"))
+```
 
 Learners were asked to rate their level of agreement with the following statements related to Data Carpentry's workshop goals and learning objectives. The figure below provides a visual representation of their responses, comparing them before the workshop and after the workshop. Axis labels and the corresponding question are as follows:  
 
@@ -714,13 +749,10 @@ paired_data %>%
 
 
 
-As the scoring for the above factors is ordinal from strongly disagree (1) to strongly agree (5), we show the mode (most frequent responses) for respondents' before the workshop, and after the workshop. The comparison above is paired, meaning, we are comparing those who provided us with a unique identifier. This figure includes XX respondents.
+As the scoring for the above factors is ordinal from strongly disagree (1) to strongly agree (5), we show the mode (most frequent responses) for respondents' before the workshop, and after the workshop. If there is only one point on the plot it is because the mode for pre- and post-workshop responses was the same. The comparison above is paired, meaning, we are comparing those who provided us with a unique identifier and who completed both the pre- and post-workshop survey. This figure includes XX respondses.
 
-In the figure below we show another representation of the pre- and post-comparison of respondents skills and perspectives.
+In the figures below we show another representation of the pre- and post-comparison of respondents skills and perspectives. The figures below include the data for all learners, not only those who provided a unique identifier *and* took both the pre- and post-workshop surveys. What we see is a shift in the distribution of for each factor, meaning, respondents' self-reported confidence and ability shifted in a positive directions.
 
-As the scoring for the above factors is ordinal from strongly disagree (1) to strongly agree (5), we show the mode (most frequent responses) for respondents' before the workshop, and after the workshop. The comparison above is paired, meaning, we are comparing those who provided us with a unique identifier. This figure includes XX respondents.
-
-In the figure below we show another representation of the pre- and post-comparison of respondents skills and perspectives.
 
 
 ```{r distribution-shift}
@@ -753,6 +785,7 @@ paired_data %>%
 ```
 
 
+Another representation of the positive shift in distribution is provided below.
 
 ```{r, fig.height=16}
 paired_data %>%
@@ -768,7 +801,7 @@ paired_data %>%
     geom_col() +
     theme_minimal() +
     facet_grid(skill ~ .) +
-    labs(title = "Distribution of the change in score before and after workshop") +
+    labs(title = "Distribution of the change in scores before and after workshop") +
     scale_fill_viridis(name = "score difference", discrete = TRUE) +
     theme(legend.position = "top")
 ```
@@ -804,6 +837,9 @@ kable(select(t_test, skill, ends_with("feeling"), starts_with("n"),
  
 ```
 
+The neutral centered graphs below provide an even clearer picture of the shift in respondents self-reported confidence and skills. 
+
+It is interesting to see the shift in neutrality between the pre-workshop scores and post-workshops scores, especially for *Programming Efficient*. There was a higher percentage of learners beginning the workshop who felt programming with R or Python can make them more efficient at working with data. Contrarily, confidence in using programming to work with data increased from XX% to xx%.
 
 ```{r}
 # Data Carpentry pre-workshop neutral centered graph code
@@ -938,6 +974,8 @@ names(likert_cols_little) <- gsub("-Pre", "", names(likert_cols_little) )
 lc_little <- likert(data.frame(likert_cols_little))
 ```
 
+From the figure we see that XX% and less had extensive knowledge of the topics covered in their workshop.
+
 ```{r swc_pre_knowledge}
 plot(lc_little) +
   ggtitle("Software Carpentry Self-Reported Knowledge of Tools Covered Pre-Workshop") + 
@@ -1056,7 +1094,7 @@ guides(fill = guide_legend(nrow = 2)) # wraps legend
 ```
 
 
-The following is a comparison of Software Carpentry Respondents' knowledge about the tools before compared to after the workshop.
+The following is a comparison of Software Carpentry Respondents' knowledge about the tools before compared to after the workshop. We see clearly that after the workshop, respondents' knowledge of Git, Python, R, and the Unix Shell increased a great deal.
 
 ```{r swc_prepost_knowledge}
 # put the two plots together
@@ -1077,7 +1115,11 @@ Motivation is important, but being confident in your ability to complete specifi
 * Writing a unit test in Python or R 
 * Writing an SQL query 
 
-It also provides their self-reported level of confidence in being able to complete the tasks above after completing the workshop.
+It also provides their self-reported level of confidence in being able to complete the tasks above after completing the workshop. 
+
+These figures tell us that, before the workshop, between XX% and XX% of the respondents did not feel they could initialize a repository in Git, write a 'for loop' to automate tasks, use pipes to connect shell commands, write a SQL query, and/or write a unit test in R or Python. XX% of learners felt their confidence increased greatly with respect to importing a library or package in R or Python. We consider this significant as it is one of the fundamental skills that allows learners to be successful in the other areas mentioned above.
+
+In summary, respondents experienced increased confidence in their ability to perform specific computing tasks and solve problems, or at least search for answers to problems, as a result of participating in Software and Data Carpentry workshops.
 
 ```{r}
 # Software Carpentry
@@ -1183,6 +1225,7 @@ grid.arrange(computing_before,
 
 
 ### Demographics
+The Carpentries is a global community that has recognized the importance of bringing people to data through high-impact trainings. Thought the majority of Data Carpentry respondents attended a workshop in the United States of America (XX%), we see an increase in workshops in places like Ethiopia (XX%), Switzerland (XX%), and India (XX%).   
 ```{r}
 # In this section we will include
 # Workshop Location (DC): 
@@ -1221,7 +1264,7 @@ ggplot(dcpredata_country_tally,
 #kable(data_country_tally, format='markdown')
 ```
 
-In Software Carpentry's pre-workshop survey, respondents are asked whether or not their workshop takes place in the United States.
+In Software Carpentry's pre-workshop survey, respondents are asked whether or not their workshop takes place in the United States. XX% of respondents attended a U.S. workshop.
 
 ```{r}
 # Tally Software Carpentry's pre-workshop respondents by Country
@@ -1238,6 +1281,7 @@ swcpredata_country_tally <-
 kable(swcpredata_country_tally, format='markdown', col.names = c("Software Carpentry Workshops in US", "n", "%"))
 ```
 
+As previously mentioned, Data Carpentry's curricula is domain specific to Ecology, Genomics, Geospatial, and the Social Sciences. We see this in the distribution of respondents by discipline. XX% are in the Life Science, while XX%, XX%, and XX% are in Agricultural or Environmental Sciences, Bioinformatics/Genomics, and Biomedical/Health Sciences, respectively.
 ```{r}
 ## Domain 
 ## Tally Data Carpentry's pre-workshop respondents by Discipline
@@ -1255,6 +1299,8 @@ dcdiscipline <-
 kable(dcdiscipline, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry's Respondents by Discipline", "n", "%"))
 ```
 
+Software Carpentry's respondent base also has a majority Life Sciences base (XX%), however we also see representation from those working in Psychology, High Performance Computing, and Chemistry.
+
 ```{r}
 # Tally Software Carpentry's pre-workshop respondents by Discipline
 # Responses are in columns 'Domain' through 'Column61'
@@ -1271,7 +1317,7 @@ swcdiscipline <-
 kable(swcdiscipline, format = 'markdown', row.names = NA, col.names = c ("Software Carpentry's Respondents by Discipline", "n", "%"))
 ```
 
-
+As many of The Carpentries' workshops are hosted on college campuses and other research-based communities, there is no surprise that the majority of respondents are Graduate Students (XX% - DC, XX% - SWC), Research Staff (XX% - DC, XX% - SWC), and Postdoctoral Researchers (XX% - DC, XX% - SWC).
 ```{r}
 # Position/Status
 # Data Carpentry Respondents by Status
@@ -1360,41 +1406,9 @@ ggplot(swcpredata_status_tally,
   theme_classic(base_size = 14) 
 ```
 
+Gender and racial/ethnic identity information is collected for U.S. participants, as we are keen to increase the number of diverse instructors and learners we serve. Understanding our demographic makeup helps us to strategize about what communities to reach and what programs to offer. 
 
-```{r}
-# OS 
-# Data Carpentry
-OS <- 
-dcpredata %>%
-  select(OS) %>% 
-  gather(col, 
-         OS) %>% 
-  tally_and_perc(OS, 
-                 na.rm = TRUE) %>% 
-  arrange(desc(n)) %>% 
-  rename(`Operating System` = OS)
-
-# Table
-kable(OS, format = 'markdown', row.names = NA, col.names = c ("OS Respondents Use in Data Carpentry Workshops", "n", "%"))
-```
-
-```{r}
-# 1st time attending 
-# Software Carpentry: Will this be your first time attending a SWC workshop (as a learner)?
-firsttime = c("Yes", "No")
-firsttime = factor(firsttime)
-
-swcpredata$FirstTime = factor(swcpredata$FirstTime, levels = firsttime)
-
-swcpredata_gender_tally <-
-  swcpredata %>%
-  group_by(FirstTime) %>%
-  tally() %>%
-  filter(!is.na(FirstTime)) %>%
-  mutate(perc = round(n/sum(n) * 100, 0))
-
-kable(swcpredata_gender_tally, format = 'markdown', row.names = NA, col.names = c ("Software Carpentry 1st Time Learners", "n", "%"))
-```
+Currently, both Data (XX%) and Software (XX%) Carpentry see strong representation from Women in the United States. Where we hope to improve is in reaching the non-White audience, as less than XX% of our respondents are from communities historically underrepresented in the science, technology, engineering, and mathematics (STEM) fields.
 
 ```{r}
 # Gender Identity 
@@ -1415,6 +1429,22 @@ dcpredata_gender_tally <-
 kable(dcpredata_gender_tally, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry's U.S. Respondents' Gender Identity", "n", "%"))
 ```
 ```{r}
+# Data Carpentry: Race/Ethnic Identity
+# Responses are in columns 'RaceEthnicIdentity' through 'Column49'
+dcpredata_race_tally <-
+ dcpredata %>%
+ select(RaceEthnicIdentity:Column49) %>%
+ gather(col, dcpredata_race_tally) %>%
+ group_by(dcpredata_race_tally) %>%
+ tally_and_perc(dcpredata_race_tally, na.rm = TRUE) %>%
+ filter(!is.na(dcpredata_race_tally)) %>%
+ arrange(desc(n)) %>%
+ rename(`RaceEthnicIdentity` = dcpredata_race_tally)
+
+kable(dcpredata_race_tally, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry's U.S. Respondents Racial/Ethnic Identity", "n", "%"))
+```
+
+```{r}
 # Software Carpentry
 # With what gender do you most identify?
 gender = c("Female", "Male", "Other", "Prefer not to say")
@@ -1433,21 +1463,6 @@ kable(dcpredata_gender_tally, format = 'markdown', row.names = NA, col.names = c
 
 ```
 
-```{r}
-# Data Carpentry: Race/Ethnic Identity
-# Responses are in columns 'RaceEthnicIdentity' through 'Column49'
-dcpredata_race_tally <-
- dcpredata %>%
- select(RaceEthnicIdentity:Column49) %>%
- gather(col, dcpredata_race_tally) %>%
- group_by(dcpredata_race_tally) %>%
- tally_and_perc(dcpredata_race_tally, na.rm = TRUE) %>%
- filter(!is.na(dcpredata_race_tally)) %>%
- arrange(desc(n)) %>%
- rename(`RaceEthnicIdentity` = dcpredata_race_tally)
-
-kable(dcpredata_race_tally, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry's U.S. Respondents Racial/Ethnic Identity", "n", "%"))
-```
 
 ```{r}
 # Software Carpentry: Race/Ethnic Identity
