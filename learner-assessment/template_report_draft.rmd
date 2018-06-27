@@ -712,13 +712,10 @@ paired_data %>%
 
 ```
 
-<<<<<<< HEAD
+
 As the scoring for the above factors is ordinal from strongly disagree (1) to strongly agree (5), we show the mode (most frequent responses) for respondents' before the workshop, and after the workshop. The comparison above is paired, meaning, we are comparing those who provided us with a unique identifier. This figure includes XX respondents.
 
 In the figure below we show another representation of the pre- and post-comparison of respondents skills and perspectives.
-=======
-As the scoring for the above factors is ordinal from strongly disagree (1) to strongly agree (5), we show the mode (most frequent responses)
-
 
 ```{r distribution-shift}
 
@@ -742,7 +739,6 @@ paired_data %>%
 ```
 
 
->>>>>>> 655915f3f2554b9ea21ec5233d4fa2f0d5683485
 ```{r, fig.height=16}
 paired_data %>%
     mutate(diff_score = post_feeling_score- pre_feeling_score) %>%
@@ -761,8 +757,6 @@ paired_data %>%
     scale_fill_viridis(name = "score difference", discrete = TRUE) +
     theme(legend.position = "top")
 ```
-
-
 
 ```{r include=FALSE}
 # Data Carpentry paired analysis table to compare DC pre scores with post scores
