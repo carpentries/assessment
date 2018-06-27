@@ -724,10 +724,18 @@ paired_data %>%
            pre = pre_feeling_score, post = post_feeling_score) %>%
     filter(!is.na(pre) & !is.na(post)) %>%
     gather(pre_post, score, -UniqueID, -skill) %>%
+    count(skill, pre_post, score) %>%
+    group_by(skill, pre_post) %>%
+    mutate(n_total = sum(n),
+           percent = n/n_total * 100) %>%
+    ungroup() %>%
     mutate(skill = gsub("([a-z])([A-Z])", "\\1 \\2", skill)) %>%
-    ggplot() +
-    geom_bar(aes(x = score, fill = factor(pre_post, levels = c("pre", "post"))),
+    mutate(pre_post = factor(pre_post, levels = c("pre", "post"))) %>%
+    ggplot(aes(x = score, y = percent, group = pre_post)) +
+    geom_col(aes(fill = pre_post),
              position = "dodge") +
+    geom_text(aes(label = n, y = percent + 3), position = position_dodge(0.9),
+              ) +
     facet_wrap(~ skill) +
     scale_fill_viridis(
         name = "",
