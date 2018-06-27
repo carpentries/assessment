@@ -681,6 +681,11 @@ post_paired <- dcpostdata %>%
 
 paired_data <- inner_join(pre_paired, post_paired, by = c("UniqueID", "skill"))
 
+dist_mode <- function(x) {
+    ux <- unique(x)
+    ux[which.max(tabulate(match(x, ux)))]
+}
+
 
 paired_data %>%
     select(UniqueID, skill,
@@ -690,10 +695,10 @@ paired_data %>%
     mutate(skill = gsub("([A-Z])", " \\1", skill)) %>%
     group_by(skill, score) %>%
     summarize(
-        mean = mean(type, na.rm = TRUE),
+        mode = dist_mode(type),
         sd = sd(type, na.rm = TRUE)
     ) %>% 
-    ggplot(aes(x = skill, y = mean, color = score)) +
+    ggplot(aes(x = skill, y = mode, color = score)) +
     geom_point(size=5) +
     coord_flip() +
     ylim(c(0, 5)) +
@@ -707,9 +712,37 @@ paired_data %>%
 
 ```
 
+<<<<<<< HEAD
 As the scoring for the above factors is ordinal from strongly disagree (1) to strongly agree (5), we show the mode (most frequent responses) for respondents' before the workshop, and after the workshop. The comparison above is paired, meaning, we are comparing those who provided us with a unique identifier. This figure includes XX respondents.
 
 In the figure below we show another representation of the pre- and post-comparison of respondents skills and perspectives.
+=======
+As the scoring for the above factors is ordinal from strongly disagree (1) to strongly agree (5), we show the mode (most frequent responses)
+
+
+```{r distribution-shift}
+
+paired_data %>%
+    select(UniqueID, skill,
+           pre = pre_feeling_score, post = post_feeling_score) %>%
+    filter(!is.na(pre) & !is.na(post)) %>%
+    gather(pre_post, score, -UniqueID, -skill) %>%
+    mutate(skill = gsub("([a-z])([A-Z])", "\\1 \\2", skill)) %>%
+    ggplot() +
+    geom_bar(aes(x = score, fill = factor(pre_post, levels = c("pre", "post"))),
+             position = "dodge") +
+    facet_wrap(~ skill) +
+    scale_fill_viridis(
+        name = "",
+        breaks = c("pre", "post"),
+        labels = c("Pre-workshop", "Post-workshop"),
+        discrete = TRUE, end = .7) +
+    theme_minimal()
+
+```
+
+
+>>>>>>> 655915f3f2554b9ea21ec5233d4fa2f0d5683485
 ```{r, fig.height=16}
 paired_data %>%
     mutate(diff_score = post_feeling_score- pre_feeling_score) %>%
