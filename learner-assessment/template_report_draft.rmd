@@ -686,7 +686,7 @@ Learners were asked to rate their level of agreement with the following statemen
 # Perspectives of self-reported skills and confidence (SWC/DC)
 ```
 
-```{r dc_prepost_comparison}
+```{r dc_prepost_comparison_data}
 # Data Carpentry
 # Ability to perform various computing tasks before and after completing the workshop
 # Paried analysis plot to compare DC pre scores with post scores
@@ -715,7 +715,9 @@ post_paired <- dcpostdata %>%
     rename_at(vars(-UniqueID, -skill), ~ paste0("post_", .))
 
 paired_data <- inner_join(pre_paired, post_paired, by = c("UniqueID", "skill"))
+```
 
+```{r dc_pre_post_comparison_mode}
 dist_mode <- function(x) {
     ux <- unique(x)
     ux[which.max(tabulate(match(x, ux)))]
@@ -726,8 +728,9 @@ paired_data %>%
     select(UniqueID, skill,
            pre_feeling_score,
            post_feeling_score) %>%
+    filter(!is.na(pre_feeling_score) & !is.na(post_feeling_score)) %>% 
     gather(score, type, -UniqueID, -skill) %>%
-    mutate(skill = gsub("([A-Z])", " \\1", skill)) %>%
+    mutate(skill = gsub("([a-z])([A-Z])", "\\1 \\2", skill)) %>%
     group_by(skill, score) %>%
     summarize(
         mode = dist_mode(type),
@@ -744,8 +747,35 @@ paired_data %>%
                         end = .7, discrete=TRUE) +
     labs(title = "Pre and Post Comparison of Skills and Perception") +
     theme(text = element_text(size = 16))
+```
+
+
+```{r dc_pre_post_comparison_mean}
+paired_data %>%
+    select(UniqueID, skill,
+           pre_feeling_score,
+           post_feeling_score) %>%
+    gather(score, type, -UniqueID, -skill) %>%
+    mutate(skill = gsub("([a-z])([A-Z])", "\\1 \\2", skill)) %>%
+    group_by(skill, score) %>%
+    summarize(
+        mean = mean(type, na.rm = TRUE),
+        sd = sd(type, na.rm = TRUE)
+    ) %>% 
+    ggplot(aes(x = skill, y = mean, color = score)) +
+    geom_point(size=5) +
+    coord_flip() +
+    ylim(c(0, 5)) +
+    theme_minimal() +
+    scale_color_viridis(breaks = c("pre_feeling_score", "post_feeling_score"),
+                        labels = c("Pre-workshop Score",
+                                   "Post-workshop Score"), 
+                        end = .7, discrete=TRUE) +
+    labs(title = "Pre and Post Comparison of Skills and Perception") +
+    theme(text = element_text(size = 16))
 
 ```
+
 
 
 
