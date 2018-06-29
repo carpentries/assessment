@@ -360,9 +360,11 @@ swc_why_attending %>%
 
 swc_first_timers <- swcpredata %>%
     select(first_time) %>%
-    filter(!is.na(first_time)) %>%
+    mutate(first_time = replace(first_time,
+                                is.na(first_time),
+                                "Didn't answer")) %>% 
     count(first_time) %>%
-    arrange(desc(n)) %>% 
+    arrange(factor(first_time, levels = c("Yes", "No", "Didn't answer"))) %>% 
     mutate(percent = round(n/sum(n) * 100, 1))
 
 p_first_timers <- swc_first_timers %>%
