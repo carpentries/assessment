@@ -1,8 +1,10 @@
 ---
 output:
-  html_document: default
+  html_document:
+    self_contained: false
   pdf_document: default
 ---
+
 # [DRAFT] Analysis of Software and Data Carpentry's Pre- and Post-Workshop Surveys
 ### Authors: The Carpentries Assessment Team
 ### Published: July 2018
