@@ -374,7 +374,7 @@ swc_first_timers %>%
           col.names = c ("Software Carpentry 1st Time Learners", "n", "%"))
 ```
 
-Software Carpentry workshops teach automation with the Unix shell, a tool that allows users to run commands interactively or by scripting. In Software Carpentry workshops, version control of source code with Git and GitHub are also taught for learners to learn facilitating contribution and collaboration on online repositories. Programming in R or Python is also taught. Software Carpentry's curriculum teaches basic lab skills for scientific computing. Compared to Data Carpentry's learners, Software Carpentry's tend to have more experience with the tools covered in the workshops, and learners come to learn new and/or additional topics (`r p_swc_why_attending`%). It's also interesting to note that `r p_first_timers`% of Software Carpentry respondents are first-time learners.
+Software Carpentry workshops teach automation with the Unix shell, a tool that allows users to run commands interactively or by scripting. In Software Carpentry workshops, version control of source code with Git and GitHub are also taught for learners to learn facilitating contribution and collaboration on online repositories. Programming in R or Python is also taught. Software Carpentry's curriculum teaches basic lab skills for scientific computing. Compared to Data Carpentry's learners, Software Carpentry's tend to have more experience with the tools covered in the workshops, and learners come to learn new and/or additional topics (`r p_swc_why_attending`%). It's also interesting to note that `r p_first_timers`% of Software Carpentry respondents are first-time learners at our workshops.
 
 
 
