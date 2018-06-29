@@ -379,20 +379,25 @@ swc_first_timers %>%
 Software Carpentry workshops teach automation with the Unix shell, a tool that allows users to run commands interactively or by scripting. In Software Carpentry workshops, version control of source code with Git and GitHub are also taught for learners to learn facilitating contribution and collaboration on online repositories. Programming in R or Python is also taught. Software Carpentry's curriculum teaches basic lab skills for scientific computing. Compared to Data Carpentry's learners, Software Carpentry's tend to have more experience with the tools covered in the workshops, and learners come to learn new and/or additional topics (`r p_swc_why_attending`%). It's also interesting to note that `r p_first_timers`% of Software Carpentry respondents are first-time learners at our workshops.
 
 ```{r dc-satisfaction-level}
-# Satisfaction with current data management practices 
-# Data Carpentry
+## Satisfaction with current data management practices 
+## Data Carpentry
 satisfaction_levels <- c("Very unsatisfied", "Unsatisfied", "Neutral",
                          "Satisfied", "Very satisfied", "Not sure",
                          "Not applicable", "Didn't answer")
 
+single_answer_summary <- function(.data, .var, var_levels) {
+    var <- enquo(.var)
+    
+    .data %>%
+        select(!! var) %>%
+        mutate(!! quo_name(var) := replace(!!var, is.na(!!var), "Didn't answer")) %>%
+        count(!!var) %>%
+        mutate(percent = round(n/sum(n) * 100, 1)) %>%
+        arrange(factor(!!var, levels = var_levels)) 
+}
+
 dc_satisfaction <- dcpredata %>%
-    select(current_satisfaction) %>%
-    mutate(current_satisfaction = replace(current_satisfaction,
-                                          is.na(current_satisfaction),
-                                          "Didn't answer")) %>% 
-    count(current_satisfaction) %>%
-    mutate(percent = round(n/sum(n) * 100, 1)) %>% 
-    arrange(factor(current_satisfaction, levels = satisfaction_levels))
+    single_answer_summary(current_satisfaction, satisfaction_levels)
 
 dc_percent_unsatisfied <- dc_satisfaction %>%
     filter(current_satisfaction %in% satisfaction_levels[1:3]) %>%
