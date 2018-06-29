@@ -520,9 +520,7 @@ swc_exposure %>%
               "n", "%"))
 ```
 
-Data Carpentry workshops are mainly populated by "word-of-mouth". XX% of respondents learned about the workshop from either a friend, colleague, or their advisor or supervisor.
-
-On the contrary, the majority of Software Carpentry workshop respondents (XX%) find out about workshops through instituion mailing lists or flyers.
+Data Carpentry and Software Carpentry workshop participants find out mainly about our workshops through institution mailing lists (`r dc_exposure_mailing`% and `r swc_exposure_mailing`% respectively). However, "word-of-mouth" also plays a significant role in populating the workshops.
 
 
 In summary, both Data and Software Carpentry workshop respondents attend workshops to learn about or improve upon their current data management and analysis skills.
