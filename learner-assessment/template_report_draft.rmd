@@ -593,7 +593,6 @@ in their workshop, while `r dc_programming_language_py`% learned Python.
 
 
 ## Workshop Environment
-The Carpentries is committed to making participation in our workshops a harassment-free experience for everyone, regardless of who you are, where you come from, or your experience with the tools we teach. We establish norms for interaction by having, discussing, and enforcing a Code of Conduct such that our workshops provide open and inclusive learning environments. XX% of Data Carpentry respondents either agree or strongly agree that they felt comfortable learning in their workshop environment, and XX% of Software Carpentry's respondents agreed or strongly agreed the workshop atmosphere was welcoming.
 
 ```{r}
 # In this section we will include:
@@ -618,6 +617,9 @@ dcpostdata_comfortable_tally <-
   tally() %>%
   filter(!is.na(Comfortable)) 
 ```
+
+The Carpentries is committed to making participation in our workshops a harassment-free experience for everyone, regardless of who you are, where you come from, or your experience with the tools we teach. We establish norms for interaction by having, discussing, and enforcing a Code of Conduct such that our workshops provide open and inclusive learning environments. XX% of Data Carpentry respondents either agree or strongly agree that they felt comfortable learning in their workshop environment, and XX% of Software Carpentry's respondents agreed or strongly agreed the workshop atmosphere was welcoming.
+
 
 ```{r dc_post_workshop_comfortable_environment}
 # Data Carpentry plot for workshop environment
