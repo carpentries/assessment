@@ -480,6 +480,10 @@ dc_exposure <- dc_exposure_data %>%
     tally_percent_multi_answer %>%
     inner_join(dc_exposure_keys, by = "column_name")
 
+dc_exposure_mailing <- dc_exposure %>%
+    filter(column_name == "exposure_1") %>% # mailing lists
+    pull(percent)
+
 dc_exposure %>%
     select(question, n, percent) %>%
     arrange(desc(n)) %>% 
@@ -501,6 +505,10 @@ swc_exposure_keys <- swc_exposure_data %>%
 swc_exposure <- swc_exposure_data %>%
     tally_percent_multi_answer %>%
     inner_join(swc_exposure_keys, by = "column_name")
+
+swc_exposure_mailing <- swc_exposure %>%
+    filter(column_name == "exposure_3") %>% # mailing lists + flyers
+    pull(percent)
 
 swc_exposure %>%
     select(question, n, percent) %>%
