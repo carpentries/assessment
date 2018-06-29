@@ -530,7 +530,7 @@ In summary, both Data and Software Carpentry workshop respondents attend worksho
 
 
 
-```{r}
+```{r dc-workshop-type}
 # Workshop topics
 # Data Carpentry: Which workshop are you attending?
 workshop_types <- c("Ecology", "Genomics", "Geospatial",
