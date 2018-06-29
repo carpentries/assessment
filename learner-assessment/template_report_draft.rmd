@@ -272,13 +272,13 @@ prep_why_attending <- . %>%
     filter(has_answers(.))
   
 ## Make table of column name to question correspondance
-key_why_attending <- . %>%
+get_key_multi_answer <- . %>%
     gather(column_name, question) %>%
     filter(!is.na(question)) %>%
     distinct(column_name, question)
 
 ## Get numbers and percentage of each option
-tally_percent_why_attending <- . %>%
+tally_percent_multi_answer <- . %>%
     summarize_all(funs(n = tally_nona, percent = percent_nona)) %>%    
     gather() %>%
     extract(key, c("column_name", "metric"),
@@ -292,10 +292,10 @@ dc_why_attending_data <- dcpredata %>%
     prep_why_attending
 
 dc_why_attending_keys <- dc_why_attending_data %>%
-    key_why_attending
+    get_key_multi_answer
 
 dc_why_attending <- dc_why_attending_data %>%
-    tally_percent_why_attending %>% 
+    tally_percent_multi_answer %>% 
     inner_join(dc_why_attending_keys, by = "column_name")
 
 ### inline statistics
@@ -327,10 +327,10 @@ swc_why_attending_data <- swcpredata %>%
     prep_why_attending
 
 swc_why_attending_keys <- swc_why_attending_data %>%
-    key_why_attending
+    get_key_multi_answer
     
 swc_why_attending <- swc_why_attending_data %>%
-    tally_percent_why_attending %>% 
+    tally_percent_multi_answer %>% 
     inner_join(swc_why_attending_keys, by = "column_name")
 
 ### inline statistics
@@ -390,7 +390,8 @@ single_answer_summary <- function(.data, .var, var_levels) {
     
     .data %>%
         select(!! var) %>%
-        mutate(!! quo_name(var) := replace(!!var, is.na(!!var), "Didn't answer")) %>%
+        mutate(!! quo_name(var) := replace(!!var, is.na(!!var),
+                                           "Didn't answer")) %>%
         count(!!var) %>%
         mutate(percent = round(n/sum(n) * 100, 1)) %>%
         arrange(factor(!!var, levels = var_levels)) 
@@ -452,8 +453,8 @@ dc_percent_programming_daily <- dc_programming_usage %>%
     
 dc_programming_usage %>% 
     kable(format = 'markdown', row.names = NA,
-          col.names = c ("Data Carpentry Learners current programming usage",
-                         "n", "%"))
+          col.names = c("Data Carpentry Learners current programming usage",
+                        "n", "%"))
 ```
 
 In terms of current programming usage, `r dc_percent_programming_rare`% of
