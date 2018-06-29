@@ -430,27 +430,39 @@ dc_satisfaction %>%
 The majority (`r dc_percent_unsatisfied`%) of Data Carpentry's respondents are either unsatisfied or feel neutral about being satisfied with their current data management practices. By data management practices, we include behaviors such as keeping your raw data raw, reusing code, and using databases, queries, and scripts to manage large datasets.
 
 
-
-```{r}
-# Programming usage 
-# Data Carpentry
+```{r dc-programming-usage}
+## Programming usage
+## Data Carpentry
 usage_levels <- c("Never", "Less than once per year",
                   "Several times per year",
-                  "Monthly", "Weekly", "Daily")
+                  "Monthly", "Weekly", "Daily",
+                  "Didn't answer")
 
-Programming <- dcpredata %>%
-    select(`CurrentProgramming`) %>% 
-    gather(col, Programming) %>% 
-    tally_and_perc(Programming, na.rm = TRUE) %>%
-    mutate(Programming = factor(Programming, levels = usage_levels)) %>%
-    arrange(Programming) %>% 
-    rename(`Current Programming Usage` = Programming)
+dc_programming_usage <- dcpredata %>%
+    single_answer_summary(current_programming, usage_levels)
 
-kable(Programming, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry Learners current programming usage", "n", "%"))
+dc_percent_programming_rare <- dc_programming_usage %>%
+    filter(current_programming %in% usage_levels[1:2]) %>%
+    summarize(p = sum(percent)) %>%
+    pull(p)
+
+dc_percent_programming_daily <- dc_programming_usage %>%
+    filter(current_programming  == "Daily") %>%
+    pull(percent)
+    
+dc_programming_usage %>% 
+    kable(format = 'markdown', row.names = NA,
+          col.names = c ("Data Carpentry Learners current programming usage",
+                         "n", "%"))
 ```
 
-In terms of current programming usage, XX% of learners either never use programming, or use programming less than once per year, but no more than several times per year. Only XX% program on a daily basis. This is no surprise, as Data Carpentry workshops tend to attract novices.
-Data Carpentry workshops are mainly populated by "word-of-mouth". XX% of respondents learned about the workshop from either a friend, colleague, or their advisor or supervisor.
+In terms of current programming usage, `r dc_percent_programming_rare`% of
+learners either never use programming, or use programming less than once per
+year, but no more than several times per year. Only `r
+dc_percent_programming_daily`% program on a daily basis. This is no surprise, as
+Data Carpentry workshops tend to attract novices.
+
+
 ```{r}
 # How did you find out about this workshop? 
 # Data Carpentry Responses are in columns 'Exposure-Workshop' through 'Column31'
