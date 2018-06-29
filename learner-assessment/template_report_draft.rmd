@@ -321,8 +321,6 @@ dc_why_attending %>%
 
 `r p_work_future`% of Data Carpentry learners attend workshops to learn skills they can apply to their work in the future.
 
-Software Carpentry workshops teach automation with the Unix shell, a tool that allows users to run commands interactively or by scripting. In Software Carpentry workshops, version control of source code with Git and GitHub are also taught for learners to learn facilitating contribution and collaboration on online repositories. Programming in R or Python is also taught. Software Carpentry's curriculum teaches basic lab skills for scientific computing. Compared to Data Carpentry's learners, Software Carpentry's tend to have more experience witht the tools covered in the workshops, and learners come to learn new and/or additional topics (XX%). It's also interesting to note that XX% of Software Carpentry respondents are first-time learners.
-
 ```{r}
 # Why are you attending this workshop?
 # Software Carpentry Responses are in columns 'WhyAttending' through 'Column7'
@@ -354,6 +352,12 @@ swcpredata_gender_tally <-
 
 kable(swcpredata_gender_tally, format = 'markdown', row.names = NA, col.names = c ("Software Carpentry 1st Time Learners", "n", "%"))
 ```
+
+Software Carpentry workshops teach automation with the Unix shell, a tool that allows users to run commands interactively or by scripting. In Software Carpentry workshops, version control of source code with Git and GitHub are also taught for learners to learn facilitating contribution and collaboration on online repositories. Programming in R or Python is also taught. Software Carpentry's curriculum teaches basic lab skills for scientific computing. Compared to Data Carpentry's learners, Software Carpentry's tend to have more experience with the tools covered in the workshops, and learners come to learn new and/or additional topics (`r p_swc_why_attending`%). It's also interesting to note that `r p_first_timers`% of Software Carpentry respondents are first-time learners.
+
+
+
+
 The majority (XX%) of Data Carpentry's respondents are either unsatisfied or feel neutral about being satisfied with their current data management practices. By data management practices, we include behaviors such as keeping your raw data raw, reusing code, and using databases, queries, and scripts to manage large datasets.
 ```{r}
 # Satisfaction with current data management practices 
