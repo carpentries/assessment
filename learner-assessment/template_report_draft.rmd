@@ -594,14 +594,6 @@ in their workshop, while `r dc_programming_language_py`% learned Python.
 
 ## Workshop Environment
 
-```{r}
-# In this section we will include:
-# Environment (SWC/DC)
-# Perception of instructors and helpers (SWC/DC)
-# Applicability (DC)
-# How much information was new??? (SWC)
-# Accessibility (DC)
-```
 
 ```{r}
 # Environment
