@@ -249,16 +249,12 @@ This report includes the following:
 
 ### Motivation for Attending Carpentries Workshops
 
-```{r}
-# In this section we will include:
-# Why are you attending this workshop (SWC, DC)
-# Satisfaction with current data management practices (DC)
-# Programming usage (DC)
-# How did you find out about this workshop? (SWC, DC)
-```
+
 Learners attend Carpentries workshops for many reasons. Data Carpentry's workshops are domain-specific and focus on the fundamental data skills needed to conduct research. Data Carpentry's Ecology and Social Sciences curricula begin with a lesson on data organization and includes data cleaning with OpenRefine. From there, learners spend time learning a base programming language, either Python or R, to manipulate and visualize data.
 
 Data Carpentry's Genomics curriculum also includes programming, however the focus of this curriculum is on best practices for organization of bioinformatics projects and data, use of command line utilities and tools to analyze sequence quality and perform variant calling, and connecting to and using cloud computing.
+
+#### Why are learners participating to our workshops?
 
 ```{r why-attending-helpers}
 tally_nona <- function(x) sum(!is.na(x))
@@ -378,6 +374,9 @@ swc_first_timers %>%
 
 Software Carpentry workshops teach automation with the Unix shell, a tool that allows users to run commands interactively or by scripting. In Software Carpentry workshops, version control of source code with Git and GitHub are also taught for learners to learn facilitating contribution and collaboration on online repositories. Programming in R or Python is also taught. Software Carpentry's curriculum teaches basic lab skills for scientific computing. Compared to Data Carpentry's learners, Software Carpentry's tend to have more experience with the tools covered in the workshops, and learners come to learn new and/or additional topics (`r p_swc_why_attending`%). It's also interesting to note that `r p_first_timers`% of Software Carpentry respondents are first-time learners at our workshops.
 
+
+#### What is the current level of satisfaction of the data management practices of our learners before attending our workshops?
+
 ```{r dc-satisfaction-level}
 ## Satisfaction with current data management practices 
 ## Data Carpentry
@@ -430,6 +429,7 @@ dc_satisfaction %>%
 
 The majority (`r dc_percent_unsatisfied`%) of Data Carpentry's respondents are either unsatisfied or feel neutral about being satisfied with their current data management practices. By data management practices, we include behaviors such as keeping your raw data raw, reusing code, and using databases, queries, and scripts to manage large datasets.
 
+#### How often do our workshop participant program before attending our workshops?
 
 ```{r dc-programming-usage}
 ## Programming usage
@@ -525,7 +525,9 @@ Data Carpentry and Software Carpentry workshop participants find out mainly abou
 
 In summary, both Data and Software Carpentry workshop respondents attend workshops to learn about or improve upon their current data management and analysis skills.
 
+
 ### Workshop Type and Perception of Workshop Environment/Experience
+
 As previously mentioned, Data Carpentry workshops are domain specific, and curricula include Ecology, Genomics, Geospatial, Social Sciences, and Reproducible Research. XX% of respondents learned R in their workshop, while XX% learned Python.
 
 
