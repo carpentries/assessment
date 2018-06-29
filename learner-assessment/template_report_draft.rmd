@@ -256,9 +256,9 @@ This report includes the following:
 # Programming usage (DC)
 # How did you find out about this workshop? (SWC, DC)
 ```
-Learners attend Carpentries workshops for many reasons. Data Carpentry's workshops are domain specific and focus on the fundamental data skills needed to conduct research. Data Carpentry's Ecology and Social Sciences curricula begin with a lesson on data organization and includes data cleaning with OpenRefine. From there, learners spend time learning a base programming language, either Python or R.
+Learners attend Carpentries workshops for many reasons. Data Carpentry's workshops are domain-specific and focus on the fundamental data skills needed to conduct research. Data Carpentry's Ecology and Social Sciences curricula begin with a lesson on data organization and includes data cleaning with OpenRefine. From there, learners spend time learning a base programming language, either Python or R, to manipulate and visualize data.
 
-Data Carpentry's Genomics curriculum also includes programming, however the focus of this curriculum is best practices for organization of bioinformatics projects and data, use of command line utilities and tools to analyze sequence quality and perform variant calling, and connecting to and using cloud computing.
+Data Carpentry's Genomics curriculum also includes programming, however the focus of this curriculum is on best practices for organization of bioinformatics projects and data, use of command line utilities and tools to analyze sequence quality and perform variant calling, and connecting to and using cloud computing.
 
 ```{r}
 tally_nona <- function(x) sum(!is.na(x))
