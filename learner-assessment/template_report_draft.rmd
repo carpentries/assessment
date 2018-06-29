@@ -425,7 +425,6 @@ dc_satisfaction %>%
 The majority (`r dc_percent_unsatisfied`%) of Data Carpentry's respondents are either unsatisfied or feel neutral about being satisfied with their current data management practices. By data management practices, we include behaviors such as keeping your raw data raw, reusing code, and using databases, queries, and scripts to manage large datasets.
 
 
-In terms of current programming usage, XX% of learners either never use programming, or use programming less than once per year, but no more than several times per year. Only XX% program on a daily basis. This is no surprise, as Data Carpentry workshops tend to attract novices.
 
 ```{r}
 # Programming usage 
@@ -445,6 +444,7 @@ Programming <- dcpredata %>%
 kable(Programming, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry Learners current programming usage", "n", "%"))
 ```
 
+In terms of current programming usage, XX% of learners either never use programming, or use programming less than once per year, but no more than several times per year. Only XX% program on a daily basis. This is no surprise, as Data Carpentry workshops tend to attract novices.
 Data Carpentry workshops are mainly populated by "word-of-mouth". XX% of respondents learned about the workshop from either a friend, colleague, or their advisor or supervisor.
 ```{r}
 # How did you find out about this workshop? 
