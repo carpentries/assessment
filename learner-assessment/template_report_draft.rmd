@@ -378,10 +378,6 @@ swc_first_timers %>%
 
 Software Carpentry workshops teach automation with the Unix shell, a tool that allows users to run commands interactively or by scripting. In Software Carpentry workshops, version control of source code with Git and GitHub are also taught for learners to learn facilitating contribution and collaboration on online repositories. Programming in R or Python is also taught. Software Carpentry's curriculum teaches basic lab skills for scientific computing. Compared to Data Carpentry's learners, Software Carpentry's tend to have more experience with the tools covered in the workshops, and learners come to learn new and/or additional topics (`r p_swc_why_attending`%). It's also interesting to note that `r p_first_timers`% of Software Carpentry respondents are first-time learners at our workshops.
 
-
-
-
-The majority (XX%) of Data Carpentry's respondents are either unsatisfied or feel neutral about being satisfied with their current data management practices. By data management practices, we include behaviors such as keeping your raw data raw, reusing code, and using databases, queries, and scripts to manage large datasets.
 ```{r}
 # Satisfaction with current data management practices 
 # Data Carpentry
@@ -397,6 +393,9 @@ Satisfaction <- dcpredata %>%
 
 kable(Satisfaction, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry Learners satisfaction with current data management practices", "n", "%"))
 ```
+
+The majority (XX%) of Data Carpentry's respondents are either unsatisfied or feel neutral about being satisfied with their current data management practices. By data management practices, we include behaviors such as keeping your raw data raw, reusing code, and using databases, queries, and scripts to manage large datasets.
+
 
 In terms of current programming usage, XX% of learners either never use programming, or use programming less than once per year, but no more than several times per year. Only XX% program on a daily basis. This is no surprise, as Data Carpentry workshops tend to attract novices.
 
