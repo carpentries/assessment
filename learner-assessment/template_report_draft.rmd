@@ -479,7 +479,6 @@ dcpredata %>%
 kable(Exposure, format = 'markdown', row.names = NA, col.names = c ("How respondents find out about Data Carpentry workshops", "n", "%"))
 ```
 
-On the contrary, the majority of Software Carpentry workshop respondents (XX%) find out about workshops through instituion mailing lists or flyers.
 ```{r}
 # How did you find out about this workshop? 
 # Software Carpentry Responses are in columns 'Exposure' through 'Column21'
@@ -495,6 +494,11 @@ swcpredata %>%
 
 kable(Exposure, format = 'markdown', row.names = NA, col.names = c ("How respondents find out about Software Carpentry workshops", "n", "%"))
 ```
+
+Data Carpentry workshops are mainly populated by "word-of-mouth". XX% of respondents learned about the workshop from either a friend, colleague, or their advisor or supervisor.
+
+On the contrary, the majority of Software Carpentry workshop respondents (XX%) find out about workshops through instituion mailing lists or flyers.
+
 
 In summary, both Data and Software Carpentry workshop respondents attend workshops to learn about or improve upon their current data management and analysis skills.
 
