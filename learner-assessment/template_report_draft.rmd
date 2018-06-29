@@ -219,14 +219,6 @@ swcpostdata <- readr::read_csv("data/180521_swcpost.csv",
 ```
 
 ```{r}
-# In this section we will include:
-# number of workshops
-# number of learners
-# time period covered
-# general outline of the report
-```
-
-```{r}
 ## number of learners
 n_learners_pre_dc <- nrow(dcpredata)
 n_learners_post_dc <- nrow(dcpostdata)
