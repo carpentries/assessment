@@ -545,7 +545,7 @@ dc_workshop_type %>%
           col.names = c ("Data Carpentry Workshop Type Attended", "n", "%"))
 ```
 
-```{r dc_post_workshop_attended}
+```{r dc-post-workshop-attended}
 # Data Carpentry: Plot for which workshop are you attending?
 ggplot(dc_workshop_type,
        aes(x = factor(workshop, levels = workshop_types),
