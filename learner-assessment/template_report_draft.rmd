@@ -34,7 +34,7 @@ to_snake_case <- function(x) tolower(gsub("([a-z])([A-Z])", "\\1_\\2", x))
 ## returns TRUE when the respondent has answered at least one question.
 has_answers <- function(d) {
     d %>%
-        select(-date) %>%
+        select(-matches("date")) %>%
         mutate(has_answers = rowSums(is.na(.)) < ncol(.)) %>%
         pull(has_answers)   
 }
