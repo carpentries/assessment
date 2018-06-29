@@ -540,13 +540,13 @@ workshop_types <- c("Ecology", "Genomics", "Geospatial",
 dc_workshop_type <- dcpostdata %>%    
     single_answer_summary(workshop, workshop_types)
 
-dc_workshop_type %>%
-    kable(format = 'markdown', row.names = NA,
-          col.names = c ("Data Carpentry Workshop Type Attended", "n", "%"))
+## dc_workshop_type %>%
+##     kable(format = 'markdown', row.names = NA,
+##           col.names = c ("Data Carpentry Workshop Type Attended", "n", "%"))
 ```
 
-```{r dc-post-workshop-attended}
-# Data Carpentry: Plot for which workshop are you attending?
+```{r dc-workshop-type-plot}
+## Data Carpentry: Plot for which workshop are you attending?
 ggplot(dc_workshop_type,
        aes(x = factor(workshop, levels = workshop_types),
            y = percent)) +
