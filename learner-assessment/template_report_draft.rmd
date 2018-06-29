@@ -528,8 +528,6 @@ In summary, both Data and Software Carpentry workshop respondents attend worksho
 
 ### Workshop Type and Perception of Workshop Environment/Experience
 
-
-
 ```{r dc-workshop-type}
 # Workshop topics
 # Data Carpentry: Which workshop are you attending?
@@ -564,27 +562,33 @@ ggplot(dc_workshop_type,
     theme_classic(base_size = 14)
 ```
 
-```{r}
-# Language covered 
-# Data Carpentry: Which programming language is being covered?
-ProgrammingLanguage <- 
-    dcpredata %>%
-    select(`ProgrammingLanguageCovered`) %>% 
-    gather(col, 
-           ProgrammingLanguage) %>% 
-    tally_and_perc(ProgrammingLanguage, 
-                   na.rm = TRUE) %>% 
-    arrange(factor(ProgrammingLanguage,
-                   levels = c("R", "Python", "I don't know/I don't remember",
-                              "Neither"))) %>% 
-    rename(`Which language is being covered?` = ProgrammingLanguage)
+```{r dc-workshop-language}	
+## Language covered 
+## Data Carpentry: Which programming language is being covered?
+workshop_language <- c("R", "Python", "I don't know/I don't remember",
+                       "Neither", "Didn't answer")
 
-kable(ProgrammingLanguage, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry: Language Covered in Workshops", "n", "%"))
+dc_programming_language <- dcpostdata %>%
+    single_answer_summary(programming_language, workshop_language)
 
-# I want these to show in this order: R, Python, I don't know/I don't remember, Neither
+dc_programming_language_r <- dc_programming_language %>%
+    filter(programming_language == "R") %>%
+    pull(percent)
+
+dc_programming_language_py <- dc_programming_language %>%
+    filter(programming_language == "Python") %>%
+    pull(percent)
+
+dc_programming_language %>% 
+    kable(format = 'markdown', row.names = NA,
+          col.names = c ("Data Carpentry: Language Covered in Workshops", "n", "%"))
+
 ```
 
-As previously mentioned, Data Carpentry workshops are domain specific, and curricula include Ecology, Genomics, Geospatial, Social Sciences, and Reproducible Research. XX% of respondents learned R in their workshop, while XX% learned Python.
+As previously mentioned, Data Carpentry workshops are domain specific, and
+curricula include Ecology, Genomics, Geospatial, Social Sciences, and
+Reproducible Research. `r dc_programming_language_r`% of respondents learned R
+in their workshop, while `r dc_programming_language_py`% learned Python.
 
 
 
