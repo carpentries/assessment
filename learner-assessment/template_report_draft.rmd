@@ -260,38 +260,54 @@ Learners attend Carpentries workshops for many reasons. Data Carpentry's worksho
 
 Data Carpentry's Genomics curriculum also includes programming, however the focus of this curriculum is on best practices for organization of bioinformatics projects and data, use of command line utilities and tools to analyze sequence quality and perform variant calling, and connecting to and using cloud computing.
 
-```{r dc-why-attending}
+```{r why-attending-helpers}
 tally_nona <- function(x) sum(!is.na(x))
 percent_nona <- function(x) round(tally_nona(x)/length(x) * 100, 1)
 
-## Why are you attending this workshop?
-dc_why_attending_data <- dcpredata %>%
+## Extract the relevant columns, and remove answers where repondant didn't
+## select anything.
+prep_why_attending <- . %>%
     select(starts_with("why_attending"),
-           -why_attending_other)
-
-dc_why_attending_keys <- dc_why_attending_data %>%
+           -why_attending_other) %>%
+    filter(has_answers(.))
+  
+## Make table of column name to question correspondance
+key_why_attending <- . %>%
     gather(column_name, question) %>%
     filter(!is.na(question)) %>%
     distinct(column_name, question)
 
-dc_why_attending <- dc_why_attending_data %>%
-    filter(has_answers(.))
-
-n_dc_why_attending <- nrow(dc_why_attending)
-
-dc_why_attending <- dc_why_attending %>% 
+## Get numbers and percentage of each option
+tally_percent_why_attending <- . %>%
     summarize_all(funs(n = tally_nona, percent = percent_nona)) %>%    
     gather() %>%
     extract(key, c("column_name", "metric"),
             regex = "([a-z_]+_[0-9])_(n|percent)") %>%
-    spread(metric, value) %>%
+    spread(metric, value) 
+```
+
+```{r dc-why-attending}
+## Why are you attending this workshop?
+dc_why_attending_data <- dcpredata %>%
+    prep_why_attending
+
+dc_why_attending_keys <- dc_why_attending_data %>%
+    key_why_attending
+
+dc_why_attending <- dc_why_attending_data %>%
+    tally_percent_why_attending %>% 
     inner_join(dc_why_attending_keys, by = "column_name")
 
+### inline statistics
+n_dc_why_attending <- nrow(dc_why_attending_data)
+
+## percent of DC learners coming to learn skills they will use in the future (in
+## column 'why_attending_1').
 p_work_future <- dc_why_attending %>%
     filter(column_name == "why_attending_1") %>%
     pull(percent)
-    
 
+## table
 dc_why_attending %>% 
     select(question, n, percent) %>%
     arrange(desc(n)) %>% 
@@ -299,9 +315,8 @@ dc_why_attending %>%
           col.names = c(
               paste0(
                   "Why learners attend Data Carpentry workshops? (n = ",
-                  n_dc_why_attending,
-                  ")"
-                  ), "n", "%"))
+                  n_dc_why_attending, ")"),
+              "n", "%"))
 ```
 
 `r p_work_future`% of Data Carpentry learners attend workshops to learn skills they can apply to their work in the future.
