@@ -531,11 +531,6 @@ In summary, both Data and Software Carpentry workshop respondents attend worksho
 As previously mentioned, Data Carpentry workshops are domain specific, and curricula include Ecology, Genomics, Geospatial, Social Sciences, and Reproducible Research. XX% of respondents learned R in their workshop, while XX% learned Python.
 
 
-```{r}
-# In this section we will include:
-# Workshop topics (DC)
-# Language covered (DC, SWC)
-```
 
 ```{r}
 # Workshop topics
