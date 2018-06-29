@@ -321,19 +321,36 @@ dc_why_attending %>%
 
 `r p_work_future`% of Data Carpentry learners attend workshops to learn skills they can apply to their work in the future.
 
-```{r}
+```{r swc-why-attending}
 # Why are you attending this workshop?
-# Software Carpentry Responses are in columns 'WhyAttending' through 'Column7'
-WhyAttending <- 
-swcpredata %>%
-  select(WhyAttending:Column7) %>% 
-  gather(col, 
-         WhyAttending) %>% 
-  tally_and_perc(WhyAttending, 
-                 na.rm = TRUE) %>% 
-  arrange(desc(n)) %>% 
-  rename(`Why are you attending? Check all that apply.` = WhyAttending)
-kable(WhyAttending, format = 'markdown', row.names = NA, col.names = c ("Why learners attend Software Carpentry Workshops", "n", "%"))
+swc_why_attending_data <- swcpredata %>%
+    prep_why_attending
+
+swc_why_attending_keys <- swc_why_attending_data %>%
+    key_why_attending
+    
+swc_why_attending <- swc_why_attending_data %>%
+    tally_percent_why_attending %>% 
+    inner_join(swc_why_attending_keys, by = "column_name")
+
+### inline statistics
+n_swc_why_attending <- nrow(swc_why_attending_data)
+
+## percent SWC learners coming to learn new/additional topics (in column
+## 'why_attending_2').
+p_swc_why_attending <- swc_why_attending %>%
+    filter(column_name == "why_attending_2") %>%
+    pull(percent)
+
+## table
+swc_why_attending %>%
+    select(question, n, percent) %>%
+    arrange(desc(n)) %>%
+    kable(format = "markdown", row.names = NA,
+          col.names = c(
+              paste0("Why learners attend Software Carpentry Workshops? (n = ",
+                     n_swc_why_attending, ")"),
+              "n", "%"))
 ```
 ```{r}
 # 1st time attending 
