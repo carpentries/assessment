@@ -400,7 +400,21 @@ dc_satisfaction %>%
                         "n", "%"))
 ```
 
-kable(Satisfaction, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry Learners satisfaction with current data management practices", "n", "%"))
+```{r dc-satisfaction-level-plot}
+dc_satisfaction %>%
+    filter(current_satisfaction %in% satisfaction_levels[1:5]) %>% 
+    ggplot(aes(x = factor(current_satisfaction,
+                          levels = satisfaction_levels),
+               y = percent)) +
+    geom_col() +
+    geom_text(aes(label = n, y = percent + 2)) +
+    labs(
+        x = "",
+        y = "Percent",
+        title = "Pre-workshop Satisfaction Level with Current Data Management Practices",
+        caption = "'Not Sure', 'Not applicable' and 'Didn't answer' not shown"
+    ) +
+    theme_minimal()
 ```
 
 The majority (XX%) of Data Carpentry's respondents are either unsatisfied or feel neutral about being satisfied with their current data management practices. By data management practices, we include behaviors such as keeping your raw data raw, reusing code, and using databases, queries, and scripts to manage large datasets.
