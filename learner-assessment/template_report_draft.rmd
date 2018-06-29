@@ -260,38 +260,48 @@ Learners attend Carpentries workshops for many reasons. Data Carpentry's worksho
 
 Data Carpentry's Genomics curriculum also includes programming, however the focus of this curriculum is on best practices for organization of bioinformatics projects and data, use of command line utilities and tools to analyze sequence quality and perform variant calling, and connecting to and using cloud computing.
 
-```{r}
+```{r dc-why-attending}
 tally_nona <- function(x) sum(!is.na(x))
 percent_nona <- function(x) round(tally_nona(x)/length(x) * 100, 1)
 
 ## Why are you attending this workshop?
-## Data Carpentry Responses are in columns 'WhyAttending' through 'Column29'
-why_attending_keys <- dcpredata %>%
-    select(`WhyAttending`:`Column29`) %>%
-    gather() %>%
-    filter(!is.na(value)) %>%
-    distinct(key, value)
+dc_why_attending_data <- dcpredata %>%
+    select(starts_with("why_attending"),
+           -why_attending_other)
 
-why_attending <- dcpredata %>%
-    select(`WhyAttending`:`Column29`) %>%
-    filter(rowSums(is.na(.)) < ncol(.)) %>% 
+dc_why_attending_keys <- dc_why_attending_data %>%
+    gather(column_name, question) %>%
+    filter(!is.na(question)) %>%
+    distinct(column_name, question)
+
+dc_why_attending <- dc_why_attending_data %>%
+    filter(has_answers(.))
+
+n_dc_why_attending <- nrow(dc_why_attending)
+
+dc_why_attending <- dc_why_attending %>% 
     summarize_all(funs(n = tally_nona, percent = percent_nona)) %>%    
     gather() %>%
-    separate(key, c("column", "metric")) %>%
+    extract(key, c("column_name", "metric"),
+            regex = "([a-z_]+_[0-9])_(n|percent)") %>%
     spread(metric, value) %>%
-    inner_join(why_attending_keys, by = c("column" = "key"))
+    inner_join(dc_why_attending_keys, by = "column_name")
 
-p_work_future <- why_attending %>%
-    filter(column == "WhyAttending") %>%
+p_work_future <- dc_why_attending %>%
+    filter(column_name == "why_attending_1") %>%
     pull(percent)
     
 
-why_attending %>% 
-    select(value, n, percent) %>%
+dc_why_attending %>% 
+    select(question, n, percent) %>%
     arrange(desc(n)) %>% 
     kable(format = 'markdown', row.names = NA,
-          col.names = c ("Why learners attend Data Carpentry workshops?",
-                         "n", "%"))
+          col.names = c(
+              paste0(
+                  "Why learners attend Data Carpentry workshops? (n = ",
+                  n_dc_why_attending,
+                  ")"
+                  ), "n", "%"))
 ```
 
 `r p_work_future`% of Data Carpentry learners attend workshops to learn skills they can apply to their work in the future.
