@@ -553,13 +553,12 @@ ggplot(dc_workshop_type,
     scale_x_discrete(labels = function(x)
         lapply(strwrap(x, width = 10, simplify = FALSE),
                paste, collapse = "\n")) +
-    theme_minimal() +
+    theme_minimal(base_size = 14) +
     labs(
         x = "Workshop Attended",
         y = "% Respondents",
         title = "Marjority of Data Carpentry Respondents \nAttend Ecology Workshops") +
-    theme(plot.title = element_text(hjust = 0.5)) +
-    theme_classic(base_size = 14)
+    theme(plot.title = element_text(hjust = 0.5))
 ```
 
 ```{r dc-workshop-language}	
@@ -598,66 +597,76 @@ in their workshop, while `r dc_programming_language_py`% learned Python.
 ```{r}
 # Environment
 # Data Carpentry: I felt comfortable learning in this workshop environment
-comfortable = c("Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree")
-comfortable = factor(comfortable)
 
-dcpostdata$Comfortable = factor(dcpostdata$Comfortable, levels = comfortable)
+comfortable_levels <- c("Strongly disagree", "Disagree", "Neutral", "Agree",
+                        "Strongly agree", "Didn't answer")
+atmosphere_levels <- c("Strongly Disagree", "Disagree",
+                       "Neither Agree nor Disagree", "Agree", "Strongly Agree",
+                      "Didn't answer")
 
-dcpostdata_comfortable_tally <- 
-  dcpostdata %>% 
-  group_by(Comfortable) %>% 
-  tally() %>%
-  filter(!is.na(Comfortable)) 
+dc_comfortable <- dcpostdata %>%
+    single_answer_summary(comfortable, comfortable_levels)
+
+dc_comfortable_percent_agree <- dc_comfortable %>%
+    filter(comfortable %in% c("Agree", "Strongly agree")) %>%
+    summarize(p = sum(percent)) %>%
+    pull(p)
+    
+swc_comfortable <- swcpostdata %>%
+    single_answer_summary(atmosphere, atmosphere_levels)
+
+swc_comfortable_percent_agree <- swc_comfortable %>%
+    filter(atmosphere %in% c("Agree", "Strongly Agree")) %>%
+    summarize(p = sum(percent)) %>%
+    pull(p)
 ```
 
-The Carpentries is committed to making participation in our workshops a harassment-free experience for everyone, regardless of who you are, where you come from, or your experience with the tools we teach. We establish norms for interaction by having, discussing, and enforcing a Code of Conduct such that our workshops provide open and inclusive learning environments. XX% of Data Carpentry respondents either agree or strongly agree that they felt comfortable learning in their workshop environment, and XX% of Software Carpentry's respondents agreed or strongly agreed the workshop atmosphere was welcoming.
+The Carpentries is committed to making participation in our workshops a
+harassment-free experience for everyone, regardless of who you are, where you
+come from, or your experience with the tools we teach. We establish norms for
+interaction by having, discussing, and enforcing a Code of Conduct such that our
+workshops provide open and inclusive learning environments. `r
+dc_comfortable_percent_agree`% of Data Carpentry respondents either agree or
+strongly agree that they felt comfortable learning in their workshop
+environment, and `r swc_comfortable_percent_agree`% of Software Carpentry's
+respondents agreed or strongly agreed the workshop atmosphere was welcoming.
 
 
 ```{r dc_post_workshop_comfortable_environment}
-# Data Carpentry plot for workshop environment
-ggplot(dcpostdata_comfortable_tally, 
-       aes(Comfortable, y = 100 * (n/sum(n)),
-           n)) +
-  geom_bar(stat = "identity", fill="darkcyan") +
-  geom_text(aes(label=n), size= 4, vjust=-0.25) +
-  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-  theme_classic() +
-  xlab("Level of Agreement") +
-  ylab("% Respondents") +
-  ggtitle("Data Carpentry Respondents felt comfortable learning \nin their workshop environment") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
-```
-
-```{r}
-# Environment
-# Software Carpentry: The overall atmosphere of the workshop was welcoming
-atmosphere = c("Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree")
-atmosphere = factor(atmosphere)
-
-swcpostdata$Atmosphere = factor(swcpostdata$Atmosphere, levels = atmosphere)
-
-swcpostdata_atmosphere_tally <- 
-  swcpostdata %>% 
-  group_by(Atmosphere) %>% 
-  tally() %>%
-  filter(!is.na(Atmosphere))
+## Data Carpentry plot for workshop environment
+ggplot(dc_comfortable, 
+       aes(x = factor(comfortable, levels = comfortable_levels), 
+           y = percent)) +
+    geom_col(fill = "darkcyan") +
+    geom_text(aes(label = n), size= 4, vjust=-0.25) +
+    scale_x_discrete(labels = function(x)
+        lapply(strwrap(x, width = 10, simplify = FALSE),
+               paste, collapse="\n")) +
+    theme_minimal(base_size = 14) +
+    labs(
+        x = "Level of Agreement", 
+        y = "% Respondents", 
+        main = "Data Carpentry Respondents felt comfortable learning \n in their workshop environment"
+    ) +
+    theme(plot.title = element_text(hjust = 0.5))
 ```
 
 ```{r swc_post_workshop_environment}
 # Software Carpentry plot for workshop environment
-ggplot(swcpostdata_atmosphere_tally, 
-       aes(Atmosphere, y = 100 * (n/sum(n)),
-           n)) +
-  geom_bar(stat = "identity", fill="darkcyan") +
-  geom_text(aes(label=n), size= 4, vjust=-0.25) +
-  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-  theme_classic() +
-  xlab("Level of Agreement") +
-  ylab("% Respondents") +
-  ggtitle("Software Carpentry Respondents felt the workshop \natmosphere was welcoming") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
+ggplot(swc_comfortable, 
+       aes(x = factor(atmosphere, levels = atmosphere_levels),
+           y = percent)) +
+    geom_col(fill = "darkcyan") +
+    geom_text(aes(label = n), size = 4, vjust = -0.25) +
+    scale_x_discrete(labels = function(x)
+        lapply(strwrap(x, width = 10, simplify = FALSE),
+               paste, collapse="\n")) +
+    theme_minimal(base_size = 14) +
+    labs(
+        x = "Level of Agreement", 
+        y = "% Respondents", 
+        main = "Software Carpentry Respondents felt the workshop \natmosphere was welcoming") +
+    theme(plot.title = element_text(hjust = 0.5))
 ```
 
 Data Carpentry respondents were asked to rate their level of agreement with several statements regarding their instructor's knowledge, instructional method, and enthusiasm. Their responses are in the figure below, and axis labels correspond to the statements as follows:
