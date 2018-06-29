@@ -394,6 +394,11 @@ dc_satisfaction <- dcpredata %>%
     mutate(percent = round(n/sum(n) * 100, 1)) %>% 
     arrange(factor(current_satisfaction, levels = satisfaction_levels))
 
+dc_percent_unsatisfied <- dc_satisfaction %>%
+    filter(current_satisfaction %in% satisfaction_levels[1:3]) %>%
+    summarize(p = sum(percent)) %>%
+    pull(p)
+
 dc_satisfaction %>%    
     kable(format = 'markdown', row.names = NA,
           col.names = c("Data Carpentry Learners satisfaction with current data management practices",
@@ -417,7 +422,7 @@ dc_satisfaction %>%
     theme_minimal()
 ```
 
-The majority (XX%) of Data Carpentry's respondents are either unsatisfied or feel neutral about being satisfied with their current data management practices. By data management practices, we include behaviors such as keeping your raw data raw, reusing code, and using databases, queries, and scripts to manage large datasets.
+The majority (`r dc_percent_unsatisfied`%) of Data Carpentry's respondents are either unsatisfied or feel neutral about being satisfied with their current data management practices. By data management practices, we include behaviors such as keeping your raw data raw, reusing code, and using databases, queries, and scripts to manage large datasets.
 
 
 In terms of current programming usage, XX% of learners either never use programming, or use programming less than once per year, but no more than several times per year. Only XX% program on a daily basis. This is no surprise, as Data Carpentry workshops tend to attract novices.
