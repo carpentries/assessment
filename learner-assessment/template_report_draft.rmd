@@ -27,7 +27,17 @@ library(patchwork)
 opts_chunk$set(echo = FALSE,
                message = FALSE,
                warning = FALSE)
-opts_chunk$set(fig.path='figures/', fig.width = 10,  fig.retina = 2) #puts all figures in figures folder
+## puts all figures in figures folder
+opts_chunk$set(fig.path='figures/', fig.width = 10,  fig.retina = 2)
+to_snake_case <- function(x) tolower(gsub("([a-z])([A-Z])", "\\1_\\2", x))
+
+## returns TRUE when the respondent has answered at least one question.
+has_answers <- function(d) {
+    d %>%
+        select(-date) %>%
+        mutate(has_answers = rowSums(is.na(.)) < ncol(.)) %>%
+        pull(has_answers)   
+}
 ```
 
 ```{r}
@@ -50,19 +60,162 @@ tally_and_perc <- function(df, colname, na.rm = FALSE){
 ```{r load-dc-data}
 # Load DC pre and post-workshop data
 # Data Carpentry Pre-Workshop Data
-dcpredata <- readr::read_csv("data/180511_dcpre.csv")
+dcpredata <- readr::read_csv("data/180511_dcpre.csv",
+                             col_types = cols(
+                                 Date =  col_datetime(
+                                     format = "%m/%d/%y %H:%M"
+                                 ),
+                                 .default = "c")
+                             ) %>%
+    rename(
+        ## ---- discipline ----
+        "discipline_1"  = Discipline,        
+        "discipline_2"  = Column2, 
+        "discipline_3"  = Column3, 
+        "discipline_4"  = Column4, 
+        "discipline_5"  = Column5, 
+        "discipline_6"  = Column6, 
+        "discipline_7"  = Column7, 
+        "discipline_8"  = Column8, 
+        "discipline_9"  = Column9, 
+        "discipline_10" = Column10, 
+        "discipline_11" = Column11, 
+        "discipline_12" = Column12, 
+        "discipline_13" = Column13,
+        "discipline_other" = DisciplineOther, 
+        ## ---- status ----
+        "status_1" = Status, 
+        "status_2" = Column15, 
+        "status_3" = Column16, 
+        "status_4" = Column17, 
+        "status_5" = Column18, 
+        "status_6" = Column19, 
+        "status_7" = Column20,
+        "status_8" = Column21,
+        "status_9" = Column22,
+        ## ---- why_attending ----
+        "why_attending_1" = WhyAttending,
+        "why_attending_2" = Column27,
+        "why_attending_3" = Column28,
+        "why_attending_4" = Column29,
+        "why_attending_other" = WhyAttendingOther, 
+        ## ---- exposure ----
+        "exposure_1" = Exposure,
+        "exposure_2" = Column31,
+        "exposure_3" = Column32,
+        "exposure_4" = Column33,
+        "exposure_5" = Column34,
+        "exposure_6" = Column35,
+        "exposure_other" = ExposureOther,
+        ## ---- ethnic_identiity ----
+        "ethnic_identity_1" = RaceEthnicIdentity,
+        "ethnic_identity_2" = Column44,
+        "ethnic_identity_3" = Column45, 
+        "ethnic_identity_4" = Column46,
+        "ethnic_identity_5" = Column47,
+        "ethnic_identity_6" = Column48,
+        "ethnic_identity_7" = Column49, 
+        "ethnic_identity_other" = RaceEthnicIdentityOther
+    ) %>%
+    rename_all(to_snake_case) %>%
+    filter(has_answers(.))
 
 # Data Carpentry Post-Workshop Data
-dcpostdata <- readr::read_csv("data/180511_dcpost.csv")
+dcpostdata <- readr::read_csv("data/180511_dcpost.csv",
+                              col_types = cols(
+                                  Date =  col_datetime(
+                                      format = "%m/%d/%y %H:%M"
+                                  ),
+                                  .default = "c")
+                              ) %>%
+    rename_all(to_snake_case) %>%
+    filter(has_answers(.))
 ```
 
 ```{r load-swc-data}
 # Load SWC pre and post-workshop data
 # Software Carpentry Pre-Workshop Data
-swcpredata <- readr::read_csv("data/180521_swcpre.csv")
+swcpredata <- readr::read_csv("data/180521_swcpre.csv",
+                              col_types = cols(
+                                  Date =  col_datetime(
+                                      format = "%m/%d/%y %H:%M"
+                                  ),
+                                  .default = "c")
+                              ) %>%
+    rename(
+         ## ---- why_attending ----
+        "why_attending_1" = WhyAttending,
+        "why_attending_2" = Column4,
+        "why_attending_3" = Column5,
+        "why_attending_4" = Column6,
+        "why_attending_5" = Column7, 
+        "why_attending_other" = WhyAttendingOther, 
+        ## ---- factors ----
+        "factors_1" = Factors,
+        "factors_2" = Column13,
+        "factors_3" = Column14,
+        "factors_other" = FactorsOther,
+        ## ---- exposure ----
+        "exposure_1" = Exposure,
+        "exposure_2" = Column16,
+        "exposure_3" = Column17,
+        "exposure_4" = Column18,
+        "exposure_5" = Column19,
+        "exposure_6" = Column20,
+        "exposure_7" = Column21,
+        "exposure_other" = ExposureOther,
+        ## ---- domain ----
+        "domain_1" = Domain,
+        "domain_2" = Column47,
+        "domain_3" = Column48,
+        "domain_4" = Column49,
+        "domain_5" = Column50,
+        "domain_6" = Column51,
+        "domain_7" = Column52,
+        "domain_8" = Column53,
+        "domain_9" = Column54,
+        "domain_10" = Column55,
+        "domain_11" = Column56,
+        "domain_12" = Column57,
+        "domain_13" = Column58,
+        "domain_14" = Column59,
+        "domain_15" = Column60,
+        "domain_16" = Column61,
+        "domain_other" = DomainOther
+    ) %>%
+    rename_all(to_snake_case) %>%
+    filter(has_answers(.))
 
 # Software Carpentry Post-Workshop Data
-swcpostdata <- readr::read_csv("data/180521_swcpost.csv")
+swcpostdata <- readr::read_csv("data/180521_swcpost.csv",
+                               col_types = cols(
+                                   Date =  col_datetime(
+                                       format = "%m/%d/%y %H:%M"
+                                   ),
+                                   .default = "c")
+                               ) %>%
+    rename(
+        ## ---- domain ----
+        "domain_1" = Domain,
+        "domain_2" = Column50,
+        "domain_3" = Column51,
+        "domain_4" = Column52,
+        "domain_5" = Column53,
+        "domain_6" = Column54,
+        "domain_7" = Column55,
+        "domain_8" = Column56,
+        "domain_9" = Column57,
+        "domain_10" = Column58,
+        "domain_11" = Column59,
+        "domain_12" = Column60,
+        "domain_13" = Column61,
+        "domain_14" = Column62,
+        "domain_15" = Column63,
+        "domain_16" = Column64,
+        "domain_other" = DomainOther
+    ) %>%
+    rename_all(to_snake_case) %>%
+    filter(has_answers(.))
 ```
 
 ```{r}
