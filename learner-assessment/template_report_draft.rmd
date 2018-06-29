@@ -533,33 +533,35 @@ In summary, both Data and Software Carpentry workshop respondents attend worksho
 ```{r}
 # Workshop topics
 # Data Carpentry: Which workshop are you attending?
-workshop = c("Ecology", "Genomics", "Geospatial", "Reproducible Research", "Social Sciences", "I don't know.")
-workshop = factor(workshop)
+workshop_types <- c("Ecology", "Genomics", "Geospatial",
+                    "Reproducible Research", "Social Sciences", "I don't know.",
+                    "Didn't answer")
 
-dcpostdata$Workshop = factor(dcpostdata$Workshop, levels = workshop)
+dc_workshop_type <- dcpostdata %>%    
+    single_answer_summary(workshop, workshop_types)
 
-dcpostdata_workshop_tally <- 
-  dcpostdata %>% 
-  group_by(Workshop) %>% 
-  tally_and_perc(Workshop) %>%
-  filter(!is.na(Workshop))
-  #kable(dcpostdata_workshop_tally, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry Workshop Attending", "n", "%"))
+dc_workshop_type %>%
+    kable(format = 'markdown', row.names = NA,
+          col.names = c ("Data Carpentry Workshop Type Attended", "n", "%"))
 ```
 
 ```{r dc_post_workshop_attended}
 # Data Carpentry: Plot for which workshop are you attending?
-ggplot(dcpostdata_workshop_tally, 
-       aes(`Workshop`, y = 100 * (n/sum(n)),
-           n)) +
-  geom_bar(stat = "identity", fill="darkcyan") +
-  geom_text(aes(label=n), size= 4, vjust=-0.25) +
-  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-  theme_classic() +
-  xlab("Workshop Attended") +
-  ylab("% Respondents") +
-  ggtitle("Marjority of Data Carpentry Respondents \nAttend Ecology Workshops") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
+ggplot(dc_workshop_type,
+       aes(x = factor(workshop, levels = workshop_types),
+           y = percent)) +
+    geom_col(fill = "darkcyan") +
+    geom_text(aes(label = n), size = 4, vjust = -0.25) +
+    scale_x_discrete(labels = function(x)
+        lapply(strwrap(x, width = 10, simplify = FALSE),
+               paste, collapse = "\n")) +
+    theme_minimal() +
+    labs(
+        x = "Workshop Attended",
+        y = "% Respondents",
+        title = "Marjority of Data Carpentry Respondents \nAttend Ecology Workshops") +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme_classic(base_size = 14)
 ```
 
 ```{r}
