@@ -352,22 +352,26 @@ swc_why_attending %>%
                      n_swc_why_attending, ")"),
               "n", "%"))
 ```
-```{r}
+
+
+```{r first-timers-swc}
 # 1st time attending 
 # Software Carpentry: Will this be your first time attending a SWC workshop (as a learner)?
-firsttime = c("Yes", "No")
-firsttime = factor(firsttime)
 
-swcpredata$FirstTime = factor(swcpredata$FirstTime, levels = firsttime)
+swc_first_timers <- swcpredata %>%
+    select(first_time) %>%
+    filter(!is.na(first_time)) %>%
+    count(first_time) %>%
+    arrange(desc(n)) %>% 
+    mutate(percent = round(n/sum(n) * 100, 1))
 
-swcpredata_gender_tally <-
-  swcpredata %>%
-  group_by(FirstTime) %>%
-  tally() %>%
-  filter(!is.na(FirstTime)) %>%
-  mutate(perc = round(n/sum(n) * 100, 0))
+p_first_timers <- swc_first_timers %>%
+    filter(first_time == "Yes") %>%
+    pull(percent)
 
-kable(swcpredata_gender_tally, format = 'markdown', row.names = NA, col.names = c ("Software Carpentry 1st Time Learners", "n", "%"))
+swc_first_timers %>% 
+    kable(format = 'markdown', row.names = NA,
+          col.names = c ("Software Carpentry 1st Time Learners", "n", "%"))
 ```
 
 Software Carpentry workshops teach automation with the Unix shell, a tool that allows users to run commands interactively or by scripting. In Software Carpentry workshops, version control of source code with Git and GitHub are also taught for learners to learn facilitating contribution and collaboration on online repositories. Programming in R or Python is also taught. Software Carpentry's curriculum teaches basic lab skills for scientific computing. Compared to Data Carpentry's learners, Software Carpentry's tend to have more experience with the tools covered in the workshops, and learners come to learn new and/or additional topics (`r p_swc_why_attending`%). It's also interesting to note that `r p_first_timers`% of Software Carpentry respondents are first-time learners.
