@@ -528,8 +528,6 @@ In summary, both Data and Software Carpentry workshop respondents attend worksho
 
 ### Workshop Type and Perception of Workshop Environment/Experience
 
-As previously mentioned, Data Carpentry workshops are domain specific, and curricula include Ecology, Genomics, Geospatial, Social Sciences, and Reproducible Research. XX% of respondents learned R in their workshop, while XX% learned Python.
-
 
 
 ```{r}
@@ -583,6 +581,10 @@ kable(ProgrammingLanguage, format = 'markdown', row.names = NA, col.names = c ("
 
 # I want these to show in this order: R, Python, I don't know/I don't remember, Neither
 ```
+
+As previously mentioned, Data Carpentry workshops are domain specific, and curricula include Ecology, Genomics, Geospatial, Social Sciences, and Reproducible Research. XX% of respondents learned R in their workshop, while XX% learned Python.
+
+
 
 ## Workshop Environment
 The Carpentries is committed to making participation in our workshops a harassment-free experience for everyone, regardless of who you are, where you come from, or your experience with the tools we teach. We establish norms for interaction by having, discussing, and enforcing a Code of Conduct such that our workshops provide open and inclusive learning environments. XX% of Data Carpentry respondents either agree or strongly agree that they felt comfortable learning in their workshop environment, and XX% of Software Carpentry's respondents agreed or strongly agreed the workshop atmosphere was welcoming.
