@@ -116,22 +116,40 @@ Learners attend Carpentries workshops for many reasons. Data Carpentry's worksho
 Data Carpentry's Genomics curriculum also includes programming, however the focus of this curriculum is best practices for organization of bioinformatics projects and data, use of command line utilities and tools to analyze sequence quality and perform variant calling, and connecting to and using cloud computing.
 
 ```{r}
-# Why are you attending this workshop?
-# Data Carpentry Responses are in columns 'WhyAttending' through 'Column29'
-WhyAttending <- 
-dcpredata %>%
-  select(`WhyAttending`:`Column29`) %>% 
-  gather(col, 
-         WhyAttending) %>% 
-  tally_and_perc(WhyAttending, 
-                 na.rm = TRUE) %>% 
-  arrange(desc(n)) %>% 
-  rename(`Why are you attending? Check all that apply.` = WhyAttending)
+tally_nona <- function(x) sum(!is.na(x))
+percent_nona <- function(x) round(tally_nona(x)/length(x) * 100, 1)
 
-kable(WhyAttending, format = 'markdown', row.names = NA, col.names = c ("Why learners attend Data Carpentry workshops", "n", "%"))
+## Why are you attending this workshop?
+## Data Carpentry Responses are in columns 'WhyAttending' through 'Column29'
+why_attending_keys <- dcpredata %>%
+    select(`WhyAttending`:`Column29`) %>%
+    gather() %>%
+    filter(!is.na(value)) %>%
+    distinct(key, value)
+
+why_attending <- dcpredata %>%
+    select(`WhyAttending`:`Column29`) %>%
+    filter(rowSums(is.na(.)) < ncol(.)) %>% 
+    summarize_all(funs(n = tally_nona, percent = percent_nona)) %>%    
+    gather() %>%
+    separate(key, c("column", "metric")) %>%
+    spread(metric, value) %>%
+    inner_join(why_attending_keys, by = c("column" = "key"))
+
+p_work_future <- why_attending %>%
+    filter(column == "WhyAttending") %>%
+    pull(percent)
+    
+
+why_attending %>% 
+    select(value, n, percent) %>%
+    arrange(desc(n)) %>% 
+    kable(format = 'markdown', row.names = NA,
+          col.names = c ("Why learners attend Data Carpentry workshops?",
+                         "n", "%"))
 ```
 
-XX% of Data Carpentry learners attend workshops to learn skills they can apply to their work in the future.
+`r p_work_future`% of Data Carpentry learners attend workshops to learn skills they can apply to their work in the future.
 
 Software Carpentry workshops teach automation with the Unix shell, a tool that allows users to run commands interactively or by scripting. In Software Carpentry workshops, version control of source code with Git and GitHub are also taught for learners to learn facilitating contribution and collaboration on online repositories. Programming in R or Python is also taught. Software Carpentry's curriculum teaches basic lab skills for scientific computing. Compared to Data Carpentry's learners, Software Carpentry's tend to have more experience witht the tools covered in the workshops, and learners come to learn new and/or additional topics (XX%). It's also interesting to note that XX% of Software Carpentry respondents are first-time learners.
 
