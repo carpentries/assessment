@@ -463,37 +463,53 @@ year, but no more than several times per year. Only `r
 dc_percent_programming_daily`% program on a daily basis. This is no surprise, as
 Data Carpentry workshops tend to attract novices.
 
+```{r dc-exposure}
+prep_exposure <- . %>%
+    select(starts_with("exposure"),
+           - exposure_other) %>%
+    filter(has_answers(.))
 
-```{r}
-# How did you find out about this workshop? 
-# Data Carpentry Responses are in columns 'Exposure-Workshop' through 'Column31'
-Exposure <- 
-dcpredata %>%
-  select(`Exposure`:`Column35`) %>% 
-  gather(col, 
-         Exposure) %>% 
-  tally_and_perc(Exposure, 
-                 na.rm = TRUE) %>% 
-  arrange(desc(n)) %>% 
-  rename(`Exposure` = Exposure)
+## How did you find out about this workshop? 
+dc_exposure_data <- dcpredata %>%
+    prep_exposure
 
-kable(Exposure, format = 'markdown', row.names = NA, col.names = c ("How respondents find out about Data Carpentry workshops", "n", "%"))
+dc_exposure_keys <- dc_exposure_data %>%
+    get_key_multi_answer
+
+dc_exposure <- dc_exposure_data %>%
+    tally_percent_multi_answer %>%
+    inner_join(dc_exposure_keys, by = "column_name")
+
+dc_exposure %>%
+    select(question, n, percent) %>%
+    arrange(desc(n)) %>% 
+    kable(format = 'markdown', row.names = NA,
+          col.names = c(
+              paste0("How respondents find out about Data Carpentry workshops (n =",
+                     nrow(dc_exposure_data),
+                     ")"), "n", "%"))
 ```
 
-```{r}
-# How did you find out about this workshop? 
-# Software Carpentry Responses are in columns 'Exposure' through 'Column21'
-Exposure <- 
-swcpredata %>%
-  select(Exposure:Column21) %>% 
-  gather(col, 
-         Exposure) %>% 
-  tally_and_perc(Exposure, 
-                 na.rm = TRUE) %>% 
-  arrange(desc(n)) %>% 
-  rename(`Exposure` = Exposure)
+```{r swc-exposure}
+## How did you find out about this workshop? 
+swc_exposure_data <- swcpredata %>%
+    prep_exposure
 
-kable(Exposure, format = 'markdown', row.names = NA, col.names = c ("How respondents find out about Software Carpentry workshops", "n", "%"))
+swc_exposure_keys <- swc_exposure_data %>%
+    get_key_multi_answer
+
+swc_exposure <- swc_exposure_data %>%
+    tally_percent_multi_answer %>%
+    inner_join(swc_exposure_keys, by = "column_name")
+
+swc_exposure %>%
+    select(question, n, percent) %>%
+    arrange(desc(n)) %>% 
+    kable(format = 'markdown', row.names = NA,
+          col.names = c(
+              paste0("How respondents find out about Software Carpentry workshops (n = ",
+                     nrow(swc_exposure_data), ")"), 
+              "n", "%"))
 ```
 
 Data Carpentry workshops are mainly populated by "word-of-mouth". XX% of respondents learned about the workshop from either a friend, colleague, or their advisor or supervisor.
