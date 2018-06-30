@@ -1297,110 +1297,44 @@ These figures tell us that, before the workshop, between XX% and XX% of the resp
 In summary, respondents experienced increased confidence in their ability to perform specific computing tasks and solve problems, or at least search for answers to problems, as a result of participating in Software and Data Carpentry workshops.
 
 ```{r}
-# Software Carpentry
-# Code chunk for ability to perform various computing tasks
-computing_pre <-
-    c(
-    "Yes",
-    "No",
-    "Maybe"
-    )
+## Software Carpentry
+## Code chunk for ability to perform various computing tasks
+swc_ability_levels <- c("Yes", "No", "Maybe")
 
-computing_post <- 
-  c("Confidence increased slightly", 
-    "Confidence increased a bit", 
-    "Confidence increased greatly", 
-    "No change in confidence",
-    "N/A - Not covered at workshop")
+swc_confidence_levels <- c("Confidence increased slightly",
+                           "Confidence increased a bit",
+                           "Confidence increased greatly",
+                           "No change in confidence",
+                           "N/A - Not covered at workshop")
 
-# Compute for all tools.
+swc_ability_pre <- swcpostdata %>%
+    select(contains("_before")) %>%
+    rename_all(~ gsub("_before", "", .)) %>%
+    filter(has_answers(.))
 
-# Before the workshop
-pre_computing <- 
-swcpostdata %>%
-  select(contains("Before")) %>% 
-  gather() %>% 
-  filter(value %in% computing_pre) %>% 
-  nest(-key) %>% 
-  mutate(tallies = purrr::map(data, ~tally_and_perc(.x, value))) %>% 
-  unnest(tallies) %>% 
-  mutate(key = gsub("Before", "", key))
+swc_confidence_post <- swcpostdata %>%
+    select(contains("_after")) %>%
+    rename_all(~ gsub("_after", "", .)) %>%
+    filter(has_answers(.))
 
-# After the workshop
-post_computing <- 
-swcpostdata %>%
-  select(contains("After")) %>% 
-  gather() %>% 
-  filter(value %in% computing_post) %>% 
-  nest(-key) %>% 
-  mutate(tallies = purrr::map(data, ~tally_and_perc(.x, value)))  %>% 
-  unnest(tallies) %>% 
-  mutate(key = gsub("After", "", key))
+swc_ability_pre_plot <- swc_ability_pre %>%
+    prep_knowledge_plot(swc_ability_levels) %>%
+    ggknowledge(aes(x = skill, y = percent,
+                    fill = factor(level, levels = swc_ability_levels)))
 
-# Plot before and after as two grouped bar plots, then combine.
+swc_confidence_post_plot <- swc_confidence_post %>%
+    prep_knowledge_plot(swc_confidence_levels) %>%
+    ggknowledge(aes(x = skill, y = percent,
+                    fill = factor(level, levels = swc_confidence_levels)))
 
-computing_before <- 
-   ggplot(pre_computing, 
-         aes(x = key,
-             y = `%`,
-             fill = fct_relevel(value, 
-                             computing_pre))) +
-    geom_col(position = "dodge") +
-    geom_text(aes(label=n), 
-              size= 4, 
-              position=position_dodge(width=1)) +
-    scale_x_discrete(labels = function(x) lapply(strwrap(x,
-                                                         width = 10,
-                                                         simplify = FALSE),
-                                                 paste,
-                                                 collapse = "\n")) +
-    theme_classic() +
-    xlab("") +
-    ylab("% Respondents") +
-    ggtitle("Respondent Ability Pre-Workshop") +
-    theme(plot.title = element_text(hjust = 0.5)) +
-    theme_classic(base_size = 14) +
-    theme(legend.position = "bottom", 
-          legend.title=element_blank()) 
-
-computing_after <- 
-   ggplot(post_computing, 
-         aes(x = key,
-             y = `%`,
-             fill = fct_rev(fct_relevel(value, 
-                             (computing_pre))))) +
-    geom_col(position = "dodge") +
-    geom_text(aes(label=n), 
-              size= 4,
-              position=position_dodge(width=1)) +
-    scale_x_discrete(labels = function(x) lapply(strwrap(x,
-                                                         width = 10,
-                                                         simplify = FALSE),
-                                                 paste,
-                                                 collapse = "\n")) +
-    theme_classic() +
-    xlab("") +
-    ylab("% Respondents") +
-    ggtitle("Level of Confidence Post-Workshop") +
-    theme(plot.title = element_text(hjust = 0.5)) +
-    theme_classic(base_size = 14) +
-    theme(legend.position = "bottom", 
-          legend.title=element_blank()) + 
-guides(fill = guide_legend(nrow = 2)) # wraps legend
-          
+swc_ability_pre_plot + swc_confidence_post_plot +
+    plot_layout(ncol = 1)
 ```
-
-```{r swc_prepost_confidence}
-# Put the two plots together
-library(gridExtra)
-grid.arrange(computing_before, 
-             computing_after,
-             ncol = 1)
-```
-
 
 ### Demographics
+
 The Carpentries is a global community that has recognized the importance of bringing people to data through high-impact trainings. Thought the majority of Data Carpentry respondents attended a workshop in the United States of America (XX%), we see an increase in workshops in places like Ethiopia (XX%), Switzerland (XX%), and India (XX%).   
+
 ```{r}
 # In this section we will include
 # Workshop Location (DC): 
