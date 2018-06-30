@@ -662,39 +662,24 @@ respondents agreed or strongly agreed the workshop atmosphere was welcoming.
 
 ```{r dc-post-workshop-comfortable-environment}
 ## Data Carpentry plot for workshop environment
-ggplot(dc_comfortable, 
-       aes(x = factor(comfortable, levels = comfortable_levels), 
+ggassessment_hist(dc_comfortable, 
+                  aes(x = factor(comfortable, levels = comfortable_levels), 
            y = percent)) +
-    geom_col(fill = "darkcyan") +
-    geom_text(aes(label = n), size= 4, vjust=-0.25) +
-    scale_x_discrete(labels = function(x)
-        lapply(strwrap(x, width = 10, simplify = FALSE),
-               paste, collapse="\n")) +
-    theme_minimal(base_size = 14) +
     labs(
         x = "Level of Agreement", 
-        y = "% Respondents", 
         main = "Data Carpentry Respondents felt comfortable learning \n in their workshop environment"
-    ) +
-    theme(plot.title = element_text(hjust = 0.5))
+    )
 ```
 
 ```{r swc-post-workshop-environment}
 # Software Carpentry plot for workshop environment
-ggplot(swc_comfortable, 
-       aes(x = factor(atmosphere, levels = atmosphere_levels),
-           y = percent)) +
-    geom_col(fill = "darkcyan") +
-    geom_text(aes(label = n), size = 4, vjust = -0.25) +
-    scale_x_discrete(labels = function(x)
-        lapply(strwrap(x, width = 10, simplify = FALSE),
-               paste, collapse="\n")) +
-    theme_minimal(base_size = 14) +
+ggassessment_hist(swc_comfortable, 
+                  aes(x = factor(atmosphere, levels = atmosphere_levels),
+                      y = percent)) +
     labs(
         x = "Level of Agreement", 
-        y = "% Respondents", 
-        main = "Software Carpentry Respondents felt the workshop \natmosphere was welcoming") +
-    theme(plot.title = element_text(hjust = 0.5))
+        main = "Software Carpentry Respondents felt the workshop \natmosphere was welcoming"
+    )
 ```
 
 Data Carpentry respondents were asked to rate their level of agreement with several statements regarding their instructor's knowledge, instructional method, and enthusiasm. Their responses are in the figure below, and axis labels correspond to the statements as follows:
