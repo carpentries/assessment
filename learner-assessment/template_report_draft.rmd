@@ -31,7 +31,10 @@ opts_chunk$set(echo = FALSE,
 opts_chunk$set(fig.path='figures/', fig.width = 10,  fig.retina = 2)
 
 
-to_snake_case <- function(x) tolower(gsub("([a-z])([A-Z])", "\\1_\\2", x))
+to_snake_case <- function(x) {
+    x <- gsub("([A-Z])([A-Z][a-z]+)", "\\1_\\2", x)
+    tolower(gsub("([a-z])([A-Z])", "\\1_\\2", x))
+}
 
 ## returns TRUE when the respondent has answered at least one question.
 has_answers <- function(d) {
