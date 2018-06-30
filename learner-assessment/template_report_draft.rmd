@@ -29,6 +29,8 @@ opts_chunk$set(echo = FALSE,
                warning = FALSE)
 ## puts all figures in figures folder
 opts_chunk$set(fig.path='figures/', fig.width = 10,  fig.retina = 2)
+
+
 to_snake_case <- function(x) tolower(gsub("([a-z])([A-Z])", "\\1_\\2", x))
 
 ## returns TRUE when the respondent has answered at least one question.
@@ -47,22 +49,6 @@ convert_label <- function(x) {
 
 ```
 
-```{r}
-# Function that makes a table of counts and percentages
-# @françois please help with creating a different function if this isn't the best way
-# to do tally's and percentages
-tally_and_perc <- function(df, colname, na.rm = FALSE){
-  quo_colname <- enquo(colname)
-
-  df %>% 
-    group_by(!!quo_colname) %>% 
-    tally() %>% 
-    filter(if_else(rep(na.rm, nrow(.)),
-                  !is.na(!!quo_colname),
-                  as.logical(rep(1, nrow(.))))) %>% 
-    mutate(`%` = round(n / sum(n) * 100, 1)) 
-}
-```
 
 ```{r load-dc-data}
 # Load DC pre and post-workshop data
