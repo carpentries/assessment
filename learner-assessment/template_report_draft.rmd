@@ -937,7 +937,7 @@ In summary, Data and Software Carpentry workshops provide a warm and welcoming e
 
 ### Effect of Workshops on Learners Self-Reported Perspectives: Skills & Confidence
 
-Learners were asked to rate their level of agreement with the following statements related to Data Carpentry's workshop goals and learning objectives. The figure below provides a visual representation of their responses, comparing them before the workshop and after the workshop. Axis labels and the corresponding question are as follows:  
+Learners were asked to rate their level of agreement with the following statements related to Data Carpentry's workshop goals and learning objectives. The figure below provides a visual representation of their responses, comparing them before the workshop and after the workshop. Axis labels and the corresponding question are as follows:
 
 + __Write Program__: I can write a small program/script/macro to solve a problem in my own work. 
 + __Search Online__: I know how to search for answers to my technical questions online.
@@ -1635,6 +1635,9 @@ dc_os %>%
     kable(format = 'markdown', row.names = NA,
           col.names = c ("Operating System Respondents Use in Data Carpentry Workshops", "n", "%"))
 ```
+
+In our workshops, we recommend that learners use their own machines. It is important for learners to leave the workshop with their own machine set up to do real work. Our instructors teach on three major platforms: UNIX/Linux, Mac OS X, and Windows. We see a very close representation of Windows (`r dc_os_win`%)  and Apple/Mac OS (`r dc_os_mac`%) users in our Data Carpentry workshops, and even a few UNIX/Linux users (`r dc_os_lin`%).
+
 
 ```{r swc_learners_status}
 # Plot for Software Carpentry Respondents by Position/Status
