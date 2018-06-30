@@ -802,41 +802,40 @@ plot(swc_helper_perception_likert) +
 
 From the figures above, we see that Software Carpentry instructors and helpers are considerate, enthusiastic, give clear answers to questions, and are good communicators. As a whole, our instructors work as a team and are successful in creating a warm and welcoming workshop environment.
 
-One of the goals for Data Carpentry's lessons is that learners are able to immediately apply what they learned at the workshop. The figure below shows that XX% either agree or strongly agree that they're able to immediately apply what they learned.
-```{r}
-# Applicability 
-# Data Carpentry: I can immediately apply what I learned at this workshop
-apply = c("Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree")
-apply = factor(apply)
 
-dcpostdata$ImmediatelyApply = factor(dcpostdata$ImmediatelyApply, levels = apply)
+```{r dc-skill-applicability}
+## Data Carpentry: I can immediately apply what I learned at this workshop
+applicability_levels <- c("Strongly disagree", "Disagree", "Neutral", "Agree",
+                          "Strongly agree", "Didn't answer")
 
-dcpostdata_apply_tally <- 
-  dcpostdata %>% 
-  group_by(ImmediatelyApply) %>% 
-  tally_and_perc(ImmediatelyApply) %>%
-  filter(!is.na(ImmediatelyApply)) 
+dc_applicability <- dcpostdata %>%
+    single_answer_summary(immediately_apply, applicability_levels)
 
-#kable(dcpostdata_apply_tally, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry Respondents Can Immediately Apply Skills Learned", "n", "%"))
+dc_applicability_percent <- dc_applicability %>%
+    filter(immediately_apply %in% c("Agree", "Strongly agree")) %>%
+    summarize(p = sum(percent)) %>%
+    pull(p)
 ```
 
-```{r dc_post_workshop_immediately_apply}
-# Data Carpentry plot for Immediately Apply what I learned
-ggplot(dcpostdata_apply_tally, 
-       aes(`ImmediatelyApply`, y = 100 * (n/sum(n)),
-           n)) +
-  geom_bar(stat = "identity", fill="darkcyan") +
-  geom_text(aes(label=n), size= 4, vjust=-0.25) +
-  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-  theme_classic() +
-  xlab("Level of Agreement") +
-  ylab("% Respondents") +
-  ggtitle("Data Carpentry respondents can immediately apply \nwhat they learned at the workshop") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
+One of the goals for Data Carpentry's lessons is that learners are able to
+immediately apply what they learned at the workshop. The figure below shows that
+`r dc_applicability_percent`% either agree or strongly agree that they're able
+to immediately apply what they learned.
+
+
+```{r dc-skill-applicability-plot}
+ggassessment_hist(dc_applicability,
+                  aes(x = factor(immediately_apply,
+                                 levels = applicability_levels),
+                      y = percent)) +
+    labs(
+        x = "Level of Agreement",
+        title = "Data Carpentry respondents can immediately apply \nwhat they learned at the workshop" 
+    )
 ```
 
 As the majority of Software Carpentry learners attend workshops to learn new skills it is great to see that XX% of learners either learned mostly or all new information during the workshop.
+
 ```{r}
 ## How much information was new??? 
 ## Software Carpentry: How much information presented at the SWC workshop was
