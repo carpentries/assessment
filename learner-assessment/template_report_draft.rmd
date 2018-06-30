@@ -554,6 +554,17 @@ ggassessment_hist <- function(data, mapping) {
         ylab("% Respondents") +
         theme_classic(base_size = 14)
 }
+
+ggassessment_lolli <- function(data, mapping) {
+    ggplot(data, mapping) +
+        geom_point(size = 2.5, col = "darkcyan") +
+        geom_segment(aes(yend = 0), col = "darkcyan") +
+        geom_text(aes(label = n), size = 4, nudge_y = 1) +
+        coord_flip() +
+        ylab("% Respondents") +
+        theme_classic(base_size = 14)
+}
+
 ```{r dc-workshop-type-plot}
 ## Data Carpentry: Plot for which workshop are you attending?
 ggassessment_hist(dc_workshop_type,
@@ -564,6 +575,19 @@ ggassessment_hist(dc_workshop_type,
         title = "Marjority of Data Carpentry Respondents \nAttend Ecology Workshops"
     )
 ```
+
+```{r dc-workshop-type-lolli}
+
+ggassessment_lolli(dc_workshop_type,
+                   aes(x = factor(workshop, levels = rev(workshop_types)),
+                       y = percent,
+                       xend = factor(workshop, levels = rev(workshop_types)))) +
+      labs(
+          x = "Workshop Attended",
+          title = "Marjority of Data Carpentry Respondents \nAttend Ecology Workshops"
+      )
+
+```	
 
 ```{r dc-workshop-language}	
 ## Language covered 
