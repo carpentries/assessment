@@ -1135,111 +1135,44 @@ The neutral centered graphs below provide an even clearer picture of the shift i
 
 It is interesting to see the shift in neutrality between the pre-workshop scores and post-workshops scores, especially for *Programming Efficient*. There was a higher percentage of learners beginning the workshop who felt programming with R or Python can make them more efficient at working with data. Contrarily, confidence in using programming to work with data increased from XX% to xx%.
 
-```{r}
+```{r dc-tools-perception, fig.height=16}
 # Data Carpentry pre-workshop neutral centered graph code
-ordered_agree <-
-   c("Strongly disagree",
-   "Disagree",
-   "Neutral",
-   "Agree",
-   "Strongly agree")
+perception_levels <- c("Strongly disagree", "Disagree", "Neutral", "Agree",
+                       "Strongly agree")
 
-likert_cols <- 
-    dcpredata %>% 
-    select(which(map_lgl(dcpredata, ~`%in%`("Agree", .x)))) %>% 
-    mutate_if(is.character, as.factor) %>% 
-    mutate_all(funs(fct_relevel(., ordered_agree))) %>% 
-    filter_all(all_vars(!is.na(.)))
+prep_perception_tools <- . %>%
+    select(raw_data:programming_efficient) %>%
+    filter(has_answers(.)) %>%
+    mutate_all(~ factor(., levels = perception_levels, ordered = TRUE)) %>%
+    as.data.frame() %>% 
+    likert() %>%
+    transform_likert_labels() 
 
-lc <- likert(data.frame(likert_cols))
-```
+dc_pre_perception_tools <- dcpredata %>%
+    prep_perception_tools
 
-```{r dc_pre_perception_likert}
-# Data Carpentry pre-workshop neutral centered graph
-lc <- likert(data.frame(likert_cols))
-title <- "Data Carpentry Respondents: Pre-Workshop Perception of Tools"
-theme_update(plot.title = element_text(hjust = 0.5))
+dc_post_perception_tools <- dcpostdata %>%
+    prep_perception_tools
 
-likert_pre <- plot(lc) +
-    ggtitle(title)+ 
-    guides(fill = guide_legend(nrow = 2)) # wraps legend
+dc_pre_tools_likert <- dc_pre_perception_tools %>%
+    plot() +
+    labs(
+        title = "Data Carpentry Respondents: Pre-Workshop Perception of Tools"
+    ) +
+    theme(legend.position = "none")
 
-## Double check the plot with a table:
-xx <- 
-    likert_cols %>% 
-    gather(key, value) %>% 
-    group_by(key, value) %>% 
-    tally() %>% 
-    mutate(perc = round(n / sum(n) * 100, 1)) %>% 
-    select(-n) %>% 
-    spread(key, perc) %>% 
-    slice(match(ordered_agree,
-                value))
-``` 
+dc_post_tools_likert <- dc_post_perception_tools %>%
+    plot() +
+    labs(
+        title = "Data Carpentry Respondents: Post-Workshop Perception of Tools"
+    )
 
-```{r}
-# Data Carpentry post-workshop neutral centered graph code
-ordered_agree <-
-   c("Strongly disagree",
-   "Disagree",
-   "Neutral",
-   "Agree",
-   "Strongly agree")
-
-likert_cols <- 
-    dcpostdata %>%
-    select(which(map_lgl(dcpostdata, ~`%in%`("Agree", .x)))) %>%
-    select(-matches("Instructor"), -matches("Comfortable"),
-           -matches("WorkWithData"), -matches("Immediately")) %>%
-    mutate_if(is.character, as.factor) %>% 
-    mutate_all(funs(fct_relevel(., ordered_agree))) %>% 
-    filter_all(all_vars(!is.na(.)))
-
-```
-
-```{r dc_post_perception_likert}
-# Data Carpentry post-workshop neutral centered graph
-lc <- likert(data.frame(likert_cols))
-
-lc$results$Item <-  gsub("([a-z])([A-Z])", "\\1 \\2",
-                         lc$results$Item)
-
-names(lc$items) <-  gsub("([a-z])([A-Z])", "\\1 \\2",
-                         names(lc$items))
-
-
-title <- "Data Carpentry Respondents: Post-Workshop Perception of Tools"
-theme_update(plot.title = element_text(hjust = 0.5))
-
-likert_post <- plot(lc) +
-    ggtitle(title)+ 
-    guides(fill = guide_legend(nrow = 2)) # wraps legend
-
-
-## Double check the plot with a table:
-xx <- 
-    likert_cols %>% 
-    gather(key, value) %>% 
-    group_by(key, value) %>% 
-    tally() %>% 
-    mutate(perc = round(n / sum(n) * 100, 1)) %>% 
-    select(-n) %>% 
-    spread(key, perc) %>% 
-    slice(match(ordered_agree,
-                value))
-
-```
-
-
-```{r dc_pre_post_likert, fig.height=16}
-
-(likert_pre + theme(legend.position="none"))  +
-    likert_post +
+## combine both plots
+dc_pre_tools_likert + dc_post_tools_likert +
     plot_layout(ncol=1)
-
 ```
 
-Software Carpentry Respondets were asked to tell us about their experience with these topics before the workshop:
+xSoftware Carpentry Respondets were asked to tell us about their experience with these topics before the workshop:
 
 + R
 + Unix Shell
