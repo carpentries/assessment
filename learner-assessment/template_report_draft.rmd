@@ -1143,13 +1143,18 @@ It is interesting to see the shift in neutrality between the pre-workshop scores
 perception_levels <- c("Strongly disagree", "Disagree", "Neutral", "Agree",
                        "Strongly agree")
 
+prep_likert_data <- function(.data, var_levels) {
+    .data %>% 
+        filter(has_answers(.)) %>%
+        mutate_all(~ factor(., levels = var_levels, ordered = TRUE)) %>%
+        as.data.frame() %>% 
+        likert() %>%
+        transform_likert_labels()     
+}
+
 prep_perception_tools <- . %>%
     select(raw_data:programming_efficient) %>%
-    filter(has_answers(.)) %>%
-    mutate_all(~ factor(., levels = perception_levels, ordered = TRUE)) %>%
-    as.data.frame() %>% 
-    likert() %>%
-    transform_likert_labels() 
+    prep_likert_data(perception_levels)
 
 dc_pre_perception_tools <- dcpredata %>%
     prep_perception_tools
@@ -1183,158 +1188,97 @@ Software Carpentry Respondents were asked to tell us about their experience with
 + Python
 + Version Control with Git
 
-```{r}
-# Software Carpentry
-ordered_little <-
-  c("Little or no knowledge of topic",
-    "Some knowledge of topic",        
-    "Extensive knowledge of topic")  # yours doesn't match the data
+```{r swc-pre-tools}
+## Software Carpentry
+## Software Carpentry
+## Pre/Post plots for knowledge and perception of tools covered
+## Because the pre- and post- columns are quite different, we
+## cannot put them on the same plot. So let's do two plots then stack them up
 
-likert_cols_little <- 
- swcpostdata %>% 
-   select(which(map_lgl(swcpostdata, ~`%in%`("Little or no knowledge of topic", .x)))) %>% 
-   mutate_if(is.character, as.factor) %>% 
-   mutate_all(funs(fct_relevel(., ordered_little))) %>% 
-  filter_all(all_vars(!is.na(.))) 
+pre_knowledge_levels <- c("Little or no knowledge of topic",
+                          "Some knowledge of topic",
+                          "Extensive knowledge of topic")
 
-# To relabel the y-axis, remove the '-Pre like this:"
+post_knowledge_levels <-  c("No increase in my knowledge", 
+                            "Knowledge increased slightly", 
+                            "Knowledge increased a little", 
+                            "Knowledge increased a great deal")
 
-names(likert_cols_little) <- gsub("-Pre", "", names(likert_cols_little) )
+swc_pre_knowledge <- swcpostdata %>% 
+    select(matches("knowledge_pre")) %>%
+    rename_all(~ gsub("_pre", "", .)) %>%
+    filter(has_answers(.))
 
-lc_little <- likert(data.frame(likert_cols_little))
+swc_post_knowledge <- swcpostdata %>%
+    select(matches("knowledge_increase")) %>%    
+    rename_all(~ gsub("_increase", "", .)) %>%
+    filter(has_answers(.))
+
+swc_pre_knowledge %>%
+    prep_likert_data(pre_knowledge_levels) %>% 
+    plot() %>%
+    labs(
+        title = "Software Carpentry Self-Reported Knowledge of Tools Covered Pre-Workshop"
+    )
 ```
 
 From the figure we see that XX% and less had extensive knowledge of the topics covered in their workshop.
 
-```{r swc_pre_knowledge}
-plot(lc_little) +
-  ggtitle("Software Carpentry Self-Reported Knowledge of Tools Covered Pre-Workshop") + 
-guides(fill = guide_legend(nrow = 2)) # wraps legend
+```{r swc-knowledge-change, fig.height=16}
 
-# Double check the plot with a table:
-xx <- 
-likert_cols_little %>% 
-  gather(key, value) %>% 
-  group_by(key, value) %>% 
-  tally() %>% 
-  mutate(perc = round(n / sum(n) * 100, 1)) %>% 
-  select(-n) %>% 
-  spread(key, perc) %>% 
-  slice(match(ordered_little,
-              value))
-```
+prep_knowledge_plot <- function(.data, var_levels) {
+    
+    .data %>%
+        gather(skill, level) %>%
+        filter(level %in% var_levels) %>%
+        count(skill, level) %>%
+        group_by(skill) %>%
+        mutate(n_skill = sum(n),
+               percent = round(n/n_skill * 100, 1)) %>%
+        ungroup() %>% 
+        mutate(skill = convert_label(skill))    
+}
 
+ggknowledge <- function(data, mapping) {
+    ggplot(data, mapping) +
+        geom_col(position = "dodge") +
+        geom_text(aes(label = n, y = percent + 1), size= 4,
+                  position = position_dodge(width = .9)) +
+        theme_classic() +
+        scale_fill_viridis(name = "", discrete = TRUE) +
+        labs(
+            x = "",
+            y = "% Respondants"
+        )
+}
 
-```{r}
-# Software Carpentry
-# Pre/Post plots for knowledge and perception of tools covered
-# Because the pre- and post- columns are quite different, we
-# cannot put them on the same plot. So let's do two plots then stack them up
-# Use grid.arrange(), nest(), and map() to combine the pre/post plots
-  
-  knowledge_pre <-
-    c(
-    "Little or no knowledge of topic",
-    "Some knowledge of topic",
-    "Extensive knowledge of topic"
+swc_pre_knowledge_plot <- swc_pre_knowledge %>%
+    prep_knowledge_plot(pre_knowledge_levels) %>%
+    ggknowledge(aes(x = skill, y = percent,
+                    fill = factor(level, levels = pre_knowledge_levels))) +
+    labs(
+        title =  "Knowledge Before Workshop"
     )
 
-knowledge_post <- 
-  c("No increase in my knowledge", 
-    "Knowledge increased slightly", 
-    "Knowledge increased a little", 
-    "Knowledge increased a great deal")
+swc_post_knowledge_plot <- swc_post_knowledge %>% 
+    prep_knowledge_plot(post_knowledge_levels) %>%
+    ggknowledge(aes(x = skill, y = percent,
+                    fill = factor(level, levels = post_knowledge_levels))) +
+    labs(
+        title = "Knowledge After Workshop"
+    )
 
-# Compute for all tools.
+swc_pre_knowledge_plot + swc_post_knowledge_plot +
+    plot_layout(ncol = 1)
 
-# Before the workshop
-pre_knowledge <- 
-swcpostdata %>%
-  select(contains("Pre")) %>% 
-  gather() %>% 
-  filter(value %in% knowledge_pre) %>% 
-  nest(-key) %>% 
-  mutate(tallies = purrr::map(data, ~tally_and_perc(.x, value))) %>% 
-  unnest(tallies) %>% 
-  mutate(key = gsub("Pre", "", key))
-
-# After the workshop
-post_knowledge <- 
-swcpostdata %>%
-  select(contains("Increase")) %>% 
-  gather() %>% 
-  filter(value %in% knowledge_post) %>% 
-  nest(-key) %>% 
-  mutate(tallies = purrr::map(data, ~tally_and_perc(.x, value)))  %>% 
-  unnest(tallies) %>% 
-  mutate(key = gsub("Increase", "", key))
-
-# Plot before and after as two grouped bar plots, then combine.
-
-tools_before <- 
-   ggplot(pre_knowledge, 
-         aes(x = key,
-             y = `%`,
-             fill = fct_relevel(value, 
-                             knowledge_pre))) +
-    geom_col(position = "dodge") +
-    geom_text(aes(label=n), 
-              size= 4,
-              position=position_dodge(width=1)) +
-    scale_x_discrete(labels = function(x) lapply(strwrap(x,
-                                                         width = 10,
-                                                         simplify = FALSE),
-                                                 paste,
-                                                 collapse = "\n")) +
-    theme_classic() +
-    xlab("") +
-    ylab("% Respondents") +
-    ggtitle("Knowledge before workshop") +
-    theme(plot.title = element_text(hjust = 0.5)) +
-    theme_classic(base_size = 14) +
-    theme(legend.position = "bottom", 
-          legend.title=element_blank()) + 
-guides(fill = guide_legend(nrow = 2)) # wraps legend
-
-tools_after <- 
-   ggplot(post_knowledge, 
-         aes(x = key,
-             y = `%`,
-             fill = fct_rev(fct_relevel(value, 
-                             (knowledge_pre))))) +
-    geom_col(position = "dodge") +
-    geom_text(aes(label=n), 
-              size= 4,
-              position=position_dodge(width=1)) +
-    scale_x_discrete(labels = function(x) lapply(strwrap(x,
-                                                         width = 10,
-                                                         simplify = FALSE),
-                                                 paste,
-                                                 collapse = "\n")) +
-    theme_classic() +
-    xlab("") +
-    ylab("% Respondents") +
-    ggtitle("Knowledge after workshop") +
-    theme(plot.title = element_text(hjust = 0.5)) +
-    theme_classic(base_size = 14) +
-    theme(legend.position = "bottom", 
-          legend.title=element_blank()) + 
-guides(fill = guide_legend(nrow = 2)) # wraps legend
-          
 ```
 
 
 The following is a comparison of Software Carpentry Respondents' knowledge about the tools before compared to after the workshop. We see clearly that after the workshop, respondents' knowledge of Git, Python, R, and the Unix Shell increased a great deal.
 
-```{r swc_prepost_knowledge}
-# put the two plots together
-library(gridExtra)
-grid.arrange(tools_before, 
-             tools_after,
-             ncol = 1) 
-```
 
 ### Respondent Ability to Perform Computing Tasks
+
 Motivation is important, but being confident in your ability to complete specific computing tasks is an equally important goal of Software Carpentry. The grid below shows respondents' self-reported ability to complete tasks including: 
 
 * Using pipes to connect shell commands 
