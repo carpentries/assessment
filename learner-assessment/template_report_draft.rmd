@@ -273,7 +273,7 @@ tally_percent_multi_answer <- . %>%
     summarize_all(funs(n = tally_nona, percent = percent_nona)) %>%    
     gather() %>%
     extract(key, c("column_name", "metric"),
-            regex = "([a-z_]+_[0-9])_(n|percent)") %>%
+            regex = "([a-z_]+_[0-9]+)_(n|percent)") %>%
     spread(metric, value) 
 ```
 
