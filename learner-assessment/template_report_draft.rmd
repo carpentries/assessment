@@ -543,22 +543,26 @@ dc_workshop_type <- dcpostdata %>%
 ##           col.names = c ("Data Carpentry Workshop Type Attended", "n", "%"))
 ```
 
+```{r plotting-functions}
+ggassessment_hist <- function(data, mapping) {
+    ggplot(data, mapping) +
+        geom_col(fill = "darkcyan") +
+        geom_text(aes(label = n), size = 4, vjust = -0.25) +
+        scale_x_discrete(labels = function(x)
+            lapply(strwrap(x, width = 10, simplify = FALSE),
+                   paste, collapse = "\n")) +
+        ylab("% Respondents") +
+        theme_classic(base_size = 14)
+}
 ```{r dc-workshop-type-plot}
 ## Data Carpentry: Plot for which workshop are you attending?
-ggplot(dc_workshop_type,
-       aes(x = factor(workshop, levels = workshop_types),
-           y = percent)) +
-    geom_col(fill = "darkcyan") +
-    geom_text(aes(label = n), size = 4, vjust = -0.25) +
-    scale_x_discrete(labels = function(x)
-        lapply(strwrap(x, width = 10, simplify = FALSE),
-               paste, collapse = "\n")) +
-    theme_minimal(base_size = 14) +
+ggassessment_hist(dc_workshop_type,
+                  aes(x = factor(workshop, levels = workshop_types),
+                      y = percent)) +
     labs(
         x = "Workshop Attended",
-        y = "% Respondents",
-        title = "Marjority of Data Carpentry Respondents \nAttend Ecology Workshops") +
-    theme(plot.title = element_text(hjust = 0.5))
+        title = "Marjority of Data Carpentry Respondents \nAttend Ecology Workshops"
+    )
 ```
 
 ```{r dc-workshop-language}	
