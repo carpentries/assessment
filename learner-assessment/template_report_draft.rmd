@@ -38,6 +38,13 @@ has_answers <- function(d) {
         mutate(has_answers = rowSums(is.na(.)) < ncol(.)) %>%
         pull(has_answers)   
 }
+
+
+convert_label <- function(x) {
+    x <- gsub("_([a-z])", " \\U\\1", x, perl = TRUE)
+    gsub("^([a-z])", "\\U\\1", x, perl = TRUE)
+}
+
 ```
 
 ```{r}
@@ -691,12 +698,6 @@ Data Carpentry respondents were asked to rate their level of agreement with seve
 
 ```{r likert-helpers}
 transform_likert_labels <- function(.data) {
-
-    convert_label <- function(x) {
-        x <- gsub("_([a-z])", " \\U\\1", x, perl = TRUE)
-        gsub("^([a-z])", "\\U\\1", x, perl = TRUE)
-    }
-    
     .data$results$Item <- convert_label(.data$results$Item)
     names(.data$items) <- convert_label(names(.data$items))
     .data
