@@ -594,7 +594,7 @@ in their workshop, while `r dc_programming_language_py`% learned Python.
 ## Workshop Environment
 
 
-```{r}
+```{r workshop-environment}
 # Environment
 # Data Carpentry: I felt comfortable learning in this workshop environment
 
@@ -632,7 +632,7 @@ environment, and `r swc_comfortable_percent_agree`% of Software Carpentry's
 respondents agreed or strongly agreed the workshop atmosphere was welcoming.
 
 
-```{r dc_post_workshop_comfortable_environment}
+```{r dc-post-workshop-comfortable-environment}
 ## Data Carpentry plot for workshop environment
 ggplot(dc_comfortable, 
        aes(x = factor(comfortable, levels = comfortable_levels), 
@@ -651,7 +651,7 @@ ggplot(dc_comfortable,
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
-```{r swc_post_workshop_environment}
+```{r swc-post-workshop-environment}
 # Software Carpentry plot for workshop environment
 ggplot(swc_comfortable, 
        aes(x = factor(atmosphere, levels = atmosphere_levels),
