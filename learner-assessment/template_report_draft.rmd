@@ -766,54 +766,38 @@ Software Carpentry respondents were asked to rate how they felt instructors and 
   
 The two Likert plots below provide an analysis of respondent's answers for both instructors and helpers.
 
-```{r}
-# Software Carpentry: Perception of SWC workshop instructors/helpers
- ordered_often <-
-  c("Never", "Rarely", "Sometimes", "Often", "All of the time")
+```{r swc-perception-instructors}	
+## Software Carpentry: Perception of SWC workshop instructors/helpers
+frequency_levels <- c("Never", "Rarely", "Sometimes", "Often",
+                      "All of the time")
 
- likert_cols_often_Inst <- 
- swcpostdata %>% 
-   select(grep("Instructors", names(.))) %>% 
-   mutate_if(is.character, as.factor) %>% 
-   mutate_all(funs(fct_relevel(., ordered_often))) %>% 
-   filter_all(all_vars(!is.na(.))) 
-   
- names(likert_cols_often_Inst) <- 
-  gsub("Instructors", "", names(likert_cols_often_Inst))
-  
- lc_often_inst <- likert(data.frame(likert_cols_often_Inst))
+swc_instructor_perception <- swcpostdata %>%
+    select(starts_with("instructors")) %>%
+    filter(has_answers(.))
+
+swc_instructor_perception_likert <- swc_instructor_perception %>% 
+    mutate_all(~ factor(., levels = frequency_levels, ordered = TRUE)) %>%
+    as.data.frame() %>% 
+    likert() %>%
+    transform_likert_labels()    
+
+## Software Carpentry Instructors Plot
+plot(swc_instructor_perception_likert) +
+    ggtitle("Perception of Software Carpentry Instructors")
 ```
 
-```{r swc_instructors_perception}
-# Perception of instructors and helpers
-# Software Carpentry Instructors Plot
- plot(lc_often_inst) +
-  ggtitle("Perception of Software Carpentry Instructors") + 
- guides(fill = guide_legend(nrow = 2)) # wraps legend
-```
+```{r swc-perception-helpers}
+swc_helper_perception_likert <- swcpostdata %>%
+    select(starts_with("helpers")) %>%
+    filter(has_answers(.)) %>%
+    mutate_all(~ factor(., levels = frequency_levels, ordered = TRUE)) %>%
+    as.data.frame() %>% 
+    likert() %>%
+    transform_likert_labels()
 
-```{r}
-# Perception of instructors and helpers 
-# Software Carpentry: Helpers
- likert_cols_often_h <- 
- swcpostdata %>% 
-   select(grep("Helpers", names(.))) %>% 
-   mutate_if(is.character, as.factor) %>% 
-   mutate_all(funs(fct_relevel(., ordered_often))) %>% 
-   filter_all(all_vars(!is.na(.))) 
-   
- names(likert_cols_often_h) <- 
-  gsub("Helpers", "", names(likert_cols_often_h))
-  
- lc_often_h <- likert(data.frame(likert_cols_often_h))
-```
-
-```{r swc_helpers_perception}
-# Perception of instructors and helpers 
-# Software Carpentry: Helpers Plot
- plot(lc_often_h) +
-  ggtitle("Perception of Software Carpentry Helpers") + 
- guides(fill = guide_legend(nrow = 2)) # wraps legend
+## Software Carpentry: Helpers Plot
+plot(swc_helper_perception_likert) +
+    ggtitle("Perception of Software Carpentry Helpers")
 ```
 
 From the figures above, we see that Software Carpentry instructors and helpers are considerate, enthusiastic, give clear answers to questions, and are good communicators. As a whole, our instructors work as a team and are successful in creating a warm and welcoming workshop environment.
