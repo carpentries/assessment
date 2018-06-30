@@ -873,30 +873,25 @@ ggassessment_hist(swc_new_info,
 ```
 
 ### Workshop Experience
-```{r}
-# In this section we will include:
-# Accessibility
-# NPS (SWC/DC)
-# Qualitative Analysis (SWC/DC)
-```
-We want to be proactive in ensuring learners have access to whatever they need to participate in a workshop. Both Data and Software Carpentry learners are asked to inform workshop organizers if there is anything they need that would make their workshop experience better. Data Carpentry's respondents were asked if they had accessibility issues, and XX% reported they did. After reading the open-ended responses, we see that the issues were related to not being able to hear and/or see in the back of the room.
 
-```{r}
-# Accessibility 
-# Data Carpentry: Were there any accessibility issues that affected your ability 
-# to participate in this workshop?
-issues <- 
-dcpostdata %>%
-  select(AccessibilityIssues) %>% 
-  gather(col, 
-         AccessibilityIssues) %>% 
-  tally_and_perc(AccessibilityIssues, 
-                 na.rm = TRUE) %>% 
-  arrange(desc(n)) %>% 
-  rename(`Accessibility Issues` = AccessibilityIssues)
 
-kable(issues, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry Respondents Having Accessibility Issues", "n", "%"))
+```{r dc-accessibility}
+## Accessibility Data Carpentry: Were there any accessibility issues that
+## affected your ability to participate in this workshop?
+dc_accessibility <- dcpostdata %>%
+    single_answer_summary(accessibility_issues, c("No", "Yes", "Didn't answer"))
+
+dc_accessibility_percent <- dc_accessibility %>%
+    filter(accessibility_issue == "Yes") %>%
+    pull(percent)
+
+dc_accessibility %>% 
+    kable(format = 'markdown', row.names = NA,
+          col.names = c("Data Carpentry Respondents Having Accessibility Issues", "n", "%"))
 ```
+
+We want to be proactive in ensuring learners have access to whatever they need to participate in a workshop. Both Data and Software Carpentry learners are asked to inform workshop organizers if there is anything they need that would make their workshop experience better. Data Carpentry's respondents were asked if they had accessibility issues, and `r dc_accessibility_percent`% reported they did. After reading the open-ended responses, we see that the issues were related to not being able to hear and/or see in the back of the room.
+
 
 We use the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter) to measure learners' likelihood of recommending workshops to a friend or colleague. The scoring for this question is on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors.
 
