@@ -834,49 +834,42 @@ ggassessment_hist(dc_applicability,
     )
 ```
 
-As the majority of Software Carpentry learners attend workshops to learn new skills it is great to see that XX% of learners either learned mostly or all new information during the workshop.
 
-```{r}
+```{r swc-new-info}
 ## How much information was new??? 
 ## Software Carpentry: How much information presented at the SWC workshop was
 ## new.
-swcpostdata$NewInformation <- iconv(swcpostdata$NewInformation,
-                                    "latin1", "ASCII", sub=" ")
-swcpostdata$NewInformation <- gsub("\\s+", " ", swcpostdata$NewInformation)
+swcpostdata$new_information <- iconv(swcpostdata$new_information,
+                                     "latin1", "ASCII", sub=" ")
+swcpostdata$new_information <- gsub("\\s+", " ", swcpostdata$new_information)
 
-newinfo <- c("None of it", "Some of it",
-             "About half of it", "Most of it", "All of it")
+newinfo_levels <- c("None of it", "Some of it", "About half of it",
+                    "Most of it", "All of it", "Didn't answer")
 
-swcpostdata$NewInformation <- factor(swcpostdata$NewInformation, levels = newinfo)
+swc_new_info <- swcpostdata %>%
+    single_answer_summary(new_information, newinfo_levels)
 
-swcpostdata_newinfo_tally <- 
-  swcpostdata %>% 
-  group_by(NewInformation) %>% 
-  tally_and_perc(NewInformation) %>%
-  filter(!is.na(NewInformation))
+
+swc_new_info_percent <- swc_new_info %>%
+    filter(new_information %in% c("Most of it", "All of it")) %>%
+    summarize(p = sum(percent)) %>%
+    pull(p)
+
 ```
 
-```{r swc_new_information}
+As the majority of Software Carpentry learners attend workshops to learn new skills it is great to see that `r swc_new_info_percent`% of learners either learned mostly or all new information during the workshop.
+
+
+
+```{r swc-new-information-plot}
 # Software Carpentry plot for new information
-ggplot(swcpostdata_newinfo_tally, 
-       aes(NewInformation, 
-           y = `%`,
-           n)) +
-  geom_bar(stat = "identity", 
-           fill="darkcyan") +
-  geom_text(aes(label=n), 
-            size= 4,
-            nudge_y = 3) +
-  scale_x_discrete(labels = function(x) lapply(strwrap(x, 
-                                                       width = 10, 
-                                                       simplify = FALSE), 
-                                               paste, collapse="\n")) +
-  theme_classic() +
-  xlab("How Much Information Was New?") +
-  ylab("% Respondents") +
-  ggtitle("Software Carpentry Respondents Learned \nMostly New Information") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
+ggassessment_hist(swc_new_info,
+                  aes(x = factor(new_information, levels = newinfo_levels), 
+                      y = percent)) +
+    labs(
+        x = "How much information was new?",
+        title = "Software Carpentry Respondents Learned \nMostly New Information"
+    )
 ```
 
 ### Workshop Experience
