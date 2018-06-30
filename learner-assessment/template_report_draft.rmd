@@ -689,39 +689,73 @@ Data Carpentry respondents were asked to rate their level of agreement with seve
 + __Instructors Enthusiastic__: The instructors were enthusiastic about the workshop.
 + __Instructors Clear Answers__: I was able to get clear answers to my questions from the instructors. 
 
-```{r}
-# Perception of instructors and helpers
-# Data Carpentry
-# Subsetting a portion of the Likert items from InstructorsClearAnswers to InstructorsKnowledgeable
-myvars <- c("InstructorsClearAnswers", "InstructorsEnthusiastic", "InstructorsInteracting", "InstructorsKnowledgeable")
-newdata <- dcpostdata[myvars]
+```{r likert-helpers}
+transform_likert_labels <- function(.data) {
 
-cols_with_Agree <- map_lgl(newdata, ~`%in%`("Agree", .x))
-newdata_agree <-  newdata[ , cols_with_Agree]
-
-levels = c("Strongly disagree",
-           "Disagree",
-           "Neutral",
-           "Agree",
-           "Strongly agree")
-
-newdata_agree_likert <- likert(data.frame(lapply(newdata_agree, factor, levels, ordered=TRUE)))
-
-newdata_agree_likert$results$Item <-  gsub("([A-Z])"," \\1",
-                                           newdata_agree_likert$results$Item)
-
-names(newdata_agree_likert$items) <-  gsub("([A-Z])"," \\1",
-                                           names(newdata_agree_likert$items))
-                                                                                                         
+    convert_label <- function(x) {
+        x <- gsub("_([a-z])", " \\U\\1", x, perl = TRUE)
+        gsub("^([a-z])", "\\U\\1", x, perl = TRUE)
+    }
+    
+    .data$results$Item <- convert_label(.data$results$Item)
+    names(.data$items) <- convert_label(names(.data$items))
+    .data
+}
 ```
 
-```{r dcpost_perception_instructors_heat}					
+
+```{r dc-perception-instructors-data}
+## Perception of instructors and helpers
+## Data Carpentry
+perception_levels <- c("Strongly disagree", "Disagree", "Neutral", "Agree",
+                       "Strongly agree")
+
+dc_perception_instructors <- dcpostdata %>%
+    select(starts_with("instructors"),
+           -instructors_open_ended) %>%
+    filter(has_answers(.))
+
+dc_perception_percent_agree <- dc_perception_instructors %>%
+    summarize_all(~ sum(. %in% c("Agree", "Strongly agree"))/length(.)) %>%
+    gather(skill, percent) %>%
+    mutate(percent = round(percent * 100, 1))
+
+dc_perception_instructors_interacting <- dc_perception_percent_agree %>%
+    filter(skill == "instructors_interacting") %>%
+    pull(percent)
+
+dc_perception_instructors_clear_answers <- dc_perception_percent_agree %>%
+    filter(skill == "instructors_clear_answers") %>%
+    pull(percent)
+
+dc_perception_instructors_knowledge <- dc_perception_percent_agree %>%
+    filter(skill == "instructors_knowledgeable") %>%
+    pull(percent)
+
+dc_perception_instructors_enthusiastic <- dc_perception_percent_agree %>%
+    filter(skill == "instructors_enthusiastic") %>%
+    pull(percent)
+
+dc_perception_instructors_likert <- dc_perception_instructors %>% 
+    mutate_all(~ factor(., levels = perception_levels, ordered = TRUE)) %>%
+    as.data.frame() %>% 
+    likert() %>%
+    transform_likert_labels()
+```
+
+```{r dc-perception-instructors-heatmap}
 ## Data Carpentry
 ## Heatmap for Data Carpentry perception of instructors and helpers
 title <- "Perception of Data Carpentry Instructors"
-plot(newdata_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "darkcyan", legend.position = "bottom") + ggtitle(title)
+
+plot(dc_perception_instructors_likert,
+     type = "heat",
+     panel.arrange = NULL, panel.strip.color = "darkcyan",
+     legend.position = "bottom") +
+    ggtitle(title)
 ```
-The largest impact we see is that XX% of respondents said they felt comfortable interacting with the instructors. We know that our instructors *are* the reason why our workshops are so well received. It's also great to see that XX% and XX% of respondents felt our instructors were knowledgeable about the material being taught, and were enthusiastic about the workshop, respectively. We would like to explore what training would help our instructors so that the percentage of respondents who felt they were able to get clear answers to their questions from the instructors would increase.
+
+The largest impact we see is that `r dc_perception_instructors_interacting`% of respondents said they felt comfortable interacting with the instructors. We know that our instructors *are* the reason why our workshops are so well received. It's also great to see that `r dc_perception_instructors_knowledgeable`% and `r dc_perception_instructors_enthusiastic`% of respondents felt our instructors were knowledgeable about the material being taught, and were enthusiastic about the workshop, respectively. We would like to explore what training would help our instructors so that the percentage of respondents who felt they were able to get clear answers to their questions from the instructors would increase.
 
 Software Carpentry respondents were asked to rate how they felt instructors and helpers worked as a team based on the following criteria:
 
