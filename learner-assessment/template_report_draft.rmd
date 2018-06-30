@@ -47,7 +47,8 @@ has_answers <- function(d) {
 
 convert_label <- function(x) {
     x <- gsub("_([a-z])", " \\U\\1", x, perl = TRUE)
-    gsub("^([a-z])", "\\U\\1", x, perl = TRUE)
+    x <- gsub("^([a-z])", "\\U\\1", x, perl = TRUE)
+    gsub("sql", "SQL", x, ignore.case = TRUE)
 }
 
 ```
