@@ -113,7 +113,7 @@ dcpredata <- readr::read_csv("data/180511_dcpre.csv",
     rename_all(to_snake_case) %>%
     filter(has_answers(.))
 
-# Data Carpentry Post-Workshop Data
+## Data Carpentry Post-Workshop Data
 dcpostdata <- readr::read_csv("data/180511_dcpost.csv",
                               col_types = cols(
                                   Date =  col_datetime(
@@ -126,8 +126,8 @@ dcpostdata <- readr::read_csv("data/180511_dcpost.csv",
 ```
 
 ```{r load-swc-data}
-# Load SWC pre and post-workshop data
-# Software Carpentry Pre-Workshop Data
+## Load SWC pre and post-workshop data
+## Software Carpentry Pre-Workshop Data
 swcpredata <- readr::read_csv("data/180521_swcpre.csv",
                               col_types = cols(
                                   Date =  col_datetime(
@@ -136,7 +136,7 @@ swcpredata <- readr::read_csv("data/180521_swcpre.csv",
                                   .default = "c")
                               ) %>%
     rename(
-         ## ---- why_attending ----
+        ## ---- why_attending ----
         "why_attending_1" = WhyAttending,
         "why_attending_2" = Column4,
         "why_attending_3" = Column5,
@@ -179,7 +179,7 @@ swcpredata <- readr::read_csv("data/180521_swcpre.csv",
     rename_all(to_snake_case) %>%
     filter(has_answers(.))
 
-# Software Carpentry Post-Workshop Data
+## Software Carpentry Post-Workshop Data
 swcpostdata <- readr::read_csv("data/180521_swcpost.csv",
                                col_types = cols(
                                    Date =  col_datetime(
@@ -211,15 +211,13 @@ swcpostdata <- readr::read_csv("data/180521_swcpost.csv",
     filter(has_answers(.))
 ```
 
-```{r}
+```{r overview-inline-stats}
 ## number of learners
 n_learners_pre_dc <- nrow(dcpredata)
 n_learners_post_dc <- nrow(dcpostdata)
 n_learners_pre_swc <- nrow(swcpredata)
 n_learners_post_swc <- nrow(swcpostdata)
-```
 
-```{r}
 ## time period covered
 dc_dates <- range(c(dcpredata$date, dcpostdata$date))
 swc_dates <- range(c(swcpredata$date, swcpostdata$date))
@@ -240,8 +238,8 @@ This report includes the following:
 - Demographics
 - Summary
 
-### Motivation for Attending Carpentries Workshops
 
+### Motivation for Attending Carpentries Workshops
 
 Learners attend Carpentries workshops for many reasons. Data Carpentry's workshops are domain-specific and focus on the fundamental data skills needed to conduct research. Data Carpentry's Ecology and Social Sciences curricula begin with a lesson on data organization and includes data cleaning with OpenRefine. From there, learners spend time learning a base programming language, either Python or R, to manipulate and visualize data.
 
