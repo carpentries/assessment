@@ -1172,7 +1172,7 @@ dc_pre_tools_likert + dc_post_tools_likert +
     plot_layout(ncol=1)
 ```
 
-xSoftware Carpentry Respondets were asked to tell us about their experience with these topics before the workshop:
+Software Carpentry Respondents were asked to tell us about their experience with these topics before the workshop:
 
 + R
 + Unix Shell
