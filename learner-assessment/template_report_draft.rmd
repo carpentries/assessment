@@ -526,7 +526,7 @@ In summary, both Data and Software Carpentry workshop respondents attend worksho
 ```{r dc-workshop-type}
 # Workshop topics
 # Data Carpentry: Which workshop are you attending?
-workshop_types <- c("Ecology", "Genomics", , "Reproducible Research",
+workshop_types <- c("Ecology", "Genomics", "Reproducible Research",
                     "Social Sciences", "Geospatial", "I don't know.",
                     "Didn't answer")
 
@@ -717,7 +717,7 @@ dc_perception_instructors_clear_answers <- dc_perception_percent_agree %>%
     filter(skill == "instructors_clear_answers") %>%
     pull(percent)
 
-dc_perception_instructors_knowledge <- dc_perception_percent_agree %>%
+dc_perception_instructors_knowledgeable <- dc_perception_percent_agree %>%
     filter(skill == "instructors_knowledgeable") %>%
     pull(percent)
 
@@ -871,7 +871,7 @@ dc_accessibility <- dcpostdata %>%
     single_answer_summary(accessibility_issues, c("No", "Yes", "Didn't answer"))
 
 dc_accessibility_percent <- dc_accessibility %>%
-    filter(accessibility_issue == "Yes") %>%
+    filter(accessibility_issues == "Yes") %>%
     pull(percent)
 
 dc_accessibility %>% 
@@ -1421,7 +1421,7 @@ dc_discipline %>%
           col.names = c("Data Carpentry's Respondents by Discipline", "n", "%"))
 ```
 
-As previously mentioned, Data Carpentry's curricula is domain specific to Ecology, Genomics, Geospatial, and the Social Sciences. We see this in the distribution of respondents by discipline. `r get_dc_discipline_percent("discipline_10")`% are in the Life Science, while `r get_dc_discipline_percent("discipline_1")`%, `r get_dc_disciplie_percent("discipline_2")`%, and `r get_dc_discipline_percent("discipline_3)`% are in Agricultural or Environmental Sciences, Bioinformatics/Genomics, and Biomedical/Health Sciences, respectively.
+As previously mentioned, Data Carpentry's curricula is domain specific to Ecology, Genomics, Geospatial, and the Social Sciences. We see this in the distribution of respondents by discipline. `r get_dc_discipline_percent("discipline_10")`% are in the Life Science, while `r get_dc_discipline_percent("discipline_1")`%, `r get_dc_discipline_percent("discipline_2")`%, and `r get_dc_discipline_percent("discipline_3")`% are in Agricultural or Environmental Sciences, Bioinformatics/Genomics, and Biomedical/Health Sciences, respectively.
 
 ```{r swc-discipline}
 # Tally Software Carpentry's pre-workshop respondents by Discipline
@@ -1448,7 +1448,7 @@ swc_discipline %>%
 Software Carpentry's respondent base also has a majority Life Sciences base, however we also see representation from those working in Psychology, High Performance Computing, and Chemistry.
 
 
-```{r dc-status}
+```{r dc-staus}
 # Position/Status
 # Data Carpentry Respondents by Status
 # Responses are in columns 'Status' through 'Column22'
@@ -1503,7 +1503,7 @@ get_swc_status_percent <- function(status_var, .data = swc_status) {
 }
 ```
 
-As many of The Carpentries' workshops are hosted on college campuses and other research-based communities, there is no surprise that the majority of respondents are Graduate Students (`r get_dc_status("status_2")`% - DC, `r get_swc_status_percent("Graduate Student")`% - SWC), Research Staff (`r get_dc_status("status_7")`% - DC,`r get_swc_status_percent("Research staff (including research programmer)")`% - SWC), and Postdoctoral Researchers (`r get_dc_status("status_9")% - DC, `r get_swc_status("Post-doctoral researcher")`% - SWC).
+As many of The Carpentries' workshops are hosted on college campuses and other research-based communities, there is no surprise that the majority of respondents are Graduate Students (`r get_dc_status_percent("status_2")`% - DC, `r get_swc_status_percent("Graduate Student")`% - SWC), Research Staff (`r get_dc_status_percent("status_7")`% - DC,`r get_swc_status_percent("Research staff (including research programmer)")`% - SWC), and Postdoctoral Researchers (`r get_dc_status_percent("status_9")`% - DC, `r get_swc_status_percent("Post-doctoral researcher")`% - SWC).
 
 ```{r dc-status-plot}
 ## Data Carpentry plot of learners by position/status
@@ -1517,7 +1517,7 @@ ggassessment_hist(dc_status,
 ```
 
 
-```{r dc-status-plot}
+```{r swc-status-plot}
 # Plot for Software Carpentry Respondents by Position/Status
 ggassessment_hist(swc_status,
                   aes(
