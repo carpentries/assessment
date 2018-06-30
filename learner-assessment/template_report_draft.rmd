@@ -893,72 +893,59 @@ dc_accessibility %>%
 We want to be proactive in ensuring learners have access to whatever they need to participate in a workshop. Both Data and Software Carpentry learners are asked to inform workshop organizers if there is anything they need that would make their workshop experience better. Data Carpentry's respondents were asked if they had accessibility issues, and `r dc_accessibility_percent`% reported they did. After reading the open-ended responses, we see that the issues were related to not being able to hear and/or see in the back of the room.
 
 
+```{r dc-nps}
+compute_nps <- . %>%
+    pull(likely_to_recommend) %>%
+    as.numeric() %>% 
+    npc(breaks = list(0:64, 65:84, 85:100)) %>%
+    data_frame(category = .) %>%
+    mutate(category = as.character(category),
+           category = replace_na(category, "Didn't answer")) %>% 
+    count(category) %>%
+    mutate("%" = round(n / sum(n) * 100, 1)) %>%
+    arrange(category = factor(category,
+                              levels = c("Promoter", "Passive",
+                                         "Detractor", "Didn't answer")))
+compute_nps_percent <- . %>%
+    filter(category != "Didn't answer") %>%
+    mutate(p = round(n / sum(n) * 100, 1)) %>%
+    filter(category == "Promoter") %>% 
+    pull(p) 
+
+
+## NPS 
+## Data Carpentry
+dc_nps  <- dcpostdata %>%
+    compute_nps
+
+dc_nps %>% 
+    kable(format = 'markdown', row.names = NA,
+          col.names = c ("Data Carpentry Net Promoter Score", "n", "%"))
+
+dc_nps_promoters <- dc_nps %>%
+    compute_nps_percent
+```
+
 We use the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter) to measure learners' likelihood of recommending workshops to a friend or colleague. The scoring for this question is on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors.
 
+`r dc_nps_promoters`% of Data Carpentry respondants who answered this question are promoters (i.e. would recommend a workshop). 
 
-```{r}
-# NPS 
-# Data Carpentry
-net_promoter_score <- 
-    dcpostdata$`LikelyToRecommend` %>%
-    npc(breaks = list(0:64, 65:84, 85:100)) %>%
-    data.frame(category = .) %>%
-    filter(!is.na(category)) %>%
-    count(category) %>%
-    mutate("%" = (n / sum(n))*100)
 
-kable(net_promoter_score, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry Promoter Score", "n", "%"))
-
-percent_promoters <- net_promoter_score %>%
-    filter(category == "Promoter") %>%
-    pull(`%`) %>%
-    round()
-```
-
-`r percent_promoters`% of Data Carpentry respondants are promoters (i.e. would recommend a workshop). 
-
-```{r}
-# Software Carpentry
-# Q: I would recommend this workshop to a friend/colleague
-# I will only include the promoter score info
-#recommend <- c("Strongly Disagree", "Disagree", "Neither Agree nor Disagree", "Agree", "Strongly Agree")
-
-#Recommend <- 
-#    swcpostdata %>%
-#    select(Recommend) %>% 
-#    gather(col, 
-#           Recommend) %>% 
-#    tally_and_perc(Recommend, 
-#                   na.rm = TRUE) %>%
-#    arrange(factor(Recommend, levels = recommend)) %>% 
-#    rename(Recommend = Recommend)
-
-#kable(Recommend, format = 'markdown', row.names = NA, col.names = c ("SWC Respondents Recommending Workshops", "n", "%"))
-
-# How do I get the answer choices to show in the right order?
-```
-
-```{r}
+```{r swc-nps}
 # NPS
 # Software Carpentry
-net_promoter_score_swc <- 
-    swcpostdata$`LikelyToRecommend` %>%
-    npc(breaks = list(0:6.4, 6.5:8.4, 8.5:10)) %>%
-    data.frame(category = .) %>%
-    filter(!is.na(category)) %>%
-    count(category) %>%
-    mutate("%" = (n / sum(n))*100)
-    kable(net_promoter_score_swc, format = 'markdown', row.names = NA, col.names = c ("Software Carpentry Promoter Score", "n", "%"))
-    
-    percent_promoters_swc <- net_promoter_score_swc %>%
-    filter(category == "Promoter") %>%
-    pull(`%`) %>%
-    round()
+swc_nps <- swcpostdata %>%
+    mutate(likely_to_recommend = as.numeric(likely_to_recommend) * 10) %>%
+    compute_nps
+
+swc_nps_percent <- swc_nps %>%
+    compute_nps_percent
 ```
 
-For Software Carpentry respondents, `r percent_promoters_swc`% are promoters.
+For Software Carpentry respondents who answered this questions, `r swc_nps_percent`% are promoters.
+
 ```{r}
-# Qualitative Analysis (SWC/DC)
+## Qualitative Analysis (SWC/DC)
 ```
 
 In summary, Data and Software Carpentry workshops provide a warm and welcoming environment whether learners are brand new to programming or have some experience. Attendees are recommending workshops to their friends and colleagues, and we know that our instructors and helpers are the major reason why.
