@@ -963,19 +963,15 @@ Learners were asked to rate their level of agreement with the following statemen
 + __Overcome Problem__: While working on a programming project, if I get stuck, I can find ways of overcoming the problem.
 + __Analyses Easier__: Using a programming language (like R or Python) can make my analyses easier to reproduce. 
  
-```{r}
-# In this section we will include:
-# Perspectives of self-reported skills and confidence (SWC/DC)
-```
 
-```{r dc_prepost_comparison_data}
-# Data Carpentry
-# Ability to perform various computing tasks before and after completing the workshop
-# Paried analysis plot to compare DC pre scores with post scores
+```{r dc-paired-data}
+## Data Carpentry
+## Ability to perform various computing tasks before and after completing the workshop
+## Paired analysis plot to compare DC pre scores with post scores
 prep_paired_data <- . %>%
-    select(UniqueID, `RawData`:`ProgrammingEfficient`) %>%
-    filter(!is.na(UniqueID)) %>%
-    gather(skill, feeling, -UniqueID) %>%
+    select(unique_id, raw_data:programming_efficient) %>%
+    filter(!is.na(unique_id)) %>%
+    gather(skill, feeling, -unique_id) %>%
     mutate(feeling_score = case_when(
                feeling == "Strongly disagree" ~ 1,
                feeling == "Disagree"          ~ 2,
@@ -990,16 +986,16 @@ prep_paired_data <- . %>%
 
 pre_paired <- dcpredata %>%
     prep_paired_data %>%
-    rename_at(vars(-UniqueID, -skill), ~ paste0("pre_", .))
+    rename_at(vars(-unique_id, -skill), ~ paste0("pre_", .))
     
 post_paired <- dcpostdata %>%
     prep_paired_data %>%
-    rename_at(vars(-UniqueID, -skill), ~ paste0("post_", .))
+    rename_at(vars(-unique_id, -skill), ~ paste0("post_", .))
 
-paired_data <- inner_join(pre_paired, post_paired, by = c("UniqueID", "skill"))
+paired_data <- inner_join(pre_paired, post_paired, by = c("unique_id", "skill"))
 ```
 
-```{r dc_pre_post_comparison_mode}
+```{r dc-paired-data-mode}
 dist_mode <- function(x) {
     ux <- unique(x)
     ux[which.max(tabulate(match(x, ux)))]
@@ -1007,12 +1003,12 @@ dist_mode <- function(x) {
 
 
 paired_data %>%
-    select(UniqueID, skill,
+    select(unique_id, skill,
            pre_feeling_score,
            post_feeling_score) %>%
     filter(!is.na(pre_feeling_score) & !is.na(post_feeling_score)) %>% 
-    gather(score, type, -UniqueID, -skill) %>%
-    mutate(skill = gsub("([a-z])([A-Z])", "\\1 \\2", skill)) %>%
+    gather(score, type, -unique_id, -skill) %>%
+    mutate(skill = convert_label(skill)) %>%
     group_by(skill, score) %>%
     summarize(
         mode = dist_mode(type),
@@ -1032,13 +1028,14 @@ paired_data %>%
 ```
 
 
-```{r dc_pre_post_comparison_mean}
+```{r dc-paired-data-mean}
 paired_data %>%
-    select(UniqueID, skill,
+    select(unique_id, skill,
            pre_feeling_score,
            post_feeling_score) %>%
-    gather(score, type, -UniqueID, -skill) %>%
-    mutate(skill = gsub("([a-z])([A-Z])", "\\1 \\2", skill)) %>%
+    filter(!is.na(pre_feeling_score) & !is.na(post_feeling_score)) %>% 
+    gather(score, type, -unique_id, -skill) %>%
+    mutate(skill = convert_label(skill)) %>%
     group_by(skill, score) %>%
     summarize(
         mean = mean(type, na.rm = TRUE),
