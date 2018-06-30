@@ -542,7 +542,7 @@ dc_workshop_type <- dcpostdata %>%
 ggassessment_hist <- function(data, mapping) {
     ggplot(data, mapping) +
         geom_col(fill = "darkcyan") +
-        geom_text(aes(label = n), size = 4, vjust = -0.25) +
+        geom_text(aes(label = n), size = 4, nudge_y = 3) +
         scale_x_discrete(labels = function(x)
             lapply(strwrap(x, width = 10, simplify = FALSE),
                    paste, collapse = "\n")) +
