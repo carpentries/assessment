@@ -1333,148 +1333,156 @@ swc_ability_pre_plot + swc_confidence_post_plot +
 
 ### Demographics
 
-The Carpentries is a global community that has recognized the importance of bringing people to data through high-impact trainings. Thought the majority of Data Carpentry respondents attended a workshop in the United States of America (XX%), we see an increase in workshops in places like Ethiopia (XX%), Switzerland (XX%), and India (XX%).   
 
-```{r}
-# In this section we will include
-# Workshop Location (DC): 
-# Domain (SWC, DC)
-# Position (SWC, DC)
-# OS (DC)
-# 1st time attending (SWC)
-# Gender/Ethnicity (DC)
-```
-
-```{r}
-# Data Carpentry learners are asked what country their workshop is held.
-# Tally Data Carpentry's pre-workshop respondents by Country
-dcpredata_country_tally <-
-dcpredata %>%
-  group_by(Country) %>%
-  tally(sort = TRUE) %>%
-  mutate(perc = round(100 * (n/sum(n)), 1)) %>% # add the % col
-  filter(!is.na(Country)) %>%
-  arrange(desc(n))
-```
-
-```{r dc_respondents_by_country}
-# Plot Data Carpentry's respondents by Country
-ggplot(dcpredata_country_tally,
-       aes(reorder(Country, perc),
-           perc)) +
-  geom_bar(stat = "identity", fill = "maroon") +
-  theme_classic() +
-  xlab("") +
-  ylab("Percentage of Respondents") +
-  coord_flip() +
-  ggtitle("Breakdown of Data Carpentry's Survey \nRespondents by Country") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_bw(base_size = 14)
-#kable(data_country_tally, format='markdown')
-```
-
-In Software Carpentry's pre-workshop survey, respondents are asked whether or not their workshop takes place in the United States. XX% of respondents attended a U.S. workshop.
-
-```{r}
-# Tally Software Carpentry's pre-workshop respondents by Country
-swcpredata_country_tally <-
-    swcpredata %>%
-    mutate(USWorkshop = replace(USWorkshop, is.na(USWorkshop),
-                                "Didn't answer")) %>% 
-    group_by(USWorkshop) %>%
+```{r dc-country-workshops}
+## Data Carpentry learners are asked what country their workshop is held.
+## Tally Data Carpentry's pre-workshop respondents by Country
+dc_country <- dcpredata %>%
+    group_by(country) %>%
     tally(sort = TRUE) %>%
-    mutate(perc = round(100 * (n/sum(n)), 1)) %>% # add the % col
-    arrange(desc(n))
+    mutate(percent = round(100 * (n/sum(n)), 1)) %>% # add the % col
+    filter(!is.na(country))
 
+get_percentage <- function(.data, .var, .value) {
+    col_var <- enquo(.var)
+    .data %>%
+        filter(!!col_var == .value) %>%
+        pull(percent)
+}
 
-kable(swcpredata_country_tally, format='markdown', col.names = c("Software Carpentry Workshops in US", "n", "%"))
+get_dc_country_percent <- function(country_var, .data = dc_country) {
+    get_percentage(.data, .var = country, .value = country_var)
+}
+
 ```
 
-As previously mentioned, Data Carpentry's curricula is domain specific to Ecology, Genomics, Geospatial, and the Social Sciences. We see this in the distribution of respondents by discipline. XX% are in the Life Science, while XX%, XX%, and XX% are in Agricultural or Environmental Sciences, Bioinformatics/Genomics, and Biomedical/Health Sciences, respectively.
+The Carpentries is a global community that has recognized the importance of bringing people to data through high-impact trainings. Thought the majority of Data Carpentry respondents attended a workshop in the United States of America (`r get_dc_country_percent("United States of America")`%), we see an increase in workshops in places like Ethiopia (`r get_dc_country_percent("Ethiopia")`%), Switzerland (`r get_dc_country_percent("Switzerland")`%), and India (`r get_dc_country_percent("India")`%).   
 
-```{r}
+
+```{r dc-country-workshop-plot}
+# Plot Data Carpentry's respondents by Country
+ggplot(dc_country,
+       aes(x = reorder(country, percent),
+           y = percent)) +
+    geom_col(fill = "darkcyan") +
+    xlab("") +
+    ylab("% Respondents") +
+    coord_flip() +
+    ggtitle("Breakdown of Data Carpentry's Survey Respondents by Country") +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme_bw(base_size = 14)
+```
+
+
+```{r swc-country-workshop}
+## Tally Software Carpentry's pre-workshop respondents by Country
+swc_country <- swcpredata %>% 
+    mutate(us_workshop = replace(us_workshop, is.na(us_workshop),
+                                 "Didn't answer")) %>% 
+    count(us_workshop, sort = TRUE) %>% 
+    mutate(percent = round(100 * (n/sum(n)), 1))
+
+swc_in_us <- swc_country %>%
+    filter(us_workshop == "Yes") %>%
+    pull(percent)
+
+swc_country %>% 
+    kable(format='markdown',
+          col.names = c("Software Carpentry Workshops in US", "n", "%"))
+```
+
+In Software Carpentry's pre-workshop survey, respondents are asked whether or not their workshop takes place in the United States. `r swc_in_us`% of respondents attended a U.S. workshop.
+
+
+```{r dc-discipline}
 ## Domain 
 ## Tally Data Carpentry's pre-workshop respondents by Discipline
 ## Responses are in columns 'Discipline' through 'Column13'
-dcdiscipline <-
-    dcpredata %>%
- select(Discipline:Column13) %>%
- gather(col, dcdiscipline) %>%
- group_by(dcdiscipline) %>%
- tally_and_perc(dcdiscipline, na.rm = TRUE) %>%
- filter(!is.na(dcdiscipline)) %>%
- arrange(desc(n)) %>%
- rename(`Discipline` = dcdiscipline)
+dc_discipline_data <- dcpredata %>%
+    select(starts_with("discipline"),
+           - discipline_other) %>%
+    filter(has_answers(.))
 
-kable(dcdiscipline, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry's Respondents by Discipline", "n", "%"))
+dc_discipline_keys <- dc_discipline_data %>%
+    get_key_multi_answer
+
+dc_discipline <- dc_discipline_data %>%
+    tally_percent_multi_answer %>%
+    inner_join(dc_discipline_keys, by = "column_name") 
+
+get_dc_discipline_percent <- function(discipline_var, .data = dc_discipline) {
+    get_percentage(.data, .var = column_name, .value = discipline_var) 
+}
+
+dc_discipline %>%
+    select(question, n, percent) %>% 
+    arrange(desc(n)) %>% 
+    kable(format = 'markdown', row.names = NA,
+          col.names = c("Data Carpentry's Respondents by Discipline", "n", "%"))
 ```
 
-Software Carpentry's respondent base also has a majority Life Sciences base (XX%), however we also see representation from those working in Psychology, High Performance Computing, and Chemistry.
+As previously mentioned, Data Carpentry's curricula is domain specific to Ecology, Genomics, Geospatial, and the Social Sciences. We see this in the distribution of respondents by discipline. `r get_dc_discipline_percent("discipline_10")`% are in the Life Science, while `r get_dc_discipline_percent("discipline_1")`%, `r get_dc_disciplie_percent("discipline_2")`%, and `r get_dc_discipline_percent("discipline_3)`% are in Agricultural or Environmental Sciences, Bioinformatics/Genomics, and Biomedical/Health Sciences, respectively.
 
-```{r}
+```{r swc-discipline}
 # Tally Software Carpentry's pre-workshop respondents by Discipline
 # Responses are in columns 'Domain' through 'Column61'
-swcdiscipline <-
- swcpredata %>%
- select(Domain:Column61) %>%
- gather(col, swcdiscipline) %>%
- group_by(swcdiscipline) %>%
- tally_and_perc(swcdiscipline,na.rm = TRUE) %>%
- filter(!is.na(swcdiscipline)) %>%
- arrange(desc(n)) %>%
- rename(`Domain` = swcdiscipline)
+swc_discipline_data <- swcpredata %>%
+    select(starts_with("domain"),
+           -domain_other) %>%
+    filter(has_answers(.))
 
-kable(swcdiscipline, format = 'markdown', row.names = NA, col.names = c ("Software Carpentry's Respondents by Discipline", "n", "%"))
+swc_discipline_keys <- swc_discipline_data %>%
+    get_key_multi_answer
+
+swc_discipline <- swc_discipline_data %>%
+    tally_percent_multi_answer %>%
+    inner_join(swc_discipline_keys, by = "column_name")
+
+swc_discipline %>%
+    select(question, n, percent) %>% 
+    arrange(desc(n)) %>% 
+    kable(format = 'markdown', row.names = NA,
+          col.names = c ("Software Carpentry's Respondents by Discipline", "n", "%"))
 ```
 
-As many of The Carpentries' workshops are hosted on college campuses and other research-based communities, there is no surprise that the majority of respondents are Graduate Students (XX% - DC, XX% - SWC), Research Staff (XX% - DC, XX% - SWC), and Postdoctoral Researchers (XX% - DC, XX% - SWC).
-```{r}
+Software Carpentry's respondent base also has a majority Life Sciences base, however we also see representation from those working in Psychology, High Performance Computing, and Chemistry.
+
+
+```{r dc-status}
 # Position/Status
 # Data Carpentry Respondents by Status
 # Responses are in columns 'Status' through 'Column22'
-ordered_status = c("Undergraduate Student", "Graduate Student", "Postdoctoral Researcher", "Faculty", "Industry Employee", "Government Employee", "Research Staff", "Management/Administrator", "Retired/Not Employed", "Other (please specify)")
+dc_status_levels <- c("Undergraduate Student", "Graduate Student",
+                      "Postdoctoral Researcher", "Faculty", "Industry Employee",
+                   "Government Employee", "Research Staff",
+                   "Management/Administrator", "Retired/Not Employed",
+                   "Other (please specify)")
 
-dcpredata_status_tally <-
- dcpredata %>%
- select(Status:Column22) %>%
- gather(col, dcpredata_status_tally) %>%
- group_by(dcpredata_status_tally) %>%
- tally_and_perc(dcpredata_status_tally, na.rm = TRUE) %>%
- filter(!is.na(dcpredata_status_tally)) %>%
- arrange(desc(n)) %>%
- rename(`Status` = dcpredata_status_tally)
+dc_status_data <- dcpredata %>%
+    select(starts_with("status"),
+           -status_other) %>%
+    filter(has_answers(.))
 
-kable(dcpredata_status_tally, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry's Respondents by Position", "n", "%"))
+dc_status_keys <- dc_status_data %>%
+    get_key_multi_answer
+
+dc_status <- dc_status_data %>%
+    tally_percent_multi_answer %>%
+    inner_join(dc_status_keys, by = "column_name")
+
+get_dc_status_percent <- function(status_var, .data = dc_status) {
+    get_percentage(.data, .var = column_name, .value = status_var)
+}
+
+dc_status %>%
+    select(question, n, percent) %>% 
+    kable(format = 'markdown', row.names = NA,
+          col.names = c ("Data Carpentry's Respondents by Position", "n", "%"))
 ```
 
-```{r dc_learners_status}
-# Data Carpentry plot of learners by position/status
-# This plot is not working
-ggplot(dcpredata_status_tally, 
-       aes(Status,
-           y = `%`,
-           n)) +
-  geom_bar(stat = "identity", 
-           fill = "darkcyan") +
-  geom_text(aes(label = n), 
-            size= 4,
-            nudge_y = 3) + ## This moves the numbers up a bit so they're easier to read. 
-  scale_x_discrete(labels = function(x) lapply(strwrap(x, 
-                                                       width = 10, 
-                                                       simplify = FALSE), 
-                                               paste, collapse="\n")) +
-  theme_classic() +
-  xlab("Position") +
-  ylab("% Respondents") +
-  ggtitle("Data Carpentry Respondents by Position/Status") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14) 
-```
-
-
-```{r }
-# Software Carpentry Respondents by Position/Status
-ordered_status <- c(    
+```{r swc-status}
+## Software Carpentry Respondents by Position/Status
+swc_status_levels <- c(    
     "Undergraduate Student",
     "Graduate Student",
     "Post-doctoral researcher",
@@ -1483,15 +1491,45 @@ ordered_status <- c(
     "Support staff (including technical support)",
     "Librarian/archivist",
     "Commercial software developer",
-    "Other (please specify)"
-  )
+    "Other (please specify)",
+    "Didn't answer"
+    )
 
-swcpredata_status_tally <- 
-swcpredata %>% 
-  mutate(Status_ord = fct_relevel(Status, 
-                                  ordered_status)) %>% 
-  tally_and_perc(Status_ord, na.rm = TRUE) 
+swc_status <- swcpredata %>%
+    single_answer_summary(status, swc_status_levels)
+
+get_swc_status_percent <- function(status_var, .data = swc_status) {
+    get_percentage(.data, .var = status, .value = status_var)
+}
 ```
+
+As many of The Carpentries' workshops are hosted on college campuses and other research-based communities, there is no surprise that the majority of respondents are Graduate Students (`r get_dc_status("status_2")`% - DC, `r get_swc_status_percent("Graduate Student")`% - SWC), Research Staff (`r get_dc_status("status_7")`% - DC,`r get_swc_status_percent("Research staff (including research programmer)")`% - SWC), and Postdoctoral Researchers (`r get_dc_status("status_9")% - DC, `r get_swc_status("Post-doctoral researcher")`% - SWC).
+
+```{r dc-status-plot}
+## Data Carpentry plot of learners by position/status
+ggassessment_hist(dc_status,
+                  aes(x = factor(question, levels = dc_status_levels),
+                      y = percent)) +
+    labs(
+        x = "",
+        title = "Data Carpentry Respondents by Position/Status"
+    )
+```
+
+
+```{r dc-status-plot}
+# Plot for Software Carpentry Respondents by Position/Status
+ggassessment_hist(swc_status,
+                  aes(
+                      x = factor(status, swc_status_levels),
+                      y = percent
+                  )) +
+    labs(
+        x = "",
+        title = "Software Carpentry Respondents by Position/Status"
+    )
+```
+
 
 ```{r dc-os}
 ## OS 
@@ -1521,104 +1559,88 @@ dc_os %>%
 In our workshops, we recommend that learners use their own machines. It is important for learners to leave the workshop with their own machine set up to do real work. Our instructors teach on three major platforms: UNIX/Linux, Mac OS X, and Windows. We see a very close representation of Windows (`r dc_os_win`%)  and Apple/Mac OS (`r dc_os_mac`%) users in our Data Carpentry workshops, and even a few UNIX/Linux users (`r dc_os_lin`%).
 
 
-```{r swc_learners_status}
-# Plot for Software Carpentry Respondents by Position/Status
-ggplot(swcpredata_status_tally, 
-       aes(Status_ord,
-           y = `%`,
-           n)) +
-  geom_bar(stat = "identity", 
-           fill = "darkcyan") +
-  geom_text(aes(label = n), 
-            size= 4,
-            nudge_y = 3) + ## This moves the numbers up a bit so they're easier to read. 
-  scale_x_discrete(labels = function(x) lapply(strwrap(x, 
-                                                       width = 10, 
-                                                       simplify = FALSE), 
-                                               paste, collapse="\n")) +
-  theme_classic() +
-  xlab("Status") +
-  ylab("% Respondents") +
-  ggtitle("Software Carpentry Respondents by Position/Status") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14) 
-```
 
 Gender and racial/ethnic identity information is collected for U.S. participants, as we are keen to increase the number of diverse instructors and learners we serve. Understanding our demographic makeup helps us to strategize about what communities to reach and what programs to offer. 
 
 Currently, both Data (XX%) and Software (XX%) Carpentry see strong representation from Women in the United States. Where we hope to improve is in reaching the non-White audience, as less than XX% of our respondents are from communities historically underrepresented in the science, technology, engineering, and mathematics (STEM) fields.
 
-```{r}
+```{r dc-gender}
 # Gender Identity 
 # Data Carpentry
 # With what gender do you most identify?
-gender = c("Female", "Male", "Transgender female", "Transgender male", "Gender variant/non-conforming", "Prefer not to answer", "Not listed (please specify")
-gender = factor(gender)
+dc_gender_levels <- c("Female", "Male", "Transgender female",
+                      "Transgender male", "Gender variant/non-conforming",
+                      "Prefer not to answer", "Not listed (please specify)",
+                      "Didn't answer")
 
-dcpredata$GenderIdentity = factor(dcpredata$GenderIdentity, levels = gender)
+dcpredata$gender_identity <- iconv(dcpredata$gender_identity, "latin1", "ASCII",
+                                   sub=" ")
 
-dcpredata_gender_tally <-
-  dcpredata %>%
-  group_by(GenderIdentity) %>%
-  tally() %>%
-  filter(!is.na(GenderIdentity)) %>%
-  mutate(perc = round(n/sum(n) * 100, 0))
+dc_gender <- dcpredata %>%
+    filter(country == "United States of America") %>% 
+    single_answer_summary(gender_identity, dc_gender_levels)
 
-kable(dcpredata_gender_tally, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry's U.S. Respondents' Gender Identity", "n", "%"))
+kable(dc_gender, format = 'markdown', row.names = NA,
+      col.names = c("Data Carpentry's U.S. Respondents' Gender Identity",
+                    "n", "%"))
 ```
-```{r}
+
+```{r dc-ethnicity}
 # Data Carpentry: Race/Ethnic Identity
 # Responses are in columns 'RaceEthnicIdentity' through 'Column49'
-dcpredata_race_tally <-
- dcpredata %>%
- select(RaceEthnicIdentity:Column49) %>%
- gather(col, dcpredata_race_tally) %>%
- group_by(dcpredata_race_tally) %>%
- tally_and_perc(dcpredata_race_tally, na.rm = TRUE) %>%
- filter(!is.na(dcpredata_race_tally)) %>%
- arrange(desc(n)) %>%
- rename(`RaceEthnicIdentity` = dcpredata_race_tally)
+dc_ethnicity_data <- dcpredata %>%
+    filter(country == "United States of America") %>% 
+    select(starts_with("ethnic_identity"),
+           -ethnic_identity_other) %>%
+    filter(has_answers(.))
 
-kable(dcpredata_race_tally, format = 'markdown', row.names = NA, col.names = c ("Data Carpentry's U.S. Respondents Racial/Ethnic Identity", "n", "%"))
+dc_ethnicity_keys <- dc_ethnicity_data %>%
+    get_key_multi_answer
+
+dc_ethnicity <- dc_ethnicity_data %>%
+    tally_percent_multi_answer %>%
+    inner_join(dc_ethnicity_keys, by = "column_name")
+
+dc_ethnicity %>%
+    select(question, n, percent) %>% 
+    kable(format = 'markdown', row.names = NA,
+          col.names = c("Data Carpentry's U.S. Respondents Racial/Ethnic Identity",
+                        "n", "%"))
 ```
 
-```{r}
+```{r swc-gender}
 # Software Carpentry
 # With what gender do you most identify?
-gender = c("Female", "Male", "Other", "Prefer not to say")
-gender = factor(gender)
+swc_gender_levels <- c("Female", "Male", "Other", "Prefer not to say")
 
-swcpredata$Gender = factor(swcpredata$Gender, levels = gender)
+swc_gender <- swcpredata %>%
+    filter(us_workshop == "Yes") %>% 
+    single_answer_summary(gender, swc_gender_levels)
 
-swcpredata_gender_tally <-
-  swcpredata %>%
-  group_by(Gender) %>%
-  tally() %>%
-  filter(!is.na(Gender)) %>%
-  mutate(perc = round(n/sum(n) * 100, 0))
-
-kable(dcpredata_gender_tally, format = 'markdown', row.names = NA, col.names = c ("Software Carpentry's U.S. Respondents' Gender Identity", "n", "%"))
+kable(swc_gender, format = 'markdown', row.names = NA,
+      col.names = c ("Software Carpentry's U.S. Respondents' Gender Identity",
+                     "n", "%"))
 
 ```
 
 
-```{r}
+```{r swc-ethnicity}
 # Software Carpentry: Race/Ethnic Identity
-race = c("American Indian or Alaskan Native", "Asian / Pacific Islander", "Black or African American", "Hispanic or Latino", "Native Hawaiian or Other Pacific Islander", "White / Caucasian", "Prefer not to say", "Multiple ethnicity / Other (please specify)")
-race = factor(race)
+swc_ethnicity_levels <- c("American Indian or Alaskan Native",
+                          "Asian / Pacific Islander",
+                          "Black or African American", "Hispanic or Latino",
+                          "Native Hawaiian or Other Pacific Islander",
+                          "White / Caucasian", "Prefer not to say",
+                          "Multiple ethnicity / Other (please specify)")
 
-swcpostdata$Race = factor(swcpostdata$Race, levels = race)
+swc_ethnicity <- swcpredata %>%
+    filter(us_workshop == "Yes") %>% 
+    single_answer_summary(race, swc_ethnicity_levels)
 
-swcpostdata_race_tally <-
-  swcpostdata %>%
-  group_by(Race) %>%
-  tally() %>%
-  filter(!is.na(Race)) %>%
-  mutate(perc = round(n/sum(n) * 100, 0))
 
-kable(swcpostdata_race_tally, format = 'markdown', row.names = NA, col.names = c ("Software Carpentry's U.S. Respondents' Racial/Ethnic Identity", "n", "%"))
+kable(swc_ethnicity, format = 'markdown', row.names = NA,
+      col.names = c("Software Carpentry's U.S. Respondents' Racial/Ethnic Identity", "n", "%"))
 
-# % adds up to 101, is this right?
 ```
 
 ### Summary
