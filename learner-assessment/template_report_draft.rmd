@@ -484,18 +484,18 @@ dc_satisfaction %>%
 ```
 
 ```{r dc-satisfaction-level-plot}
+
 dc_satisfaction %>%
     filter(!current_satisfaction %in% c("Not applicable",
                                         "Didn't answer")) %>% 
-    ggassessment_hist(
-        aes(x = factor(current_satisfaction,
-                       levels = satisfaction_levels),
-            y = percent)) +
+    ggassessment_lolli(
+        aes(y = factor(current_satisfaction,
+                       levels = rev(satisfaction_levels)),
+            x = percent), color = "dc") +
     labs(
-        x = "",
-        y = "Percent",
+        y = "",
         title = "Pre-workshop Satisfaction Level with Current Data Management Practices",
-        caption = "'Not applicable' and 'Didn't answer' not shown"
+        subtitle = "'Not applicable' and 'Didn't answer' not shown"
     ) 
 ```
 
@@ -597,26 +597,14 @@ dc_workshop_type <- dcpostdata %>%
 ##           col.names = c ("Data Carpentry Workshop Type Attended", "n", "%"))
 ```
 
+
 ```{r dc-workshop-type-plot}
-## Data Carpentry: Plot for which workshop are you attending?
-ggassessment_hist(dc_workshop_type,
-                  aes(x = factor(workshop, levels = workshop_types),
-                      y = percent)) +
+ggassessment_lolli(dc_workshop_type,
+                   aes(y = factor(workshop, levels = rev(workshop_types)),
+                       x = percent), color = "dc") +                       
     labs(
-        x = "Workshop Attended",
         title = "Marjority of Data Carpentry Respondents \nAttend Ecology Workshops"
     )
-```
-
-```{r dc-workshop-type-lolli}
-ggassessment_lolli(dc_workshop_type,
-                   aes(x = factor(workshop, levels = rev(workshop_types)),
-                       y = percent,
-                       xend = factor(workshop, levels = rev(workshop_types)))) +
-      labs(
-          x = "Workshop Attended",
-          title = "Marjority of Data Carpentry Respondents \nAttend Ecology Workshops"
-      )
 
 ```	
 
@@ -691,24 +679,27 @@ respondents agreed or strongly agreed the workshop atmosphere was welcoming.
 
 ```{r dc-post-workshop-comfortable-environment}
 ## Data Carpentry plot for workshop environment
-ggassessment_hist(dc_comfortable, 
-                  aes(x = factor(comfortable, levels = comfortable_levels), 
-           y = percent)) +
+ggassessment_lolli(dc_comfortable, 
+                   aes(y = factor(comfortable,
+                                  levels = rev(comfortable_levels)), 
+                       x = percent),
+                   color = "dc") +
     labs(
-        x = "Level of Agreement", 
-        main = "Data Carpentry Respondents felt comfortable learning \n in their workshop environment"
+        title = "Data Carpentry Respondents felt comfortable learning \n in their workshop environment"
     )
 ```
 
 ```{r swc-post-workshop-environment}
 # Software Carpentry plot for workshop environment
-ggassessment_hist(swc_comfortable, 
-                  aes(x = factor(atmosphere, levels = atmosphere_levels),
-                      y = percent)) +
+ggassessment_lolli(swc_comfortable, 
+                   aes(y = factor(atmosphere, levels = rev(atmosphere_levels)),
+                       x = percent),
+                   color = "swc") +
     labs(
         x = "Level of Agreement", 
-        main = "Software Carpentry Respondents felt the workshop \natmosphere was welcoming"
+        title = "Software Carpentry Respondents felt the workshop \natmosphere was welcoming"
     )
+                   
 ```
 
 Data Carpentry respondents were asked to rate their level of agreement with several statements regarding their instructor's knowledge, instructional method, and enthusiasm. Their responses are in the figure below, and axis labels correspond to the statements as follows:
@@ -826,12 +817,11 @@ to immediately apply what they learned.
 
 
 ```{r dc-skill-applicability-plot}
-ggassessment_hist(dc_applicability,
-                  aes(x = factor(immediately_apply,
-                                 levels = applicability_levels),
-                      y = percent)) +
+ggassessment_lolli(dc_applicability,
+                   aes(y = factor(immediately_apply,
+                                  levels = rev(applicability_levels)),
+                       x = percent), color = "dc") +
     labs(
-        x = "Level of Agreement",
         title = "Data Carpentry respondents can immediately apply \nwhat they learned at the workshop" 
     )
 ```
@@ -865,11 +855,12 @@ As the majority of Software Carpentry learners attend workshops to learn new ski
 
 ```{r swc-new-information-plot}
 # Software Carpentry plot for new information
-ggassessment_hist(swc_new_info,
-                  aes(x = factor(new_information, levels = newinfo_levels), 
-                      y = percent)) +
+ggassessment_lolli(swc_new_info,
+                   aes(y = factor(new_information,
+                                  levels = rev(newinfo_levels)), 
+                       x = percent), color = "swc") +
     labs(
-        x = "How much information was new?",
+        y = "How much information was new?",
         title = "Software Carpentry Respondents Learned \nMostly New Information"
     )
 ```
@@ -1366,15 +1357,12 @@ The Carpentries is a global community that has recognized the importance of brin
 
 ```{r dc-country-workshop-plot, fig.height=9}		
 ## Plot Data Carpentry's respondents by Country
-ggassessment_hist(dc_country,
-                  aes(x = reorder(country, percent),
-                      y = percent)) +
-    coord_flip() +
+ggassessment_lolli(dc_country,
+                   aes(y = reorder(country, percent),
+                       x = percent),
+                   color = "dc") +
     labs(
-        x = "",
-        y = "% Respondents",
-        title="Breakdown of Data Carpentry's Survey Respondents by Country") +
-    theme(plot.title = element_text(hjust = 0.5)) 
+        title="Breakdown of Data Carpentry's Survey Respondents by Country")
 ```
 
 
@@ -1494,24 +1482,22 @@ As many of The Carpentries' workshops are hosted on college campuses and other r
 
 ```{r dc-status-plot}
 ## Data Carpentry plot of learners by position/status
-ggassessment_hist(dc_status,
-                  aes(x = factor(question, levels = dc_status_levels),
-                      y = percent)) +
+ggassessment_lolli(dc_status,
+                   aes(y = factor(question, levels = rev(dc_status_levels)),
+                       x = percent), color = "dc") +
     labs(
-        x = "",
         title = "Data Carpentry Respondents by Position/Status"
     )
 ```
 
 ```{r swc-status-plot}
 # Plot for Software Carpentry Respondents by Position/Status
-ggassessment_hist(swc_status,
-                  aes(
-                      x = factor(status, swc_status_levels),
-                      y = percent
-                  )) +
+ggassessment_lolli(swc_status,
+                   aes(
+                       y = factor(status, rev(swc_status_levels)),
+                       x = percent
+                   ), color = "swc") +
     labs(
-        x = "",
         title = "Software Carpentry Respondents by Position/Status"
     )
 ```
