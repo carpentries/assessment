@@ -786,6 +786,8 @@ plot(swc_instructor_perception_likert) +
 ```{r swc-perception-helpers}
 swc_helper_perception_likert <- swcpostdata %>%
     extract_multi_columns("helpers") %>%
+    ## wrong column name in data
+    rename(helpers_considerate = helpers_teamwork) %>% 
     make_likert_data(frequency_levels)
 
 ## Software Carpentry: Helpers Plot
