@@ -1072,18 +1072,26 @@ paired_data %>%
     ungroup() %>%
     mutate(skill = convert_label(skill)) %>%
     mutate(pre_post = factor(pre_post, levels = c("pre", "post"))) %>%
-    ggplot(aes(x = score, y = percent, group = pre_post)) +
+    complete(skill, pre_post, score,
+             fill = list(n = 0, n_total = 0, percent = 0 )) %>% 
+    ggplot(aes(x = score, y = percent/100, group = pre_post)) +
     geom_col(aes(fill = pre_post),
              position = "dodge") +
-    geom_text(aes(label = n, y = percent + 3),
+    geom_text(aes(label = n, y = percent/100 + .03),
               position = position_dodge(0.9)) +
     facet_wrap(~ skill) +
+    scale_y_continuous(labels = percent) +
     scale_fill_viridis(
         name = "",
         breaks = c("pre", "post"),
         labels = c("Pre-workshop", "Post-workshop"),
         discrete = TRUE, end = .7) +
-    theme_minimal()
+    theme_minimal() +
+    theme(legend.position = "bottom") +
+    labs(
+        x = "",
+        y = ""
+    )
 
 ```
 
