@@ -19,6 +19,8 @@ library(broom)
 library(assertr)
 library(viridis)
 library(patchwork)
+library(scales)
+library(ggalt)
 
 opts_chunk$set(echo = FALSE,
                message = FALSE,
@@ -60,15 +62,37 @@ ggassessment_hist <- function(data, mapping) {
         theme_classic(base_size = 14)
 }
 
-ggassessment_lolli <- function(data, mapping) {
+ggassessment_lolli <- function(data, mapping, color) {
+    data$percent <- data$percent / 100
+    if (!identical(substr(color, 1, 1), "#")) {
+        color <- match.arg(color, c("swc", "dc", "cp"))
+        color <- switch(color,
+                        swc = "#2f3f8e",
+                        dc  = "darkcyan",
+                        cp = "#071159")
+    }
+    
     ggplot(data, mapping) +
-        geom_point(size = 2.5, col = "darkcyan") +
-        geom_segment(aes(yend = 0), col = "darkcyan") +
-        geom_text(aes(label = n), size = 4, nudge_y = 1, hjust = 0) +
-        coord_flip() +
-        ylab("% Respondents") +
-        theme_classic(base_size = 14)
+        geom_lollipop(col = color, horizontal = TRUE, point.size = 2.5) +
+        geom_text(aes(label = n), size = 4, nudge_x = .0125, hjust = 0) +
+        scale_x_continuous(expand=c(0, 0), labels=percent,
+                           breaks=seq(0, 1, by = 0.2), limits = c(0, 1)) +
+        theme_minimal(base_size = 14) +
+        theme(panel.grid.major.y = element_blank(),
+              panel.grid.minor  = element_blank(),
+              axis.line.y = element_line(color="#2b2b2b"),
+              axis.text.y = element_text(margin = margin(r=0, l=0)),
+              plot.margin = unit(c(5, 30, 10, 30), "pt"), 
+              plot.title = element_text(margin = margin(r = 100, b = 10),
+                                        face="bold"), 
+              plot.subtitle = element_text(margin = margin(b = 10)), 
+              plot.caption = element_text(size = 10, margin = margin(t = 10))) +
+        labs(x = "% Respondents",
+             y = "", 
+             caption = "Numbers of answers reported on the graph")
+
 }
+
 
 
 make_likert_data <- function(.data, var_levels) {
