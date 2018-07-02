@@ -1246,12 +1246,13 @@ prep_knowledge_plot <- function(.data, var_levels) {
 }
 
 ggknowledge <- function(data, mapping) {
-    data <- mutate(data, text_pos = percent + 3)
+    data <- mutate(data, text_pos = percent + .75)
     ggplot(data, mapping) +
         geom_col(position = "dodge") +
-        geom_text(aes(label = n, y = text_pos), size= 4, hjust = 0, 
+        geom_text(aes(label = n, y = text_pos), size= 3, hjust = 0, 
                   position = position_dodge(width = .9)) +
         theme_classic() +
+        coord_flip() + 
         scale_fill_viridis(name = "", discrete = TRUE) +
         labs(
             x = "",
@@ -1262,18 +1263,18 @@ ggknowledge <- function(data, mapping) {
 swc_pre_knowledge_plot <- swc_pre_knowledge %>%
     prep_knowledge_plot(pre_knowledge_levels) %>%
     ggknowledge(aes(x = skill, y = percent,
-                    fill = factor(level, levels = pre_knowledge_levels))) +
+                    fill = factor(level, levels = rev(pre_knowledge_levels)))) +
     labs(
-        title =  "Knowledge Before Workshop"
+        title =  "Knowledge Before SWC Workshop"
     ) +
     theme(legend.position="bottom")
 
 swc_post_knowledge_plot <- swc_post_knowledge %>% 
     prep_knowledge_plot(post_knowledge_levels) %>%
     ggknowledge(aes(x = skill, y = percent,
-                    fill = factor(level, levels = post_knowledge_levels))) +
+                    fill = factor(level, levels = rev(post_knowledge_levels)))) +
     labs(
-        title = "Knowledge After Workshop"
+        title = "Knowledge After SWC Workshop"
     ) +
     theme(legend.position="bottom")
 
@@ -1315,31 +1316,48 @@ swc_confidence_levels <- c("Confidence increased slightly",
                            "Confidence increased greatly",
                            "No change in confidence",
                            "N/A - Not covered at workshop")
+swc_knowledge_skill_levels <- c(
+    "Pipes", 
+    "Loops", 
+    "Git", 
+    "Function", 
+    "Import Library", 
+    "Unit Test", 
+    "SQL Query"
+)
 
 swc_ability_pre <- swcpostdata %>%
     select(contains("_before")) %>%
     rename_all(~ gsub("_before", "", .)) %>%
+    rename_all(~ gsub("_ability", "", .)) %>%
     filter(has_answers(.))
 
 swc_confidence_post <- swcpostdata %>%
     select(contains("_after")) %>%
     rename_all(~ gsub("_after", "", .)) %>%
+    rename_all(~ gsub("_confidence", "", .)) %>% 
     filter(has_answers(.))
 
 swc_ability_pre_plot <- swc_ability_pre %>%
     prep_knowledge_plot(swc_ability_levels) %>%
-    ggknowledge(aes(x = skill, y = percent,
-                    fill = factor(level, levels = swc_ability_levels))) +
-    coord_flip()
+    ggknowledge(aes(x = factor(skill, levels = rev(swc_knowledge_skill_levels)),
+                    y = percent,
+                    fill = factor(level, levels = rev(swc_ability_levels)))) +
+    labs(
+        title = "Ability Before SWC Workshop"
+    )
 
 swc_confidence_post_plot <- swc_confidence_post %>%
     prep_knowledge_plot(swc_confidence_levels) %>%
     ggknowledge(aes(x = skill, y = percent,
-                    fill = factor(level, levels = swc_confidence_levels))) +
-    coord_flip()
+                    fill = factor(level,
+                                  levels = rev(swc_confidence_levels)))) +
+    labs(
+        title = "Confidence After SWC Workshop"
+    )
 
 swc_ability_pre_plot + swc_confidence_post_plot +
-    plot_layout(ncol = 1)
+    plot_layout(ncol = 1, heights = c(3, 5))
 ```
 
 ### Demographics
