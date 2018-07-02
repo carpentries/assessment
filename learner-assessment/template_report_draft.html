@@ -90,6 +90,9 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -131,7 +134,7 @@ $(document).ready(function () {
 </div>
 <div id="overview" class="section level3">
 <h3>Overview</h3>
-<p>Since 2015-11-17 16:21:00, Software and Data Carpentry have collected information on learner demographics, perception of tools and confidence in working with data. As we continue in our goal to streamline processes as The Carpentries, the Assessment Team completed an analysis of the pre- and post-workshop surveys for both Software and Data Carpentry. The goal of this analysis is to understand the impact our workshops are having on learners, and how we can improve our surveys and assessment infrastructure. This report covers the workshops from November 17, 2015 to May 21, 2018 for Software Carpentry, and from August 07, 2017 to May 11, 2018 for Data Carpentry.</p>
+<p>Since November 17, 2015, Software and Data Carpentry have collected information on learner demographics, perception of tools and confidence in working with data. As we continue in our goal to streamline processes as The Carpentries, the Assessment Team completed an analysis of the pre- and post-workshop surveys for both Software and Data Carpentry. The goal of this analysis is to understand the impact our workshops are having on learners, and how we can improve our surveys and assessment infrastructure. This report covers the workshops from November 17, 2015 to May 21, 2018 for Software Carpentry, and from August 07, 2017 to May 11, 2018 for Data Carpentry.</p>
 <p>As an overview, 1259 and 852 learners have responded to Data Carpentry’s pre- and post-workshop surveys respectively, while 14185 and 6485 have responded to Software Carpentry’s.</p>
 <p>This report includes the following:</p>
 <ul>
@@ -455,7 +458,6 @@ $(document).ready(function () {
 <div id="workshop-type-and-perception-of-workshop-environmentexperience" class="section level3">
 <h3>Workshop Type and Perception of Workshop Environment/Experience</h3>
 <p><img src="figures/dc-workshop-type-plot-1.png" width="960" /></p>
-<p><img src="figures/dc-workshop-type-lolli-1.png" width="960" /></p>
 <table>
 <thead>
 <tr class="header">
@@ -917,12 +919,12 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">Windows</td>
 <td align="right">661</td>
-<td align="right">52.5</td>
+<td align="right">53.3</td>
 </tr>
 <tr class="even">
 <td align="left">Apple/Mac OS</td>
 <td align="right">512</td>
-<td align="right">40.7</td>
+<td align="right">41.3</td>
 </tr>
 <tr class="odd">
 <td align="left">UNIX/Linux</td>
@@ -930,18 +932,13 @@ $(document).ready(function () {
 <td align="right">4.0</td>
 </tr>
 <tr class="even">
-<td align="left">Didn’t answer</td>
-<td align="right">19</td>
-<td align="right">1.5</td>
-</tr>
-<tr class="odd">
 <td align="left">Not sure</td>
 <td align="right">17</td>
 <td align="right">1.4</td>
 </tr>
 </tbody>
 </table>
-<p>In our workshops, we recommend that learners use their own machines. It is important for learners to leave the workshop with their own machine set up to do real work. Our instructors teach on three major platforms: UNIX/Linux, Mac OS X, and Windows. We see a very close representation of Windows (52.5%) and Apple/Mac OS (40.7%) users in our Data Carpentry workshops, and even a few UNIX/Linux users (4%).</p>
+<p>In our workshops, we recommend that learners use their own machines. It is important for learners to leave the workshop with their own machine set up to do real work. Our instructors teach on three major platforms: UNIX/Linux, Mac OS X, and Windows. We see a very close representation of Windows (53.3%) and Apple/Mac OS (41.3%) users in our Data Carpentry workshops, and even a few UNIX/Linux users (4%).</p>
 <p>Gender and racial/ethnic identity information is collected for U.S. participants, as we are keen to increase the number of diverse instructors and learners we serve. Understanding our demographic makeup helps us to strategize about what communities to reach and what programs to offer.</p>
 <p>Currently, both Data (XX%) and Software (XX%) Carpentry see strong representation from Women in the United States. Where we hope to improve is in reaching the non-White audience, as less than XX% of our respondents are from communities historically underrepresented in the science, technology, engineering, and mathematics (STEM) fields.</p>
 <table>
@@ -956,12 +953,12 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">Female</td>
 <td align="right">322</td>
-<td align="right">56.5</td>
+<td align="right">56.6</td>
 </tr>
 <tr class="even">
 <td align="left">Male</td>
 <td align="right">223</td>
-<td align="right">39.1</td>
+<td align="right">39.2</td>
 </tr>
 <tr class="odd">
 <td align="left">Didn’t answer</td>
@@ -979,9 +976,14 @@ $(document).ready(function () {
 <td align="right">0.4</td>
 </tr>
 <tr class="even">
-<td align="left">Not listed (please specify)</td>
-<td align="right">1</td>
-<td align="right">0.2</td>
+<td align="left">Transgender male</td>
+<td align="right">0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="odd">
+<td align="left">Gender variant/non-conforming</td>
+<td align="right">0</td>
+<td align="right">0.0</td>
 </tr>
 </tbody>
 </table>
@@ -1043,24 +1045,19 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">Female</td>
 <td align="right">3120</td>
-<td align="right">48.1</td>
+<td align="right">49.0</td>
 </tr>
 <tr class="even">
 <td align="left">Male</td>
 <td align="right">3119</td>
-<td align="right">48.1</td>
+<td align="right">48.9</td>
 </tr>
 <tr class="odd">
-<td align="left">Didn’t answer</td>
-<td align="right">117</td>
-<td align="right">1.8</td>
-</tr>
-<tr class="even">
 <td align="left">Prefer not to say</td>
 <td align="right">115</td>
 <td align="right">1.8</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Other</td>
 <td align="right">18</td>
 <td align="right">0.3</td>
@@ -1079,44 +1076,39 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">White / Caucasian</td>
 <td align="right">3457</td>
-<td align="right">53.3</td>
+<td align="right">55.1</td>
 </tr>
 <tr class="even">
 <td align="left">Asian / Pacific Islander</td>
 <td align="right">1560</td>
-<td align="right">24.0</td>
+<td align="right">24.9</td>
 </tr>
 <tr class="odd">
 <td align="left">Hispanic or Latino</td>
 <td align="right">388</td>
-<td align="right">6.0</td>
+<td align="right">6.2</td>
 </tr>
 <tr class="even">
 <td align="left">Prefer not to say</td>
 <td align="right">375</td>
-<td align="right">5.8</td>
+<td align="right">6.0</td>
 </tr>
 <tr class="odd">
 <td align="left">Black or African American</td>
 <td align="right">242</td>
-<td align="right">3.7</td>
+<td align="right">3.9</td>
 </tr>
 <tr class="even">
 <td align="left">Multiple ethnicity / Other (please specify)</td>
 <td align="right">221</td>
-<td align="right">3.4</td>
+<td align="right">3.5</td>
 </tr>
 <tr class="odd">
-<td align="left">Didn’t answer</td>
-<td align="right">212</td>
-<td align="right">3.3</td>
-</tr>
-<tr class="even">
 <td align="left">American Indian or Alaskan Native</td>
 <td align="right">29</td>
-<td align="right">0.4</td>
+<td align="right">0.5</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Native Hawaiian or Other Pacific Islander</td>
 <td align="right">5</td>
 <td align="right">0.1</td>

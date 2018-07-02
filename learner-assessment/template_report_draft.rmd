@@ -367,6 +367,9 @@ summarize_single_column <- function(.data, .var, var_levels) {
         mutate(!! quo_name(var) := replace(!!var, is.na(!!var),
                                            "Didn't answer")) %>%
         count(!!var) %>%
+        right_join(expand(., !! quo_name(var) := na.omit(var_levels)),
+                   by = quo_name(var)) %>%
+        replace_na(list(n = 0)) %>% 
         mutate(percent = round(n/sum(n) * 100, 1)) %>%
         arrange(factor(!!var, levels = var_levels)) 
 }
@@ -611,7 +614,7 @@ ggassessment_lolli(dc_workshop_type,
 ```{r dc-workshop-language}	
 ## Language covered 
 ## Data Carpentry: Which programming language is being covered?
-workshop_language <- c("R", "Python", "I don't know/I don't remember",
+workshop_language <- c("R", "Python", "I don't know./I don't remember.",
                        "Neither", "Didn't answer")
 
 dc_programming_language <- dcpostdata %>%
@@ -1566,15 +1569,15 @@ Currently, both Data (XX%) and Software (XX%) Carpentry see strong representatio
 # With what gender do you most identify?
 dc_gender_levels <- c("Female", "Male", "Transgender female",
                       "Transgender male", "Gender variant/non-conforming",
-                      "Prefer not to answer", "Not listed (please specify)",
-                      "Didn't answer")
+                      "Prefer not to answer", "Didn't answer")
 
 dcpredata$gender_identity <- iconv(dcpredata$gender_identity, "latin1", "ASCII",
                                    sub=" ")
 
 dc_gender <- dcpredata %>%
     filter(country == "United States of America") %>% 
-    summarize_single_column(gender_identity, dc_gender_levels)
+    summarize_single_column(gender_identity, dc_gender_levels) 
+
 
 dc_gender %>%
     render_table(
