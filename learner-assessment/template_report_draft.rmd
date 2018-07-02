@@ -288,7 +288,8 @@ percent_nona <- function(x) round(tally_nona(x)/length(x) * 100, 1)
 extract_multi_columns <- function(.data, column_prefix) {
     .data %>%
         select(starts_with(column_prefix),
-               -matches(paste0(column_prefix, "_other"))
+               -matches(paste0(column_prefix, "_other")),
+               -matches(paste0(column_prefix, "_open_ended"))
                ) %>%
         filter(has_answers(.))
 }
