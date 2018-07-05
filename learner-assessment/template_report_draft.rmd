@@ -233,6 +233,7 @@ swcpredata <- readr::read_csv("data/180521_swcpre.csv",
         "domain_other" = DomainOther
     ) %>%
     rename_all(to_snake_case) %>%
+    filter(is.na(over18) | over18 == "Yes") %>%
     filter(has_answers(.))
 
 ## Software Carpentry Post-Workshop Data
@@ -264,6 +265,7 @@ swcpostdata <- readr::read_csv("data/180521_swcpost.csv",
         "domain_other" = DomainOther
     ) %>%
     rename_all(to_snake_case) %>%
+    filter(is.na(above18) | above18 == "Yes") %>%
     filter(has_answers(.))
 ```
 
