@@ -306,6 +306,8 @@ Data Carpentry's Genomics curriculum focuses on best practices for organization 
 
 #### Why are learners participating in our workshops?
 
+We are interested in knowing why learners attend our workshops. Respondents were asked to check all that apply for several factors provided in the tables below.
+
 ```{r why-attending-helpers}
 tally_nona <- function(x) sum(!is.na(x))
 percent_nona <- function(x) round(tally_nona(x)/length(x) * 100, 1)
@@ -414,7 +416,7 @@ dc_why_attending %>%
     )
 ```
 
-`r p_work_future`% of Data Carpentry learners attend workshops to learn skills they can apply to their work in the future.
+`r p_work_future`% of Data Carpentry learners attend workshops to learn skills they can apply to their current work.
 
 Software Carpentry’s curriculum teaches basic lab skills for scientific computing. Their workshops include automation with the Unix shell, version control with Git, and programming with R or Python. These tools help learners to increase the efficiency and reproducibility of their computational work.
 
