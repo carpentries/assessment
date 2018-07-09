@@ -1,12 +1,12 @@
 ---
 output:
-  pdf_document: default
   html_document:
     self_contained: no
+  pdf_document: default
 ---
 
 # [DRAFT] Analysis of Software and Data Carpentry's Pre- and Post-Workshop Surveys
-### Authors: The Carpentries Assessment Team
+### Authors: [Kari L. Jordan](https://twitter.com/drkariljordan), [François Michonneau](https://twitter.com/fmic_)
 ### Published: July 2018
 
 ```{r setup, include=FALSE}
@@ -299,9 +299,9 @@ This report includes the following:
 
 ### Motivation for Attending Carpentries Workshops
 
-Learners attend Carpentries workshops for many reasons. Data Carpentry's workshops are domain-specific and focus on the fundamental data skills needed to conduct research. Data Carpentry's Ecology and Social Sciences curricula begin with a lesson on data organization and includes data cleaning with OpenRefine. From there, learners spend time learning a base programming language, either Python or R, to manipulate and visualize data.
+Learners attend Carpentries workshops for many reasons. Data Carpentry's workshops are domain-specific and focus on the fundamental data skills needed to conduct research. Data Carpentry's Ecology and Social Sciences curricula begin with a lesson on data organization and include data cleaning with OpenRefine. From there, learners spend time learning a programming language, either Python or R, to manipulate and visualize data.
 
-Data Carpentry's Genomics curriculum also includes programming, however the focus of this curriculum is on best practices for organization of bioinformatics projects and data, use of command line utilities and tools to analyze sequence quality and perform variant calling, and connecting to and using cloud computing.
+Data Carpentry's Genomics curriculum focuses on best practices for organization of bioinformatics projects and data, use of command line utilities and tools to analyze sequence quality and perform variant calling, and connecting to and using cloud computing.
 
 #### Why are learners participating in our workshops?
 
@@ -415,7 +415,7 @@ dc_why_attending %>%
 
 `r p_work_future`% of Data Carpentry learners attend workshops to learn skills they can apply to their work in the future.
 
-Software Carpentry workshops teach automation with the Unix shell, a tool that allows users to run commands interactively or by scripting. In Software Carpentry workshops, version control of source code with Git and GitHub are also taught for learners to learn facilitating contribution and collaboration on online repositories. Programming in R or Python is also taught. Software Carpentry's curriculum teaches basic lab skills for scientific computing. 
+Software Carpentry’s curriculum teaches basic lab skills for scientific computing. Their workshops include automation with the Unix shell, version control with Git, and programming with R or Python. These tools help learners to increase the efficiency and reproducibility of their computational work.
 
 ```{r swc-why-attending}
 # Why are you attending this workshop?
@@ -482,10 +482,10 @@ dc_percent_unsatisfied <- dc_satisfaction %>%
     summarize(p = sum(percent)) %>%
     pull(p)
 
-dc_satisfaction %>%
-    render_table(current_satisfaction, 
-                 col.names = c("Data Carpentry Learners satisfaction with current data management practices",
-                    "n", "%"))
+#dc_satisfaction %>%
+#    render_table(current_satisfaction, 
+#                 col.names = c("Data Carpentry Learners satisfaction #with current data management practices",
+#                    "n", "%"))
 ```
 
 ```{r dc-satisfaction-level-plot}
@@ -504,7 +504,7 @@ dc_satisfaction %>%
     ) 
 ```
 
-The majority (`r dc_percent_unsatisfied`%) of Data Carpentry's respondents are either unsatisfied or feel neutral about being satisfied with their current data management practices. By data management practices, we include behaviors such as keeping your raw data raw, reusing code, and using databases, queries, and scripts to manage large datasets.
+The majority (`r dc_percent_unsatisfied`%) of Data Carpentry's respondents are either unsatisfied or feel neutral with their current data management practices. By data management practices, we include behaviors such as keeping your raw data raw, reusing code, and using databases, queries, and scripts to manage large datasets.
 
 #### How often do our workshop participants program before attending our workshops?
 
@@ -528,14 +528,30 @@ dc_percent_programming_daily <- dc_programming_usage %>%
     filter(current_programming  == "Daily") %>%
     pull(percent)
     
-dc_programming_usage %>%
-    render_table(
-        current_programming, 
-        col.names = c("Data Carpentry Learners current programming usage",
-                      "n", "%"))
+#dc_programming_usage %>%
+#    render_table(
+#        current_programming, 
+#        col.names = c("Data Carpentry Learners current programming #usage",
+#                      "n", "%"))
 ```
 
-In terms of current programming usage, `r dc_percent_programming_rare`% of learners either never use programming, or use programming less than once per year, but no more than several times per year. Only `r dc_percent_programming_daily`% program on a daily basis. This is no surprise, as Data Carpentry workshops tend to attract novices.
+```{r dc-programming-level-plot}
+
+dc_programming_usage %>%
+    filter(!current_programming %in% c("Not applicable",
+                                        "Didn't answer")) %>% 
+    ggassessment_lolli(
+        aes(y = factor(current_programming,
+                       levels = rev(usage_levels)),
+            x = percent), color = "dc") +
+    labs(
+        y = "",
+        title = "Pre-workshop Programming Usage",
+        subtitle = "'Not applicable' and 'Didn't answer' not shown"
+    ) 
+```
+
+In terms of current programming usage, `r dc_percent_programming_rare`% of learners either never use programming, or use programming less than once per year, but no more than several times per year. Only `r dc_percent_programming_daily`% program on a daily basis. This is no surprise, as Data Carpentry workshops are intended for novices.
 
 ```{r dc-exposure}
 ## How did you find out about this workshop? 
@@ -761,7 +777,7 @@ plot(dc_perception_instructors_likert,
     ggtitle(title)
 ```
 
-The largest impact we see is that `r dc_perception_instructors_interacting`% of respondents said they felt comfortable interacting with the instructors. We know that our instructors *are* the reason why our workshops are so well received. It's also great to see that `r dc_perception_instructors_knowledgeable`% and `r dc_perception_instructors_enthusiastic`% of respondents felt our instructors were knowledgeable about the material being taught, and were enthusiastic about the workshop, respectively. We would like to explore what training would help our instructors so that the percentage of respondents who felt they were able to get clear answers to their questions from the instructors would increase.
+The largest impact we see is that `r dc_perception_instructors_interacting`% of respondents said they felt comfortable interacting with the instructors. We know that our instructors *are* the reason why our workshops are so well received. It's also great to see that `r dc_perception_instructors_knowledgeable`% and `r dc_perception_instructors_enthusiastic`% of respondents felt our instructors were knowledgeable about the material being taught, and were enthusiastic about the workshop, respectively. Lastly, `r dc_perception_instructors_clear_answers`% of respondents felt they were able to get clear answers to their questions from their instructors.
 
 Software Carpentry respondents were asked to rate how they felt instructors and helpers worked as a team based on the following criteria:
 
@@ -854,11 +870,14 @@ swc_new_info_percent <- swc_new_info %>%
     summarize(p = sum(percent)) %>%
     pull(p)
 
+swc_some_new_info_percent <- swc_new_info %>%
+    filter(new_information %in% c("Some of it")) %>%
+    summarize(p = sum(percent)) %>%
+    pull(p)
+
 ```
 
-As the majority of Software Carpentry learners attend workshops to learn new skills it is great to see that `r swc_new_info_percent`% of learners either learned mostly or all new information during the workshop.
-
-
+As the majority of Software Carpentry learners attend workshops to learn new skills it is great to see that `r swc_new_info_percent`% of learners either learned mostly or all new information during the workshop, while another `r swc_some_new_info_percent`% learned something new.
 
 ```{r swc-new-information-plot}
 # Software Carpentry plot for new information
@@ -891,7 +910,7 @@ dc_accessibility %>%
                       "n", "%"))
 ```
 
-We want to be proactive in ensuring learners have access to whatever they need to participate in a workshop. Both Data and Software Carpentry learners are asked to inform workshop organizers if there is anything they need that would make their workshop experience better. Data Carpentry's respondents were asked if they had accessibility issues, and `r dc_accessibility_percent`% reported they did. After reading the open-ended responses, we see that the issues were related to not being able to hear and/or see in the back of the room.
+We want to be proactive in ensuring learners have access to whatever they need to participate in a workshop. Both Data and Software Carpentry learners are asked to inform workshop organizers if there is anything they need that would make their workshop experience better. Data Carpentry's respondents were asked if they had accessibility issues, and `r dc_accessibility_percent`% reported they did. After reading the open-ended responses, we see that the issues were related to not being able to hear and/or see in the back of the room. The Instructor Training Team has been made aware of this, and will be making recommendations.
 
 We use the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter) to measure learners' likelihood of recommending workshops to a friend or colleague. The scoring for this question is on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors.
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  6 JUL 2018 12:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  9 JUL 2018 11:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -946,28 +946,28 @@ e
 ))
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 91.
+(hyperref)                than one, level fixed on input line 93.
 
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 117.
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 119.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [1
 
 {/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] <figure
-s/dc-satisfaction-level-plot-1.png, id=35, 722.7pt x 361.35pt>
+s/dc-satisfaction-level-plot-1.png, id=37, 722.7pt x 361.35pt>
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    \relax 
-l.285 ...20]{figures/dc-satisfaction-level-plot-1}
+l.213 ...20]{figures/dc-satisfaction-level-plot-1}
                                                    
 Here is how much of TeX's memory you used:
- 12292 strings out of 492995
- 177476 string characters out of 6132704
- 287426 words of memory out of 5000000
- 15692 multiletter control sequences out of 15000+600000
- 17829 words of font info for 33 fonts, out of 8000000 for 9000
+ 12293 strings out of 492995
+ 177496 string characters out of 6132704
+ 285499 words of memory out of 5000000
+ 15691 multiletter control sequences out of 15000+600000
+ 17912 words of font info for 34 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 32i,5n,38p,531b,335s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 32i,4n,38p,531b,423s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 !  ==> Fatal error occurred, no output PDF file produced!
