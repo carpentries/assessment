@@ -296,6 +296,7 @@ This report includes the following:
 - Demographics
 - Summary
 
+Currently, Data and Software Carpentry use different surveys. In the coming months we plan to develop one common survey to be used for both Data and Software Carpentry.
 
 ### Motivation for Attending Carpentries Workshops
 
