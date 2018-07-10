@@ -988,6 +988,7 @@ Learners were asked to rate their level of agreement with the following statemen
 + __Overcome Problem__: While working on a programming project, if I get stuck, I can find ways of overcoming the problem.
 + __Analyses Easier__: Using a programming language (like R or Python) can make my analyses easier to reproduce. 
  
+The scoring for the above factors is ordinal from strongly disagree (1) to strongly agree (5).
 
 ```{r dc-paired-data}
 ## Data Carpentry
@@ -1021,35 +1022,35 @@ paired_data <- inner_join(pre_paired, post_paired, by = c("unique_id", "skill"))
 ```
 
 ```{r dc-paired-data-mode}
-dist_mode <- function(x) {
-    ux <- unique(x)
-    ux[which.max(tabulate(match(x, ux)))]
-}
-
-
-paired_data %>%
-    select(unique_id, skill,
-           pre_feeling_score,
-           post_feeling_score) %>%
-    filter(!is.na(pre_feeling_score) & !is.na(post_feeling_score)) %>% 
-    gather(score, type, -unique_id, -skill) %>%
-    mutate(skill = convert_label(skill)) %>%
-    group_by(skill, score) %>%
-    summarize(
-        mode = dist_mode(type),
-        sd = sd(type, na.rm = TRUE)
-    ) %>% 
-    ggplot(aes(x = skill, y = mode, color = score)) +
-    geom_point(size=5) +
-    coord_flip() +
-    ylim(c(0, 5)) +
-    theme_minimal() +
-    scale_color_viridis(breaks = c("pre_feeling_score", "post_feeling_score"),
-                        labels = c("Pre-workshop Score",
-                                   "Post-workshop Score"), 
-                        end = .7, discrete=TRUE) +
-    labs(title = "Pre and Post Comparison of Skills and Perception") +
-    theme(text = element_text(size = 16))
+# dist_mode <- function(x) {
+#     ux <- unique(x)
+#     ux[which.max(tabulate(match(x, ux)))]
+# }
+# 
+# 
+# paired_data %>%
+#     select(unique_id, skill,
+#            pre_feeling_score,
+#            post_feeling_score) %>%
+#     filter(!is.na(pre_feeling_score) & !is.na(post_feeling_score)) %>% 
+#     gather(score, type, -unique_id, -skill) %>%
+#     mutate(skill = convert_label(skill)) %>%
+#     group_by(skill, score) %>%
+#     summarize(
+#         mode = dist_mode(type),
+#         sd = sd(type, na.rm = TRUE)
+#     ) %>% 
+    # ggplot(aes(x = skill, y = mode, color = score)) +
+    # geom_point(size=5) +
+    # coord_flip() +
+    # ylim(c(0, 5)) +
+    # theme_minimal() +
+    # scale_color_viridis(breaks = c("pre_feeling_score", "post_feeling_score"),
+    #                     labels = c("Pre-workshop Score",
+    #                                "Post-workshop Score"), 
+    #                     end = .7, discrete=TRUE) +
+    # labs(title = "Pre and Post Comparison of Skills and Perception") +
+    # theme(text = element_text(size = 16))
 ```
 
 
@@ -1080,73 +1081,65 @@ paired_data %>%
 
 ```
 
-
-
-
-As the scoring for the above factors is ordinal from strongly disagree (1) to strongly agree (5), we show the mode (most frequent responses) for respondents' before the workshop, and after the workshop. If there is only one point on the plot it is because the mode for pre- and post-workshop responses was the same. The comparison above is paired, meaning, we are comparing those who provided us with a unique identifier and who completed both the pre- and post-workshop survey. This figure includes XX respondses.
+The comparison above is paired, meaning, we are comparing those who provided us with a unique identifier and who completed both the pre- and post-workshop survey. This figure includes XX respondses.The data shows, for multiple factors, a full point increase in mean score. We are significantly impacting respondents' confidence in programming, ability to write programs to solve problems, and ability to overcome problems if they get stuck.
 
 In the figures below we show another representation of the pre- and post-comparison of respondents skills and perspectives. The figures below include the data for all learners, not only those who provided a unique identifier *and* took both the pre- and post-workshop surveys. What we see is a shift in the distribution of for each factor, meaning, respondents' self-reported confidence and ability shifted in a positive directions.
 
-
-
 ```{r dc-paired-distribution-comparison, fig.height=12}
-
-paired_data %>%
-    select(unique_id, skill,
-           pre = pre_feeling_score, post = post_feeling_score) %>%
-    filter(!is.na(pre) & !is.na(post)) %>%
-    gather(pre_post, score, -unique_id, -skill) %>%
-    count(skill, pre_post, score) %>%
-    group_by(skill, pre_post) %>%
-    mutate(n_total = sum(n),
-           percent = n/n_total * 100) %>%
-    ungroup() %>%
-    mutate(skill = convert_label(skill)) %>%
-    mutate(pre_post = factor(pre_post, levels = c("pre", "post"))) %>%
-    complete(skill, pre_post, score,
-             fill = list(n = 0, n_total = 0, percent = 0 )) %>% 
-    ggplot(aes(x = score, y = percent/100, group = pre_post)) +
-    geom_col(aes(fill = pre_post),
-             position = "dodge") +
-    geom_text(aes(label = n, y = percent/100 + .03),
-              position = position_dodge(0.9)) +
-    facet_wrap(~ skill) +
-    scale_y_continuous(labels = percent) +
-    scale_fill_viridis(
-        name = "",
-        breaks = c("pre", "post"),
-        labels = c("Pre-workshop", "Post-workshop"),
-        discrete = TRUE, end = .7) +
-    theme_minimal() +
-    theme(legend.position = "bottom") +
-    labs(
-        x = "",
-        y = ""
-    )
+# 
+# paired_data %>%
+#     select(unique_id, skill,
+#            pre = pre_feeling_score, post = post_feeling_score) %>%
+#     filter(!is.na(pre) & !is.na(post)) %>%
+#     gather(pre_post, score, -unique_id, -skill) %>%
+#     count(skill, pre_post, score) %>%
+#     group_by(skill, pre_post) %>%
+#     mutate(n_total = sum(n),
+#            percent = n/n_total * 100) %>%
+#     ungroup() %>%
+#     mutate(skill = convert_label(skill)) %>%
+#     mutate(pre_post = factor(pre_post, levels = c("pre", "post"))) %>%
+#     complete(skill, pre_post, score,
+#              fill = list(n = 0, n_total = 0, percent = 0 )) %>% 
+#     ggplot(aes(x = score, y = percent/100, group = pre_post)) +
+#     geom_col(aes(fill = pre_post),
+#              position = "dodge") +
+#     geom_text(aes(label = n, y = percent/100 + .03),
+#               position = position_dodge(0.9)) +
+#     facet_wrap(~ skill) +
+#     scale_y_continuous(labels = percent) +
+#     scale_fill_viridis(
+#         name = "",
+#         breaks = c("pre", "post"),
+#         labels = c("Pre-workshop", "Post-workshop"),
+#         discrete = TRUE, end = .7) +
+#     theme_minimal() +
+#     theme(legend.position = "bottom") +
+#     labs(
+#         x = "",
+#         y = ""
+#     )
 
 ```
 
-
-Another representation of the positive shift in distribution is provided below.
-
 ```{r dc-paired-distribution-shift, fig.height=12}
-
-paired_data %>%
-    mutate(diff_score = post_feeling_score- pre_feeling_score) %>%
-    filter(!is.na(diff_score)) %>% 
-    mutate(diff_score = factor(diff_score)) %>%
-    mutate(skill = gsub("([a-z])([A-Z])", "\\1 \\2", skill)) %>%
-    count(skill, diff_score) %>%
-    group_by(skill) %>%
-    mutate(total = sum(n),
-           prop = n/total) %>% 
-    ggplot(aes(x = diff_score, y = prop, fill = diff_score))+
-    geom_col() +
-    theme_minimal() +
-    facet_grid(skill ~ .) +
-    labs(title = "Distribution of the change in scores before and after workshop") +
-    scale_fill_viridis(name = "score difference", discrete = TRUE) +
-    theme(legend.position = "top")
+# 
+# paired_data %>%
+#     mutate(diff_score = post_feeling_score- pre_feeling_score) %>%
+#     filter(!is.na(diff_score)) %>% 
+#     mutate(diff_score = factor(diff_score)) %>%
+#     mutate(skill = gsub("([a-z])([A-Z])", "\\1 \\2", skill)) %>%
+#     count(skill, diff_score) %>%
+#     group_by(skill) %>%
+#     mutate(total = sum(n),
+#            prop = n/total) %>% 
+#     ggplot(aes(x = diff_score, y = prop, fill = diff_score))+
+#     geom_col() +
+#     theme_minimal() +
+#     facet_grid(skill ~ .) +
+#     labs(title = "Distribution of the change in scores before and after workshop") +
+#     scale_fill_viridis(name = "score difference", discrete = TRUE) +
+#     theme(legend.position = "top")
 ```
 
 ```{r include=FALSE}
