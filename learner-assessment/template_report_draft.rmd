@@ -509,7 +509,7 @@ dc_satisfaction %>%
     ) 
 ```
 
-The majority (`r dc_percent_unsatisfied`%) of Data Carpentry's respondents are either unsatisfied or feel neutral with their current data management practices. By data management practices, we include behaviors such as keeping your raw data raw, reusing code, and using databases, queries, and scripts to manage large datasets.
+The majority (`r dc_percent_unsatisfied`%) of Data Carpentry's respondents are either unsatisfied or feel neutral with their current data management practices. By data management practices, we include behaviors such as keeping your raw data raw, reusing code, and using databases, queries, and scripts to manage large data sets.
 
 #### How often do our workshop participants program before attending our workshops?
 
@@ -664,8 +664,6 @@ in their workshop, while `r dc_programming_language_py`% learned Python.
 
 
 ## Workshop Environment
-
-
 ```{r workshop-environment}
 # Environment
 # Data Carpentry: I felt comfortable learning in this workshop environment
@@ -791,7 +789,7 @@ Software Carpentry respondents were asked to rate how they felt instructors and 
 + __Clear Answers__: Instructors/Helpers gave clear answers to your questions. 
 + __Communicators__: Instructors/Helpers were good communicators.    
   
-The two Likert plots below provide an analysis of respondent's answers for both instructors and helpers.
+The two neutral centered plots below provide an analysis of respondent's answers for both instructors and helpers.
 
 ```{r swc-perception-instructors}	
 ## Software Carpentry: Perception of SWC workshop instructors/helpers
@@ -954,7 +952,7 @@ dc_nps_promoters <- dc_nps %>%
     compute_nps_percent
 ```
 
-`r dc_nps_promoters`% of Data Carpentry respondants who answered this question are promoters (i.e. would recommend a workshop). 
+`r dc_nps_promoters`% of Data Carpentry respondents who answered this question are promoters (i.e. would recommend a workshop). 
 
 
 ```{r swc-nps}
@@ -1081,7 +1079,7 @@ paired_data %>%
 
 ```
 
-The comparison above is paired, meaning, we are comparing those who provided us with a unique identifier and who completed both the pre- and post-workshop survey. This figure includes XX respondses.The data shows, for multiple factors, a full point increase in mean score. We are significantly impacting respondents' confidence in programming, ability to write programs to solve problems, and ability to overcome problems if they get stuck.
+The comparison above is paired, meaning, we are comparing those who provided us with a unique identifier and who completed both the pre- and post-workshop survey. This figure includes XX responses.The data shows, for multiple factors, a full point increase in mean score. We are significantly impacting respondents' confidence in programming, ability to write programs to solve problems, and ability to overcome problems if they get stuck.
 
 In the figures below we show another representation of the pre- and post-comparison of respondents skills and perspectives. The figures below include the data for all learners, not only those who provided a unique identifier *and* took both the pre- and post-workshop surveys. What we see is a shift in the distribution of for each factor, meaning, respondents' self-reported confidence and ability shifted in a positive directions.
 
@@ -1402,7 +1400,7 @@ get_dc_country_percent <- function(country_var, .data = dc_country) {
 
 ```
 
-The Carpentries is a global community that has recognized the importance of bringing people to data through high-impact trainings. Thought the majority of Data Carpentry respondents attended a workshop in the United States of America (`r get_dc_country_percent("United States of America")`%), we see an increase in workshops in places like Ethiopia (`r get_dc_country_percent("Ethiopia")`%), Switzerland (`r get_dc_country_percent("Switzerland")`%), and India (`r get_dc_country_percent("India")`%).   
+The Carpentries is a global community that has recognized the importance of bringing people to data through high-impact training. Thought the majority of Data Carpentry respondents attended a workshop in the United States of America (`r get_dc_country_percent("United States of America")`%), we see an increase in workshops in places like Ethiopia (`r get_dc_country_percent("Ethiopia")`%), Switzerland (`r get_dc_country_percent("Switzerland")`%), and India (`r get_dc_country_percent("India")`%).   
 
 
 ```{r dc-country-workshop-plot, fig.height=9}		
@@ -1578,7 +1576,7 @@ dc_os %>%
 
 In our workshops, we recommend that learners use their own machines. It is important for learners to leave the workshop with their own machine set up to do real work. Our instructors teach on three major platforms: UNIX/Linux, Mac OS X, and Windows. We see a very close representation of Windows (`r dc_os_win`%)  and Apple/Mac OS (`r dc_os_mac`%) users in our Data Carpentry workshops, and even a few UNIX/Linux users (`r dc_os_lin`%).
 
-Gender and racial/ethnic identity information is collected for U.S. participants, as we are keen to increase the number of diverse instructors and learners we serve. Understanding our demographic makeup helps us to strategize about what communities to reach and what programs to offer. 
+Gender and racial/ethnic identity information is collected for U.S. participants, as we are keen to increase the number of diverse instructors and learners we serve. Understanding our demographic makeup helps us to understand what communities we reach and what programs we should develop. 
 
 Currently, both Data (XX%) and Software (XX%) Carpentry see strong representation from Women in the United States. Where we hope to improve is in reaching the non-White audience, as less than XX% of our respondents are from communities historically underrepresented in the science, technology, engineering, and mathematics (STEM) fields.
 
