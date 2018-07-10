@@ -296,6 +296,8 @@ This report includes the following:
 - Demographics
 - Summary
 
+For a comprehensive look at our workshops and instructor training, have a look at our [programmatic assessment report](https://carpentries.github.io/assessment/programmatic-assessment/workshops/outputs/final_report.html).
+
 Currently, Data and Software Carpentry use different surveys. In the coming months we plan to develop one common survey to be used for both Data and Software Carpentry.
 
 ### Motivation for Attending Carpentries Workshops
