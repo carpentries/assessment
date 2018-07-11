@@ -1,6 +1,6 @@
 # Analysis of The Carpentries Long-Term Impact Survey
-## Author: [Kari L. Jordan](twitter.com/drkariljordan)
-## Published: 17-July 2018 
+### Author: [Kari L. Jordan](twitter.com/drkariljordan)
+### 17-July 2018 
 
 ```{r setup, include=FALSE}
 library(tidyverse)
@@ -84,16 +84,16 @@ dates <- range(impactdata$Date)
 
 To date, `r n_learners` learners have completed the Carpentries Long-Term Impact Survey between `r format(min(dates), format="%B %d, %Y")` and `r format(max(dates), format="%B %d, %Y")`. The average amount of time spent completing this survey is six minutes, and it carries an 80% completion rate. The survey was created in March 2017, and data is collected bi-annually. The results of this analysis are cumulative. We invite the community to run their own analyses. All of the data and source code are available on [GitHub](https://github.com/carpentries/assessment/tree/master/learner-assessment).
 
-A special thanks goes out to [François Michonneau](https://twitter.com/fmic_) and others who helped write the code used in this report.
+A special thanks to [Ben Markwick](https://twitter.com/benmarwick), [François Michonneau](https://twitter.com/fmic_) and others who helped write the code used in this report.
 
 ### Demographics
-This section includes the following:
+This section includes demographics for survey respondents broken down by:
 
-+ Breakdown of Respondents by Country
-+ Breakdown of Respondents by Field and Career Stage
-+ Respondents' Gender and Racial/Ethnic Identity
++ Country
++ Field and Career Stage
++ Gender and Racial/Ethnic Identity
 
-#### Breakdown of respondents by Country
+#### Breakdown of Respondents by Country
 
 ```{r}
 # Plot includes Ben's tip to add a percent column to the data_country_tally data frame
@@ -124,7 +124,7 @@ ggplot(impactdata_country_tally,
 # of the survey
 ```
 
-### Respondents by Field and Career Stage 
+#### Breakdown of Respondents by Field and Career Stage 
 
 ```{r}
 # Field of work, research, or study. Responses are in columns 'Field' through 'Column12'
@@ -242,7 +242,7 @@ table_of_status_by_field %>%
 
 ```
 
-
+#### Breakdown of Respondents by Gender and Racial/Ethnic Identity
 Gender Identity and Racial/Ethnic Identity was added to the survey during the second round of data collection, so these numbers do not reflect the cumulative amount of respondents.
 
 ```{r}
@@ -287,11 +287,14 @@ kable(race_perc, format = 'markdown', row.names = NA, col.names = c("Racial/Ethn
 
 ### Respondent Engagement in Workshops and Surveys
 
+This section includes the following:
+
 + Number of Workshops Attended
 + Time Since Attending a Workshop
++ Last Carpentries Workshop Attended
 + Survey Engagement
 
-# Number of Workshops Attended
+#### Number of Workshops Attended
 ```{r}
 # Number of workshops attended
 impactdata_workshops_tally <-
@@ -337,7 +340,7 @@ ggplot(impactdata_workshops_tally,
 # kable(impactdata_numworkshops_tally, format = 'markdown', row.names = NA, col.names = c("Number of Workshops Respondents Attended", "n", "%"))
 ```
 
-# Time Since Attending a Workshop
+#### Time Since Attending a Workshop
 
 ```{r}
 # Table of time since workshop attendance
@@ -353,47 +356,11 @@ impactdata_timesinceworkshop_tally <-
   filter(!is.na(TimeSinceWorkshop)) %>%
   mutate(perc = round(n/sum(n) * 100, 0))
 
-kable(impactdata_timesinceworkshop_tally, format = 'markdown', row.names = NA, col.names = c("Time Since Attending a Workshop", "n", "%"))
-```
-
-# Survey Engagement
-```{r}
-# Is this your first time completing this survey?
-first_time = c("Yes", "No", "I don't know.")
-first_time = factor(first_time)
-
-impactdata$FirstSurvey = factor(impactdata$FirstSurvey, levels = first_time)
-
-impactdata_firsttime_tally <-
-  impactdata %>%
-  group_by(FirstSurvey) %>%
-  tally() %>%
-  filter(!is.na(FirstSurvey)) %>%
-  mutate(perc = round(n/sum(n) * 100, 0))
-
-kable(impactdata_firsttime_tally, format = 'markdown', row.names = NA, col.names = c ("Learners Taking Survey for First Time", "n", "%"))
-```
-
-
-
-
-# Time since completing last Carpentries workshop
-
-```{r}
-# How long ago did you attend a workshop?
- impactdata_time_since_tally <-
-  impactdata %>%
-  group_by(TimeSinceWorkshop) %>%
-  tally() %>%
-  filter(!is.na(TimeSinceWorkshop)) %>%
-  mutate(perc = round(n/sum(n) * 100, 0))
-
-# Use the code below to include a table of how long ago respondents attended a workshop
-# kable(impactdata_time_since_tally, format = "markdown", row.names = FALSE, col.names = c("Time Since Completing a Workshop", "n", "%"))
+# kable(impactdata_timesinceworkshop_tally, format = 'markdown', row.names = NA, col.names = c("Time Since Attending a Workshop", "n", "%"))
 ```
 
 ```{r longterm_time_since_attending_workshop}
-ggplot(impactdata_time_since_tally,
+ggplot(impactdata_timesinceworkshop_tally,
        aes(TimeSinceWorkshop, y = 100 * (n/sum(n)),
            n)) +
   geom_bar(stat = "identity", fill="darkcyan") +
@@ -407,7 +374,7 @@ ggplot(impactdata_time_since_tally,
   theme_classic(base_size = 14)
 ```
 
-
+#### Last Carpentries Workshop Attended
 ```{r}
 # Last Carpentries workshop attended
 workshop_attended = c("Data Carpentry", "Library Carpentry", "Software Carpentry", "I don't know.")
@@ -425,9 +392,26 @@ impactdata_workshop_attended_tally <-
 kable(impactdata_workshop_attended_tally,format = "markdown", row.names = FALSE, col.names = c("Workshop Respondents Attended", "n", "%"))
 ```
 
-# Workshop Content
+#### Survey Engagement
+```{r}
+# Is this your first time completing this survey?
+first_time = c("Yes", "No", "I don't know.")
+first_time = factor(first_time)
 
-Learners were asked to check all that applies to indicate what content was covered at the last Carpentries workshop they completed.
+impactdata$FirstSurvey = factor(impactdata$FirstSurvey, levels = first_time)
+
+impactdata_firsttime_tally <-
+  impactdata %>%
+  group_by(FirstSurvey) %>%
+  tally() %>%
+  filter(!is.na(FirstSurvey)) %>%
+  mutate(perc = round(n/sum(n) * 100, 0))
+
+kable(impactdata_firsttime_tally, format = 'markdown', row.names = NA, col.names = c ("Learners Taking Survey for First Time", "n", "%"))
+```
+
+# Workshop Content
+Learners were asked to check all that applies to indicate what content was covered at the last Carpentries workshop they completed. The tables below provide this information, and combinations of tools covered most often.
 
 ```{r}
 # What content was covered
@@ -503,11 +487,10 @@ tool_combs %>%
 
 # Top combinations as entered by respondants
 colnames <- c("Frequency of Tools Covered", "n", "%")
-kable(tool_combs_df[1:10, ], row.names = NA, col.names = colnames, caption = "Combination of Tools Covered")
+kable(tool_combs_df[1:10, ], row.names = NA, col.names = colnames, caption = "")
 ```
 
 # Workshop Impact
-
 We are interested in knowing what behaviors learners adopt as a result of completing a Carpentries workshop. Respondents were asked to check all that apply.
 
 ```{r}
@@ -567,7 +550,7 @@ kable(Behaviors,
       escape = TRUE)
 ```
 
-## Behaviors Adopted by Status/Position
+The table below provides behaviors adopted by career stage..
 
 ```{r}
 # Need the count of responses in each Status grouping in order to caluclate
@@ -606,8 +589,7 @@ behaviors_adopted_by_group %>%
 ```
 
 # Programming Usage Pre- and Post-Workshop
-
-Compared to before completing a Carpentries workshop, we want to know how often respondents used programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell.
+Compared to before completing a Carpentries workshop, we want to know how often respondents used programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell. Below we compare pre/post programming usage.
 
 ```{r}
 # The code below can be used to get a table and plot of the number of respondents for programming usage pre workshop
@@ -651,8 +633,6 @@ impactdata %>%
     theme_classic(base_size = 14)
 ```
 
-Since completing a Carpentries workshop, we asked how often respondents currently use programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell.
-
 ```{r}
 # The code below is for post-workshop programming usage (count)
 # Programming Usage Post-Carpentry Workshop [Absolute Plot]
@@ -693,8 +673,6 @@ scale_x_discrete(labels = function(x) lapply(strwrap(x,
     theme(plot.title = element_text(hjust = 0.5)) +
     theme_classic(base_size = 14)
 ```
-
-Below we comparing pre/post programming usage.
 
 ```{r}
 # The code below is for Pre/Post plots of programming usage
@@ -746,16 +724,17 @@ impactdata %>%
 ```
 
 # Workshop Impact
-The statements below reflect ways in which completing a Carpentries wtheir level of agreement with these statements:
+The statements below reflect ways in which completing a Carpentries may impact learners. We asked respondents to rate level of agreement with these statements:
 
-+ I have used skills I learned at the workshop to advance my career.
-+ I have been motivated to seek more knowledge about the tools I learned at the workshop.
-+ I have made my analyses more reproducible as a result of completing the workshop.
-+ I have received professional recognition for my work as a result of using the tools I learned at the workshop.
-+ I have improved my coding practices as a result of completing the workshop.
-+ My research productivity has improved as a result of completing the workshop.
-+ I have gained confidence in working with data as a result of completing the workshop.
++ __Reproducible__: I have made my analyses more reproducible as a result of completing the workshop.
++ __Recognition__: I have received professional recognition for my work as a result of using the tools I learned at the workshop.
++ __Productivity__: My research productivity has improved as a result of completing the workshop.
++ __Motivation__: I have been motivated to seek more knowledge about the tools I learned at the workshop.
++ __Confidence__: I have gained confidence in working with data as a result of completing the workshop.
++ __Coding__: I have improved my coding practices as a result of completing the workshop.
++ __Career__: I have used skills I learned at the workshop to advance my career.
 
+The heatmap below provides a breakdown of responses.
 ```{r}
 # Jonah's fix to include the correct levels. Variable was renamed to 'levels'
 # because 'order' is the name of a function in R.
@@ -809,16 +788,16 @@ title <- "Respondents Perception of Workshop Impact"
 plot(data_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
 ```
 
-We are interested in understanding what impact our workshops have on respondents long-term. This section includes the following:
+We are also interested in understanding what impact our workshops have on respondents long-term. This includes the following:
 
 + Change in Confidence
 + Usage of Tools for Research and/or Work
 + Contributions to Academic Writing
 + Involvement in the Carpentries
-+ Continous Learning
++ Continuous Learning
 
-## Change in Confidence
-We asked respondents to rate their change in confidence in the tools that were covered during their Carpentries workshops compared to before the workshop.
+#### Change in Confidence
+We asked respondents to rate their change in confidence in the tools that were covered during their Carpentries workshops compared to before the workshop. The figure below provides a synopsis.
 
 ```{r}
 # Code for change in confidence
@@ -903,7 +882,7 @@ ggplot(impactdata_change_in_confidence_tally,
 ```
 
 
-## Usage of Tools for Research and/or Work
+#### Usage of Tools for Research and/or Work
 
 If respondents are using the tools they learned in a Carpentries workshop, we want to know how they are helping. Respondents were asked to check all that apply.
 
@@ -959,8 +938,7 @@ impactdata %>%
 kable(tools_helped, format = "markdown", row.names = FALSE, col.names = c("How Tools Covered Help Respondents", "n", "%"))
 ```
 
-
-## Contributions to Academic Writing
+#### Contributions to Academic Writing
 We are also interested in knowing whether completing a Carpentries workshop contributed to writing of a research article, thesis, dissertation, or grant proposal. 
 
 ```{r}
@@ -995,7 +973,7 @@ writing = factor(writing)
 impactdata$Writing = factor(impactdata$Writing, levels = writing)
 Contributed_Writing <- round(prop.table(table(impactdata$Writing)) * 100)
 ```
-
+#### Involvement with the Carpentries
 We asked respondents to indicate their involvement in the Carpentries community since completing a Carpentry workshop. Respondents were asked to check all that apply.
 ```{r}
 # Code for involvement (rows Involvement through Column57)
@@ -1014,7 +992,7 @@ impactdata %>%
 kable(Carpentry_Involvement, format = 'markdown', col.names = c("Respondents Involvement with The Carpentries", "n", "%"))
 ```
 
-
+#### Continuous Learning
 Which of the following learning activities (for data management and analysis) have you participated in since completing a Carpentry workshop? Check all that apply.
 ```{r}
 # Code chunk for continuous learning
@@ -1038,9 +1016,7 @@ kable(Learning_Activities,
 ```
 
 
-
 # Recommending Carpentries Workshops
-
 Have respondents recommended a Carpentry workshop to a friend or colleague? Responses provided below.
 ```{r}
 # Code chunk for whether respondents recommended a workshop
