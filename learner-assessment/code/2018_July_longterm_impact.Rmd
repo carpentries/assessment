@@ -1,21 +1,36 @@
-## Analysis of The Carpentries Long-Term Impact
-__2018 July__ 
+# Analysis of The Carpentries Long-Term Impact Survey
+## Author: [Kari L. Jordan](twitter.com/drkariljordan)
+## Published: 17-July 2018 
 
 ```{r setup, include=FALSE}
-library(knitr)
 library(tidyverse)
+library(knitr)
 library(likert)
-library(testthat)
+library(srvyr)
+library(NPS)
+library(broom)
+library(assertr)
+library(viridis)
+library(patchwork)
+library(scales)
+library(ggalt)
+
 opts_chunk$set(echo = FALSE,
                message = FALSE,
                warning = FALSE)
-opts_chunk$set(fig.path='figures/') #puts all figures in figures folder
+## puts all figures in figures folder
+opts_chunk$set(fig.path='figures/', fig.width = 10,  fig.retina = 2)
 ```
 
-
 ```{r load-long-term-data}
-# Data archived 2018-05-23
-impactdata <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/data/180523_longterm.csv")
+# Data archived 2018-07-11
+impactdata <- readr::read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/data/180711_longterm.csv",
+                             col_types = cols(
+                                 Date =  col_datetime(
+                                     format = "%m/%d/%y %H:%M"
+                                 ),
+                                 .default = "c")
+                             )
 ```
 
 ```{r}
@@ -57,58 +72,60 @@ sum(idx)
 }
 ```
 
+```{r overview-inline-stats}
+## number of learners
+n_learners <- nrow(impactdata)
+
+## time period covered
+dates <- range(impactdata$Date)
+```
+
+## Overview
+
+To date, `r n_learners` learners have completed the Carpentries Long-Term Impact Survey between `r format(min(dates), format="%B %d, %Y")` and `r format(max(dates), format="%B %d, %Y")`. The average amount of time spent completing this survey is six minutes, and it carries an 80% completion rate. The survey was created in March 2017, and data is collected bi-annually. The results of this analysis are cumulative. We invite the community to run their own analyses. All of the data and source code are available on [GitHub](https://github.com/carpentries/assessment/tree/master/learner-assessment).
+
+A special thanks goes out to [François Michonneau](https://twitter.com/fmic_) and others who helped write the code used in this report.
+
 ### Demographics
+This section includes the following:
+
++ Breakdown of Respondents by Country
++ Breakdown of Respondents by Field and Career Stage
++ Respondents' Gender and Racial/Ethnic Identity
+
+#### Breakdown of respondents by Country
 
 ```{r}
-# Is this your first time completing this survey?
-first_time = c("Yes", "No", "I don't know.")
-first_time = factor(first_time)
-
-impactdata$FirstSurvey = factor(impactdata$FirstSurvey, levels = first_time)
-
-impactdata_firsttime_tally <-
-  impactdata %>%
-  group_by(FirstSurvey) %>%
-  tally() %>%
-  filter(!is.na(FirstSurvey)) %>%
-  mutate(perc = round(n/sum(n) * 100, 0))
-
-kable(impactdata_firsttime_tally, format = 'markdown', row.names = NA, col.names = c ("Learners Taking Survey for First Time", "n", "%"))
+# Plot includes Ben's tip to add a percent column to the data_country_tally data frame
+# before it goes into the ggplot() function to use reorder on that column name in the ggplot() function
+impactdata_country_tally <-
+impactdata %>%
+  group_by(Country) %>%
+  tally(sort = TRUE) %>%
+  mutate(perc = round(100 * (n/sum(n)), 1)) %>% # add the % col
+  filter(!is.na(Country)) %>%
+  arrange(desc(n))
 ```
 
-__Respondents Status__
-
-```{r}
-# Status of Respondents
-status = c("Undergraduate Student", "Graduate Student", "Postdoc", "Faculty", "Industry", "Academic Research Staff", "Other Academic Staff", "Other (please specify)")
-status = factor(status)
-
-impactdata$Status = factor(impactdata$Status, levels = status)
-
-impactdata_status_tally <-
-  impactdata %>%
-  group_by(Status) %>%
-  tally() %>%
-  filter(!is.na(Status)) %>%
-  mutate(perc = round(n/sum(n) * 100, 0))
-```
-
-```{r longterm_status}
-ggplot(impactdata_status_tally,
-       aes(Status, y = 100 * (n/sum(n)),
-           n)) +
-  geom_bar(stat = "identity", fill="darkcyan") +
-  geom_text(aes(label=n), size= 4, vjust=-0.25) +
-  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+```{r longterm_percent_by_country}
+ggplot(impactdata_country_tally,
+       aes(reorder(Country, perc),
+           perc)) +
+  geom_bar(stat = "identity", fill = "darkcyan") +
   theme_classic() +
-  xlab("Position/Status") +
+  xlab("Country") +
   ylab("% Respondents") +
-  ggtitle("Marjority Respondents are Graduate Students") +
+  coord_flip() +
+  ggtitle("Percentage of Respondents by Country") +
   theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
+  theme_bw(base_size = 14)
+
+# There are only a few responses to this question because it was omitted during the second round
+# of the survey
 ```
 
-__Field of work, research, or study.__
+### Respondents by Field and Career Stage 
+
 ```{r}
 # Field of work, research, or study. Responses are in columns 'Field' through 'Column12'
 
@@ -138,7 +155,143 @@ kable(field_perc,
     escape = TRUE)
 ```
 
-__Number of Carpentries workshops attended__
+```{r}
+# Status of Respondents
+status = c("Undergraduate Student", "Graduate Student", "Postdoc", "Faculty", "Industry", "Academic Research Staff", "Other Academic Staff", "Other (please specify)")
+status = factor(status)
+
+impactdata$Status = factor(impactdata$Status, levels = status)
+
+impactdata_status_tally <-
+  impactdata %>%
+  group_by(Status) %>%
+  tally() %>%
+  filter(!is.na(Status)) %>%
+  mutate(perc = round(n/sum(n) * 100, 0))
+```
+
+```{r longterm_status}
+ggplot(impactdata_status_tally,
+       aes(Status, y = 100 * (n/sum(n)),
+           n)) +
+  geom_bar(stat = "identity", fill="darkcyan") +
+  geom_text(aes(label=n), size= 4, vjust=-0.25) +
+  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  theme_classic() +
+  xlab("Career Stage") +
+  ylab("% Respondents") +
+  ggtitle("Marjority Respondents are Graduate Students") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_classic(base_size = 14)
+```
+
+Provided below is a table of participant counts in each category. Multiple selection was possible.
+
+```{r include=FALSE}
+# Table of participant counts in each category (multiple selection was possible)
+table_of_status_by_field <- impactdata %>%
+  select(Status, Field:FieldOther) %>%
+  gather(key = "Field",
+         value = "value",
+         -Status,
+         na.rm = TRUE) %>%
+  select(-Field) %>%
+  table() %>%
+  t()
+
+top_12_fields <- table_of_status_by_field  %>%
+  as_tibble() %>%
+  group_by(value) %>%
+  summarize(sum_by_field = sum(n)) %>%
+  arrange(desc(sum_by_field)) %>%
+  head(12) %>%
+  pull(value)
+
+
+table_of_status_by_field %>%
+  as_tibble() %>%
+  filter(value %in% top_12_fields) %>%
+  spread(Status, n) %>%
+  kable()
+```
+
+
+```{r longterm_respondents_by_field}
+# Plot of participant counts in each category (multiple selection was possible)
+table_of_status_by_field %>%
+  as_tibble() %>%
+  filter(value %in% top_12_fields) %>%
+  ggplot(aes(x = Status,
+             y = value,
+             fill = n)) +
+    geom_tile() +
+    geom_text(aes(label = round(n, 0))) +
+    scale_fill_gradient("n",
+                        low = "white",
+                        high = "blue") +
+    labs(title = "Number of Respondants by Field and Career Stage \n(top 12 most common)",
+         subtitle = "Note: Multiple selections possible per person",
+         y = "Field",
+         x = "Career Stage/Status") +
+    theme(axis.text.x = element_text(angle = 45,
+                                     hjust = 1),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          axis.ticks = element_blank(),
+          panel.background = element_blank())
+
+```
+
+
+Gender Identity and Racial/Ethnic Identity was added to the survey during the second round of data collection, so these numbers do not reflect the cumulative amount of respondents.
+
+```{r}
+# What is your gender?
+# Gender was added to the survey during the second round of data collection. 
+gender = c("Female", "Male", "I prefer not to say")
+gender = factor(gender)
+
+impactdata$Gender = factor(impactdata$Gender, levels = gender)
+
+impactdata_gender_tally <-
+ impactdata %>%
+  group_by(Gender) %>%
+  tally() %>%
+  filter(!is.na(Gender)) %>%
+  mutate(perc = round(n/sum(n) * 100, 0))
+
+kable(impactdata_gender_tally, format = 'markdown', row.names = NA, col.names = c("Gender Identity", "n", "%"))
+
+```
+
+```{r}
+# How would you describe yourself?
+# Responses are in columns 'Race' through 'Column50'
+n_responses_race <-
+  n_responses_to_the_question(impactdata,
+                              from_colname = Race,
+                              to_colname = Column50)
+
+race_perc <-
+  impactdata %>%
+    select(Race:Column50) %>%
+    gather(col, race_perc) %>%
+    group_by(race_perc) %>%
+    tally() %>%
+    filter(!is.na(race_perc)) %>%
+    mutate(perc = round(n/sum(n) * 100, 0)) %>%
+    rename(Race = race_perc)
+
+kable(race_perc, format = 'markdown', row.names = NA, col.names = c("Racial/Ethnic Identity", "n", "%"))
+```
+
+### Respondent Engagement in Workshops and Surveys
+
++ Number of Workshops Attended
++ Time Since Attending a Workshop
++ Survey Engagement
+
+# Number of Workshops Attended
 ```{r}
 # Number of workshops attended
 impactdata_workshops_tally <-
@@ -149,7 +302,7 @@ impactdata_workshops_tally <-
    mutate(perc = round(n/sum(n) * 100, 0))
 
 # Use the code below to include a table of the number of workshops respondents attended
-kable(impactdata_workshops_tally, format = "markdown", row.names = FALSE, col.names = c("Number of Workshops Respondents Attended", "n", "%"))
+# kable(impactdata_workshops_tally, format = "markdown", row.names = FALSE, col.names = c("Number of Workshops Respondents Attended", "n", "%"))
 ```
 
 ```{r longterm_number_workshops_attended}
@@ -167,7 +320,64 @@ ggplot(impactdata_workshops_tally,
   theme_classic(base_size = 14)
 ```
 
-__Time since completing last Carpentries workshop__
+```{r}
+# Table of number of workshops that participants have attended
+# numworkshops = c("1", "2", "3+")
+# numworkshops = factor(numworkshops)
+# 
+# impactdata$NumWorkshops = factor(impactdata$NumWorkshops, levels = numworkshops)
+# 
+# impactdata_numworkshops_tally <-
+#  impactdata %>%
+#   group_by(NumWorkshops) %>%
+#   tally() %>%
+#   filter(!is.na(NumWorkshops)) %>%
+#   mutate(perc = round(n/sum(n) * 100, 0))
+# 
+# kable(impactdata_numworkshops_tally, format = 'markdown', row.names = NA, col.names = c("Number of Workshops Respondents Attended", "n", "%"))
+```
+
+# Time Since Attending a Workshop
+
+```{r}
+# Table of time since workshop attendance
+timesinceworkshop = c("0-6 months ago", "6 months - 1 year ago", "More than 1 year ago")
+timesinceworkshop = factor(timesinceworkshop)
+
+impactdata$TimeSinceWorkshop = factor(impactdata$TimeSinceWorkshop, levels = timesinceworkshop)
+
+impactdata_timesinceworkshop_tally <-
+ impactdata %>%
+  group_by(TimeSinceWorkshop) %>%
+  tally() %>%
+  filter(!is.na(TimeSinceWorkshop)) %>%
+  mutate(perc = round(n/sum(n) * 100, 0))
+
+kable(impactdata_timesinceworkshop_tally, format = 'markdown', row.names = NA, col.names = c("Time Since Attending a Workshop", "n", "%"))
+```
+
+# Survey Engagement
+```{r}
+# Is this your first time completing this survey?
+first_time = c("Yes", "No", "I don't know.")
+first_time = factor(first_time)
+
+impactdata$FirstSurvey = factor(impactdata$FirstSurvey, levels = first_time)
+
+impactdata_firsttime_tally <-
+  impactdata %>%
+  group_by(FirstSurvey) %>%
+  tally() %>%
+  filter(!is.na(FirstSurvey)) %>%
+  mutate(perc = round(n/sum(n) * 100, 0))
+
+kable(impactdata_firsttime_tally, format = 'markdown', row.names = NA, col.names = c ("Learners Taking Survey for First Time", "n", "%"))
+```
+
+
+
+
+# Time since completing last Carpentries workshop
 
 ```{r}
 # How long ago did you attend a workshop?
@@ -179,7 +389,7 @@ __Time since completing last Carpentries workshop__
   mutate(perc = round(n/sum(n) * 100, 0))
 
 # Use the code below to include a table of how long ago respondents attended a workshop
-kable(impactdata_time_since_tally, format = "markdown", row.names = FALSE, col.names = c("Time Since Completing a Workshop", "n", "%"))
+# kable(impactdata_time_since_tally, format = "markdown", row.names = FALSE, col.names = c("Time Since Completing a Workshop", "n", "%"))
 ```
 
 ```{r longterm_time_since_attending_workshop}
@@ -217,7 +427,8 @@ kable(impactdata_workshop_attended_tally,format = "markdown", row.names = FALSE,
 
 # Workshop Content
 
-__What content was covered at the last Carpentries workshop you completed? Select all that apply.__
+Learners were asked to check all that applies to indicate what content was covered at the last Carpentries workshop they completed.
+
 ```{r}
 # What content was covered
 # Responses are in columns 'ContentCovered' through 'Column23'
@@ -250,7 +461,6 @@ MATLAB <-  workshop_tools[workshop_tools$Content == 'MATLAB', ]$n
 Mercurial <-  workshop_tools[workshop_tools$Content == 'Mercurial', ]$n
 ```
 
-__Combination of tools covered in respondents' workshops.__
 
 ```{r}
 # The code segment below from Ben Marwick will show the most combinations of tools covered in our workshops.
@@ -296,28 +506,10 @@ colnames <- c("Frequency of Tools Covered", "n", "%")
 kable(tool_combs_df[1:10, ], row.names = NA, col.names = colnames, caption = "Combination of Tools Covered")
 ```
 
-__Matrix of combinations of tools covered.__
-
-```{r}
-# The code segment below from Ben Marwick will give a matrix of the combinations of tools covered.
-m <- as.matrix(tools_cols)
-# The unique values in the matrix
-vals <- sort(unique(as.vector(m)))
-
-# Rearrange the data so that each value is a column
-bigm <- t(apply(m, 1, function(row) match(vals, row, nomatch=0)))
-colnames(bigm) <- vals
-
-# Count the co-occurences of each value (diagonal is total number of rows with that value)
-tool_co_occurences  <- as.data.frame(crossprod(bigm>0))
-kable(tool_co_occurences, row.names = TRUE, caption = "Matrix of Common Tools Covered")
-```
-
 # Workshop Impact
 
-__Behaviors Adopted__
+We are interested in knowing what behaviors learners adopt as a result of completing a Carpentries workshop. Respondents were asked to check all that apply.
 
-Which of the following behaviors have you adopted as a result of completing a Carpentries workshop? Check all that apply.
 ```{r}
 # Code for behaviors adopted
 # Responses are in columns 'Behaviors' through 'Column32'
@@ -362,7 +554,6 @@ rowsums <-
 idx <- ifelse(rowsums == 0, FALSE, TRUE)
 number_that_adopted_any_of_those_three <- sum(idx)
 ```
-
 
 ```{r}
 # Respondents were asked to check all that apply.
@@ -414,33 +605,9 @@ behaviors_adopted_by_group %>%
         escape = TRUE)
 ```
 
-```{r longterm_behaviors_adopted, fig.height=6}
-# Remove other column since it's full of NAs
-# Might take this out of final report, but it helps visualize differences
-behaviors_adopted_by_group %>%
-  filter(!grepl("Other", Status)) %>%
-  ggplot(aes(x = Behaviors,
-             y = Status,
-             fill = Percent)) +
-    geom_tile() +
-    geom_text(aes(label = paste0(round(Percent, 1), "%"))) +
-    scale_fill_gradient("Percent",
-                        low = "white",
-                        high = "blue",
-                        limits = c(0, 100)) +
-    ggtitle("Behaviors Adopted by Group (percent of respondants)") +
-    theme(axis.text.x = element_text(angle = 45,
-                                     hjust = 1),
-          panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(),
-          axis.ticks = element_blank(),
-          panel.background = element_blank())
-```
-
-
 # Programming Usage Pre- and Post-Workshop
 
-__Before completing a Carpentries workshop, how often did you use programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell?__
+Compared to before completing a Carpentries workshop, we want to know how often respondents used programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell.
 
 ```{r}
 # The code below can be used to get a table and plot of the number of respondents for programming usage pre workshop
@@ -457,12 +624,10 @@ programming = factor(programming)
    tally() %>%
    mutate(`%` = round(n / sum(n) * 100, 1)) %>%
    filter(!is.na(ProgrammingBefore))
-
-  kable(impactdata_usage_tally, format = "markdown", row.names = FALSE, col.names = c("Respondents Programming Usage Pre-Workshop", "n", "%"))
 ```
 
 
-```{r longterm_programming_usage_pre_percent}
+```{r include=FALSE}
 # The code below is for pre-workshop programming usage reported as a percentage.
 impactdata %>%
   select(ProgrammingBefore) %>%
@@ -486,7 +651,7 @@ impactdata %>%
     theme_classic(base_size = 14)
 ```
 
-__Since completing a Carpentries workshop, how often do you currently use programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell?__
+Since completing a Carpentries workshop, we asked how often respondents currently use programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell.
 
 ```{r}
 # The code below is for post-workshop programming usage (count)
@@ -502,11 +667,9 @@ __Since completing a Carpentries workshop, how often do you currently use progra
    tally() %>%
    mutate(`%` = round(n / sum(n) * 100, 1)) %>%
    filter(!is.na(ProgrammingSince))
-
- kable(impactdata_usage_tally, format = "markdown", row.names = FALSE, col.names = c("Respondents Programming Usage Since Attending a Workshop", "n", "%"))
 ```
 
-```{r longterm_programming_usage_post_percent}
+```{r include=FALSE}
 # The code below is for post-workshop programming usage as a percent
 impactdata %>%
 select(ProgrammingSince) %>%
@@ -531,7 +694,7 @@ scale_x_discrete(labels = function(x) lapply(strwrap(x,
     theme_classic(base_size = 14)
 ```
 
-__Comparing pre/post programming usage__
+Below we comparing pre/post programming usage.
 
 ```{r}
 # The code below is for Pre/Post plots of programming usage
@@ -582,318 +745,8 @@ impactdata %>%
     theme_classic(base_size = 14)
 ```
 
-## Pre-post programming usage by group
-
-```{r}
-# The code below is for Pre/Post plots of programming usage
-# It includes tips from Ben and Naupaka
-# Make the unique values the same
-pre_and_post_usage_by_group <-
-  impactdata %>%
-  select(Status,
-         ProgrammingBefore,
-         ProgrammingSince) %>%
-  gather(key = "when",
-         value = "value",
-         -Status) %>%
-  group_by(Status, when, value) %>%
-  tally() %>%
-  mutate(percent = 100 * (n / sum(n))) %>%
-  filter(!is.na(when),
-         !is.na(value))
-```
-
-```{r longterm_change_in_programming_usage_by_group, fig.height=14}
-ggplot(pre_and_post_usage_by_group,
-       aes(x = factor(value,
-                      levels = programming),
-           y = percent,
-           fill = when)) +
-  geom_bar(stat = "identity",
-           position = "dodge") +
-  geom_text(aes(label = n),
-            size = 4,
-            vjust = -0.25,
-            position = position_dodge(width = 1)) +
-  ylim(c(0, 60)) +
-  facet_wrap(~ Status, ncol = 1) +
-  scale_x_discrete(labels = function(x) lapply(strwrap(x,
-                                                       width = 10,
-                                                       simplify = FALSE),
-                                               paste,
-                                               collapse = "\n")) +
-  theme_classic() +
-  xlab("Timeframe") +
-  ylab("% Respondents") +
-  scale_fill_discrete(name = "",
-                      labels = c("Before Workshop", "After Workshop")) +
-  ggtitle("Pre/Post Workshop Comparison of Programming Usage by Status") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
-```
-
-
-__Pre/Post Residuals__
-```{r}
-# The code below from Ben provides a chi-square plot of the pre/post residuals
-# Let's talk about this plot and whether to include it. If it's not easy to understand we shouldn't
-# use it.
-pre_and_post_test <-
-pre_and_post_usage %>%
-  select(-perc) %>%
-  spread(value, n) %>%
-  ungroup()
-
-# chi-sq test
-pre_and_post_test_result <-
-  chisq.test(pre_and_post_test[ , !names(pre_and_post_test) == 'key'])
-
-# standardised residuals
-stdres <- data.frame(t(pre_and_post_test_result$stdres))
-names(stdres) <- pre_and_post_test$key
-stdres$freq <- row.names(stdres)
-
-# just show post-workshop
-stdres <- stdres[, c(2,3)]
-
-names(stdres) <- rev(c("Frequency", "Residual"))
-
-# large positive residuals means there were more xxx than the hypothesis of independence predicts. Where are our large +ve residuals?
-
-# Contribution in percentage (%)
-# The contribution (in %) of a given cell to the total Chi-square score is calculated as follows:
-contrib <- 100 * pre_and_post_test_result$residuals^2 / pre_and_post_test_result$statistic
-# scale 0 to 1 to use as alpha
-range0to1 <- function(x){(x-min(x))/(max(x)-min(x))}
-# reorder to match order of programming factor
-contrib_0_to_1 <- as.vector(range0to1(contrib))[c(3,5,9,7,11,1)]
-
-# colour +ve and -ve values
-# http://stackoverflow.com/a/12910865/1036500
-stdres$sign = ifelse(stdres$Residual >= 0,
-                          "positive",
-                          "negative")
-```
-
-```{r longterm_programming_post_workshop}
-# get the categories in a sensible order
-ggplot(stdres,
-       aes(factor(Frequency,
-                  levels = programming),
-           Residual,
-           fill = sign)) +
-  geom_col(position = "dodge",
-           aes(alpha = contrib_0_to_1)) +
-  xlab(" Respondents program significantly more often") +
-  ylab("Chi-square standardized residuals of\npost-workshop frequencies") +
-  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse = "\n")) +
-  scale_fill_manual(name = "",
-                      values = c("negative" = "red",
-                                 "positive" = "blue"),
-                      labels = c("Fewer respondents than \nexpected assuming no effect",
-                                 "More respondents than \nexpected assuming no effect")) +
-  ggtitle("") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14) +
-  scale_alpha_continuous("Contribution to \nchi-square value") +
-   guides(fill=guide_legend(
-                 keywidth = 0.1,
-                 keyheight = 0.4,
-                 default.unit = "inch")
-      )
-```
-
 # Workshop Impact
-
-__Change in Confidence__
-
-How would you rate your change in confidence in the tools that were covered during your Carpentries workshops compared to before the workshop?
-
-```{r}
-# Code for change in confidence
-confidence <-
-  c("I am less confident now.",
-    "I am equally confident now.",
-    "I am more confident now.")
-confidence = factor(confidence)
-
-impactdata$ChangeInConfidence = factor(impactdata$ChangeInConfidence, levels = confidence)
-
-impactdata_change_in_confidence_tally <-
-  impactdata %>%
-  group_by(ChangeInConfidence) %>%
-  tally() %>%
-  mutate(`%` = round(n / sum(n) * 100, 1)) %>%
-  filter(!is.na(ChangeInConfidence))
-  
-
-# Use the code below for a table of the data.
-kable(impactdata_change_in_confidence_tally, format = "markdown", row.names = FALSE, col.names = c("Respondents Change in Confidence", "n", "%"))
-```
-
-```{r longterm_change_in_confidence}
-ggplot(impactdata_change_in_confidence_tally,
-       aes(ChangeInConfidence, y = 100 * (n/sum(n)),
-           n)) +
-   geom_bar(stat = "identity", fill = "darkcyan") +
-   geom_text(aes(label=n), size= 4, vjust=-0.25) +
-   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-   theme_classic() +
-   xlab("Change in Confidence") +
-   ylab("% Respondents") +
-   ggtitle("Respondents Change in Confidence 6 or More \nMonths After a Workshop") +
-   theme(plot.title = element_text(hjust = 0.5)) +
-   theme_bw(base_size = 14)
-```
-
-__Change in Confidence by Status__
-
-```{r include=FALSE}
-status <- unique(impactdata$Status)
-status <- factor(status[!is.na(status)])
-```
-
-```{r include=FALSE}
-# What is your position?
-status <- factor(status, levels(status)[c(7, 3, 6, 2, 1, 5, 4)])
-# Display ordering.
-print(levels(status))
-
-impactdata$Position <-
-  factor(impactdata$Status, levels = levels(status))
-
-change_in_confidence_by_status <- impactdata %>%
-  group_by(ChangeInConfidence, Position) %>%
-  tally() %>%
-  filter(!is.na(ChangeInConfidence)) %>%
-  group_by(Position) %>%
-  mutate(n_status = sum(n)) %>%
-  filter(!is.na(Position)) %>%
-  mutate(perc = n / n_status * 100)
-
-# Check that percentage total is 100 for each status (Position).
-test_output <- change_in_confidence_by_status %>%
-  group_by(Position) %>%
-  summarize(total = sum(perc))
-expect_equal(test_output$total, rep(100, length(status)))
-```
-
-```{r longterm_change_in_confidence_by_status}
-ggplot(data = change_in_confidence_by_status,
-       aes(x = ChangeInConfidence, y = Position)) +
-  geom_tile(aes(fill = perc), colour = "white") +
-  geom_text(aes(label = paste0(round(perc, 1), "%"))) +
-  scale_fill_gradient("Percent",
-                      low = "white",
-                      high = "blue",
-                      limits = c(0, 100)) +
-  xlab("Change in Confidence with Tools by Position") +
-  theme(
-    axis.text.x = element_text(angle = 30, hjust = 1),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    axis.ticks = element_blank(),
-    panel.background = element_blank()
-  )
-```
-
-
-# Usage of Tools for Research and/or Work
-
-If you are using the tools you learned in a Carpentries workshop, how are they helping you? Check all that apply.
-
-```{r longterm_change_in_conf_eng_by_status}
-# Data are in columns 'How-Tools-Learned-Help' through 'Column37'
-
-# how many responses do we have to this question?
-
-n_reponses_tools_learned_help <-
-    n_responses_to_the_question(impactdata,
-                              from_colname = HowToolsHelped,
-                              to_colname = Column37)
-
-# How many responded to either of these?
-# They are improving my overall efficienct : How.Tools.Learned.Helped
-# They are improving my ability to analyze data. : Column34
-# They are improving my ability to manage data. : Column35
-
-relevant_cols <- c("HowToolsHelped", "Column34", "Column35")
-
-rowsums <-
-  impactdata %>%
-  select(one_of(relevant_cols)) %>%
-  # check that each row has a value for at least one col
-  # convert to numeric, if NA, then put a zero, otherwise 1
-  map_df(., ~ifelse(is.na(.x), 0, 1)) %>%
-  # sum to see if any rows have no reponses
-  rowSums()
-
-idx <- ifelse(rowsums == 0, FALSE, TRUE)
-number_that_tools_helped <- sum(idx)
-
-how_help <-
-impactdata %>%
-  select(HowToolsHelped:Column37) %>%
-  gather(col, how_help) %>%
-  group_by(how_help) %>%
-  tally() %>%
-  filter(!is.na(how_help)) %>%
-  arrange(desc(n)) %>%
-  rename(`HowToolsHelped` = how_help)
-
-tools_helped <-
-impactdata %>%
-  select(HowToolsHelped:Column37) %>%
-  gather(col, tools_helped) %>%
-  group_by(tools_helped) %>%
-  tally_and_perc(tools_helped, na.rm = TRUE, question_n = n_reponses_tools_learned_help) %>%
-  filter(!is.na(tools_helped)) %>%
-  arrange(desc(n)) %>%
-  rename(`How Tools Covered Have Helped` = tools_helped)
-
-kable(tools_helped, format = "markdown", row.names = FALSE, col.names = c("How Tools Covered Help Respondents", "n", "%"))
-```
-
-
-# Contributions to Academic Writing
-Has completing a Carpentries workshop contributed to your writing of a research article, thesis, dissertation, or grant proposal?
-
-```{r}
-# Code chunk for contributions to academic writing
-
-# how many responded to this question?
-rowsums <-
-impactdata %>%
-  select(Writing) %>%
-  # check that each row has a value for at least one col
-  # convert to numeric, if NA, then put a zero, otherwise 1
-  map_df(., ~ifelse(is.na(.x), 0, 1)) %>%
-  # sum to see if any rows have no reponses
-  rowSums()
-
-# for all writing responses
-idx <- ifelse(rowsums == 0, FALSE, TRUE)
-n_responsed_to_writing <-  sum(idx)
-
-# table about writing
-impactdata %>%
-  tally_and_perc(Writing,
-                 na.rm = TRUE,
-                 question_n = n_responsed_to_writing) %>%
-  
-  kable(,format = 'markdown', row.names = NA, col.names = c("Have Tools Contributed to Respondents' Writing?", "n", "%"))
-
-
-writing = c("No.", "Not sure.", "Yes.")
-writing = factor(writing)
-
-impactdata$Writing = factor(impactdata$Writing, levels = writing)
-Contributed_Writing <- round(prop.table(table(impactdata$Writing)) * 100)
-```
-
-# Perception of Workshop Impact
-
-The statements below reflect ways in which completing a Carpentries workshop may have impacted you. Please indicate your level of agreement with these statements:
+The statements below reflect ways in which completing a Carpentries wtheir level of agreement with these statements:
 
 + I have used skills I learned at the workshop to advance my career.
 + I have been motivated to seek more knowledge about the tools I learned at the workshop.
@@ -951,196 +804,199 @@ received_professional_recognition <-
   round(0)
 ```
 
-
 ```{r longterm_workshop_impact_heatmap}
 title <- "Respondents Perception of Workshop Impact"
 plot(data_agree_likert, type =c("heat"), panel.arrange = NULL, panel.strip.color = "red", legend.position = "bottom") + ggtitle(title)
 ```
 
+We are interested in understanding what impact our workshops have on respondents long-term. This section includes the following:
 
-# Breakdown of respondents by Country
++ Change in Confidence
++ Usage of Tools for Research and/or Work
++ Contributions to Academic Writing
++ Involvement in the Carpentries
++ Continous Learning
 
-__In what country was the workshop you attended held?__
-
-```{r}
-# Plot includes Ben's tip to add a percent column to the data_country_tally data frame
-# before it goes into the ggplot() function to use reorder on that column name in the ggplot() function
-impactdata_country_tally <-
-impactdata %>%
-  group_by(Country) %>%
-  tally(sort = TRUE) %>%
-  mutate(perc = round(100 * (n/sum(n)), 1)) %>% # add the % col
-  filter(!is.na(Country)) %>%
-  arrange(desc(n))
-```
-
-
-```{r longterm_percent_by_country}
-ggplot(impactdata_country_tally,
-       aes(reorder(Country, perc),
-           perc)) +
-  geom_bar(stat = "identity", fill = "darkcyan") +
-  theme_classic() +
-  xlab("Country") +
-  ylab("% Respondents") +
-  coord_flip() +
-  ggtitle("Percentage of Respondents by Country") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_bw(base_size = 14)
-
-# There are only a few responses to this question because it was omitted during the second round
-# of the survey
-```
-
-
-# Respondent Demographics
-
-__What is your gender?__
-
-Gender was added to the survey during the second round of data collection. 
+## Change in Confidence
+We asked respondents to rate their change in confidence in the tools that were covered during their Carpentries workshops compared to before the workshop.
 
 ```{r}
-# What is your gender?
-# Gender was added to the survey during the second round of data collection. 
-gender = c("Female", "Male", "I prefer not to say")
-gender = factor(gender)
+# Code for change in confidence
+confidence <-
+  c("I am less confident now.",
+    "I am equally confident now.",
+    "I am more confident now.")
+confidence = factor(confidence)
 
-impactdata$Gender = factor(impactdata$Gender, levels = gender)
+impactdata$ChangeInConfidence = factor(impactdata$ChangeInConfidence, levels = confidence)
 
-impactdata_gender_tally <-
- impactdata %>%
-  group_by(Gender) %>%
-  tally() %>%
-  filter(!is.na(Gender)) %>%
-  mutate(perc = round(n/sum(n) * 100, 0))
-
-kable(impactdata_gender_tally, format = 'markdown', row.names = NA, col.names = c("Respondents' Gender Identity", "n", "%"))
-
-```
-
-__How would you describe yourself?__
-
-Ethnicity was added to the survey in the second round of data collection. 
-
-```{r}
-# How would you describe yourself?
-# Responses are in columns 'Race' through 'Column50'
-n_responses_race <-
-  n_responses_to_the_question(impactdata,
-                              from_colname = Race,
-                              to_colname = Column50)
-
-race_perc <-
+impactdata_change_in_confidence_tally <-
   impactdata %>%
-    select(Race:Column50) %>%
-    gather(col, race_perc) %>%
-    group_by(race_perc) %>%
-    tally() %>%
-    filter(!is.na(race_perc)) %>%
-    mutate(perc = round(n/sum(n) * 100, 0)) %>%
-    rename(Race = race_perc)
-
-kable(race_perc, format = 'markdown', row.names = NA, col.names = c("Respondents' Racial/Ethnic Identity", "n", "%"))
-```
-
-# Number of Workshops Attended
-
-```{r}
-# Table of number of workshops that participants have attended
-numworkshops = c("1", "2", "3+")
-numworkshops = factor(numworkshops)
-
-impactdata$NumWorkshops = factor(impactdata$NumWorkshops, levels = numworkshops)
-
-impactdata_numworkshops_tally <-
- impactdata %>%
-  group_by(NumWorkshops) %>%
+  group_by(ChangeInConfidence) %>%
   tally() %>%
-  filter(!is.na(NumWorkshops)) %>%
-  mutate(perc = round(n/sum(n) * 100, 0))
-
-kable(impactdata_numworkshops_tally, format = 'markdown', row.names = NA, col.names = c("Number of Workshops Respondents Attended", "n", "%"))
+  mutate(`%` = round(n / sum(n) * 100, 1)) %>%
+  filter(!is.na(ChangeInConfidence))
 ```
-# Time Since Attending a Workshop
 
+```{r longterm_change_in_confidence}
+ggplot(impactdata_change_in_confidence_tally,
+       aes(ChangeInConfidence, y = 100 * (n/sum(n)),
+           n)) +
+   geom_bar(stat = "identity", fill = "darkcyan") +
+   geom_text(aes(label=n), size= 4, vjust=-0.25) +
+   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+   theme_classic() +
+   xlab("Change in Confidence") +
+   ylab("% Respondents") +
+   ggtitle("Respondents Change in Confidence 6 or More \nMonths After a Workshop") +
+   theme(plot.title = element_text(hjust = 0.5)) +
+   theme_bw(base_size = 14)
+```
 
 ```{r}
-# Table of time since workshop attendance
-timesinceworkshop = c("0-6 months ago", "6 months - 1 year ago", "More than 1 year ago")
-timesinceworkshop = factor(timesinceworkshop)
+# status <- unique(impactdata$Status)
+# status <- factor(status[!is.na(status)])
+```
 
-impactdata$TimeSinceWorkshop = factor(impactdata$TimeSinceWorkshop, levels = timesinceworkshop)
+```{r include=FALSE}
+# # What is your position?
+# status <- factor(status, levels(status)[c(7, 3, 6, 2, 1, 5, 4)])
+# # Display ordering.
+# print(levels(status))
+# 
+# impactdata$Position <-
+#   factor(impactdata$Status, levels = levels(status))
+# 
+# change_in_confidence_by_status <- impactdata %>%
+#   group_by(ChangeInConfidence, Position) %>%
+#   tally() %>%
+#   filter(!is.na(ChangeInConfidence)) %>%
+#   group_by(Position) %>%
+#   mutate(n_status = sum(n)) %>%
+#   filter(!is.na(Position)) %>%
+#   mutate(perc = n / n_status * 100)
+# 
+# # Check that percentage total is 100 for each status (Position).
+# test_output <- change_in_confidence_by_status %>%
+#   group_by(Position) %>%
+#   summarize(total = sum(perc))
+# expect_equal(test_output$total, rep(100, length(status)))
+```
 
-impactdata_timesinceworkshop_tally <-
- impactdata %>%
-  group_by(TimeSinceWorkshop) %>%
+```{r longterm_change_in_confidence_by_status}
+# ggplot(data = change_in_confidence_by_status,
+#        aes(x = ChangeInConfidence, y = Position)) +
+#   geom_tile(aes(fill = perc), colour = "white") +
+#   geom_text(aes(label = paste0(round(perc, 1), "%"))) +
+#   scale_fill_gradient("Percent",
+#                       low = "white",
+#                       high = "blue",
+#                       limits = c(0, 100)) +
+#   xlab("Change in Confidence with Tools by Position") +
+#   theme(
+#     axis.text.x = element_text(angle = 30, hjust = 1),
+#     panel.grid.major = element_blank(),
+#     panel.grid.minor = element_blank(),
+#     axis.ticks = element_blank(),
+#     panel.background = element_blank()
+#   )
+```
+
+
+## Usage of Tools for Research and/or Work
+
+If respondents are using the tools they learned in a Carpentries workshop, we want to know how they are helping. Respondents were asked to check all that apply.
+
+```{r longterm_change_in_conf_eng_by_status}
+# Data are in columns 'How-Tools-Learned-Help' through 'Column37'
+
+# how many responses do we have to this question?
+
+n_reponses_tools_learned_help <-
+    n_responses_to_the_question(impactdata,
+                              from_colname = HowToolsHelped,
+                              to_colname = Column37)
+
+# How many responded to either of these?
+# They are improving my overall efficienct : How.Tools.Learned.Helped
+# They are improving my ability to analyze data. : Column34
+# They are improving my ability to manage data. : Column35
+
+relevant_cols <- c("HowToolsHelped", "Column34", "Column35")
+
+rowsums <-
+  impactdata %>%
+  select(one_of(relevant_cols)) %>%
+  # check that each row has a value for at least one col
+  # convert to numeric, if NA, then put a zero, otherwise 1
+  map_df(., ~ifelse(is.na(.x), 0, 1)) %>%
+  # sum to see if any rows have no reponses
+  rowSums()
+
+idx <- ifelse(rowsums == 0, FALSE, TRUE)
+number_that_tools_helped <- sum(idx)
+
+how_help <-
+impactdata %>%
+  select(HowToolsHelped:Column37) %>%
+  gather(col, how_help) %>%
+  group_by(how_help) %>%
   tally() %>%
-  filter(!is.na(TimeSinceWorkshop)) %>%
-  mutate(perc = round(n/sum(n) * 100, 0))
+  filter(!is.na(how_help)) %>%
+  arrange(desc(n)) %>%
+  rename(`HowToolsHelped` = how_help)
 
-kable(impactdata_timesinceworkshop_tally, format = 'markdown', row.names = NA, col.names = c("Time Since Attending a Workshop", "n", "%"))
+tools_helped <-
+impactdata %>%
+  select(HowToolsHelped:Column37) %>%
+  gather(col, tools_helped) %>%
+  group_by(tools_helped) %>%
+  tally_and_perc(tools_helped, na.rm = TRUE, question_n = n_reponses_tools_learned_help) %>%
+  filter(!is.na(tools_helped)) %>%
+  arrange(desc(n)) %>%
+  rename(`How Tools Covered Have Helped` = tools_helped)
+
+kable(tools_helped, format = "markdown", row.names = FALSE, col.names = c("How Tools Covered Help Respondents", "n", "%"))
 ```
 
-# Respondents by Field and Career Stage 
+
+## Contributions to Academic Writing
+We are also interested in knowing whether completing a Carpentries workshop contributed to writing of a research article, thesis, dissertation, or grant proposal. 
 
 ```{r}
-# Table of participant counts in each category (multiple selection was possible)
-table_of_status_by_field <- impactdata %>%
-  select(Status, Field:FieldOther) %>%
-  gather(key = "Field",
-         value = "value",
-         -Status,
-         na.rm = TRUE) %>%
-  select(-Field) %>%
-  table() %>%
-  t()
+# Code chunk for contributions to academic writing
 
-top_12_fields <- table_of_status_by_field  %>%
-  as_tibble() %>%
-  group_by(value) %>%
-  summarize(sum_by_field = sum(n)) %>%
-  arrange(desc(sum_by_field)) %>%
-  head(12) %>%
-  pull(value)
+# how many responded to this question?
+rowsums <-
+impactdata %>%
+  select(Writing) %>%
+  # check that each row has a value for at least one col
+  # convert to numeric, if NA, then put a zero, otherwise 1
+  map_df(., ~ifelse(is.na(.x), 0, 1)) %>%
+  # sum to see if any rows have no reponses
+  rowSums()
+
+# for all writing responses
+idx <- ifelse(rowsums == 0, FALSE, TRUE)
+n_responsed_to_writing <-  sum(idx)
+
+# table about writing
+impactdata %>%
+  tally_and_perc(Writing,
+                 na.rm = TRUE,
+                 question_n = n_responsed_to_writing) %>%
+  
+  kable(,format = 'markdown', row.names = NA, col.names = c("Have Tools Contributed to Respondents' Writing?", "n", "%"))
 
 
-table_of_status_by_field %>%
-  as_tibble() %>%
-  filter(value %in% top_12_fields) %>%
-  spread(Status, n) %>%
-  kable()
+writing = c("No.", "Not sure.", "Yes.")
+writing = factor(writing)
+
+impactdata$Writing = factor(impactdata$Writing, levels = writing)
+Contributed_Writing <- round(prop.table(table(impactdata$Writing)) * 100)
 ```
 
-
-```{r longterm_respondents_by_field}
-# Plot of participant counts in each category (multiple selection was possible)
-table_of_status_by_field %>%
-  as_tibble() %>%
-  filter(value %in% top_12_fields) %>%
-  ggplot(aes(x = Status,
-             y = value,
-             fill = n)) +
-    geom_tile() +
-    geom_text(aes(label = round(n, 0))) +
-    scale_fill_gradient("n",
-                        low = "white",
-                        high = "blue") +
-    labs(title = "Number of Respondants by Field and Career Stage \n(top 12 most common)",
-         subtitle = "Note: Multiple selections possible per person",
-         y = "Field",
-         x = "Career Stage/Status") +
-    theme(axis.text.x = element_text(angle = 45,
-                                     hjust = 1),
-          panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(),
-          axis.ticks = element_blank(),
-          panel.background = element_blank())
-
-```
-
-# Involvement in the Carpentries
-
-Please indicate your involvement in the Carpentry community since completing a Carpentry workshop. Check all that apply.
+We asked respondents to indicate their involvement in the Carpentries community since completing a Carpentry workshop. Respondents were asked to check all that apply.
 ```{r}
 # Code for involvement (rows Involvement through Column57)
 # I want to use the tally_and_perc function, but don't know where to put the question_n
@@ -1158,35 +1014,6 @@ impactdata %>%
 kable(Carpentry_Involvement, format = 'markdown', col.names = c("Respondents Involvement with The Carpentries", "n", "%"))
 ```
 
-
-__Matrix of involvement__
-
-```{r}
-# Code for matrix of involvement (thanks Ben for the tip!)
-# Combinations of tools for individual
-involvement_cols <-
-impactdata %>%
-  select(Involvement:Column57)
-
-# Matrix tool-by-tool
-
-m <- as.matrix(involvement_cols)
-# the unique values in the matrix
-vals <- sort(unique(as.vector(m)))
-
-# rearrange the data so that each value is a column
-bigm <- t(apply(m, 1, function(row) match(vals, row, nomatch=0)))
-colnames(bigm) <- vals
-
-# count the co-occurences of each value (diagonal is total number of rows with that value)
-involvement_co_occurences  <- as.data.frame(crossprod(bigm>0))
-kable(involvement_co_occurences,
-      row.names = TRUE,
-      caption = "Matrix of Common Involvement")
-```
-
-
-# Continuous Learning
 
 Which of the following learning activities (for data management and analysis) have you participated in since completing a Carpentry workshop? Check all that apply.
 ```{r}
@@ -1211,31 +1038,10 @@ kable(Learning_Activities,
 ```
 
 
-__Matrix of continuous learning activities__
-```{r}
-# Code for matrix of continuous learning (thanks Ben for the tip!)
-# Combinations of involvement for individual
-learning_cols <-
-impactdata %>%
-  select(ContinuousLearning:Column63)
-
-# Matrix
-m <- as.matrix(learning_cols)
-# the unique values in the matrix
-vals <- sort(unique(as.vector(m)))
-
-# rearrange the data so that each value is a column
-bigm <- t(apply(m, 1, function(row) match(vals, row, nomatch=0)))
-colnames(bigm) <- vals
-
-# count the co-occurences of each value (diagonal is total number of rows with that value)
-learning_co_occurences  <- as.data.frame(crossprod(bigm>0))
-kable(learning_co_occurences, row.names = TRUE, caption = "Matrix of Common Post-Workshop Learning Activities")
-```
 
 # Recommending Carpentries Workshops
 
-__Have you recommended a Carpentry workshop to a friend or colleague?__
+Have respondents recommended a Carpentry workshop to a friend or colleague? Responses provided below.
 ```{r}
 # Code chunk for whether respondents recommended a workshop
 recommended <-
@@ -1253,25 +1059,5 @@ impactdata %>%
 kable(recommended, format = 'markdown', col.names = c("Respondents who Recommended a Workshop", "n", "%"))
 ```
 
-
-# Responses for "Other" Column: Field
-```{r}
-# If interested in seeing the open-ended responses for Position: Other, run this code.
-impactdata_field_other_tally <-
-  impactdata %>%
-  group_by(FieldOther) %>%
-  tally() %>%
-  filter(!is.na(`FieldOther`))
-kable(impactdata_field_other_tally, format = "markdown", row.names = FALSE, col.names = c("Field of Research/Work/Study: Other", "# Respondents"))
-```
-
-# Responses for "Other" Column: Status
-```{r}
-# If interested in seeing the open-ended responses for Status: Other, run this code.
-impactdata_status_other_tally <-
-  impactdata %>%
-  group_by(StatusOther) %>%
-  tally() %>%
-  filter(!is.na(StatusOther))
-kable(impactdata_status_other_tally, format = "markdown", row.names = FALSE, col.names = c("Status: Other", "# Respondents"))
-```
+# Call to Action
+How can we improve this analysis? Submit an [issue](https://github.com/carpentries/assessment/issues) or [pull request](https://github.com/carpentries/assessment/pulls)!
