@@ -102,21 +102,9 @@
   },
   {
     "op": "core/column-rename",
-    "description": "Rename column What is your field of research, work, or study? Check all that apply. to Field",
-    "oldColumnName": "What is your field of research, work, or study? Check all that apply.",
-    "newColumnName": "Field"
-  },
-  {
-    "op": "core/column-rename",
     "description": "Rename column Column13 to FieldOther",
     "oldColumnName": "Column13",
     "newColumnName": "FieldOther"
-  },
-  {
-    "op": "core/column-rename",
-    "description": "Rename column How many Carpentries (Software, Data, Library) workshops have you completed as a learner? to NumWorkshops",
-    "oldColumnName": "How many Carpentries (Software, Data, Library) workshops have you completed as a learner?",
-    "newColumnName": "NumWorkshops"
   },
   {
     "op": "core/column-rename",
@@ -129,12 +117,6 @@
     "description": "Rename column Which Carpentries workshop did you last attend? to WhichCarpentry",
     "oldColumnName": "Which Carpentries workshop did you last attend?",
     "newColumnName": "WhichCarpentry"
-  },
-  {
-    "op": "core/column-rename",
-    "description": "Rename column What content was covered at the last Carpentries workshop you completed? Select all that apply. to ContentCovered",
-    "oldColumnName": "What content was covered at the last Carpentries workshop you completed? Select all that apply.",
-    "newColumnName": "ContentCovered"
   },
   {
     "op": "core/column-rename",
@@ -256,27 +238,9 @@
   },
   {
     "op": "core/column-rename",
-    "description": "Rename column Which of the following behaviors have you adopted as a result of completing a Carpentries workshop? Check all that apply. to Behaviors",
-    "oldColumnName": "Which of the following behaviors have you adopted as a result of completing a Carpentries workshop? Check all that apply.",
-    "newColumnName": "Behaviors"
-  },
-  {
-    "op": "core/column-rename",
     "description": "Rename column Column33 to BehaviorsOther",
     "oldColumnName": "Column33",
     "newColumnName": "BehaviorsOther"
-  },
-  {
-    "op": "core/column-rename",
-    "description": "Rename column Before completing a Carpentries workshop, how often did you use programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell? to ProgrammingBefore",
-    "oldColumnName": "Before completing a Carpentries workshop, how often did you use programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell?",
-    "newColumnName": "ProgrammingBefore"
-  },
-  {
-    "op": "core/column-rename",
-    "description": "Rename column Since completing a Carpentries workshop, how often do you currently use programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell? to ProgrammingSince",
-    "oldColumnName": "Since completing a Carpentries workshop, how often do you currently use programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell?",
-    "newColumnName": "ProgrammingSince"
   },
   {
     "op": "core/column-rename",
@@ -316,12 +280,6 @@
   },
   {
     "op": "core/column-rename",
-    "description": "Rename column The statements below reflect ways in which completing a Carpentries workshop may have impacted you. Please indicate your level of agreement with these statements. to AdvanceCareer",
-    "oldColumnName": "The statements below reflect ways in which completing a Carpentries workshop may have impacted you. Please indicate your level of agreement with these statements.",
-    "newColumnName": "AdvanceCareer"
-  },
-  {
-    "op": "core/column-rename",
     "description": "Rename column Column39 to MotivatedSeekKnowledge",
     "oldColumnName": "Column39",
     "newColumnName": "MotivatedSeekKnowledge"
@@ -358,12 +316,6 @@
   },
   {
     "op": "core/column-rename",
-    "description": "Rename column Please tell us the most important way you were impacted as a result of completing a Carpentries workshop. to ImpactResponse",
-    "oldColumnName": "Please tell us the most important way you were impacted as a result of completing a Carpentries workshop.",
-    "newColumnName": "ImpactResponse"
-  },
-  {
-    "op": "core/column-rename",
     "description": "Rename column In what country was the workshop you attended held? to Country",
     "oldColumnName": "In what country was the workshop you attended held?",
     "newColumnName": "Country"
@@ -373,32 +325,6 @@
     "description": "Rename column What is your gender? to Gender",
     "oldColumnName": "What is your gender?",
     "newColumnName": "Gender"
-  },
-  {
-    "op": "core/column-rename",
-    "description": "Rename column How would you describe yourself? Check all that apply. to Race",
-    "oldColumnName": "How would you describe yourself? Check all that apply.",
-    "newColumnName": "Race"
-  },
-  {
-    "op": "core/mass-edit",
-    "description": "Mass edit cells in column Race",
-    "engineConfig": {
-      "mode": "row-based",
-      "facets": []
-    },
-    "columnName": "Race",
-    "expression": "value",
-    "edits": [
-      {
-        "fromBlank": false,
-        "fromError": false,
-        "from": [
-          "American Indian or Alaska Native(A person having origins in any of the original peoples of North and South America (including Central America), and who maintains a tribal affiliation or community attachment.)"
-        ],
-        "to": "American Indian or Alaska Native"
-      }
-    ]
   },
   {
     "op": "core/mass-edit",
@@ -502,12 +428,6 @@
   },
   {
     "op": "core/column-rename",
-    "description": "Rename column Please indicate your involvement in the Carpentry community since completing a Carpentry workshop. Check all that apply. to Involvement",
-    "oldColumnName": "Please indicate your involvement in the Carpentry community since completing a Carpentry workshop. Check all that apply.",
-    "newColumnName": "Involvement"
-  },
-  {
-    "op": "core/column-rename",
     "description": "Rename column Column64 to InvolvementOther",
     "oldColumnName": "Column64",
     "newColumnName": "InvolvementOther"
@@ -531,35 +451,6 @@
     "newColumnName": "LikelyToRecommend"
   },
   {
-    "op": "core/column-rename",
-    "description": "Rename column Optional: Please tell us two outcomes you accomplished as a result of completing a Carpentry workshop. to OutcomesResponses",
-    "oldColumnName": "Optional: Please tell us two outcomes you accomplished as a result of completing a Carpentry workshop.",
-    "newColumnName": "OutcomesResponses"
-  },
-  {
-    "op": "core/column-rename",
-    "description": "Rename column Optional: If you are not applying the skills you learned at a Carpentry workshop in your work, please tell us why. to NotApplyingSkillsResponses",
-    "oldColumnName": "Optional: If you are not applying the skills you learned at a Carpentry workshop in your work, please tell us why.",
-    "newColumnName": "NotApplyingSkillsResponses"
-  },
-  {
-    "op": "core/column-rename",
-    "description": "Rename column Optional: If you would like to make additional comments about your Carpentry workshop experience, or ways you've used the tools you learned in a Carpentry workshop, please comment below. to AdditionalComments",
-    "oldColumnName": "Optional: If you would like to make additional comments about your Carpentry workshop experience, or ways you've used the tools you learned in a Carpentry workshop, please comment below.",
-    "newColumnName": "AdditionalComments"
-  },
-  {
-    "op": "core/column-rename",
-    "description": "Rename column AdditionalComments to AdditionalCommentsResponse",
-    "oldColumnName": "AdditionalComments",
-    "newColumnName": "AdditionalCommentsResponse"
-  },
-  {
-    "op": "core/column-removal",
-    "description": "Remove column We are looking for participants to take part in a short interview about how the Carpentry workshop impacted their work/career. Please indicate if you would like to participate in this opportunity.",
-    "columnName": "We are looking for participants to take part in a short interview about how the Carpentry workshop impacted their work/career. Please indicate if you would like to participate in this opportunity."
-  },
-  {
     "op": "core/column-removal",
     "description": "Remove column Column65",
     "columnName": "Column65"
@@ -568,6 +459,60 @@
     "op": "core/column-removal",
     "description": "Remove column Please give us your e-mail address to be contacted to participate in a short interview. Your e-mail address will not be linked to your survey results.",
     "columnName": "Please give us your e-mail address to be contacted to participate in a short interview. Your e-mail address will not be linked to your survey results."
+  },
+  {
+    "op": "core/row-removal",
+    "description": "Remove rows",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": [
+        {
+          "omitError": false,
+          "expression": "row.starred",
+          "selectBlank": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectError": false,
+          "invert": false,
+          "name": "Starred Rows",
+          "omitBlank": false,
+          "type": "list",
+          "columnName": ""
+        }
+      ]
+    }
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Date using expression value.toDate()",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "Date",
+    "expression": "value.toDate()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Date using expression value.toString()",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "Date",
+    "expression": "value.toString()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
   },
   {
     "op": "core/row-removal",
