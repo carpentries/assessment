@@ -1454,5 +1454,11 @@
     "description": "Rename column Column58 to InvolvementOther",
     "oldColumnName": "Column58",
     "newColumnName": "InvolvementOther"
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename column What content was covered at the last Carpentries workshop you completed? Select all that apply. to ContentCovered",
+    "oldColumnName": "What content was covered at the last Carpentries workshop you completed? Select all that apply.",
+    "newColumnName": "ContentCovered"
   }
 ]
