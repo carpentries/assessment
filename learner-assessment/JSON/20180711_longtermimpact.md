@@ -541,5 +541,918 @@
         }
       ]
     }
+  },
+  {
+    "op": "core/row-removal",
+    "description": "Remove rows",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": [
+        {
+          "omitError": false,
+          "expression": "row.starred",
+          "selectBlank": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectError": false,
+          "invert": false,
+          "name": "Starred Rows",
+          "omitBlank": false,
+          "type": "list",
+          "columnName": ""
+        }
+      ]
+    }
+  },
+  {
+    "op": "core/row-removal",
+    "description": "Remove rows",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": [
+        {
+          "omitError": false,
+          "expression": "row.starred",
+          "selectBlank": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectError": false,
+          "invert": false,
+          "name": "Starred Rows",
+          "omitBlank": false,
+          "type": "list",
+          "columnName": ""
+        }
+      ]
+    }
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Date using expression value.toNumber()",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "Date",
+    "expression": "value.toNumber()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Date using expression value.toDate()",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "Date",
+    "expression": "value.toDate()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Date using expression value.toString()",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "Date",
+    "expression": "value.toString()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Government",
+          "government"
+        ],
+        "to": "Government"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Unemployed",
+          "unemployed"
+        ],
+        "to": "Unemployed"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Library"
+        ],
+        "to": "Librarian"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Government"
+        ],
+        "to": "Government Employee"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Government policy analyst"
+        ],
+        "to": "Government Employee"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Government research staff"
+        ],
+        "to": "Government Employee"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "governmental researcher"
+        ],
+        "to": "Government Employee"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Govt research scientist"
+        ],
+        "to": "Government Employee"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Government Employee",
+          "Government employee"
+        ],
+        "to": "Government Employee"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "gardener (still looking for science job)"
+        ],
+        "to": "Unemployed"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "IT developper"
+        ],
+        "to": "IT Staff"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "IT staff",
+          "IT Staff"
+        ],
+        "to": "IT staff"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "non-academic staff"
+        ],
+        "to": "Staff"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PhD"
+        ],
+        "to": "PhD Student"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Reseach Staff with provincial public health "
+        ],
+        "to": "Research Staff "
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Reseach Support"
+        ],
+        "to": "Research Staff"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "research assistant (technician)"
+        ],
+        "to": "research assistant"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Research Assistant",
+          "research assistant"
+        ],
+        "to": "Research Assistant"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Research Staff",
+          "Research Staff "
+        ],
+        "to": "Research Staff"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Research Staff (non-academic)"
+        ],
+        "to": "Research Staff "
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Research Staff",
+          "Research Staff "
+        ],
+        "to": "Research Staff"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Staff (Research Support Specialist)"
+        ],
+        "to": "Research Staff"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Staff bioinformatician"
+        ],
+        "to": "Bioinformatician"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Technical Services Librarian (Faculty status)"
+        ],
+        "to": "Librarian"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "University Librarian "
+        ],
+        "to": "Librarian "
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Librarian",
+          "Librarian "
+        ],
+        "to": "Librarian"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Secondary School Teacher"
+        ],
+        "to": "Teacher"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "researcher/adviser"
+        ],
+        "to": "Researcher"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "More recently a r&d consultant."
+        ],
+        "to": "Consultant"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Mix between academic and support"
+        ],
+        "to": "Support Staff"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Healthcare (clinical scientist)"
+        ],
+        "to": "Clinical Scientist"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column StatusOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "StatusOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Clinical lecturer"
+        ],
+        "to": "Clinical Lecturer"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column FieldOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "FieldOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Education",
+          "education"
+        ],
+        "to": "Education"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Ecology",
+          "ecology"
+        ],
+        "to": "Ecology"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Data Science",
+          "Data science"
+        ],
+        "to": "Data Science"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column FieldOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "FieldOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Information Technology"
+        ],
+        "to": "IT"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column FieldOther",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "FieldOther",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Biological Sciences (Life Sciences usually means medical)"
+        ],
+        "to": "Biological Sciences "
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column OtherTopics",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "OtherTopics",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "??"
+        ],
+        "to": ""
+      }
+    ]
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename column Before completing a Carpentries workshop, how often did you use programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell? to ProgrammingBefore",
+    "oldColumnName": "Before completing a Carpentries workshop, how often did you use programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell?",
+    "newColumnName": "ProgrammingBefore"
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename column Since completing a Carpentries workshop, how often do you currently use programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell? to ProgrammingSince",
+    "oldColumnName": "Since completing a Carpentries workshop, how often do you currently use programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell?",
+    "newColumnName": "ProgrammingSince"
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename column Which of the following behaviors have you adopted as a result of completing a Carpentries workshop? Check all that apply. to Behaviors",
+    "oldColumnName": "Which of the following behaviors have you adopted as a result of completing a Carpentries workshop? Check all that apply.",
+    "newColumnName": "Behaviors"
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename column How many Carpentries (Software, Data, Library) workshops have you completed as a learner? to NumWorkshops",
+    "oldColumnName": "How many Carpentries (Software, Data, Library) workshops have you completed as a learner?",
+    "newColumnName": "NumWorkshops"
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename column What is your field of research, work, or study? Check all that apply. to Field",
+    "oldColumnName": "What is your field of research, work, or study? Check all that apply.",
+    "newColumnName": "Field"
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename column Optional: Please tell us two outcomes you accomplished as a result of completing a Carpentry workshop. to OutcomesAccomplished",
+    "oldColumnName": "Optional: Please tell us two outcomes you accomplished as a result of completing a Carpentry workshop.",
+    "newColumnName": "OutcomesAccomplished"
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename column Optional: If you are not applying the skills you learned at a Carpentry workshop in your work, please tell us why. to NotApplying",
+    "oldColumnName": "Optional: If you are not applying the skills you learned at a Carpentry workshop in your work, please tell us why.",
+    "newColumnName": "NotApplying"
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename column Optional: If you would like to make additional comments about your Carpentry workshop experience, or ways you've used the tools you learned in a Carpentry workshop, please comment below. to AdditionalComments",
+    "oldColumnName": "Optional: If you would like to make additional comments about your Carpentry workshop experience, or ways you've used the tools you learned in a Carpentry workshop, please comment below.",
+    "newColumnName": "AdditionalComments"
+  },
+  {
+    "op": "core/column-removal",
+    "description": "Remove column We are looking for participants to take part in a short interview about how the Carpentry workshop impacted their work/career. Please indicate if you would like to participate in this opportunity.",
+    "columnName": "We are looking for participants to take part in a short interview about how the Carpentry workshop impacted their work/career. Please indicate if you would like to participate in this opportunity."
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename column Please indicate your involvement in the Carpentry community since completing a Carpentry workshop. Check all that apply. to Involvement",
+    "oldColumnName": "Please indicate your involvement in the Carpentry community since completing a Carpentry workshop. Check all that apply.",
+    "newColumnName": "Involvement"
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename column The statements below reflect ways in which completing a Carpentries workshop may have impacted you. Please indicate your level of agreement with these statements. to Career",
+    "oldColumnName": "The statements below reflect ways in which completing a Carpentries workshop may have impacted you. Please indicate your level of agreement with these statements.",
+    "newColumnName": "Career"
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename column Please tell us the most important way you were impacted as a result of completing a Carpentries workshop. to WorkshopImpact",
+    "oldColumnName": "Please tell us the most important way you were impacted as a result of completing a Carpentries workshop.",
+    "newColumnName": "WorkshopImpact"
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename column How would you describe yourself? Check all that apply. to Race",
+    "oldColumnName": "How would you describe yourself? Check all that apply.",
+    "newColumnName": "Race"
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename column Which of the following learning activities (for data management and analysis) have you participated in since completing a Carpentry workshop? Check all that apply. to ContinuousLearning",
+    "oldColumnName": "Which of the following learning activities (for data management and analysis) have you participated in since completing a Carpentry workshop? Check all that apply.",
+    "newColumnName": "ContinuousLearning"
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename column InvolvementOther to ContinuousLearningOther",
+    "oldColumnName": "InvolvementOther",
+    "newColumnName": "ContinuousLearningOther"
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename column Column58 to InvolvementOther",
+    "oldColumnName": "Column58",
+    "newColumnName": "InvolvementOther"
   }
 ]
