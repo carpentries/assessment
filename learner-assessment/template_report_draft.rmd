@@ -784,12 +784,8 @@ Software Carpentry respondents were asked to rate how they felt instructors and 
 + __Enthusiastic__: Instructors/Helpers were enthusiastic. 
 + __Clear Answers__: Instructors/Helpers gave clear answers to your questions. 
 + __Communicators__: Instructors/Helpers were good communicators.    
-  
-<<<<<<< HEAD
+
 The two neutral centered plots below provide an analysis of respondent's answers for both instructors and helpers.
-=======
-The two Likert plots below provide an analysis of respondents' answers for both instructors and helpers.
->>>>>>> 648a0f356003221b253af41a4db6fd8e6b2ad7c3
 
 ```{r swc-perception-instructors}	
 ## Software Carpentry: Perception of SWC workshop instructors/helpers
@@ -821,7 +817,6 @@ plot(swc_helper_perception_likert) +
 
 From the figures above, we see that Software Carpentry instructors and helpers are considerate, enthusiastic, give clear answers to questions, and are good communicators. As a whole, our instructors work as a team and are successful in creating a warm and welcoming workshop environment.
 
-
 ```{r dc-skill-applicability}
 ## Data Carpentry: I can immediately apply what I learned at this workshop
 applicability_levels <- c("Strongly disagree", "Disagree", "Neutral", "Agree",
@@ -840,7 +835,6 @@ One of the goals for Data Carpentry's lessons is that learners are able to
 immediately apply what they learned at the workshop. The figure below shows that
 `r dc_applicability_percent`% either agree or strongly agree that they were able
 to apply what they learned immediately.
-
 
 ```{r dc-skill-applicability-plot}
 ggassessment_lolli(dc_applicability,
@@ -972,7 +966,7 @@ For Software Carpentry respondents who answered this questions, `r swc_nps_perce
 ## Qualitative Analysis (SWC/DC)
 ```
 
-In summary, Data carpentry and Software Carpentry workshops provide a warm and welcoming environment, whether learners are brand new to programming or have some experience. Attendees are recommending workshops to their friends and colleagues, and we know that our instructors and helpers are the major reason why.
+In summary, Data Carpentry and Software Carpentry workshops provide a warm and welcoming environment, whether learners are brand new to programming or have some experience. Attendees are recommending workshops to their friends and colleagues, and we know that our instructors and helpers are the major reason why.
 
 ### Effect of Workshops on Learners Self-Reported Perspectives: Skills & Confidence
 
