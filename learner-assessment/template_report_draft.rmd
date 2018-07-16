@@ -1321,9 +1321,6 @@ Motivation is important, but being confident in your ability to complete specifi
 
 It also provides their self-reported level of confidence in being able to complete the tasks above after completing the workshop. 
 
-These figures tell us that, before the workshop, between XX% and XX% of the respondents did not feel they could initialize a repository in Git, write a 'for loop' to automate tasks, use pipes to connect shell commands, write a SQL query, and/or write a unit test in R or Python. XX% of learners felt their confidence increased greatly with respect to importing a library or package in R or Python. We consider this significant as it is one of the fundamental skills that allows learners to be successful in the other areas mentioned above.
-
-In summary, respondents experienced increased confidence in their ability to perform specific computing tasks and solve problems, or at least search for answers to problems, as a result of participating in Software Carpentry and Data Carpentry workshops.
 
 ```{r swc-ability-confidence, fig.height=10}
 ## Software Carpentry
@@ -1357,8 +1354,10 @@ swc_confidence_post <- swcpostdata %>%
     rename_all(~ gsub("_confidence", "", .)) %>% 
     filter(has_answers(.))
 
-swc_ability_pre_plot <- swc_ability_pre %>%
-    prep_knowledge_plot(swc_ability_levels) %>%
+swc_ability_pre_data <- swc_ability_pre %>%
+    prep_knowledge_plot(swc_ability_levels)
+
+swc_ability_pre_plot <- swc_ability_pre_data %>% 
     ggknowledge(aes(x = factor(skill, levels = rev(swc_knowledge_skill_levels)),
                     y = percent,
                     fill = factor(level, levels = rev(swc_ability_levels)))) +
@@ -1366,8 +1365,11 @@ swc_ability_pre_plot <- swc_ability_pre %>%
         title = "Ability Before SWC Workshop"
     )
 
-swc_confidence_post_plot <- swc_confidence_post %>%
-    prep_knowledge_plot(swc_confidence_levels) %>%
+swc_confidence_post_data <- swc_confidence_post %>%
+    prep_knowledge_plot(swc_confidence_levels)
+
+
+swc_confidence_post_plot <- swc_confidence_post_data %>%
     ggknowledge(aes(x = factor(skill, levels = rev(swc_knowledge_skill_levels)),
                     y = percent,
                     fill = factor(level,
@@ -1376,9 +1378,26 @@ swc_confidence_post_plot <- swc_confidence_post %>%
         title = "Confidence After SWC Workshop"
     )
 
+swc_ability_pre_range <- swc_ability_pre_data %>%
+    filter(level == "No") %>%
+    pull(percent) %>% 
+    range()
+
+swc_confidence_post_import <- swc_confidence_post_data %>%
+    filter(level == "Confidence increased greatly" &
+           skill == "Import Library") %>% 
+    pull(percent)
+
+
 swc_ability_pre_plot + swc_confidence_post_plot +
     plot_layout(ncol = 1, heights = c(3, 5))
 ```
+
+These figures tell us that, before the workshop, between `r swc_ability_pre_range[1]`% and `r swc_ability_pre_range[2]`% of the respondents did not feel they could initialize a repository in Git, write a 'for loop' to automate tasks, use pipes to connect shell commands, write a SQL query, and/or write a unit test in R or Python. `r swc_confidence_post_import`% of learners felt their confidence increased greatly with respect to importing a library or package in R or Python. We consider this significant as it is one of the fundamental skills that allows learners to be successful in the other areas mentioned above.
+
+In summary, respondents experienced increased confidence in their ability to perform specific computing tasks and solve problems, or at least search for answers to problems, as a result of participating in Software Carpentry and Data Carpentry workshops.
+
+
 
 ### Demographics
 
