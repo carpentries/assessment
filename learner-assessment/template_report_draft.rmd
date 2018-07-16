@@ -1020,16 +1020,15 @@ post_paired <- dcpostdata %>%
     prep_paired_data %>%
     rename_at(vars(-unique_id, -skill), ~ paste0("post_", .))
 
-paired_data <- inner_join(pre_paired, post_paired, by = c("unique_id", "skill"))
+paired_data <- inner_join(pre_paired, post_paired, by = c("unique_id", "skill")) %>%
+    filter(!is.na(pre_feeling_score) & !is.na(post_feeling_score))
 ```
-
 
 ```{r dc-paired-data-mean}
 paired_data %>%
     select(unique_id, skill,
            pre_feeling_score,
            post_feeling_score) %>%
-    filter(!is.na(pre_feeling_score) & !is.na(post_feeling_score)) %>% 
     gather(score, type, -unique_id, -skill) %>%
     mutate(skill = convert_label(skill)) %>%
     group_by(skill, score) %>%
@@ -1051,7 +1050,7 @@ paired_data %>%
 
 ```
 
-The comparison above is paired, meaning, we are comparing those who provided us with a unique identifier and who completed both the pre- and post-workshop survey. This figure includes XX responses.The data shows, for multiple factors, a full point increase in mean score. We are significantly impacting respondents' confidence in programming, ability to write programs to solve problems, and ability to overcome problems if they get stuck.
+The comparison above is paired, meaning, we are comparing those who provided us with a unique identifier and who completed both the pre- and post-workshop survey. This figure includes `r n_distinct(paired_data$unique_id)` responses. The data shows, for multiple factors, a full point increase in mean score. We are significantly impacting respondents' confidence in programming, ability to write programs to solve problems, and ability to overcome problems if they get stuck.
 
 In the figures below, we show another representation of the pre- and post-comparison of respondents skills and perspectives. The figures below include the data for all learners, not only those who provided a unique identifier *and* took both the pre- and post-workshop surveys. What we see is a shift in the distribution for each factor, meaning, respondents' self-reported confidence and ability shifted in positive directions.
 
