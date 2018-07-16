@@ -625,7 +625,7 @@ ggassessment_lolli(dc_workshop_type,
                    aes(y = factor(workshop, levels = rev(workshop_types)),
                        x = percent), color = "dc") +                       
     labs(
-        title = "Marjority of Data Carpentry Respondents \nAttend Ecology Workshops"
+        title = "Majority of Data Carpentry Respondents \nAttend Ecology Workshops"
     )
 
 ```	
