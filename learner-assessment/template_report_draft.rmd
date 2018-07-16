@@ -5,9 +5,9 @@ output:
   pdf_document: default
 ---
 
-# [DRAFT] Analysis of Software and Data Carpentry's Pre- and Post-Workshop Surveys
+# Analysis of Software and Data Carpentry's Pre- and Post-Workshop Surveys
 ### Authors: [Kari L. Jordan](https://twitter.com/drkariljordan), [François Michonneau](https://twitter.com/fmic_), [Belinda Weaver](https://twitter.com/cloudaus)
-### Published: July 2018
+### Published: 17-July 2018
 
 ```{r setup, include=FALSE}
 library(tidyverse)
