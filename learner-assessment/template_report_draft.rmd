@@ -665,6 +665,7 @@ in their workshop, while `r dc_programming_language_py`% learned Python.
 
 
 ## Workshop Environment
+
 ```{r workshop-environment}
 # Environment
 # Data Carpentry: I felt comfortable learning in this workshop environment
@@ -900,7 +901,8 @@ ggassessment_lolli(swc_new_info,
 ## Accessibility Data Carpentry: Were there any accessibility issues that
 ## affected your ability to participate in this workshop?
 dc_accessibility <- dcpostdata %>%
-    summarize_single_column(accessibility_issues, c("No", "Yes", "Didn't answer"))
+    summarize_single_column(accessibility_issues, c("Yes", "No",
+                                                    "Didn't answer"))
 
 dc_accessibility_percent <- dc_accessibility %>%
     extract_percentage(accessibility_issues, "Yes")
@@ -909,7 +911,8 @@ dc_accessibility %>%
     render_table(
         accessibility_issues,        
         col.names = c("Data Carpentry Respondents Having Accessibility Issues",
-                      "n", "%"))
+                      "n", "%"),
+        arrange = FALSE)
 ```
 
 We want to be proactive in ensuring learners have access to whatever they need to participate in a workshop. Both Data Carpentry and Software Carpentry learners were asked to inform workshop organizers if there was anything they needed to make their workshop experience better. Data Carpentry's respondents were asked if they had accessibility issues, and `r dc_accessibility_percent`% reported they did. After reading the open-ended responses, we can see that the issues were related to not being able to hear and/or see in the back of the room. The Instructor Training Team has been made aware of this, and will be making recommendations.
