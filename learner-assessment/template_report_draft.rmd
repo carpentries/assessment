@@ -1306,13 +1306,13 @@ swc_pre_knowledge_plot + swc_post_knowledge_plot +
 
 Motivation is important, but being confident in your ability to complete specific computing tasks is an equally important goal of Software Carpentry. The grid below shows respondents' self-reported ability to complete tasks including: 
 
-* Using pipes to connect shell commands 
-* Writing a 'for loop' to automate tasks   
-* Initializing a repository with git 
-* Writing a function 
-* Importing a library or package in R or Python 
-* Writing a unit test in Python or R 
-* Writing an SQL query 
+* __Pipes__: Using pipes to connect shell commands 
+* __Loops__: Writing a 'for loop' to automate tasks   
+* __Git__: Initializing a repository with git 
+* __Function__: Writing a function 
+* __Import Library__: Importing a library or package in R or Python 
+* __Unit Test__: Writing a unit test in Python or R 
+* __SQL Query__: Writing an SQL query 
 
 It also provides their self-reported level of confidence in being able to complete the tasks above after completing the workshop. 
 
