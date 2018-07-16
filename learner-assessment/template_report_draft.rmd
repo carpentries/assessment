@@ -1218,10 +1218,10 @@ pre_knowledge_levels <- c("Little or no knowledge of topic",
                           "Some knowledge of topic",
                           "Extensive knowledge of topic")
 
-post_knowledge_levels <-  c("No increase in my knowledge", 
-                            "Knowledge increased slightly", 
-                            "Knowledge increased a little", 
-                            "Knowledge increased a great deal")
+post_knowledge_levels <- c("No increase in my knowledge",
+                           "Knowledge increased slightly",
+                           "Knowledge increased a little",
+                           "Knowledge increased a great deal")
 
 swc_pre_knowledge <- swcpostdata %>% 
     select(matches("knowledge_pre")) %>%
@@ -1233,15 +1233,24 @@ swc_post_knowledge <- swcpostdata %>%
     rename_all(~ gsub("_increase", "", .)) %>%
     filter(has_answers(.))
 
-swc_pre_knowledge %>%
-    make_likert_data(pre_knowledge_levels) %>% 
+swc_pre_knowledge_likert_data <- swc_pre_knowledge %>%
+    make_likert_data(pre_knowledge_levels)
+
+swc_pre_knowledge_range <- range(swc_pre_knowledge_likert_data$results$`Extensive knowledge of topic`)
+
+swc_pre_knowledge_topic_min <- swc_pre_knowledge_likert_data$results[swc_pre_knowledge_likert_data$results$`Extensive knowledge of topic` == min(swc_pre_knowledge_range), "Item"]
+
+swc_pre_knowledge_topic_max <- swc_pre_knowledge_likert_data$results[swc_pre_knowledge_likert_data$results$`Extensive knowledge of topic` == max(swc_pre_knowledge_range), "Item"]
+
+
+swc_pre_knowledge_likert_data %>% 
     plot() +
     labs(
         title = "Software Carpentry Self-Reported Knowledge of Tools Covered Pre-Workshop"
     )
 ```
 
-From the figure, we see that XX% and less had extensive knowledge of the topics covered in their workshop.
+From the figure, we see that learners consider themselves beginners from the topics covered in our workshops. When asked their knowledge of the tools covered in their workshops, learners rated their knowledge as extensive from `r round(swc_pre_knowledge_range[1])`% to `r round(swc_pre_knowledge_range[2])`% for "`r swc_pre_knowledge_topic_min`" and "`r swc_pre_knowledge_topic_max`".
 
 The following is a comparison of Software Carpentry respondents' knowledge about the tools before compared to after the workshop. We see clearly that after the workshop, respondents' knowledge of Git, Python, R, and the Unix Shell had increased a great deal.
 
