@@ -1147,8 +1147,6 @@ kable(select(t_test, skill, ends_with("feeling"), starts_with("n"),
 
 The neutral centered graphs below provide an even clearer picture of the shift in respondents' self-reported confidence and skills. 
 
-It is interesting to see the shift in neutrality between the pre-workshop scores and post-workshop scores, especially for *Programming Efficient*. There was a higher percentage of learners beginning the workshop who felt programming with R or Python can make them more efficient at working with data. Contrarily, confidence in using programming to work with data increased from XX% to xx%.
-
 ```{r dc-tools-perception, fig.height=12}
 # Data Carpentry pre-workshop neutral centered graph code
 perception_levels <- c("Strongly disagree", "Disagree", "Neutral", "Agree",
@@ -1178,10 +1176,28 @@ dc_post_tools_likert <- dc_post_perception_tools %>%
         title = "Data Carpentry Respondents: Post-Workshop Perception of Tools"
     )
 
+## summary likert
+summarize_programming_confidence <- .  %>%
+    filter(Item == "Programming Confident") %>%
+    select("Agree", "Strongly agree") %>%
+    sum() %>%
+    round(0)
+
+dc_pre_confidence_programming <- dc_pre_perception_tools$results %>%
+    summarize_programming_confidence
+
+
+dc_post_confidence_programming <- dc_post_perception_tools$results %>%
+    summarize_programming_confidence
+
+
 ## combine both plots
 dc_pre_tools_likert + dc_post_tools_likert +
     plot_layout(ncol=1)
 ```
+
+It is interesting to see the shift in neutrality between the pre-workshop scores and post-workshop scores, especially for *Programming Efficient*. There was a higher percentage of learners beginning the workshop who felt programming with R or Python can make them more efficient at working with data. Contrarily, confidence in using programming to work with data increased from `r dc_pre_confidence_programming`% to `r dc_post_confidence_programming`%.
+
 
 Software Carpentry Respondents were asked to tell us about their experience with these topics before the workshop:
 
