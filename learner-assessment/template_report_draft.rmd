@@ -1247,6 +1247,8 @@ swc_pre_knowledge %>%
 
 From the figure, we see that XX% and less had extensive knowledge of the topics covered in their workshop.
 
+The following is a comparison of Software Carpentry respondents' knowledge about the tools before compared to after the workshop. We see clearly that after the workshop, respondents' knowledge of Git, Python, R, and the Unix Shell had increased a great deal.
+
 ```{r swc-knowledge-change, fig.height=10}
 
 prep_knowledge_plot <- function(.data, var_levels) {
@@ -1299,10 +1301,6 @@ swc_pre_knowledge_plot + swc_post_knowledge_plot +
     plot_layout(ncol = 1)
 
 ```
-
-
-The following is a comparison of Software Carpentry respondents' knowledge about the tools before compared to after the workshop. We see clearly that after the workshop, respondents' knowledge of Git, Python, R, and the Unix Shell had increased a great deal.
-
 
 ### Respondent Ability to Perform Computing Tasks
 
