@@ -352,12 +352,17 @@ extract_percentage <- function(.data, .var, .value) {
         pull(percent)
 }
 
-render_table <- function(.data, col, col.names) {
+render_table <- function(.data, col, col.names, arrange = TRUE) {
     col <- enquo(col)
 
-    .data  %>% 
-        select(!! col, n, percent) %>%
-        arrange(desc(n)) %>% 
+    res <- .data  %>%
+        select(!! col, n, percent)
+
+    if (arrange)
+        res <- res %>%
+            arrange(desc(n))
+
+    res %>% 
         kable(format = 'markdown', row.names = NA,
               col.names =  col.names)
 }
@@ -1591,7 +1596,8 @@ dc_gender %>%
     render_table(
         gender_identity, 
         col.names = c("Data Carpentry's U.S. Respondents' Gender Identity",
-                      "n", "%"))
+                      "n", "%"),
+        arrange = FALSE)
 ```
 
 ```{r dc-ethnicity}
@@ -1624,7 +1630,8 @@ swc_gender %>%
     render_table(
         gender, 
         col.names = c("Software Carpentry's U.S. Respondents' Gender Identity",
-                      "n", "%"))
+                      "n", "%"),
+        arrange = FALSE)
 
 ```
 
