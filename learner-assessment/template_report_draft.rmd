@@ -1023,38 +1023,6 @@ post_paired <- dcpostdata %>%
 paired_data <- inner_join(pre_paired, post_paired, by = c("unique_id", "skill"))
 ```
 
-```{r dc-paired-data-mode}
-# dist_mode <- function(x) {
-#     ux <- unique(x)
-#     ux[which.max(tabulate(match(x, ux)))]
-# }
-# 
-# 
-# paired_data %>%
-#     select(unique_id, skill,
-#            pre_feeling_score,
-#            post_feeling_score) %>%
-#     filter(!is.na(pre_feeling_score) & !is.na(post_feeling_score)) %>% 
-#     gather(score, type, -unique_id, -skill) %>%
-#     mutate(skill = convert_label(skill)) %>%
-#     group_by(skill, score) %>%
-#     summarize(
-#         mode = dist_mode(type),
-#         sd = sd(type, na.rm = TRUE)
-#     ) %>% 
-    # ggplot(aes(x = skill, y = mode, color = score)) +
-    # geom_point(size=5) +
-    # coord_flip() +
-    # ylim(c(0, 5)) +
-    # theme_minimal() +
-    # scale_color_viridis(breaks = c("pre_feeling_score", "post_feeling_score"),
-    #                     labels = c("Pre-workshop Score",
-    #                                "Post-workshop Score"), 
-    #                     end = .7, discrete=TRUE) +
-    # labs(title = "Pre and Post Comparison of Skills and Perception") +
-    # theme(text = element_text(size = 16))
-```
-
 
 ```{r dc-paired-data-mean}
 paired_data %>%
