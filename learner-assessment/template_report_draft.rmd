@@ -675,6 +675,7 @@ comfortable_levels <- c("Strongly disagree", "Disagree", "Neutral", "Agree",
 atmosphere_levels <- c("Strongly Disagree", "Disagree",
                        "Neither Agree nor Disagree", "Agree", "Strongly Agree",
                        "Didn't answer")
+atmosphere_levels_match <- replace(atmosphere_levels, atmosphere_levels == "Neither Agree nor Disagree", "Neutral")
 
 dc_comfortable <- dcpostdata %>%
     summarize_single_column(comfortable, comfortable_levels)
@@ -685,7 +686,8 @@ dc_comfortable_percent_agree <- dc_comfortable %>%
     pull(p)
     
 swc_comfortable <- swcpostdata %>%
-    summarize_single_column(atmosphere, atmosphere_levels)
+    summarize_single_column(atmosphere, atmosphere_levels) %>%
+    mutate(atmosphere = replace(atmosphere, atmosphere == "Neither Agree nor Disagree", "Neutral"))
 
 swc_comfortable_percent_agree <- swc_comfortable %>%
     filter(atmosphere %in% c("Agree", "Strongly Agree")) %>%
@@ -718,7 +720,8 @@ ggassessment_lolli(dc_comfortable,
 ```{r swc-post-workshop-environment}
 # Software Carpentry plot for workshop environment
 ggassessment_lolli(swc_comfortable, 
-                   aes(y = factor(atmosphere, levels = rev(atmosphere_levels)),
+                   aes(y = factor(atmosphere,
+                                  levels = rev(atmosphere_levels_match)),
                        x = percent),
                    color = "swc") +
     labs(
