@@ -90,6 +90,9 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -434,19 +437,19 @@ $(document).ready(function () {
 </thead>
 <tbody>
 <tr class="odd">
+<td align="left">Yes</td>
+<td align="right">79</td>
+<td align="right">9.3</td>
+</tr>
+<tr class="even">
 <td align="left">No</td>
 <td align="right">654</td>
 <td align="right">76.8</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Didn’t answer</td>
 <td align="right">119</td>
 <td align="right">14.0</td>
-</tr>
-<tr class="odd">
-<td align="left">Yes</td>
-<td align="right">79</td>
-<td align="right">9.3</td>
 </tr>
 </tbody>
 </table>
@@ -462,9 +465,9 @@ $(document).ready(function () {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Promoter</td>
-<td align="right">565</td>
-<td align="right">66.3</td>
+<td align="left">Detractor</td>
+<td align="right">32</td>
+<td align="right">3.8</td>
 </tr>
 <tr class="even">
 <td align="left">Passive</td>
@@ -472,14 +475,14 @@ $(document).ready(function () {
 <td align="right">15.4</td>
 </tr>
 <tr class="odd">
+<td align="left">Promoter</td>
+<td align="right">565</td>
+<td align="right">66.3</td>
+</tr>
+<tr class="even">
 <td align="left">Didn’t answer</td>
 <td align="right">124</td>
 <td align="right">14.6</td>
-</tr>
-<tr class="even">
-<td align="left">Detractor</td>
-<td align="right">32</td>
-<td align="right">3.8</td>
 </tr>
 </tbody>
 </table>
@@ -501,11 +504,11 @@ $(document).ready(function () {
 </ul>
 <p>The scoring for the above factors ranges from strongly disagree (1) to strongly agree (5).</p>
 <p><img src="figures/dc-paired-data-mean-1.png" width="960" /></p>
-<p>The comparison above is paired, meaning, we are comparing those who provided us with a unique identifier and who completed both the pre- and post-workshop survey. This figure includes XX responses.The data shows, for multiple factors, a full point increase in mean score. We are significantly impacting respondents’ confidence in programming, ability to write programs to solve problems, and ability to overcome problems if they get stuck.</p>
+<p>The comparison above is paired, meaning, we are comparing those who provided us with a unique identifier and who completed both the pre- and post-workshop survey. This figure includes 411 responses. The data shows, for multiple factors, a full point increase in mean score. We are significantly impacting respondents’ confidence in programming, ability to write programs to solve problems, and ability to overcome problems if they get stuck.</p>
 <p>In the figures below, we show another representation of the pre- and post-comparison of respondents skills and perspectives. The figures below include the data for all learners, not only those who provided a unique identifier <em>and</em> took both the pre- and post-workshop surveys. What we see is a shift in the distribution for each factor, meaning, respondents’ self-reported confidence and ability shifted in positive directions.</p>
 <p>The neutral centered graphs below provide an even clearer picture of the shift in respondents’ self-reported confidence and skills.</p>
-<p>It is interesting to see the shift in neutrality between the pre-workshop scores and post-workshop scores, especially for <em>Programming Efficient</em>. There was a higher percentage of learners beginning the workshop who felt programming with R or Python can make them more efficient at working with data. Contrarily, confidence in using programming to work with data increased from XX% to xx%.</p>
 <p><img src="figures/dc-tools-perception-1.png" width="960" /></p>
+<p>It is interesting to see the shift in neutrality between the pre-workshop scores and post-workshop scores, especially for <em>Programming Efficient</em>. There was a higher percentage of learners beginning the workshop who felt programming with R or Python can make them more efficient at working with data. Contrarily, confidence in using programming to work with data increased from 33% to 61%.</p>
 <p>Software Carpentry Respondents were asked to tell us about their experience with these topics before the workshop:</p>
 <ul>
 <li>R</li>
@@ -515,7 +518,7 @@ $(document).ready(function () {
 <li>Version Control with Git</li>
 </ul>
 <p><img src="figures/swc-pre-tools-1.png" width="960" /></p>
-<p>From the figure, we see that XX% and less had extensive knowledge of the topics covered in their workshop.</p>
+<p>From the figure, we see that learners consider themselves beginners from the topics covered in our workshops. When asked their knowledge of the tools covered in their workshops, learners rated their knowledge as extensive from 2% to 10% for “Git Knowledge” and “R Knowledge”.</p>
 <p>The following is a comparison of Software Carpentry respondents’ knowledge about the tools before compared to after the workshop. We see clearly that after the workshop, respondents’ knowledge of Git, Python, R, and the Unix Shell had increased a great deal.</p>
 <p><img src="figures/swc-knowledge-change-1.png" width="960" /></p>
 </div>
@@ -533,9 +536,9 @@ $(document).ready(function () {
 <li><strong>SQL Query</strong>: Writing an SQL query</li>
 </ul>
 <p>It also provides their self-reported level of confidence in being able to complete the tasks above after completing the workshop.</p>
-<p>These figures tell us that, before the workshop, between XX% and XX% of the respondents did not feel they could initialize a repository in Git, write a ‘for loop’ to automate tasks, use pipes to connect shell commands, write a SQL query, and/or write a unit test in R or Python. XX% of learners felt their confidence increased greatly with respect to importing a library or package in R or Python. We consider this significant as it is one of the fundamental skills that allows learners to be successful in the other areas mentioned above.</p>
-<p>In summary, respondents experienced increased confidence in their ability to perform specific computing tasks and solve problems, or at least search for answers to problems, as a result of participating in Software Carpentry and Data Carpentry workshops.</p>
 <p><img src="figures/swc-ability-confidence-1.png" width="960" /></p>
+<p>These figures tell us that, before the workshop, between 32.2% and 73.4% of the respondents did not feel they could initialize a repository in Git, write a ‘for loop’ to automate tasks, use pipes to connect shell commands, write a SQL query, and/or write a unit test in R or Python. 29% of learners felt their confidence increased greatly with respect to importing a library or package in R or Python. We consider this significant as it is one of the fundamental skills that allows learners to be successful in the other areas mentioned above.</p>
+<p>In summary, respondents experienced increased confidence in their ability to perform specific computing tasks and solve problems, or at least search for answers to problems, as a result of participating in Software Carpentry and Data Carpentry workshops.</p>
 </div>
 <div id="demographics" class="section level3">
 <h3>Demographics</h3>
@@ -833,8 +836,9 @@ $(document).ready(function () {
 </tbody>
 </table>
 <p>In our workshops, we recommend that learners use their own personal laptop computers. It is important for learners to leave the workshop with their own machine set up to do real work. Our instructors teach on three major platforms: Windows, Mac OS X, and UNIX/Linux. We see a very close representation of Windows (53.3%) and Apple/Mac OS (41.3%) users in our Data Carpentry workshops, and even a few UNIX/Linux users (4%).</p>
-<p>Gender and racial/ethnic identity information is collected for U.S. participants, as we are keen to increase the number of diverse instructors and learners we serve. Understanding our demographic makeup helps us to understand what communities we reach and what programs we should develop.</p>
-<p>Currently, both Data (XX%) Carpentry and Software (XX%) Carpentry see strong representation from women in the United States. Where we hope to improve is in reaching the non-White audience, as fewer than XX% of our respondents are from communities historically underrepresented in the science, technology, engineering, and mathematics (STEM) fields.</p>
+</div>
+<div id="gender-and-racialethnic-identity" class="section level3">
+<h3>Gender and racial/ethnic identity</h3>
 <table>
 <thead>
 <tr class="header">
@@ -855,16 +859,6 @@ $(document).ready(function () {
 <td align="right">39.2</td>
 </tr>
 <tr class="odd">
-<td align="left">Didn’t answer</td>
-<td align="right">14</td>
-<td align="right">2.5</td>
-</tr>
-<tr class="even">
-<td align="left">Prefer not to answer</td>
-<td align="right">8</td>
-<td align="right">1.4</td>
-</tr>
-<tr class="odd">
 <td align="left">Transgender female</td>
 <td align="right">2</td>
 <td align="right">0.4</td>
@@ -879,6 +873,16 @@ $(document).ready(function () {
 <td align="right">0</td>
 <td align="right">0.0</td>
 </tr>
+<tr class="even">
+<td align="left">Prefer not to answer</td>
+<td align="right">8</td>
+<td align="right">1.4</td>
+</tr>
+<tr class="odd">
+<td align="left">Didn’t answer</td>
+<td align="right">14</td>
+<td align="right">2.5</td>
+</tr>
 </tbody>
 </table>
 <table>
@@ -891,9 +895,9 @@ $(document).ready(function () {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">White</td>
-<td align="right">316</td>
-<td align="right">58.1</td>
+<td align="left">American Indian or Alaska Native</td>
+<td align="right">4</td>
+<td align="right">0.7</td>
 </tr>
 <tr class="even">
 <td align="left">Asian</td>
@@ -901,29 +905,29 @@ $(document).ready(function () {
 <td align="right">27.9</td>
 </tr>
 <tr class="odd">
-<td align="left">Hispanic or Latino(a)</td>
-<td align="right">57</td>
-<td align="right">10.5</td>
-</tr>
-<tr class="even">
-<td align="left">I prefer not to say.</td>
-<td align="right">28</td>
-<td align="right">5.1</td>
-</tr>
-<tr class="odd">
 <td align="left">Black or African American</td>
 <td align="right">25</td>
 <td align="right">4.6</td>
 </tr>
 <tr class="even">
-<td align="left">American Indian or Alaska Native</td>
-<td align="right">4</td>
-<td align="right">0.7</td>
+<td align="left">Hispanic or Latino(a)</td>
+<td align="right">57</td>
+<td align="right">10.5</td>
 </tr>
 <tr class="odd">
 <td align="left">Native Hawaiian or Other Pacific Islander</td>
 <td align="right">3</td>
 <td align="right">0.6</td>
+</tr>
+<tr class="even">
+<td align="left">White</td>
+<td align="right">316</td>
+<td align="right">58.1</td>
+</tr>
+<tr class="odd">
+<td align="left">I prefer not to say.</td>
+<td align="right">28</td>
+<td align="right">5.1</td>
 </tr>
 </tbody>
 </table>
@@ -937,24 +941,24 @@ $(document).ready(function () {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Male</td>
-<td align="right">3111</td>
-<td align="right">49.0</td>
-</tr>
-<tr class="even">
 <td align="left">Female</td>
 <td align="right">3107</td>
 <td align="right">48.9</td>
 </tr>
-<tr class="odd">
-<td align="left">Prefer not to say</td>
-<td align="right">115</td>
-<td align="right">1.8</td>
-</tr>
 <tr class="even">
+<td align="left">Male</td>
+<td align="right">3111</td>
+<td align="right">49.0</td>
+</tr>
+<tr class="odd">
 <td align="left">Other</td>
 <td align="right">18</td>
 <td align="right">0.3</td>
+</tr>
+<tr class="even">
+<td align="left">Prefer not to say</td>
+<td align="right">115</td>
+<td align="right">1.8</td>
 </tr>
 </tbody>
 </table>
@@ -968,9 +972,9 @@ $(document).ready(function () {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">White / Caucasian</td>
-<td align="right">3447</td>
-<td align="right">55.1</td>
+<td align="left">American Indian or Alaskan Native</td>
+<td align="right">29</td>
+<td align="right">0.5</td>
 </tr>
 <tr class="even">
 <td align="left">Asian / Pacific Islander</td>
@@ -978,37 +982,39 @@ $(document).ready(function () {
 <td align="right">24.8</td>
 </tr>
 <tr class="odd">
+<td align="left">Black or African American</td>
+<td align="right">241</td>
+<td align="right">3.9</td>
+</tr>
+<tr class="even">
 <td align="left">Hispanic or Latino</td>
 <td align="right">387</td>
 <td align="right">6.2</td>
+</tr>
+<tr class="odd">
+<td align="left">Native Hawaiian or Other Pacific Islander</td>
+<td align="right">5</td>
+<td align="right">0.1</td>
+</tr>
+<tr class="even">
+<td align="left">White / Caucasian</td>
+<td align="right">3447</td>
+<td align="right">55.1</td>
+</tr>
+<tr class="odd">
+<td align="left">Multiple ethnicity / Other (please specify)</td>
+<td align="right">221</td>
+<td align="right">3.5</td>
 </tr>
 <tr class="even">
 <td align="left">Prefer not to say</td>
 <td align="right">374</td>
 <td align="right">6.0</td>
 </tr>
-<tr class="odd">
-<td align="left">Black or African American</td>
-<td align="right">241</td>
-<td align="right">3.9</td>
-</tr>
-<tr class="even">
-<td align="left">Multiple ethnicity / Other (please specify)</td>
-<td align="right">221</td>
-<td align="right">3.5</td>
-</tr>
-<tr class="odd">
-<td align="left">American Indian or Alaskan Native</td>
-<td align="right">29</td>
-<td align="right">0.5</td>
-</tr>
-<tr class="even">
-<td align="left">Native Hawaiian or Other Pacific Islander</td>
-<td align="right">5</td>
-<td align="right">0.1</td>
-</tr>
 </tbody>
 </table>
+<p>Gender and racial/ethnic identity information is collected for U.S. participants, as we are keen to increase the number of diverse instructors and learners we serve. Understanding our demographic makeup helps us to understand what communities we reach and what programs we should develop.</p>
+<p>Currently, both Data (56.6%) Carpentry and Software (48.9%) Carpentry see strong representation from women in the United States. Where we hope to improve is in reaching the non-White audience, as fewer than 49.4% for Data Carpentry, and 45% for SWC of our respondents are from communities historically underrepresented in the science, technology, engineering, and mathematics (STEM) fields.</p>
 </div>
 <div id="summary" class="section level3">
 <h3>Summary</h3>
