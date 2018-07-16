@@ -1490,7 +1490,7 @@ get_dc_status_percent <- function(status_var, .data = dc_status) {
 dc_status %>%
     render_table(
         question, 
-        col.names = c("Data Carpentry's Respondents by Position", "n", "%")
+        col.names = c("Data Carpentry's Respondents by Career Stage", "n", "%")
     )
 ```
 
@@ -1525,7 +1525,7 @@ ggassessment_lolli(dc_status,
                    aes(y = factor(question, levels = rev(dc_status_levels)),
                        x = percent), color = "dc") +
     labs(
-        title = "Data Carpentry Respondents by Position/Status"
+        title = "Data Carpentry Respondents by Career Stage"
     )
 ```
 
@@ -1537,7 +1537,7 @@ ggassessment_lolli(swc_status,
                        x = percent
                    ), color = "swc") +
     labs(
-        title = "Software Carpentry Respondents by Position/Status"
+        title = "Software Carpentry Respondents by Career Stage"
     )
 ```
 
