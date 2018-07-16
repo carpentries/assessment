@@ -6,7 +6,7 @@ output:
 ---
 
 # [DRAFT] Analysis of Software and Data Carpentry's Pre- and Post-Workshop Surveys
-### Authors: [Kari L. Jordan](https://twitter.com/drkariljordan), [François Michonneau](https://twitter.com/fmic_)
+### Authors: [Kari L. Jordan](https://twitter.com/drkariljordan), [François Michonneau](https://twitter.com/fmic_), [Belinda Weaver](https://twitter.com/cloudaus)
 ### Published: July 2018
 
 ```{r setup, include=FALSE}
@@ -283,7 +283,7 @@ swc_dates <- range(c(swcpredata$date, swcpostdata$date))
 
 ### Overview
 
-Since `r format(min(c(dc_dates, swc_dates)), format="%B %d, %Y")`, Software and Data Carpentry have collected information on learner demographics, perception of tools and confidence in working with data. As we continue in our goal to streamline processes as The Carpentries, the Assessment Team completed an analysis of the pre- and post-workshop surveys for both Software and Data Carpentry. The goal of this analysis is to understand the impact our workshops are having on learners, and how we can improve our surveys and assessment infrastructure. This report covers the workshops from `r format(min(swc_dates), format="%B %d, %Y")` to `r format(max(swc_dates), format="%B %d, %Y")` for Software Carpentry, and from  `r format(min(dc_dates), format="%B %d, %Y")` to `r format(max(dc_dates), format="%B %d, %Y")` for Data Carpentry.
+Since `r format(min(c(dc_dates, swc_dates)), format="%B %d, %Y")`, Software and Data Carpentry have collected information on learner demographics, perception of tools, and confidence in working with data. As we continue in our goal to streamline processes as The Carpentries, the Assessment Team completed an analysis of the pre- and post-workshop surveys for both Software Carpentry and Data Carpentry. The goal of this analysis is to understand the impact our workshops are having on learners, and how we can improve our surveys and assessment infrastructure. This report covers the workshops from `r format(min(swc_dates), format="%B %d, %Y")` to `r format(max(swc_dates), format="%B %d, %Y")` for Software Carpentry, and from  `r format(min(dc_dates), format="%B %d, %Y")` to `r format(max(dc_dates), format="%B %d, %Y")` for Data Carpentry.
 
 As an overview, `r n_learners_pre_dc` and `r n_learners_post_dc` learners have responded to Data Carpentry's pre- and post-workshop surveys respectively, while `r n_learners_pre_swc` and `r n_learners_post_swc` have responded to Software Carpentry's. 
 
@@ -291,14 +291,14 @@ This report includes the following:
 
 - Motivation for Attending Carpentries Workshops
 - Workshop Type and Perception of Workshop Environment/Experience
-- Effect of Workshops on Learner's Self-Reported Perspectives, Skills, and Confidence
+- Effect of Workshops on Learners' Self-Reported Perspectives, Skills, and Confidence
 - Ability to Perform Computing Tasks
 - Demographics
 - Summary
 
 For a comprehensive look at our workshops and instructor training, have a look at our [programmatic assessment report](https://carpentries.github.io/assessment/programmatic-assessment/workshops/outputs/final_report.html).
 
-Currently, Data and Software Carpentry use different surveys. In the coming months we plan to develop one common survey to be used for both Data and Software Carpentry.
+Currently, Data Carpentry and Software Carpentry use different surveys. In the coming months, we plan to develop one common survey to be used for both Data Carpentry and Software Carpentry.
 
 ### Motivation for Attending Carpentries Workshops
 
@@ -467,7 +467,7 @@ swc_first_timers %>%
     )
 ```
 
-Compared to Data Carpentry's learners, Software Carpentry's tend to have more experience with the tools covered in the workshops, and learners come to learn new and/or additional topics (`r p_swc_why_attending`%). It's also interesting to note that `r p_first_timers`% of Software Carpentry respondents are first-time attendees.
+Compared to Data Carpentry's learners, Software Carpentry's tend to have more experience with the tools covered in the workshops, and learners come to learn new and/or additional topics (`r p_swc_why_attending`%). It is also interesting to note that `r p_first_timers`% of Software Carpentry respondents are first-time attendees.
 
 
 #### What is the current level of satisfaction of the data management practices of our learners before attending our workshops?
@@ -556,7 +556,7 @@ dc_programming_usage %>%
     ) 
 ```
 
-In terms of current programming usage, `r dc_percent_programming_rare`% of learners either never use programming, or use programming less than once per year, but no more than several times per year. Only `r dc_percent_programming_daily`% program on a daily basis. This is no surprise, as Data Carpentry workshops are intended for novices.
+In terms of current programming usage, `r dc_percent_programming_rare`% of learners either never use programming, use programming less than once per year, or no more than several times per year. Only `r dc_percent_programming_daily`% program on a daily basis. This is no surprise, as Data Carpentry workshops are intended for novices.
 
 ```{r dc-exposure}
 ## How did you find out about this workshop? 
@@ -600,7 +600,7 @@ swc_exposure %>%
             "n", "%"))
 ```
 
-Data Carpentry and Software Carpentry workshop participants often find out about our workshops through institution mailing lists (`r dc_exposure_mailing`% and `r swc_exposure_mailing`% respectively). However, "word-of-mouth" also plays a significant role in populating the workshops.
+Data Carpentry and Software Carpentry workshop participants often find out about our workshops through institutional mailing lists (`r dc_exposure_mailing`% and `r swc_exposure_mailing`% respectively). However, "word-of-mouth" recommendations also play a significant role in populating workshops.
 
 
 In summary, both Data and Software Carpentry workshop respondents attend workshops to learn about or improve upon their current data management and analysis skills.
@@ -656,7 +656,7 @@ dc_programming_language %>%
 
 ```
 
-As previously mentioned, Data Carpentry workshops are domain specific, and
+As previously mentioned, Data Carpentry workshops are domain-specific, and
 curricula include Ecology, Genomics, Geospatial, Social Sciences, and
 Reproducible Research. `r dc_programming_language_r`% of respondents learned R
 in their workshop, while `r dc_programming_language_py`% learned Python.
@@ -692,13 +692,13 @@ swc_comfortable_percent_agree <- swc_comfortable %>%
 ```
 
 The Carpentries is committed to making participation in our workshops a
-harassment-free experience for everyone, regardless of who you are, where you
-come from, or your experience with the tools we teach. We establish norms for
-interaction by having, discussing, and enforcing a Code of Conduct such that our
+harassment-free experience for everyone, regardless of who learners are, where they
+are from, or what their experience is with the tools we teach. We establish norms for
+interaction by having, discussing, and enforcing a Code of Conduct so that our
 workshops provide open and inclusive learning environments. `r dc_comfortable_percent_agree`% of Data Carpentry respondents either agree or
 strongly agree that they felt comfortable learning in their workshop
 environment, and `r swc_comfortable_percent_agree`% of Software Carpentry's
-respondents agreed or strongly agreed the workshop atmosphere was welcoming.
+respondents agreed or strongly agreed that the workshop atmosphere was welcoming.
 
 
 ```{r dc-post-workshop-comfortable-environment}
@@ -726,7 +726,7 @@ ggassessment_lolli(swc_comfortable,
                    
 ```
 
-Data Carpentry respondents were asked to rate their level of agreement with several statements regarding their instructor's knowledge, instructional method, and enthusiasm. Their responses are in the figure below, and axis labels correspond to the statements as follows:
+Data Carpentry respondents were asked to rate their level of agreement with several statements regarding their instructors' knowledge, instructional method, and enthusiasm. Their responses are in the figure below, and axis labels correspond to the statements as follows:
 
 + __Instructors Knowledge__: The instructors were knowledgeable about the material being taught.
 + __Instructors Interacting__: I felt comfortable interacting with the instructors. 
@@ -780,16 +780,20 @@ plot(dc_perception_instructors_likert,
     ggtitle(title)
 ```
 
-The largest impact we see is that `r dc_perception_instructors_interacting`% of respondents said they felt comfortable interacting with the instructors. We know that our instructors *are* the reason why our workshops are so well received. It's also great to see that `r dc_perception_instructors_knowledgeable`% and `r dc_perception_instructors_enthusiastic`% of respondents felt our instructors were knowledgeable about the material being taught, and were enthusiastic about the workshop, respectively. Lastly, `r dc_perception_instructors_clear_answers`% of respondents felt they were able to get clear answers to their questions from their instructors.
+The largest impact we see is that `r dc_perception_instructors_interacting`% of respondents said they felt comfortable interacting with the instructors. We know that our instructors *are* the reason why our workshops are so well-received. It is also great to see that `r dc_perception_instructors_knowledgeable`% and `r dc_perception_instructors_enthusiastic`% of respondents felt our instructors were knowledgeable about the material being taught, and were enthusiastic about the workshop, respectively. Lastly, `r dc_perception_instructors_clear_answers`% of respondents felt they were able to get clear answers to their questions from their instructors.
 
-Software Carpentry respondents were asked to rate how they felt instructors and helpers worked as a team based on the following criteria:
+Software Carpentry respondents were asked to rate how they felt instructors and helpers worked as a team, based on the following criteria:
 
 + __Considerate__: Instructors/Helpers were considerate.
 + __Enthusiastic__: Instructors/Helpers were enthusiastic. 
 + __Clear Answers__: Instructors/Helpers gave clear answers to your questions. 
 + __Communicators__: Instructors/Helpers were good communicators.    
   
+<<<<<<< HEAD
 The two neutral centered plots below provide an analysis of respondent's answers for both instructors and helpers.
+=======
+The two Likert plots below provide an analysis of respondents' answers for both instructors and helpers.
+>>>>>>> 648a0f356003221b253af41a4db6fd8e6b2ad7c3
 
 ```{r swc-perception-instructors}	
 ## Software Carpentry: Perception of SWC workshop instructors/helpers
@@ -838,8 +842,8 @@ dc_applicability_percent <- dc_applicability %>%
 
 One of the goals for Data Carpentry's lessons is that learners are able to
 immediately apply what they learned at the workshop. The figure below shows that
-`r dc_applicability_percent`% either agree or strongly agree that they're able
-to immediately apply what they learned.
+`r dc_applicability_percent`% either agree or strongly agree that they were able
+to apply what they learned immediately.
 
 
 ```{r dc-skill-applicability-plot}
@@ -880,7 +884,7 @@ swc_some_new_info_percent <- swc_new_info %>%
 
 ```
 
-As the majority of Software Carpentry learners attend workshops to learn new skills it is great to see that `r swc_new_info_percent`% of learners either learned mostly or all new information during the workshop, while another `r swc_some_new_info_percent`% learned something new.
+As the majority of Software Carpentry learners attend workshops to learn new skills, it is great to see that `r swc_new_info_percent`% of learners either learned mostly or all new information during the workshop, while another `r swc_some_new_info_percent`% learned something new.
 
 ```{r swc-new-information-plot}
 # Software Carpentry plot for new information
@@ -913,9 +917,9 @@ dc_accessibility %>%
                       "n", "%"))
 ```
 
-We want to be proactive in ensuring learners have access to whatever they need to participate in a workshop. Both Data and Software Carpentry learners are asked to inform workshop organizers if there is anything they need that would make their workshop experience better. Data Carpentry's respondents were asked if they had accessibility issues, and `r dc_accessibility_percent`% reported they did. After reading the open-ended responses, we see that the issues were related to not being able to hear and/or see in the back of the room. The Instructor Training Team has been made aware of this, and will be making recommendations.
+We want to be proactive in ensuring learners have access to whatever they need to participate in a workshop. Both Data Carpentry and Software Carpentry learners were asked to inform workshop organizers if there was anything they needed to make their workshop experience better. Data Carpentry's respondents were asked if they had accessibility issues, and `r dc_accessibility_percent`% reported they did. After reading the open-ended responses, we can see that the issues were related to not being able to hear and/or see in the back of the room. The Instructor Training Team has been made aware of this, and will be making recommendations.
 
-We use the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter) to measure learners' likelihood of recommending workshops to a friend or colleague. The scoring for this question is on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled *Passives*, and their behavior falls in the middle of Promoters and Detractors.
+We use the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter) to measure learners' likelihood of recommending workshops to a friend or colleague. The scoring for this question is on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled *Passives*, and their behavior falls between Promoters and Detractors.
 
 ```{r dc-nps}
 compute_nps <- . %>%
@@ -972,7 +976,7 @@ For Software Carpentry respondents who answered this questions, `r swc_nps_perce
 ## Qualitative Analysis (SWC/DC)
 ```
 
-In summary, Data and Software Carpentry workshops provide a warm and welcoming environment whether learners are brand new to programming or have some experience. Attendees are recommending workshops to their friends and colleagues, and we know that our instructors and helpers are the major reason why.
+In summary, Data carpentry and Software Carpentry workshops provide a warm and welcoming environment, whether learners are brand new to programming or have some experience. Attendees are recommending workshops to their friends and colleagues, and we know that our instructors and helpers are the major reason why.
 
 ### Effect of Workshops on Learners Self-Reported Perspectives: Skills & Confidence
 
@@ -986,7 +990,7 @@ Learners were asked to rate their level of agreement with the following statemen
 + __Overcome Problem__: While working on a programming project, if I get stuck, I can find ways of overcoming the problem.
 + __Analyses Easier__: Using a programming language (like R or Python) can make my analyses easier to reproduce. 
  
-The scoring for the above factors is ordinal from strongly disagree (1) to strongly agree (5).
+The scoring for the above factors ranges from strongly disagree (1) to strongly agree (5).
 
 ```{r dc-paired-data}
 ## Data Carpentry
@@ -1081,7 +1085,7 @@ paired_data %>%
 
 The comparison above is paired, meaning, we are comparing those who provided us with a unique identifier and who completed both the pre- and post-workshop survey. This figure includes XX responses.The data shows, for multiple factors, a full point increase in mean score. We are significantly impacting respondents' confidence in programming, ability to write programs to solve problems, and ability to overcome problems if they get stuck.
 
-In the figures below we show another representation of the pre- and post-comparison of respondents skills and perspectives. The figures below include the data for all learners, not only those who provided a unique identifier *and* took both the pre- and post-workshop surveys. What we see is a shift in the distribution of for each factor, meaning, respondents' self-reported confidence and ability shifted in a positive directions.
+In the figures below, we show another representation of the pre- and post-comparison of respondents skills and perspectives. The figures below include the data for all learners, not only those who provided a unique identifier *and* took both the pre- and post-workshop surveys. What we see is a shift in the distribution for each factor, meaning, respondents' self-reported confidence and ability shifted in positive directions.
 
 ```{r dc-paired-distribution-comparison, fig.height=12}
 # 
@@ -1171,9 +1175,9 @@ kable(select(t_test, skill, ends_with("feeling"), starts_with("n"),
  
 ```
 
-The neutral centered graphs below provide an even clearer picture of the shift in respondents self-reported confidence and skills. 
+The neutral centered graphs below provide an even clearer picture of the shift in respondents' self-reported confidence and skills. 
 
-It is interesting to see the shift in neutrality between the pre-workshop scores and post-workshops scores, especially for *Programming Efficient*. There was a higher percentage of learners beginning the workshop who felt programming with R or Python can make them more efficient at working with data. Contrarily, confidence in using programming to work with data increased from XX% to xx%.
+It is interesting to see the shift in neutrality between the pre-workshop scores and post-workshop scores, especially for *Programming Efficient*. There was a higher percentage of learners beginning the workshop who felt programming with R or Python can make them more efficient at working with data. Contrarily, confidence in using programming to work with data increased from XX% to xx%.
 
 ```{r dc-tools-perception, fig.height=12}
 # Data Carpentry pre-workshop neutral centered graph code
@@ -1251,7 +1255,7 @@ swc_pre_knowledge %>%
     )
 ```
 
-From the figure we see that XX% and less had extensive knowledge of the topics covered in their workshop.
+From the figure, we see that XX% and less had extensive knowledge of the topics covered in their workshop.
 
 ```{r swc-knowledge-change, fig.height=10}
 
@@ -1307,7 +1311,7 @@ swc_pre_knowledge_plot + swc_post_knowledge_plot +
 ```
 
 
-The following is a comparison of Software Carpentry Respondents' knowledge about the tools before compared to after the workshop. We see clearly that after the workshop, respondents' knowledge of Git, Python, R, and the Unix Shell increased a great deal.
+The following is a comparison of Software Carpentry respondents' knowledge about the tools before compared to after the workshop. We see clearly that after the workshop, respondents' knowledge of Git, Python, R, and the Unix Shell had increased a great deal.
 
 
 ### Respondent Ability to Perform Computing Tasks
@@ -1326,7 +1330,7 @@ It also provides their self-reported level of confidence in being able to comple
 
 These figures tell us that, before the workshop, between XX% and XX% of the respondents did not feel they could initialize a repository in Git, write a 'for loop' to automate tasks, use pipes to connect shell commands, write a SQL query, and/or write a unit test in R or Python. XX% of learners felt their confidence increased greatly with respect to importing a library or package in R or Python. We consider this significant as it is one of the fundamental skills that allows learners to be successful in the other areas mentioned above.
 
-In summary, respondents experienced increased confidence in their ability to perform specific computing tasks and solve problems, or at least search for answers to problems, as a result of participating in Software and Data Carpentry workshops.
+In summary, respondents experienced increased confidence in their ability to perform specific computing tasks and solve problems, or at least search for answers to problems, as a result of participating in Software Carpentry and Data Carpentry workshops.
 
 ```{r swc-ability-confidence, fig.height=10}
 ## Software Carpentry
@@ -1400,7 +1404,11 @@ get_dc_country_percent <- function(country_var, .data = dc_country) {
 
 ```
 
+<<<<<<< HEAD
 The Carpentries is a global community that has recognized the importance of bringing people to data through high-impact training. Thought the majority of Data Carpentry respondents attended a workshop in the United States of America (`r get_dc_country_percent("United States of America")`%), we see an increase in workshops in places like Ethiopia (`r get_dc_country_percent("Ethiopia")`%), Switzerland (`r get_dc_country_percent("Switzerland")`%), and India (`r get_dc_country_percent("India")`%).   
+=======
+The Carpentries is a global community that has recognized the importance of bringing people to data through high-impact trainings. Though the majority of Data Carpentry respondents attended a workshop in the United States of America (`r get_dc_country_percent("United States of America")`%), we see an increase in workshops in places such as Ethiopia (`r get_dc_country_percent("Ethiopia")`%), Switzerland (`r get_dc_country_percent("Switzerland")`%), and India (`r get_dc_country_percent("India")`%).   
+>>>>>>> 648a0f356003221b253af41a4db6fd8e6b2ad7c3
 
 
 ```{r dc-country-workshop-plot, fig.height=9}		
@@ -1432,7 +1440,7 @@ swc_country %>%
         col.names = c("Software Carpentry Workshops in US", "n", "%"))
 ```
 
-In Software Carpentry's pre-workshop survey, respondents are asked whether or not their workshop takes place in the United States. `r swc_in_us`% of respondents attended a U.S. workshop.
+In Software Carpentry's pre-workshop survey, respondents are asked whether or not their workshop will take place in the United States. `r swc_in_us`% of respondents attended a U.S. workshop.
 
 
 ```{r dc-discipline}
@@ -1456,7 +1464,7 @@ dc_discipline %>%
     )
 ```
 
-As previously mentioned, Data Carpentry's curricula is domain specific to Ecology, Genomics, Geospatial, and the Social Sciences. We see this in the distribution of respondents by discipline. `r get_dc_discipline_percent("discipline_10")`% are in the Life Science, while `r get_dc_discipline_percent("discipline_1")`%, `r get_dc_discipline_percent("discipline_2")`%, and `r get_dc_discipline_percent("discipline_3")`% are in Agricultural or Environmental Sciences, Bioinformatics/Genomics, and Biomedical/Health Sciences, respectively.
+As previously mentioned, Data Carpentry's curricula is domain-specific to Ecology, Genomics, Geospatial, and the Social Sciences. We see this in the distribution of respondents by discipline. `r get_dc_discipline_percent("discipline_10")`% are in the Life Science, while `r get_dc_discipline_percent("discipline_1")`%, `r get_dc_discipline_percent("discipline_2")`%, and `r get_dc_discipline_percent("discipline_3")`% are in Agricultural or Environmental Sciences, Bioinformatics/Genomics, and Biomedical/Health Sciences, respectively.
 
 ```{r swc-discipline}
 # Tally Software Carpentry's pre-workshop respondents by Discipline
@@ -1473,7 +1481,7 @@ swc_discipline %>%
         col.names = c("Software Carpentry's Respondents by Discipline", "n", "%"))
 ```
 
-Software Carpentry's respondent base also has a majority Life Sciences base, however we also see representation from those working in Psychology, High Performance Computing, and Chemistry.
+Software Carpentry's respondent base also has a majority Life Sciences base; however we also see representation from those working in Psychology, High Performance Computing, and Chemistry.
 
 
 ```{r dc-staus}
@@ -1526,7 +1534,7 @@ get_swc_status_percent <- function(status_var, .data = swc_status) {
 }
 ```
 
-As many of The Carpentries' workshops are hosted on college campuses and other research-based communities, there is no surprise that the majority of respondents are Graduate Students (`r get_dc_status_percent("status_2")`% - DC, `r get_swc_status_percent("Graduate Student")`% - SWC), Research Staff (`r get_dc_status_percent("status_7")`% - DC,`r get_swc_status_percent("Research staff (including research programmer)")`% - SWC), and Postdoctoral Researchers (`r get_dc_status_percent("status_9")`% - DC, `r get_swc_status_percent("Post-doctoral researcher")`% - SWC).
+As many of The Carpentries' workshops are hosted on university or college campuses and other research-based communities, it is no surprise that the majority of respondents are Graduate Students (`r get_dc_status_percent("status_2")`% - DC, `r get_swc_status_percent("Graduate Student")`% - SWC), Research Staff (`r get_dc_status_percent("status_7")`% - DC,`r get_swc_status_percent("Research staff (including research programmer)")`% - SWC), and Postdoctoral Researchers (`r get_dc_status_percent("status_9")`% - DC, `r get_swc_status_percent("Post-doctoral researcher")`% - SWC).
 
 ```{r dc-status-plot}
 ## Data Carpentry plot of learners by position/status
@@ -1574,11 +1582,11 @@ dc_os %>%
                       "n", "%"))
 ```
 
-In our workshops, we recommend that learners use their own machines. It is important for learners to leave the workshop with their own machine set up to do real work. Our instructors teach on three major platforms: UNIX/Linux, Mac OS X, and Windows. We see a very close representation of Windows (`r dc_os_win`%)  and Apple/Mac OS (`r dc_os_mac`%) users in our Data Carpentry workshops, and even a few UNIX/Linux users (`r dc_os_lin`%).
+In our workshops, we recommend that learners use their own personal laptop computers. It is important for learners to leave the workshop with their own machine set up to do real work. Our instructors teach on three major platforms: UNIX/Linux, Mac OS X, and Windows. We see a very close representation of Windows (`r dc_os_win`%)  and Apple/Mac OS (`r dc_os_mac`%) users in our Data Carpentry workshops, and even a few UNIX/Linux users (`r dc_os_lin`%).
 
 Gender and racial/ethnic identity information is collected for U.S. participants, as we are keen to increase the number of diverse instructors and learners we serve. Understanding our demographic makeup helps us to understand what communities we reach and what programs we should develop. 
 
-Currently, both Data (XX%) and Software (XX%) Carpentry see strong representation from Women in the United States. Where we hope to improve is in reaching the non-White audience, as less than XX% of our respondents are from communities historically underrepresented in the science, technology, engineering, and mathematics (STEM) fields.
+Currently, both Data (XX%) Carpentry and Software (XX%) Carpentry see strong representation from women in the United States. Where we hope to improve is in reaching the non-White audience, as fewer than XX% of our respondents are from communities historically underrepresented in the science, technology, engineering, and mathematics (STEM) fields.
 
 ```{r dc-gender}
 # Gender Identity 
