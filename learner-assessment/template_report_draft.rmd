@@ -1392,12 +1392,7 @@ get_dc_country_percent <- function(country_var, .data = dc_country) {
 
 ```
 
-<<<<<<< HEAD
-The Carpentries is a global community that has recognized the importance of bringing people to data through high-impact training. Thought the majority of Data Carpentry respondents attended a workshop in the United States of America (`r get_dc_country_percent("United States of America")`%), we see an increase in workshops in places like Ethiopia (`r get_dc_country_percent("Ethiopia")`%), Switzerland (`r get_dc_country_percent("Switzerland")`%), and India (`r get_dc_country_percent("India")`%).   
-=======
 The Carpentries is a global community that has recognized the importance of bringing people to data through high-impact trainings. Though the majority of Data Carpentry respondents attended a workshop in the United States of America (`r get_dc_country_percent("United States of America")`%), we see an increase in workshops in places such as Ethiopia (`r get_dc_country_percent("Ethiopia")`%), Switzerland (`r get_dc_country_percent("Switzerland")`%), and India (`r get_dc_country_percent("India")`%).   
->>>>>>> 648a0f356003221b253af41a4db6fd8e6b2ad7c3
-
 
 ```{r dc-country-workshop-plot, fig.height=9}		
 ## Plot Data Carpentry's respondents by Country
