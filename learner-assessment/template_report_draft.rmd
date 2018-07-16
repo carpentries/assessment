@@ -927,8 +927,9 @@ compute_nps <- . %>%
     count(category) %>%
     mutate(percent = round(n / sum(n) * 100, 1)) %>%
     arrange(category = factor(category,
-                              levels = c("Promoter", "Passive",
-                                         "Detractor", "Didn't answer")))
+                              levels = c("Detractor",  "Passive",
+                                         "Promoter",
+                                         "Didn't answer")))
 compute_nps_percent <- . %>%
     filter(category != "Didn't answer") %>%
     mutate(p = round(n / sum(n) * 100, 1)) %>%
@@ -944,7 +945,8 @@ dc_nps  <- dcpostdata %>%
 dc_nps %>%
     render_table(
         category, 
-        col.names = c("Data Carpentry Net Promoter Score", "n", "%")
+        col.names = c("Data Carpentry Net Promoter Score", "n", "%"),
+        arrange = FALSE
     )
 
 dc_nps_promoters <- dc_nps %>%
