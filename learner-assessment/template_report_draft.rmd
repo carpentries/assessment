@@ -1614,7 +1614,8 @@ dc_ethnicity %>%
     render_table(
         question, 
         col.names = c("Data Carpentry's U.S. Respondents Racial/Ethnic Identity",                      
-                      "n", "%"))
+                      "n", "%"),
+        arrange = FALSE)
 ```
 
 ```{r swc-gender}
@@ -1642,8 +1643,9 @@ swc_ethnicity_levels <- c("American Indian or Alaskan Native",
                           "Asian / Pacific Islander",
                           "Black or African American", "Hispanic or Latino",
                           "Native Hawaiian or Other Pacific Islander",
-                          "White / Caucasian", "Prefer not to say",
-                          "Multiple ethnicity / Other (please specify)")
+                          "White / Caucasian",
+                          "Multiple ethnicity / Other (please specify)",
+                          "Prefer not to say")
 
 swc_ethnicity <- swcpredata %>%
     filter(us_workshop == "Yes") %>% 
@@ -1653,7 +1655,8 @@ swc_ethnicity %>%
     render_table(
         race, 
         col.names = c("Software Carpentry's U.S. Respondents' Racial/Ethnic Identity",
-                      "n", "%"))
+                      "n", "%"),
+        arrange = FALSE)
 
 ```
 
