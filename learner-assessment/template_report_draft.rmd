@@ -296,10 +296,6 @@ This report includes the following:
 - Demographics
 - Summary
 
-For a comprehensive look at our workshops and instructor training, have a look at our [programmatic assessment report](https://carpentries.github.io/assessment/programmatic-assessment/workshops/outputs/final_report.html).
-
-Currently, Data Carpentry and Software Carpentry use different surveys. In the coming months, we plan to develop one common survey to be used for both Data Carpentry and Software Carpentry.
-
 ### Motivation for Attending Carpentries Workshops
 
 Learners attend Carpentries workshops for many reasons. Data Carpentry's workshops are domain-specific and focus on the fundamental data skills needed to conduct research. Data Carpentry's Ecology and Social Sciences curricula begin with a lesson on data organization and include data cleaning with OpenRefine. From there, learners spend time learning a programming language, either Python or R, to manipulate and visualize data.
@@ -1668,7 +1664,9 @@ swc_ethnicity %>%
 ```
 
 ### Summary
+For a comprehensive look at our workshops and instructor training, have a look at our [programmatic assessment report](https://carpentries.github.io/assessment/programmatic-assessment/workshops/outputs/final_report.html).
 
+Currently, Data Carpentry and Software Carpentry use different surveys. In the coming months, we plan to develop one common survey to be used for both Data Carpentry and Software Carpentry.
 
 
 
