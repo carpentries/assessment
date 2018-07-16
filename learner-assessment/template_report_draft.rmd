@@ -1701,7 +1701,7 @@ swc_ethnicity %>%
 Gender and racial/ethnic identity information is collected for U.S. participants, as we are keen to increase the number of diverse instructors and learners we serve. Understanding our demographic makeup helps us to understand what communities we reach and what programs we should develop. 
 
 
-Currently, both Data (`r dc_gender_female`%) Carpentry and Software (`r swc_gender_female`%) Carpentry see strong representation from women in the United States. Where we hope to improve is in reaching the non-White audience, as fewer than `r dc_underrepresented`% for Data Carpentry, and `r swc_underrepresented`% of our respondents are from communities historically underrepresented in the science, technology, engineering, and mathematics (STEM) fields.
+Currently, both Data (`r dc_gender_female`%) Carpentry and Software (`r swc_gender_female`%) Carpentry see strong representation from women in the United States. Where we hope to improve is in reaching the non-White audience, as fewer than `r dc_underrepresented`% for Data Carpentry, and `r swc_underrepresented`% for SWC of our respondents are from communities historically underrepresented in the science, technology, engineering, and mathematics (STEM) fields.
 
 
 ### Summary
