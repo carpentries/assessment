@@ -1565,7 +1565,7 @@ dc_os %>%
                       "n", "%"))
 ```
 
-In our workshops, we recommend that learners use their own personal laptop computers. It is important for learners to leave the workshop with their own machine set up to do real work. Our instructors teach on three major platforms: UNIX/Linux, Mac OS X, and Windows. We see a very close representation of Windows (`r dc_os_win`%)  and Apple/Mac OS (`r dc_os_mac`%) users in our Data Carpentry workshops, and even a few UNIX/Linux users (`r dc_os_lin`%).
+In our workshops, we recommend that learners use their own personal laptop computers. It is important for learners to leave the workshop with their own machine set up to do real work. Our instructors teach on three major platforms: Windows, Mac OS X, and UNIX/Linux. We see a very close representation of Windows (`r dc_os_win`%)  and Apple/Mac OS (`r dc_os_mac`%) users in our Data Carpentry workshops, and even a few UNIX/Linux users (`r dc_os_lin`%).
 
 Gender and racial/ethnic identity information is collected for U.S. participants, as we are keen to increase the number of diverse instructors and learners we serve. Understanding our demographic makeup helps us to understand what communities we reach and what programs we should develop. 
 
