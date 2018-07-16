@@ -1592,9 +1592,8 @@ dc_os %>%
 
 In our workshops, we recommend that learners use their own personal laptop computers. It is important for learners to leave the workshop with their own machine set up to do real work. Our instructors teach on three major platforms: Windows, Mac OS X, and UNIX/Linux. We see a very close representation of Windows (`r dc_os_win`%)  and Apple/Mac OS (`r dc_os_mac`%) users in our Data Carpentry workshops, and even a few UNIX/Linux users (`r dc_os_lin`%).
 
-Gender and racial/ethnic identity information is collected for U.S. participants, as we are keen to increase the number of diverse instructors and learners we serve. Understanding our demographic makeup helps us to understand what communities we reach and what programs we should develop. 
+### Gender and racial/ethnic identity
 
-Currently, both Data (XX%) Carpentry and Software (XX%) Carpentry see strong representation from women in the United States. Where we hope to improve is in reaching the non-White audience, as fewer than XX% of our respondents are from communities historically underrepresented in the science, technology, engineering, and mathematics (STEM) fields.
 
 ```{r dc-gender}
 # Gender Identity 
@@ -1611,6 +1610,9 @@ dc_gender <- dcpredata %>%
     filter(country == "United States of America") %>% 
     summarize_single_column(gender_identity, dc_gender_levels) 
 
+dc_gender_female <- dc_gender %>%
+    filter(gender_identity == "Female") %>%
+    pull(percent)
 
 dc_gender %>%
     render_table(
@@ -1630,6 +1632,11 @@ dc_ethnicity_data <- dcpredata %>%
 dc_ethnicity <- dc_ethnicity_data %>%
     summarize_multi_columns()
 
+dc_underrepresented <- dc_ethnicity %>%
+    filter(question != "White") %>%
+    pull(percent) %>%
+    sum()
+
 dc_ethnicity %>%
     render_table(
         question, 
@@ -1637,6 +1644,8 @@ dc_ethnicity %>%
                       "n", "%"),
         arrange = FALSE)
 ```
+
+
 
 ```{r swc-gender}
 # Software Carpentry
@@ -1646,6 +1655,10 @@ swc_gender_levels <- c("Female", "Male", "Other", "Prefer not to say")
 swc_gender <- swcpredata %>%
     filter(us_workshop == "Yes") %>% 
     summarize_single_column(gender, swc_gender_levels)
+
+swc_gender_female <- swc_gender %>%
+    filter(gender == "Female") %>%
+    pull(percent)
 
 swc_gender %>%
     render_table(
@@ -1671,6 +1684,11 @@ swc_ethnicity <- swcpredata %>%
     filter(us_workshop == "Yes") %>% 
     summarize_single_column(race, swc_ethnicity_levels)
 
+swc_underrepresented <- swc_ethnicity %>%
+    filter(race != "White / Caucasian") %>%
+    pull(percent) %>%
+    sum()
+
 swc_ethnicity %>%
     render_table(
         race, 
@@ -1680,7 +1698,14 @@ swc_ethnicity %>%
 
 ```
 
+Gender and racial/ethnic identity information is collected for U.S. participants, as we are keen to increase the number of diverse instructors and learners we serve. Understanding our demographic makeup helps us to understand what communities we reach and what programs we should develop. 
+
+
+Currently, both Data (`r dc_gender_female`%) Carpentry and Software (`r swc_gender_female`%) Carpentry see strong representation from women in the United States. Where we hope to improve is in reaching the non-White audience, as fewer than `r dc_underrepresented`% for Data Carpentry, and `r swc_underrepresented`% of our respondents are from communities historically underrepresented in the science, technology, engineering, and mathematics (STEM) fields.
+
+
 ### Summary
+
 For a comprehensive look at our workshops and instructor training, have a look at our [programmatic assessment report](https://carpentries.github.io/assessment/programmatic-assessment/workshops/outputs/final_report.html).
 
 Currently, Data Carpentry and Software Carpentry use different surveys. In the coming months, we plan to develop one common survey to be used for both Data Carpentry and Software Carpentry.
