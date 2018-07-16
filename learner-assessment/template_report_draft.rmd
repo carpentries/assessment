@@ -1368,7 +1368,8 @@ swc_ability_pre_plot <- swc_ability_pre %>%
 
 swc_confidence_post_plot <- swc_confidence_post %>%
     prep_knowledge_plot(swc_confidence_levels) %>%
-    ggknowledge(aes(x = skill, y = percent,
+    ggknowledge(aes(x = factor(skill, levels = rev(swc_knowledge_skill_levels)),
+                    y = percent,
                     fill = factor(level,
                                   levels = rev(swc_confidence_levels)))) +
     labs(
