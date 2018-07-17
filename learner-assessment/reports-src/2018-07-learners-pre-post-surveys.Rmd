@@ -1740,9 +1740,11 @@ Currently, both Data (`r dc_gender_female`%) Carpentry and Software (`r swc_gend
 
 ## Summary
 
+This report focused on Data and Software Carpentry learners' skills, perspectives, and experiences in workshops. Our two-day coding workshops increase researchers’ daily programming usage, and confidence in working with open source tools. Currently, Data Carpentry and Software Carpentry use different surveys to collect pre and post workshop data. In the coming months, we plan to develop one common survey to be used for both Data Carpentry and Software Carpentry.
+
 For a comprehensive look at our workshops and instructor training, have a look at our [programmatic assessment report](https://carpentries.github.io/assessment/programmatic-assessment/workshops/outputs/final_report.html).
 
-Currently, Data Carpentry and Software Carpentry use different surveys. In the coming months, we plan to develop one common survey to be used for both Data Carpentry and Software Carpentry.
+
 
 
 
