@@ -77,6 +77,7 @@ ggassessment_lolli <- function(data, mapping, color) {
         geom_text(aes(label = n), size = 4, nudge_x = .0125, hjust = 0) +
         scale_x_continuous(expand=c(0, 0), labels=percent,
                            breaks=seq(0, 1, by = 0.2), limits = c(0, 1)) +
+        scale_y_discrete(labels = function(x) str_wrap(x, width = 20)) +
         theme_minimal(base_size = 14) +
         theme(panel.grid.major.y = element_blank(),
               panel.grid.minor  = element_blank(),
@@ -1422,7 +1423,7 @@ get_dc_country_percent <- function(country_var, .data = dc_country) {
 
 The Carpentries is a global community that has recognized the importance of bringing people to data through high-impact trainings. Though the majority of Data Carpentry respondents attended a workshop in the United States of America (`r get_dc_country_percent("United States of America")`%), we see an increase in workshops in places such as Ethiopia (`r get_dc_country_percent("Ethiopia")`%), Switzerland (`r get_dc_country_percent("Switzerland")`%), and India (`r get_dc_country_percent("India")`%).   
 
-```{r dc-country-workshop-plot, fig.height=9}		
+```{r dc-country-workshop-plot, fig.height=7}
 ## Plot Data Carpentry's respondents by Country
 ggassessment_lolli(dc_country,
                    aes(y = reorder(country, percent),
@@ -1547,7 +1548,7 @@ get_swc_status_percent <- function(status_var, .data = swc_status) {
 
 As many of The Carpentries' workshops are hosted on university or college campuses and other research-based communities, it is no surprise that the majority of respondents are Graduate Students (`r get_dc_status_percent("status_2")`% - DC, `r get_swc_status_percent("Graduate Student")`% - SWC), Research Staff (`r get_dc_status_percent("status_7")`% - DC,`r get_swc_status_percent("Research staff (including research programmer)")`% - SWC), and Postdoctoral Researchers (`r get_dc_status_percent("status_9")`% - DC, `r get_swc_status_percent("Post-doctoral researcher")`% - SWC).
 
-```{r dc-status-plot}
+```{r dc-status-plot, fig.height=7}
 ## Data Carpentry plot of learners by position/status
 ggassessment_lolli(dc_status,
                    aes(y = factor(question, levels = rev(dc_status_levels)),
@@ -1557,7 +1558,7 @@ ggassessment_lolli(dc_status,
     )
 ```
 
-```{r swc-status-plot}
+```{r swc-status-plot, fig.height=8}
 # Plot for Software Carpentry Respondents by Position/Status
 ggassessment_lolli(swc_status,
                    aes(
