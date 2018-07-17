@@ -9,19 +9,25 @@
 <meta name="generator" content="pandoc" />
 
 
+<meta name="author" content="Kari L. Jordan" />
+<meta name="author" content="François Michonneau" />
+<meta name="author" content="Belinda Weaver" />
 
 
-<title></title>
+<title>Analysis of Software and Data Carpentry’s Pre- and Post-Workshop Surveys</title>
 
-<script src="template_report_draft_files/jquery-1.11.3/jquery.min.js"></script>
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="template_report_draft_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
-<script src="template_report_draft_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="template_report_draft_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="template_report_draft_files/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="template_report_draft_files/navigation-1.1/tabsets.js"></script>
-<link href="template_report_draft_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="template_report_draft_files/highlightjs-9.12.0/highlight.js"></script>
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -114,26 +120,118 @@ $(document).ready(function () {
 
 
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
 
 
 <div class="fluid-row" id="header">
 
 
 
+<h1 class="title toc-ignore">Analysis of Software and Data Carpentry’s Pre- and Post-Workshop Surveys</h1>
+<h4 class="author"><em>Kari L. Jordan<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></em></h4>
+<h4 class="author"><em>François Michonneau<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></em></h4>
+<h4 class="author"><em>Belinda Weaver<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></em></h4>
+<h4 class="date"><em>July 17th, 2018</em></h4>
 
 </div>
 
 
-<div id="analysis-of-software-and-data-carpentrys-pre--and-post-workshop-surveys" class="section level1">
-<h1>Analysis of Software and Data Carpentry’s Pre- and Post-Workshop Surveys</h1>
-<div id="authors-kari-l.-jordan-francois-michonneau-belinda-weaver" class="section level3">
-<h3>Authors: <a href="https://twitter.com/drkariljordan">Kari L. Jordan</a>, <a href="https://twitter.com/fmic_">François Michonneau</a>, <a href="https://twitter.com/cloudaus">Belinda Weaver</a></h3>
-</div>
-<div id="published-17-july-2018" class="section level3">
-<h3>Published: 17-July 2018</h3>
-</div>
-<div id="overview" class="section level3">
-<h3>Overview</h3>
+<div id="overview" class="section level2">
+<h2>Overview</h2>
 <p>Since November 17, 2015, Software and Data Carpentry have collected information on learner demographics, perception of tools, and confidence in working with data. As we continue in our goal to streamline processes as The Carpentries, the Assessment Team completed an analysis of the pre- and post-workshop surveys for both Software Carpentry and Data Carpentry. The goal of this analysis is to understand the impact our workshops are having on learners, and how we can improve our surveys and assessment infrastructure. This report covers the workshops from November 17, 2015 to May 21, 2018 for Software Carpentry, and from August 07, 2017 to May 11, 2018 for Data Carpentry.</p>
 <p>As an overview, 1259 and 852 learners have responded to Data Carpentry’s pre- and post-workshop surveys respectively, while 14154 and 6458 have responded to Software Carpentry’s.</p>
 <p>This report includes the following:</p>
@@ -146,17 +244,17 @@ $(document).ready(function () {
 <li>Summary</li>
 </ul>
 </div>
-<div id="motivation-for-attending-carpentries-workshops" class="section level3">
-<h3>Motivation for Attending Carpentries Workshops</h3>
+<div id="motivation-for-attending-carpentries-workshops" class="section level2">
+<h2>Motivation for Attending Carpentries Workshops</h2>
 <p>Learners attend Carpentries workshops for many reasons. Data Carpentry’s workshops are domain-specific and focus on the fundamental data skills needed to conduct research. Data Carpentry’s Ecology and Social Sciences curricula begin with a lesson on data organization and include data cleaning with OpenRefine. From there, learners spend time learning a programming language, either Python or R, to manipulate and visualize data.</p>
 <p>Data Carpentry’s Genomics curriculum focuses on best practices for organization of bioinformatics projects and data, use of command line utilities and tools to analyze sequence quality and perform variant calling, and connecting to and using cloud computing.</p>
-<div id="why-are-learners-participating-in-our-workshops" class="section level4">
-<h4>Why are learners participating in our workshops?</h4>
+<div id="why-are-learners-participating-in-our-workshops" class="section level3">
+<h3>Why are learners participating in our workshops?</h3>
 <p>We are interested in knowing why learners attend our workshops. Respondents were asked to check all that apply for several factors provided in the tables below.</p>
 <table>
 <thead>
 <tr class="header">
-<th align="left">Why learners attend Data Carpentry workshops? (n = 1236)</th>
+<th align="left">Why learners attend Data Carpentry workshops? (n = 1245)</th>
 <th align="right">n</th>
 <th align="right">%</th>
 </tr>
@@ -165,31 +263,36 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">To learn skills that I can apply to my current work</td>
 <td align="right">1058</td>
-<td align="right">85.6</td>
+<td align="right">85.0</td>
 </tr>
 <tr class="even">
 <td align="left">To learn skills that I can apply to my work in the future</td>
 <td align="right">960</td>
-<td align="right">77.7</td>
+<td align="right">77.1</td>
 </tr>
 <tr class="odd">
 <td align="left">To learn skills that will help me get a job</td>
 <td align="right">445</td>
-<td align="right">36.0</td>
+<td align="right">35.7</td>
 </tr>
 <tr class="even">
 <td align="left">As a requirement for my program/current position</td>
 <td align="right">103</td>
 <td align="right">8.3</td>
 </tr>
+<tr class="odd">
+<td align="left">Other</td>
+<td align="right">47</td>
+<td align="right">3.8</td>
+</tr>
 </tbody>
 </table>
-<p>85.6% of Data Carpentry learners attend workshops to learn skills they can apply to their current work.</p>
+<p>85% of Data Carpentry learners attend workshops to learn skills they can apply to their current work.</p>
 <p>Software Carpentry’s curriculum teaches basic lab skills for scientific computing. Their workshops include automation with the Unix shell, version control with Git, and programming with R or Python. These tools help learners to increase the efficiency and reproducibility of their computational work.</p>
 <table>
 <thead>
 <tr class="header">
-<th align="left">Why learners attend Software Carpentry Workshops? (n = 613)</th>
+<th align="left">Why learners attend Software Carpentry Workshops? (n = 630)</th>
 <th align="right">n</th>
 <th align="right">%</th>
 </tr>
@@ -198,27 +301,32 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">To cover new/additional topics</td>
 <td align="right">457</td>
-<td align="right">74.6</td>
+<td align="right">72.5</td>
 </tr>
 <tr class="even">
 <td align="left">To refresh/review skills</td>
 <td align="right">339</td>
-<td align="right">55.3</td>
+<td align="right">53.8</td>
 </tr>
 <tr class="odd">
 <td align="left">To network</td>
 <td align="right">78</td>
-<td align="right">12.7</td>
+<td align="right">12.4</td>
 </tr>
 <tr class="even">
 <td align="left">To become a Software Carpentry helper/instructor</td>
 <td align="right">39</td>
-<td align="right">6.4</td>
+<td align="right">6.2</td>
 </tr>
 <tr class="odd">
 <td align="left">To help host/run a workshop</td>
 <td align="right">37</td>
-<td align="right">6.0</td>
+<td align="right">5.9</td>
+</tr>
+<tr class="even">
+<td align="left">Other</td>
+<td align="right">31</td>
+<td align="right">4.9</td>
 </tr>
 </tbody>
 </table>
@@ -248,21 +356,21 @@ $(document).ready(function () {
 </tr>
 </tbody>
 </table>
-<p>Compared to Data Carpentry’s learners, Software Carpentry’s tend to have more experience with the tools covered in the workshops, and learners come to learn new and/or additional topics (74.6%). It is also interesting to note that 81.2% of Software Carpentry respondents are first-time attendees.</p>
+<p>Compared to Data Carpentry’s learners, Software Carpentry’s tend to have more experience with the tools covered in the workshops, and learners come to learn new and/or additional topics (72.5%). It is also interesting to note that 81.2% of Software Carpentry respondents are first-time attendees.</p>
 </div>
-<div id="what-is-the-current-level-of-satisfaction-of-the-data-management-practices-of-our-learners-before-attending-our-workshops" class="section level4">
-<h4>What is the current level of satisfaction of the data management practices of our learners before attending our workshops?</h4>
-<p><img src="figures/dc-satisfaction-level-plot-1.png" width="960" /></p>
+<div id="what-is-the-current-level-of-satisfaction-of-the-data-management-practices-of-our-learners-before-attending-our-workshops" class="section level3">
+<h3>What is the current level of satisfaction of the data management practices of our learners before attending our workshops?</h3>
+<p><img src="../figures/dc-satisfaction-level-plot-1.png" width="960" /></p>
 <p>The majority (72.5%) of Data Carpentry’s respondents are either unsatisfied or feel neutral with their current data management practices. By data management practices, we include behaviors such as keeping your raw data raw, reusing code, and using databases, queries, and scripts to manage large data sets.</p>
 </div>
-<div id="how-often-do-our-workshop-participants-program-before-attending-our-workshops" class="section level4">
-<h4>How often do our workshop participants program before attending our workshops?</h4>
-<p><img src="figures/dc-programming-level-plot-1.png" width="960" /></p>
+<div id="how-often-do-our-workshop-participants-program-before-attending-our-workshops" class="section level3">
+<h3>How often do our workshop participants program before attending our workshops?</h3>
+<p><img src="../figures/dc-programming-level-plot-1.png" width="960" /></p>
 <p>In terms of current programming usage, 36.9% of learners either never use programming, use programming less than once per year, or no more than several times per year. Only 9.4% program on a daily basis. This is no surprise, as Data Carpentry workshops are intended for novices.</p>
 <table>
 <thead>
 <tr class="header">
-<th align="left">How respondents find out about Data Carpentry workshops (n =1211)</th>
+<th align="left">How respondents find out about Data Carpentry workshops (n =1243)</th>
 <th align="right">n</th>
 <th align="right">%</th>
 </tr>
@@ -271,29 +379,34 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">Received an email about the workshop</td>
 <td align="right">802</td>
-<td align="right">66.2</td>
+<td align="right">64.5</td>
 </tr>
 <tr class="even">
 <td align="left">My friend/colleague told me about it</td>
 <td align="right">324</td>
-<td align="right">26.8</td>
+<td align="right">26.1</td>
 </tr>
 <tr class="odd">
 <td align="left">My advisor/supervisor told me about it</td>
 <td align="right">244</td>
-<td align="right">20.1</td>
+<td align="right">19.6</td>
 </tr>
 <tr class="even">
 <td align="left">Read about it in a newsletter or university web site</td>
 <td align="right">85</td>
-<td align="right">7.0</td>
+<td align="right">6.8</td>
 </tr>
 <tr class="odd">
-<td align="left">Other web site</td>
-<td align="right">20</td>
-<td align="right">1.7</td>
+<td align="left">Other</td>
+<td align="right">49</td>
+<td align="right">3.9</td>
 </tr>
 <tr class="even">
+<td align="left">Other web site</td>
+<td align="right">20</td>
+<td align="right">1.6</td>
+</tr>
+<tr class="odd">
 <td align="left">Twitter or other social media</td>
 <td align="right">17</td>
 <td align="right">1.4</td>
@@ -308,7 +421,7 @@ $(document).ready(function () {
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">How respondents find out about Software Carpentry workshops (n = 10075)</th>
+<th align="left">How respondents find out about Software Carpentry workshops (n = 10677)</th>
 <th align="right">n</th>
 <th align="right">%</th>
 </tr>
@@ -317,47 +430,52 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">Institution mailing list or flyer</td>
 <td align="right">5143</td>
-<td align="right">51.0</td>
+<td align="right">48.2</td>
 </tr>
 <tr class="even">
 <td align="left">Friend/colleague</td>
 <td align="right">4810</td>
-<td align="right">47.7</td>
+<td align="right">45.1</td>
 </tr>
 <tr class="odd">
+<td align="left">Other</td>
+<td align="right">758</td>
+<td align="right">7.1</td>
+</tr>
+<tr class="even">
 <td align="left">Conference/meeting/seminar</td>
 <td align="right">637</td>
-<td align="right">6.3</td>
+<td align="right">6.0</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Our website</td>
 <td align="right">356</td>
-<td align="right">3.5</td>
-</tr>
-<tr class="odd">
-<td align="left">Funding organization or program officer</td>
-<td align="right">355</td>
-<td align="right">3.5</td>
+<td align="right">3.3</td>
 </tr>
 <tr class="even">
-<td align="left">Social Media (Twitter, Facebook, etc.)</td>
-<td align="right">293</td>
-<td align="right">2.9</td>
+<td align="left">Funding organization or program officer</td>
+<td align="right">355</td>
+<td align="right">3.3</td>
 </tr>
 <tr class="odd">
+<td align="left">Social Media (Twitter, Facebook, etc.)</td>
+<td align="right">293</td>
+<td align="right">2.7</td>
+</tr>
+<tr class="even">
 <td align="left">Journal or publication</td>
 <td align="right">37</td>
-<td align="right">0.4</td>
+<td align="right">0.3</td>
 </tr>
 </tbody>
 </table>
-<p>Data Carpentry and Software Carpentry workshop participants often find out about our workshops through institutional mailing lists (66.2% and 51% respectively). However, “word-of-mouth” recommendations also play a significant role in populating workshops.</p>
+<p>Data Carpentry and Software Carpentry workshop participants often find out about our workshops through institutional mailing lists (64.5% and 48.2% respectively). However, “word-of-mouth” recommendations also play a significant role in populating workshops.</p>
 <p>In summary, both Data and Software Carpentry workshop respondents attend workshops to learn about or improve upon their current data management and analysis skills.</p>
 </div>
 </div>
-<div id="workshop-type-and-perception-of-workshop-environmentexperience" class="section level3">
-<h3>Workshop Type and Perception of Workshop Environment/Experience</h3>
-<p><img src="figures/dc-workshop-type-plot-1.png" width="960" /></p>
+<div id="workshop-type" class="section level2">
+<h2>Workshop Type</h2>
+<p><img src="../figures/dc-workshop-type-plot-1.png" width="960" /></p>
 <table>
 <thead>
 <tr class="header">
@@ -396,11 +514,16 @@ $(document).ready(function () {
 </table>
 <p>As previously mentioned, Data Carpentry workshops are domain-specific, and curricula include Ecology, Genomics, Geospatial, Social Sciences, and Reproducible Research. 72.1% of respondents learned R in their workshop, while 13.8% learned Python.</p>
 </div>
-<div id="workshop-environment" class="section level2">
-<h2>Workshop Environment</h2>
+<div id="perception-of-workshop-environment-and-experience" class="section level2">
+<h2>Perception of Workshop Environment and Experience</h2>
+<div id="comfort-of-the-environment" class="section level3">
+<h3>Comfort of the environment</h3>
 <p>The Carpentries is committed to making participation in our workshops a harassment-free experience for everyone, regardless of who learners are, where they are from, or what their experience is with the tools we teach. We establish norms for interaction by having, discussing, and enforcing a Code of Conduct so that our workshops provide open and inclusive learning environments. 79% of Data Carpentry respondents either agree or strongly agree that they felt comfortable learning in their workshop environment, and 87.1% of Software Carpentry’s respondents agreed or strongly agreed that the workshop atmosphere was welcoming.</p>
-<p><img src="figures/dc-post-workshop-comfortable-environment-1.png" width="960" /></p>
-<p><img src="figures/swc-post-workshop-environment-1.png" width="960" /></p>
+<p><img src="../figures/dc-post-workshop-comfortable-environment-1.png" width="960" /></p>
+<p><img src="../figures/swc-post-workshop-environment-1.png" width="960" /></p>
+</div>
+<div id="interaction-with-instructors-and-helpers" class="section level3">
+<h3>Interaction with Instructors and Helpers</h3>
 <p>Data Carpentry respondents were asked to rate their level of agreement with several statements regarding their instructors’ knowledge, instructional method, and enthusiasm. Their responses are in the figure below, and axis labels correspond to the statements as follows:</p>
 <ul>
 <li><strong>Instructors Knowledge</strong>: The instructors were knowledgeable about the material being taught.</li>
@@ -408,7 +531,7 @@ $(document).ready(function () {
 <li><strong>Instructors Enthusiastic</strong>: The instructors were enthusiastic about the workshop.</li>
 <li><strong>Instructors Clear Answers</strong>: I was able to get clear answers to my questions from the instructors.</li>
 </ul>
-<p><img src="figures/dc-perception-instructors-heatmap-1.png" width="960" /></p>
+<p><img src="../figures/dc-perception-instructors-heatmap-1.png" width="960" /></p>
 <p>The largest impact we see is that 96.2% of respondents said they felt comfortable interacting with the instructors. We know that our instructors <em>are</em> the reason why our workshops are so well-received. It is also great to see that 94.8% and 96.7% of respondents felt our instructors were knowledgeable about the material being taught, and were enthusiastic about the workshop, respectively. Lastly, 92.9% of respondents felt they were able to get clear answers to their questions from their instructors.</p>
 <p>Software Carpentry respondents were asked to rate how they felt instructors and helpers worked as a team, based on the following criteria:</p>
 <ul>
@@ -418,15 +541,23 @@ $(document).ready(function () {
 <li><strong>Communicators</strong>: Instructors/Helpers were good communicators.</li>
 </ul>
 <p>The two neutral centered plots below provide an analysis of respondent’s answers for both instructors and helpers.</p>
-<p><img src="figures/swc-perception-instructors-1.png" width="960" /></p>
-<p><img src="figures/swc-perception-helpers-1.png" width="960" /></p>
+<p><img src="../figures/swc-perception-instructors-1.png" width="960" /></p>
+<p><img src="../figures/swc-perception-helpers-1.png" width="960" /></p>
 <p>From the figures above, we see that Software Carpentry instructors and helpers are considerate, enthusiastic, give clear answers to questions, and are good communicators. As a whole, our instructors work as a team and are successful in creating a warm and welcoming workshop environment.</p>
+</div>
+</div>
+<div id="applicability-of-the-skills-learned" class="section level2">
+<h2>Applicability of the skills learned</h2>
 <p>One of the goals for Data Carpentry’s lessons is that learners are able to immediately apply what they learned at the workshop. The figure below shows that 65.2% either agree or strongly agree that they were able to apply what they learned immediately.</p>
-<p><img src="figures/dc-skill-applicability-plot-1.png" width="960" /></p>
+<p><img src="../figures/dc-skill-applicability-plot-1.png" width="960" /></p>
+</div>
+<div id="was-the-information-covered-in-the-workshops-new" class="section level2">
+<h2>Was the information covered in the workshops new?</h2>
 <p>As the majority of Software Carpentry learners attend workshops to learn new skills, it is great to see that 47.2% of learners either learned mostly or all new information during the workshop, while another 16.9% learned something new.</p>
-<p><img src="figures/swc-new-information-plot-1.png" width="960" /></p>
-<div id="workshop-experience" class="section level3">
-<h3>Workshop Experience</h3>
+<p><img src="../figures/swc-new-information-plot-1.png" width="960" /></p>
+</div>
+<div id="workshop-experience" class="section level2">
+<h2>Workshop Experience</h2>
 <table>
 <thead>
 <tr class="header">
@@ -454,6 +585,9 @@ $(document).ready(function () {
 </tbody>
 </table>
 <p>We want to be proactive in ensuring learners have access to whatever they need to participate in a workshop. Both Data Carpentry and Software Carpentry learners were asked to inform workshop organizers if there was anything they needed to make their workshop experience better. Data Carpentry’s respondents were asked if they had accessibility issues, and 9.3% reported they did. After reading the open-ended responses, we can see that the issues were related to not being able to hear and/or see in the back of the room. The Instructor Training Team has been made aware of this, and will be making recommendations.</p>
+</div>
+<div id="net-promoter-score" class="section level2">
+<h2>Net Promoter Score</h2>
 <p>We use the <a href="https://en.wikipedia.org/wiki/Net_Promoter">Net Promoter Score</a> to measure learners’ likelihood of recommending workshops to a friend or colleague. The scoring for this question is on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled <em>Detractors</em>, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called <em>Promoters</em>, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled <em>Passives</em>, and their behavior falls between Promoters and Detractors.</p>
 <table>
 <thead>
@@ -490,8 +624,8 @@ $(document).ready(function () {
 <p>For Software Carpentry respondents who answered this questions, 56.9% are promoters.</p>
 <p>In summary, Data Carpentry and Software Carpentry workshops provide a warm and welcoming environment, whether learners are brand new to programming or have some experience. Attendees are recommending workshops to their friends and colleagues, and we know that our instructors and helpers are the major reason why.</p>
 </div>
-<div id="effect-of-workshops-on-learners-self-reported-perspectives-skills-confidence" class="section level3">
-<h3>Effect of Workshops on Learners Self-Reported Perspectives: Skills &amp; Confidence</h3>
+<div id="effect-of-workshops-on-learners-self-reported-perspectives-skills-confidence" class="section level2">
+<h2>Effect of Workshops on Learners Self-Reported Perspectives: Skills &amp; Confidence</h2>
 <p>Learners were asked to rate their level of agreement with the following statements related to Data Carpentry’s workshop goals and learning objectives. The figure below provides a visual representation of their responses, comparing them before the workshop and after the workshop. Axis labels and the corresponding question are as follows:</p>
 <ul>
 <li><strong>Write Program</strong>: I can write a small program/script/macro to solve a problem in my own work.</li>
@@ -503,11 +637,11 @@ $(document).ready(function () {
 <li><strong>Analyses Easier</strong>: Using a programming language (like R or Python) can make my analyses easier to reproduce.</li>
 </ul>
 <p>The scoring for the above factors ranges from strongly disagree (1) to strongly agree (5).</p>
-<p><img src="figures/dc-paired-data-mean-1.png" width="960" /></p>
+<p><img src="../figures/dc-paired-data-mean-1.png" width="960" /></p>
 <p>The comparison above is paired, meaning, we are comparing those who provided us with a unique identifier and who completed both the pre- and post-workshop survey. This figure includes 411 responses. The data shows, for multiple factors, a full point increase in mean score. We are significantly impacting respondents’ confidence in programming, ability to write programs to solve problems, and ability to overcome problems if they get stuck.</p>
 <p>In the figures below, we show another representation of the pre- and post-comparison of respondents skills and perspectives. The figures below include the data for all learners, not only those who provided a unique identifier <em>and</em> took both the pre- and post-workshop surveys. What we see is a shift in the distribution for each factor, meaning, respondents’ self-reported confidence and ability shifted in positive directions.</p>
 <p>The neutral centered graphs below provide an even clearer picture of the shift in respondents’ self-reported confidence and skills.</p>
-<p><img src="figures/dc-tools-perception-1.png" width="960" /></p>
+<p><img src="../figures/dc-tools-perception-1.png" width="960" /></p>
 <p>It is interesting to see the shift in neutrality between the pre-workshop scores and post-workshop scores, especially for <em>Programming Efficient</em>. There was a higher percentage of learners beginning the workshop who felt programming with R or Python can make them more efficient at working with data. Contrarily, confidence in using programming to work with data increased from 33% to 61%.</p>
 <p>Software Carpentry Respondents were asked to tell us about their experience with these topics before the workshop:</p>
 <ul>
@@ -517,11 +651,10 @@ $(document).ready(function () {
 <li>Python</li>
 <li>Version Control with Git</li>
 </ul>
-<p><img src="figures/swc-pre-tools-1.png" width="960" /></p>
+<p><img src="../figures/swc-pre-tools-1.png" width="960" /></p>
 <p>From the figure, we see that learners consider themselves beginners from the topics covered in our workshops. When asked their knowledge of the tools covered in their workshops, learners rated their knowledge as extensive from 2% to 10% for “Git Knowledge” and “R Knowledge”.</p>
 <p>The following is a comparison of Software Carpentry respondents’ knowledge about the tools before compared to after the workshop. We see clearly that after the workshop, respondents’ knowledge of Git, Python, R, and the Unix Shell had increased a great deal.</p>
-<p><img src="figures/swc-knowledge-change-1.png" width="960" /></p>
-</div>
+<p><img src="../figures/swc-knowledge-change-1.png" width="960" /></p>
 <div id="respondent-ability-to-perform-computing-tasks" class="section level3">
 <h3>Respondent Ability to Perform Computing Tasks</h3>
 <p>Motivation is important, but being confident in your ability to complete specific computing tasks is an equally important goal of Software Carpentry. The grid below shows respondents’ self-reported ability to complete tasks including:</p>
@@ -536,14 +669,17 @@ $(document).ready(function () {
 <li><strong>SQL Query</strong>: Writing an SQL query</li>
 </ul>
 <p>It also provides their self-reported level of confidence in being able to complete the tasks above after completing the workshop.</p>
-<p><img src="figures/swc-ability-confidence-1.png" width="960" /></p>
+<p><img src="../figures/swc-ability-confidence-1.png" width="960" /></p>
 <p>These figures tell us that, before the workshop, between 32.2% and 73.4% of the respondents did not feel they could initialize a repository in Git, write a ‘for loop’ to automate tasks, use pipes to connect shell commands, write a SQL query, and/or write a unit test in R or Python. 29% of learners felt their confidence increased greatly with respect to importing a library or package in R or Python. We consider this significant as it is one of the fundamental skills that allows learners to be successful in the other areas mentioned above.</p>
 <p>In summary, respondents experienced increased confidence in their ability to perform specific computing tasks and solve problems, or at least search for answers to problems, as a result of participating in Software Carpentry and Data Carpentry workshops.</p>
 </div>
-<div id="demographics" class="section level3">
-<h3>Demographics</h3>
-<p>The Carpentries is a global community that has recognized the importance of bringing people to data through high-impact trainings. Though the majority of Data Carpentry respondents attended a workshop in the United States of America (45.3%), we see an increase in workshops in places such as Ethiopia (3.7%), Switzerland (0.6%), and India (0.1%).</p>
-<p><img src="figures/dc-country-workshop-plot-1.png" width="960" /></p>
+</div>
+<div id="demographics" class="section level2">
+<h2>Demographics</h2>
+<div id="countries" class="section level3">
+<h3>Countries</h3>
+<p>The Carpentries is a global community that has recognized the importance of bringing people to data through high-impact trainings. Though the majority of Data Carpentry respondents report attendeding a workshop in the United States of America (45.3%), we also see that learners attend workshops in African (e.g., Ethiopia 3.7%) and European (e.g., Switzerland 0.6%) countries. Note that we haven’t held workshops in Albania or Afghanistan, learners who selected these countries interpreted this question to indicate their country of origin, or made a mistake when selecting their answers.</p>
+<p><img src="../figures/dc-country-workshop-plot-1.png" width="960" /></p>
 <table>
 <thead>
 <tr class="header">
@@ -571,6 +707,9 @@ $(document).ready(function () {
 </tbody>
 </table>
 <p>In Software Carpentry’s pre-workshop survey, respondents are asked whether or not their workshop will take place in the United States. 45.7% of respondents attended a U.S. workshop.</p>
+</div>
+<div id="learners-discipline" class="section level3">
+<h3>Learners’ discipline</h3>
 <table>
 <thead>
 <tr class="header">
@@ -583,71 +722,76 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">Life Sciences</td>
 <td align="right">444</td>
-<td align="right">37.4</td>
+<td align="right">35.6</td>
 </tr>
 <tr class="even">
 <td align="left">Agricultural or Environmental Sciences</td>
 <td align="right">307</td>
-<td align="right">25.9</td>
+<td align="right">24.6</td>
 </tr>
 <tr class="odd">
 <td align="left">Bioinformatics/Genomics</td>
 <td align="right">292</td>
-<td align="right">24.6</td>
+<td align="right">23.4</td>
 </tr>
 <tr class="even">
 <td align="left">Biomedical/Health Sciences</td>
 <td align="right">288</td>
-<td align="right">24.3</td>
+<td align="right">23.1</td>
 </tr>
 <tr class="odd">
-<td align="left">Social Sciences</td>
-<td align="right">122</td>
-<td align="right">10.3</td>
+<td align="left">Other</td>
+<td align="right">133</td>
+<td align="right">10.7</td>
 </tr>
 <tr class="even">
-<td align="left">Mathematics or Statistics</td>
-<td align="right">101</td>
-<td align="right">8.5</td>
+<td align="left">Social Sciences</td>
+<td align="right">122</td>
+<td align="right">9.8</td>
 </tr>
 <tr class="odd">
-<td align="left">Earth Sciences</td>
-<td align="right">96</td>
+<td align="left">Mathematics or Statistics</td>
+<td align="right">101</td>
 <td align="right">8.1</td>
 </tr>
 <tr class="even">
-<td align="left">Engineering</td>
-<td align="right">91</td>
+<td align="left">Earth Sciences</td>
+<td align="right">96</td>
 <td align="right">7.7</td>
 </tr>
 <tr class="odd">
+<td align="left">Engineering</td>
+<td align="right">91</td>
+<td align="right">7.3</td>
+</tr>
+<tr class="even">
 <td align="left">Computer Science</td>
 <td align="right">88</td>
-<td align="right">7.4</td>
+<td align="right">7.1</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Business/Economics</td>
 <td align="right">57</td>
-<td align="right">4.8</td>
-</tr>
-<tr class="odd">
-<td align="left">Physical Sciences</td>
-<td align="right">53</td>
-<td align="right">4.5</td>
+<td align="right">4.6</td>
 </tr>
 <tr class="even">
-<td align="left">Humanities</td>
+<td align="left">Physical Sciences</td>
 <td align="right">53</td>
-<td align="right">4.5</td>
+<td align="right">4.3</td>
 </tr>
 <tr class="odd">
+<td align="left">Humanities</td>
+<td align="right">53</td>
+<td align="right">4.3</td>
+</tr>
+<tr class="even">
 <td align="left">Library Sciences</td>
 <td align="right">28</td>
-<td align="right">2.4</td>
+<td align="right">2.2</td>
 </tr>
 </tbody>
 </table>
-<p>As previously mentioned, Data Carpentry’s curricula is domain-specific to Ecology, Genomics, Geospatial, and the Social Sciences. We see this in the distribution of respondents by discipline. 37.4% are in the Life Science, while 25.9%, 24.6%, and 24.3% are in Agricultural or Environmental Sciences, Bioinformatics/Genomics, and Biomedical/Health Sciences, respectively.</p>
+<p>As previously mentioned, Data Carpentry’s curricula is domain-specific to Ecology, Genomics, Geospatial, and the Social Sciences. We see this in the distribution of respondents by discipline. 35.6% are in the Life Science, while 24.6%, 23.4%, and 23.1% are in Agricultural or Environmental Sciences, Bioinformatics/Genomics, and Biomedical/Health Sciences, respectively.</p>
 <table>
 <colgroup>
 <col width="88%" />
@@ -665,86 +809,94 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">Life Science - Organismal/systems (ecology, botany, zoology, microbiology, neuroscience)</td>
 <td align="right">2694</td>
-<td align="right">28.1</td>
+<td align="right">24.9</td>
 </tr>
 <tr class="even">
 <td align="left">Life Sciences (Genetics, genomics, bioinformatics )</td>
 <td align="right">2680</td>
-<td align="right">27.9</td>
+<td align="right">24.8</td>
 </tr>
 <tr class="odd">
+<td align="left">Other</td>
+<td align="right">1695</td>
+<td align="right">15.7</td>
+</tr>
+<tr class="even">
 <td align="left">Mathematics/statistics</td>
 <td align="right">940</td>
-<td align="right">9.8</td>
+<td align="right">8.7</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Physics</td>
 <td align="right">801</td>
-<td align="right">8.4</td>
+<td align="right">7.4</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Planetary sciences (geology, climatology, oceanography, etc.)</td>
 <td align="right">786</td>
-<td align="right">8.2</td>
+<td align="right">7.3</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Civil, mechanical, chemical, or nuclear engineering</td>
 <td align="right">692</td>
-<td align="right">7.2</td>
+<td align="right">6.4</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Medicine and/or Pharmacy</td>
 <td align="right">684</td>
-<td align="right">7.1</td>
+<td align="right">6.3</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Social sciences</td>
 <td align="right">591</td>
-<td align="right">6.2</td>
+<td align="right">5.5</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Chemistry</td>
 <td align="right">574</td>
-<td align="right">6.0</td>
-</tr>
-<tr class="even">
-<td align="left">Economics/business</td>
-<td align="right">481</td>
-<td align="right">5.0</td>
+<td align="right">5.3</td>
 </tr>
 <tr class="odd">
-<td align="left">Psychology</td>
-<td align="right">417</td>
-<td align="right">4.3</td>
+<td align="left">Economics/business</td>
+<td align="right">481</td>
+<td align="right">4.5</td>
 </tr>
 <tr class="even">
-<td align="left">Library and information science</td>
-<td align="right">373</td>
+<td align="left">Psychology</td>
+<td align="right">417</td>
 <td align="right">3.9</td>
 </tr>
 <tr class="odd">
-<td align="left">High performance computing</td>
-<td align="right">360</td>
-<td align="right">3.8</td>
+<td align="left">Library and information science</td>
+<td align="right">373</td>
+<td align="right">3.5</td>
 </tr>
 <tr class="even">
-<td align="left">Humanities</td>
-<td align="right">318</td>
+<td align="left">High performance computing</td>
+<td align="right">360</td>
 <td align="right">3.3</td>
 </tr>
 <tr class="odd">
-<td align="left">Education</td>
-<td align="right">264</td>
-<td align="right">2.8</td>
+<td align="left">Humanities</td>
+<td align="right">318</td>
+<td align="right">2.9</td>
 </tr>
 <tr class="even">
+<td align="left">Education</td>
+<td align="right">264</td>
+<td align="right">2.4</td>
+</tr>
+<tr class="odd">
 <td align="left">Space sciences</td>
 <td align="right">161</td>
-<td align="right">1.7</td>
+<td align="right">1.5</td>
 </tr>
 </tbody>
 </table>
 <p>Software Carpentry’s respondent base also has a majority Life Sciences base; however we also see representation from those working in Psychology, High Performance Computing, and Chemistry.</p>
+</div>
+<div id="learners-career-stage" class="section level3">
+<h3>Learners’ career stage</h3>
 <table>
 <thead>
 <tr class="header">
@@ -757,53 +909,61 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">Graduate Student</td>
 <td align="right">592</td>
-<td align="right">49.7</td>
+<td align="right">47.6</td>
 </tr>
 <tr class="even">
 <td align="left">Research Staff</td>
 <td align="right">200</td>
-<td align="right">16.8</td>
+<td align="right">16.1</td>
 </tr>
 <tr class="odd">
 <td align="left">Postdoctoral Researcher</td>
 <td align="right">183</td>
-<td align="right">15.4</td>
+<td align="right">14.7</td>
 </tr>
 <tr class="even">
 <td align="left">Faculty</td>
 <td align="right">101</td>
-<td align="right">8.5</td>
+<td align="right">8.1</td>
 </tr>
 <tr class="odd">
 <td align="left">Government Employee</td>
 <td align="right">80</td>
-<td align="right">6.7</td>
+<td align="right">6.4</td>
 </tr>
 <tr class="even">
+<td align="left">Other</td>
+<td align="right">79</td>
+<td align="right">6.4</td>
+</tr>
+<tr class="odd">
 <td align="left">Industry Employee</td>
 <td align="right">49</td>
-<td align="right">4.1</td>
-</tr>
-<tr class="odd">
-<td align="left">Undergraduate Student</td>
-<td align="right">48</td>
-<td align="right">4.0</td>
+<td align="right">3.9</td>
 </tr>
 <tr class="even">
-<td align="left">Management/Administrator</td>
-<td align="right">20</td>
-<td align="right">1.7</td>
+<td align="left">Undergraduate Student</td>
+<td align="right">48</td>
+<td align="right">3.9</td>
 </tr>
 <tr class="odd">
+<td align="left">Management/Administrator</td>
+<td align="right">20</td>
+<td align="right">1.6</td>
+</tr>
+<tr class="even">
 <td align="left">Retired/Not Employed</td>
 <td align="right">18</td>
-<td align="right">1.5</td>
+<td align="right">1.4</td>
 </tr>
 </tbody>
 </table>
-<p>As many of The Carpentries’ workshops are hosted on university or college campuses and other research-based communities, it is no surprise that the majority of respondents are Graduate Students (49.7% - DC, 35.4% - SWC), Research Staff (16.8% - DC,9.6% - SWC), and Postdoctoral Researchers (1.5% - DC, 12.3% - SWC).</p>
-<p><img src="figures/dc-status-plot-1.png" width="960" /></p>
-<p><img src="figures/swc-status-plot-1.png" width="960" /></p>
+<p>As many of The Carpentries’ workshops are hosted on university or college campuses and other research-based communities, it is no surprise that the majority of respondents are Graduate Students (47.6% - DC, 35.4% - SWC), Research Staff (16.1% - DC,9.6% - SWC), and Postdoctoral Researchers (1.4% - DC, 12.3% - SWC).</p>
+<p><img src="../figures/dc-status-plot-1.png" width="960" /></p>
+<p><img src="../figures/swc-status-plot-1.png" width="960" /></p>
+</div>
+<div id="learners-operating-system" class="section level3">
+<h3>Learners’ operating system</h3>
 <table>
 <thead>
 <tr class="header">
@@ -902,7 +1062,7 @@ $(document).ready(function () {
 <tr class="even">
 <td align="left">Asian</td>
 <td align="right">152</td>
-<td align="right">27.9</td>
+<td align="right">27.7</td>
 </tr>
 <tr class="odd">
 <td align="left">Black or African American</td>
@@ -912,22 +1072,27 @@ $(document).ready(function () {
 <tr class="even">
 <td align="left">Hispanic or Latino(a)</td>
 <td align="right">57</td>
-<td align="right">10.5</td>
+<td align="right">10.4</td>
 </tr>
 <tr class="odd">
 <td align="left">Native Hawaiian or Other Pacific Islander</td>
 <td align="right">3</td>
-<td align="right">0.6</td>
+<td align="right">0.5</td>
 </tr>
 <tr class="even">
 <td align="left">White</td>
 <td align="right">316</td>
-<td align="right">58.1</td>
+<td align="right">57.6</td>
 </tr>
 <tr class="odd">
 <td align="left">I prefer not to say.</td>
 <td align="right">28</td>
 <td align="right">5.1</td>
+</tr>
+<tr class="even">
+<td align="left">Other</td>
+<td align="right">8</td>
+<td align="right">1.5</td>
 </tr>
 </tbody>
 </table>
@@ -1014,18 +1179,27 @@ $(document).ready(function () {
 </tbody>
 </table>
 <p>Gender and racial/ethnic identity information is collected for U.S. participants, as we are keen to increase the number of diverse instructors and learners we serve. Understanding our demographic makeup helps us to understand what communities we reach and what programs we should develop.</p>
-<p>Currently, both Data (56.6%) Carpentry and Software (48.9%) Carpentry see strong representation from women in the United States. Where we hope to improve is in reaching the non-White audience, as fewer than 49.4% for Data Carpentry, and 45% for SWC of our respondents are from communities historically underrepresented in the science, technology, engineering, and mathematics (STEM) fields.</p>
+<p>Currently, both Data (56.6%) Carpentry and Software (48.9%) Carpentry see strong representation from women in the United States. Where we hope to improve is in reaching the non-White audience, as fewer than 50.5% for Data Carpentry, and 45% for SWC of our respondents are from communities historically underrepresented in the science, technology, engineering, and mathematics (STEM) fields.</p>
 </div>
-<div id="summary" class="section level3">
-<h3>Summary</h3>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
 <p>For a comprehensive look at our workshops and instructor training, have a look at our <a href="https://carpentries.github.io/assessment/programmatic-assessment/workshops/outputs/final_report.html">programmatic assessment report</a>.</p>
 <p>Currently, Data Carpentry and Software Carpentry use different surveys. In the coming months, we plan to develop one common survey to be used for both Data Carpentry and Software Carpentry.</p>
 </div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="https://twitter.com/drkariljordan" class="uri">https://twitter.com/drkariljordan</a><a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p><a href="https://twitter.com/fmic_" class="uri">https://twitter.com/fmic_</a><a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p><a href="https://twitter.com/cloudaus" class="uri">https://twitter.com/cloudaus</a><a href="#fnref3">↩</a></p></li>
+</ol>
+</div>
+
+
+
 </div>
 </div>
-
-
-
 
 </div>
 
