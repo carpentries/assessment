@@ -1,13 +1,18 @@
 ---
+title: Analysis of Software and Data Carpentry's Pre- and Post-Workshop Surveys
+author:
+- Kari L. Jordan^[https://twitter.com/drkariljordan]
+- François Michonneau^[https://twitter.com/fmic_]
+- Belinda Weaver^[https://twitter.com/cloudaus]
+date: July 17th, 2018
 output:
   html_document:
     self_contained: no
   pdf_document: default
+  toc: true
+  toc_float: true
 ---
 
-# Analysis of Software and Data Carpentry's Pre- and Post-Workshop Surveys
-### Authors: [Kari L. Jordan](https://twitter.com/drkariljordan), [François Michonneau](https://twitter.com/fmic_), [Belinda Weaver](https://twitter.com/cloudaus)
-### Published: 17-July 2018
 
 ```{r setup, include=FALSE}
 library(tidyverse)
@@ -283,7 +288,7 @@ dc_dates <- range(c(dcpredata$date, dcpostdata$date))
 swc_dates <- range(c(swcpredata$date, swcpostdata$date))
 ```
 
-### Overview
+## Overview
 
 Since `r format(min(c(dc_dates, swc_dates)), format="%B %d, %Y")`, Software and Data Carpentry have collected information on learner demographics, perception of tools, and confidence in working with data. As we continue in our goal to streamline processes as The Carpentries, the Assessment Team completed an analysis of the pre- and post-workshop surveys for both Software Carpentry and Data Carpentry. The goal of this analysis is to understand the impact our workshops are having on learners, and how we can improve our surveys and assessment infrastructure. This report covers the workshops from `r format(min(swc_dates), format="%B %d, %Y")` to `r format(max(swc_dates), format="%B %d, %Y")` for Software Carpentry, and from  `r format(min(dc_dates), format="%B %d, %Y")` to `r format(max(dc_dates), format="%B %d, %Y")` for Data Carpentry.
 
@@ -298,13 +303,13 @@ This report includes the following:
 - Demographics
 - Summary
 
-### Motivation for Attending Carpentries Workshops
+## Motivation for Attending Carpentries Workshops
 
 Learners attend Carpentries workshops for many reasons. Data Carpentry's workshops are domain-specific and focus on the fundamental data skills needed to conduct research. Data Carpentry's Ecology and Social Sciences curricula begin with a lesson on data organization and include data cleaning with OpenRefine. From there, learners spend time learning a programming language, either Python or R, to manipulate and visualize data.
 
 Data Carpentry's Genomics curriculum focuses on best practices for organization of bioinformatics projects and data, use of command line utilities and tools to analyze sequence quality and perform variant calling, and connecting to and using cloud computing.
 
-#### Why are learners participating in our workshops?
+### Why are learners participating in our workshops?
 
 We are interested in knowing why learners attend our workshops. Respondents were asked to check all that apply for several factors provided in the tables below.
 
@@ -475,7 +480,7 @@ swc_first_timers %>%
 Compared to Data Carpentry's learners, Software Carpentry's tend to have more experience with the tools covered in the workshops, and learners come to learn new and/or additional topics (`r p_swc_why_attending`%). It is also interesting to note that `r p_first_timers`% of Software Carpentry respondents are first-time attendees.
 
 
-#### What is the current level of satisfaction of the data management practices of our learners before attending our workshops?
+### What is the current level of satisfaction of the data management practices of our learners before attending our workshops?
 
 ```{r dc-satisfaction-level}
 ## Satisfaction with current data management practices 
@@ -508,7 +513,7 @@ dc_satisfaction %>%
 
 The majority (`r dc_percent_unsatisfied`%) of Data Carpentry's respondents are either unsatisfied or feel neutral with their current data management practices. By data management practices, we include behaviors such as keeping your raw data raw, reusing code, and using databases, queries, and scripts to manage large data sets.
 
-#### How often do our workshop participants program before attending our workshops?
+### How often do our workshop participants program before attending our workshops?
 
 ```{r dc-programming-usage}
 ## Programming usage
@@ -594,7 +599,7 @@ Data Carpentry and Software Carpentry workshop participants often find out about
 In summary, both Data and Software Carpentry workshop respondents attend workshops to learn about or improve upon their current data management and analysis skills.
 
 
-### Workshop Type and Perception of Workshop Environment/Experience
+## Workshop Type and Perception of Workshop Environment/Experience
 
 ```{r dc-workshop-type}
 # Workshop topics
@@ -652,6 +657,8 @@ in their workshop, while `r dc_programming_language_py`% learned Python.
 
 
 ## Workshop Environment
+
+### Comfort of the environment
 
 ```{r workshop-environment}
 # Environment
@@ -725,6 +732,8 @@ ggassessment_lolli(swc_comfortable,
     )
                    
 ```
+
+### Interaction with Instructors and Helpers
 
 Data Carpentry respondents were asked to rate their level of agreement with several statements regarding their instructors' knowledge, instructional method, and enthusiasm. Their responses are in the figure below, and axis labels correspond to the statements as follows:
 
@@ -821,6 +830,8 @@ plot(swc_helper_perception_likert) +
 
 From the figures above, we see that Software Carpentry instructors and helpers are considerate, enthusiastic, give clear answers to questions, and are good communicators. As a whole, our instructors work as a team and are successful in creating a warm and welcoming workshop environment.
 
+## Applicability of the skills learned
+
 ```{r dc-skill-applicability}
 ## Data Carpentry: I can immediately apply what I learned at this workshop
 applicability_levels <- c("Strongly disagree", "Disagree", "Neutral", "Agree",
@@ -850,6 +861,7 @@ ggassessment_lolli(dc_applicability,
     )
 ```
 
+## Was the information covered in the workshops new?
 
 ```{r swc-new-info}
 ## How much information was new??? 
@@ -892,7 +904,7 @@ ggassessment_lolli(swc_new_info,
     )
 ```
 
-### Workshop Experience
+## Workshop Experience
 
 
 ```{r dc-accessibility}
@@ -914,6 +926,8 @@ dc_accessibility %>%
 ```
 
 We want to be proactive in ensuring learners have access to whatever they need to participate in a workshop. Both Data Carpentry and Software Carpentry learners were asked to inform workshop organizers if there was anything they needed to make their workshop experience better. Data Carpentry's respondents were asked if they had accessibility issues, and `r dc_accessibility_percent`% reported they did. After reading the open-ended responses, we can see that the issues were related to not being able to hear and/or see in the back of the room. The Instructor Training Team has been made aware of this, and will be making recommendations.
+
+## Net Promoter Score
 
 We use the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter) to measure learners' likelihood of recommending workshops to a friend or colleague. The scoring for this question is on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled *Passives*, and their behavior falls between Promoters and Detractors.
 
@@ -970,13 +984,10 @@ swc_nps_percent <- swc_nps %>%
 
 For Software Carpentry respondents who answered this questions, `r swc_nps_percent`% are promoters.
 
-```{r}
-## Qualitative Analysis (SWC/DC)
-```
 
 In summary, Data Carpentry and Software Carpentry workshops provide a warm and welcoming environment, whether learners are brand new to programming or have some experience. Attendees are recommending workshops to their friends and colleagues, and we know that our instructors and helpers are the major reason why.
 
-### Effect of Workshops on Learners Self-Reported Perspectives: Skills & Confidence
+## Effect of Workshops on Learners Self-Reported Perspectives: Skills & Confidence
 
 Learners were asked to rate their level of agreement with the following statements related to Data Carpentry's workshop goals and learning objectives. The figure below provides a visual representation of their responses, comparing them before the workshop and after the workshop. Axis labels and the corresponding question are as follows:
 
@@ -1394,8 +1405,10 @@ In summary, respondents experienced increased confidence in their ability to per
 
 
 
-### Demographics
+## Demographics
 
+
+### Countries
 
 ```{r dc-country-workshops}
 ## Data Carpentry learners are asked what country their workshop is held.
@@ -1447,6 +1460,8 @@ swc_country %>%
 In Software Carpentry's pre-workshop survey, respondents are asked whether or not their workshop will take place in the United States. `r swc_in_us`% of respondents attended a U.S. workshop.
 
 
+### Learners' discipline
+
 ```{r dc-discipline}
 ## Domain 
 ## Tally Data Carpentry's pre-workshop respondents by Discipline
@@ -1488,6 +1503,8 @@ swc_discipline %>%
 Software Carpentry's respondent base also has a majority Life Sciences base; however we also see representation from those working in Psychology, High Performance Computing, and Chemistry.
 
 
+### Learners' career stage
+
 ```{r dc-staus}
 # Position/Status
 # Data Carpentry Respondents by Status
@@ -1514,6 +1531,7 @@ dc_status %>%
         col.names = c("Data Carpentry's Respondents by Career Stage", "n", "%")
     )
 ```
+
 
 ```{r swc-status}
 ## Software Carpentry Respondents by Position/Status
@@ -1562,6 +1580,7 @@ ggassessment_lolli(swc_status,
     )
 ```
 
+### Learners' operating system
 
 ```{r dc-os}
 ## OS 
@@ -1700,7 +1719,7 @@ Gender and racial/ethnic identity information is collected for U.S. participants
 Currently, both Data (`r dc_gender_female`%) Carpentry and Software (`r swc_gender_female`%) Carpentry see strong representation from women in the United States. Where we hope to improve is in reaching the non-White audience, as fewer than `r dc_underrepresented`% for Data Carpentry, and `r swc_underrepresented`% for SWC of our respondents are from communities historically underrepresented in the science, technology, engineering, and mathematics (STEM) fields.
 
 
-### Summary
+## Summary
 
 For a comprehensive look at our workshops and instructor training, have a look at our [programmatic assessment report](https://carpentries.github.io/assessment/programmatic-assessment/workshops/outputs/final_report.html).
 
