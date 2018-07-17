@@ -1400,6 +1400,7 @@ In summary, respondents experienced increased confidence in their ability to per
 ```{r dc-country-workshops}
 ## Data Carpentry learners are asked what country their workshop is held.
 ## Tally Data Carpentry's pre-workshop respondents by Country
+
 dc_country <- dcpredata %>%
     group_by(country) %>%
     tally(sort = TRUE) %>%
@@ -1412,7 +1413,7 @@ get_dc_country_percent <- function(country_var, .data = dc_country) {
 
 ```
 
-The Carpentries is a global community that has recognized the importance of bringing people to data through high-impact trainings. Though the majority of Data Carpentry respondents attended a workshop in the United States of America (`r get_dc_country_percent("United States of America")`%), we see an increase in workshops in places such as Ethiopia (`r get_dc_country_percent("Ethiopia")`%), Switzerland (`r get_dc_country_percent("Switzerland")`%), and India (`r get_dc_country_percent("India")`%).   
+The Carpentries is a global community that has recognized the importance of bringing people to data through high-impact trainings. Though the majority of Data Carpentry respondents report attendeding a workshop in the United States of America (`r get_dc_country_percent("United States of America")`%), we also see that learners attend workshops in African (e.g., Ethiopia `r get_dc_country_percent("Ethiopia")`%) and European (e.g., Switzerland `r get_dc_country_percent("Switzerland")`%) countries. Note that we haven't held workshops in Albania or Afghanistan, learners who selected these countries interpreted this question to indicate their country of origin, or made a mistake when selecting their answers.
 
 ```{r dc-country-workshop-plot, fig.height=7}
 ## Plot Data Carpentry's respondents by Country
