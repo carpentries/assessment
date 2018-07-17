@@ -496,16 +496,13 @@ dc_percent_unsatisfied <- dc_satisfaction %>%
 ```{r dc-satisfaction-level-plot}
 
 dc_satisfaction %>%
-    filter(!current_satisfaction %in% c("Not applicable",
-                                        "Didn't answer")) %>% 
     ggassessment_lolli(
         aes(y = factor(current_satisfaction,
                        levels = rev(satisfaction_levels)),
             x = percent), color = "dc") +
     labs(
         y = "",
-        title = "Pre-workshop Satisfaction Level with Current Data Management Practices",
-        subtitle = "'Not applicable' and 'Didn't answer' not shown"
+        title = "Pre-workshop Satisfaction Level with Current Data Management Practices"
     ) 
 ```
 
@@ -537,16 +534,13 @@ dc_percent_programming_daily <- dc_programming_usage %>%
 
 ```{r dc-programming-level-plot}
 dc_programming_usage %>%
-    filter(!current_programming %in% c("Not applicable",
-                                        "Didn't answer")) %>% 
     ggassessment_lolli(
         aes(y = factor(current_programming,
                        levels = rev(usage_levels)),
             x = percent), color = "dc") +
     labs(
         y = "",
-        title = "Pre-workshop Programming Usage",
-        subtitle = "'Not applicable' and 'Didn't answer' not shown"
+        title = "Pre-workshop Programming Usage"
     ) 
 ```
 
