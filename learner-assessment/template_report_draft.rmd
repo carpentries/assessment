@@ -142,6 +142,7 @@ dcpredata <- readr::read_csv("data/180511_dcpre.csv",
         "status_7" = Column20,
         "status_8" = Column21,
         "status_9" = Column22,
+        "status_other" = StatusOther,
         ## ---- why_attending ----
         "why_attending_1" = WhyAttending,
         "why_attending_2" = Column27,
@@ -315,8 +316,6 @@ percent_nona <- function(x) round(tally_nona(x)/length(x) * 100, 1)
 extract_multi_columns <- function(.data, column_prefix) {
     .data %>%
         select(starts_with(column_prefix),
-               -matches(paste0(column_prefix, "_other")),
-               -matches(paste0(column_prefix, "_open_ended"))
                ) %>%
         filter(has_answers(.))
 }
@@ -327,6 +326,10 @@ summarize_multi_columns <- function(.data) {
     get_key_multi_answer <- . %>%
         gather(column_name, question) %>%
         filter(!is.na(question)) %>%
+        mutate(question = case_when(
+                   grepl("_(other|open_ended)", column_name) ~ "Other",
+                   TRUE ~ question)
+               ) %>%
         distinct(column_name, question)
 
     ## Get numbers and percentage of each option
@@ -334,7 +337,7 @@ summarize_multi_columns <- function(.data) {
         summarize_all(funs(n = tally_nona, percent = percent_nona)) %>%    
         gather() %>%
         extract(key, c("column_name", "metric"),
-                regex = "([a-z_]+_[0-9]+)_(n|percent)") %>%
+                regex = "([a-z_]+_[a-z0-9]+)_(n|percent)") %>%
         spread(metric, value)
 
     answer_key <- .data %>%
