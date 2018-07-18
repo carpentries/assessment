@@ -20,7 +20,7 @@ This repository contains projects lead by Kari L. Jordan, Director of Assessment
 
 + Create a new branch from this repository using master as the base:
 
-```shell
+```bash
 git checkout -b 20XX-XX-report master
 ```
 
