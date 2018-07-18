@@ -16,15 +16,51 @@ Additionally, we measure learner’s perception of skill growth and whether or n
 
 This repository contains projects lead by Kari L. Jordan, Director of Assessment and Community Equity. The projects in this repo are open for comments/feedback and collaboration.
 
-# Content
-+ [archives]()
-+ [code]()
-+ [data]()
-+ [documents]()
-+ [figures]()
+# Creating a new report
 
-# Reports  
-+ __Short-Term Reports__
++ Create a new branch from this repository using master as the base:
+
+```bash
+git checkout -b 20XX-XX-report master
+```
+
++ Add data files to the `data/` folder. Data files should start with the date
+  they were created in the "YYYYMMDD_filename.csv" format.
+
++ Create new report in `report-src/` folder. Report name should start with year
+  and month of anticipated publication (i.e., "YYYY-MM-name-of-report.Rmd").
+
++ To build the report, you will need to run the following command while your
+  working directory is set to this folder (`assessment/learner-assessment`).
+  Alternatively, you can edit the commands in `build_reports.R`.
+
+```r
+library(rmarkdown)
+render("reports-src/YYYY-MM-name-of-report.Rmd",
+       output_format = "html_document",
+       output_file = "../reports/YYYY-MM-name-of-report.html")
+```
+
++ Once the report is ready for publication:
+  * edit `index.html` to add the report to the list of published reports
+  * add the report to `README.md`
+  * create a pull request to be merged into `master`, and make it available at
+    <https://carpentries.github.io/assessment/reports/YYYY-MM-name-of-report.html>.
+
+  
+
+# Content
+
+  + [archives]()
+  + [code]()
+  + [data]()
+  + [documents]()
+  + [figures]()
+
+
+# Reports
+
+  + __Short-Term Reports__
  + [2018-July](https://carpentries.github.io/assessment/learner-assessment/template_report_draft.html)
 + __Software Carpentry__ 
   + [2017-July](https://carpentries.github.io/assessment/learner-assessment/archives/2017/code/2017-July-post.html) Post-Workshop Survey Report  
@@ -37,3 +73,5 @@ This repository contains projects lead by Kari L. Jordan, Director of Assessment
   + [2018-July](https://carpentries.github.io/assessment/learner-assessment/code/2018_July_longterm_impact.html) Report
   + [2018-January](https://carpentries.github.io/assessment/learner-assessment/archives/2018/code/2018_January_long_term_report.html) Report
   + [2017-October](https://carpentries.github.io/assessment/learner-assessment/archives/2017/code/longtermreport_October2017.html) Report
+  
+  
