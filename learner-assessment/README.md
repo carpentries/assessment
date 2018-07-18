@@ -20,7 +20,7 @@ This repository contains projects lead by Kari L. Jordan, Director of Assessment
 
 + Create a new branch from this repository using master as the base:
 
-```git
+```shell
 git checkout -b 20XX-XX-report master
 ```
 
@@ -36,11 +36,14 @@ git checkout -b 20XX-XX-report master
 
 ```r
 library(rmarkdown)
-render("reports-src/YYYY-MM-name-of-report.Rmd", output_format = "html_document", output_file = "../reports/YYYY-MM-name-of-report.html")
+render("reports-src/YYYY-MM-name-of-report.Rmd",
+       output_format = "html_document",
+       output_file = "../reports/YYYY-MM-name-of-report.html")
 ```
 
 + Once the report is ready for publication:
   * edit `index.html` to add the report to the list of published reports
+  * add the report to `README.md`
   * create a pull request to be merged into `master`, and make it available at
     <https://carpentries.github.io/assessment/reports/YYYY-MM-name-of-report.html>.
 
