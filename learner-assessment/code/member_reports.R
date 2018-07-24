@@ -46,3 +46,18 @@ dcpostdata$slug <- dcpostdata$Unique.identifier.of.workshop
 dcpostdata <- merge(dcpostdata, slug, by = "slug")
 # We want to now subset the data by institution name (lists)
 dcpostdata_members <- split(dcpostdata, dcpostdata$fullname)
+
+write_split_data = function(data_in, file_extension) {
+  for(member in 1:length(data_in)) {
+    filename = names(data_in[member])
+    filename = gsub(" ", "_", filename)
+    filename = paste0(filename, file_extension)
+    print(filename)
+    write.csv(data_in[member], file = filename)
+  }
+}
+
+write_split_data(data_in = swcpredata_members, file_extension = "_swcpredata.csv")
+write_split_data(data_in = swcpostdata_members, file_extension = "_swcpostdata.csv")
+write_split_data(data_in = dcpredata_members, file_extension = "_dcpredata.csv")
+write_split_data(data_in = dcpostdata_members, file_extension = "_dcpostdata.csv")
