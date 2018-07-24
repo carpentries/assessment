@@ -1,0 +1,1688 @@
+---
+## To build this report, run: `source("build_reports.Rmd")` in the 
+## directory one level above
+title: Analysis of Software and Data Carpentry's Pre- and Post-Workshop Surveys
+author:
+- Kari L. Jordan^[https://twitter.com/drkariljordan]
+- François Michonneau^[https://twitter.com/fmic_]
+- Belinda Weaver^[https://twitter.com/cloudaus]
+date: July 17th, 2018
+output:
+  html_document:
+    self_contained: no
+    toc: true
+    toc_float: true
+    lib_dir: "../reports/libs"
+  pdf_document:
+    toc: true
+    highlight: zenburn
+    df_print: kable
+---
+
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(knitr)
+library(likert)
+library(srvyr)
+library(NPS)
+library(broom)
+library(assertr)
+library(viridis)
+library(patchwork)
+library(scales)
+library(ggalt)
+
+opts_chunk$set(echo = FALSE,
+               message = FALSE,
+               warning = FALSE)
+
+if (opts_knit$get("rmarkdown.pandoc.to") == "latex") {
+    figout <- "\\maxwidth"
+} else {
+    figout <- NULL   
+}
+
+## puts all figures in figures folder
+opts_chunk$set(fig.path='../figures/', fig.width = 10, fig.retina = 2,
+               out.width = figout)
+
+
+to_snake_case <- function(x) {
+    x <- gsub("([A-Z])([A-Z][a-z]+)", "\\1_\\2", x)
+    tolower(gsub("([a-z])([A-Z])", "\\1_\\2", x))
+}
+
+## returns TRUE when the respondent has answered at least one question.
+has_answers <- function(d) {
+    d %>%
+        select(-matches("date")) %>%
+        mutate(has_answers = rowSums(is.na(.)) < ncol(.)) %>%
+        pull(has_answers)   
+}
+
+
+convert_label <- function(x) {
+    x <- gsub("_([a-z])", " \\U\\1", x, perl = TRUE)
+    x <- gsub("^([a-z])", "\\U\\1", x, perl = TRUE)
+    gsub("sql", "SQL", x, ignore.case = TRUE)
+}
+
+
+
+ggassessment_hist <- function(data, mapping) {
+    ggplot(data, mapping) +
+        geom_col(fill = "darkcyan") +
+        geom_text(aes(label = n), size = 4, nudge_y = 3) +
+        scale_x_discrete(labels = function(x)
+            lapply(strwrap(x, width = 10, simplify = FALSE),
+                   paste, collapse = "\n")) +
+        ylab("% Respondents") +
+        theme_classic(base_size = 14)
+}
+
+ggassessment_lolli <- function(data, mapping, color) {
+    data$percent <- data$percent / 100
+    if (!identical(substr(color, 1, 1), "#")) {
+        color <- match.arg(color, c("swc", "dc", "cp"))
+        color <- switch(color,
+                        swc = "#2f3f8e",
+                        dc  = "darkcyan",
+                        cp = "#071159")
+    }
+    
+    ggplot(data, mapping) +
+        geom_lollipop(col = color, horizontal = TRUE, point.size = 2.5) +
+        geom_text(aes(label = n), size = 4, nudge_x = .0125, hjust = 0) +
+        scale_x_continuous(expand=c(0, 0), labels=percent,
+                           breaks=seq(0, 1, by = 0.2), limits = c(0, 1)) +
+        scale_y_discrete(labels = function(x) str_wrap(x, width = 20)) +
+        theme_minimal(base_size = 14) +
+        theme(panel.grid.major.y = element_blank(),
+              panel.grid.minor  = element_blank(),
+              axis.line.y = element_line(color="#2b2b2b"),
+              axis.text.y = element_text(margin = margin(r=0, l=0)),
+              plot.margin = unit(c(5, 30, 10, 30), "pt"), 
+              plot.title = element_text(margin = margin(r = 100, b = 10),
+                                        face="bold"), 
+              plot.subtitle = element_text(margin = margin(b = 10)), 
+              plot.caption = element_text(size = 10, margin = margin(t = 10))) +
+        labs(x = "% Respondents",
+             y = "", 
+             caption = "Numbers of answers reported on the graph")
+
+}
+
+
+
+make_likert_data <- function(.data, var_levels) {
+    .data %>%
+        select(-matches("_open_ended")) %>% 
+        mutate_all(~ factor(., levels = var_levels, ordered = TRUE)) %>%
+        as.data.frame() %>% 
+        likert() %>%
+        transform_likert_labels()     
+}
+
+```
+
+
+```{r, echo=TRUE, results="show"}
+
+```
+
+```{r load-dc-data}
+# Load DC pre and post-workshop data
+# Data Carpentry Pre-Workshop Data
+dcpredata <- readr::read_csv("../data/20180511_dcpre.csv",
+                             col_types = cols(
+                                 Date =  col_datetime(
+                                     format = "%m/%d/%y %H:%M"
+                                 ),
+                                 .default = "c")
+                             ) %>%
+    rename(
+        ## ---- discipline ----
+        "discipline_1"  = Discipline,        
+        "discipline_2"  = Column2, 
+        "discipline_3"  = Column3, 
+        "discipline_4"  = Column4, 
+        "discipline_5"  = Column5, 
+        "discipline_6"  = Column6, 
+        "discipline_7"  = Column7, 
+        "discipline_8"  = Column8, 
+        "discipline_9"  = Column9, 
+        "discipline_10" = Column10, 
+        "discipline_11" = Column11, 
+        "discipline_12" = Column12, 
+        "discipline_13" = Column13,
+        "discipline_other" = DisciplineOther, 
+        ## ---- status ----
+        "status_1" = Status, 
+        "status_2" = Column15, 
+        "status_3" = Column16, 
+        "status_4" = Column17, 
+        "status_5" = Column18, 
+        "status_6" = Column19, 
+        "status_7" = Column20,
+        "status_8" = Column21,
+        "status_9" = Column22,
+        "status_other" = StatusOther,
+        ## ---- why_attending ----
+        "why_attending_1" = WhyAttending,
+        "why_attending_2" = Column27,
+        "why_attending_3" = Column28,
+        "why_attending_4" = Column29,
+        "why_attending_other" = WhyAttendingOther, 
+        ## ---- exposure ----
+        "exposure_1" = Exposure,
+        "exposure_2" = Column31,
+        "exposure_3" = Column32,
+        "exposure_4" = Column33,
+        "exposure_5" = Column34,
+        "exposure_6" = Column35,
+        "exposure_other" = ExposureOther,
+        ## ---- ethnic_identiity ----
+        "ethnic_identity_1" = RaceEthnicIdentity,
+        "ethnic_identity_2" = Column44,
+        "ethnic_identity_3" = Column45, 
+        "ethnic_identity_4" = Column46,
+        "ethnic_identity_5" = Column47,
+        "ethnic_identity_6" = Column48,
+        "ethnic_identity_7" = Column49, 
+        "ethnic_identity_other" = RaceEthnicIdentityOther
+    ) %>%
+    rename_all(to_snake_case) %>%
+    filter(has_answers(.))
+
+## Data Carpentry Post-Workshop Data
+dcpostdata <- readr::read_csv("../data/20180511_dcpost.csv",
+                              col_types = cols(
+                                  Date =  col_datetime(
+                                      format = "%m/%d/%y %H:%M"
+                                  ),
+                                  .default = "c")
+                              ) %>%
+    rename_all(to_snake_case) %>%
+    filter(has_answers(.))
+```
+
+```{r load-swc-data}
+## Load SWC pre and post-workshop data
+## Software Carpentry Pre-Workshop Data
+swcpredata <- readr::read_csv("../data/20180521_swcpre.csv",
+                              col_types = cols(
+                                  Date =  col_datetime(
+                                      format = "%m/%d/%y %H:%M"
+                                  ),
+                                  .default = "c")
+                              ) %>%
+    rename(
+        ## ---- why_attending ----
+        "why_attending_1" = WhyAttending,
+        "why_attending_2" = Column4,
+        "why_attending_3" = Column5,
+        "why_attending_4" = Column6,
+        "why_attending_5" = Column7, 
+        "why_attending_other" = WhyAttendingOther, 
+        ## ---- factors ----
+        "factors_1" = Factors,
+        "factors_2" = Column13,
+        "factors_3" = Column14,
+        "factors_other" = FactorsOther,
+        ## ---- exposure ----
+        "exposure_1" = Exposure,
+        "exposure_2" = Column16,
+        "exposure_3" = Column17,
+        "exposure_4" = Column18,
+        "exposure_5" = Column19,
+        "exposure_6" = Column20,
+        "exposure_7" = Column21,
+        "exposure_other" = ExposureOther,
+        ## ---- domain ----
+        "domain_1" = Domain,
+        "domain_2" = Column47,
+        "domain_3" = Column48,
+        "domain_4" = Column49,
+        "domain_5" = Column50,
+        "domain_6" = Column51,
+        "domain_7" = Column52,
+        "domain_8" = Column53,
+        "domain_9" = Column54,
+        "domain_10" = Column55,
+        "domain_11" = Column56,
+        "domain_12" = Column57,
+        "domain_13" = Column58,
+        "domain_14" = Column59,
+        "domain_15" = Column60,
+        "domain_16" = Column61,
+        "domain_other" = DomainOther
+    ) %>%
+    rename_all(to_snake_case) %>%
+    filter(is.na(over18) | over18 == "Yes") %>%
+    filter(has_answers(.))
+
+## Software Carpentry Post-Workshop Data
+swcpostdata <- readr::read_csv("../data/20180521_swcpost.csv",
+                               col_types = cols(
+                                   Date =  col_datetime(
+                                       format = "%m/%d/%y %H:%M"
+                                   ),
+                                   .default = "c")
+                               ) %>%
+    rename(
+        ## ---- domain ----
+        "domain_1" = Domain,
+        "domain_2" = Column50,
+        "domain_3" = Column51,
+        "domain_4" = Column52,
+        "domain_5" = Column53,
+        "domain_6" = Column54,
+        "domain_7" = Column55,
+        "domain_8" = Column56,
+        "domain_9" = Column57,
+        "domain_10" = Column58,
+        "domain_11" = Column59,
+        "domain_12" = Column60,
+        "domain_13" = Column61,
+        "domain_14" = Column62,
+        "domain_15" = Column63,
+        "domain_16" = Column64,
+        "domain_other" = DomainOther
+    ) %>%
+    rename_all(to_snake_case) %>%
+    filter(is.na(above18) | above18 == "Yes") %>%
+    filter(has_answers(.))
+```
+
+```{r overview-inline-stats}
+## number of learners
+n_learners_pre_dc <- nrow(dcpredata)
+n_learners_post_dc <- nrow(dcpostdata)
+n_learners_pre_swc <- nrow(swcpredata)
+n_learners_post_swc <- nrow(swcpostdata)
+
+## time period covered
+dc_dates <- range(c(dcpredata$date, dcpostdata$date))
+swc_dates <- range(c(swcpredata$date, swcpostdata$date))
+```
+
+## Overview
+
+Since `r format(min(c(dc_dates, swc_dates)), format="%B %d, %Y")`, Software and Data Carpentry have collected information on learner demographics, perception of tools, and confidence in working with data. As we continue in our goal to streamline processes as The Carpentries, the Assessment Team completed an analysis of the pre- and post-workshop surveys for both Software Carpentry and Data Carpentry. The goal of this analysis is to understand the impact our workshops are having on learners, and how we can improve our surveys and assessment infrastructure. This report covers the workshops from `r format(min(swc_dates), format="%B %d, %Y")` to `r format(max(swc_dates), format="%B %d, %Y")` for Software Carpentry, and from  `r format(min(dc_dates), format="%B %d, %Y")` to `r format(max(dc_dates), format="%B %d, %Y")` for Data Carpentry.
+
+As an overview, `r n_learners_pre_dc` and `r n_learners_post_dc` learners have responded to Data Carpentry's pre- and post-workshop surveys respectively, while `r n_learners_pre_swc` and `r n_learners_post_swc` have responded to Software Carpentry's. 
+
+This report includes the following:
+
+- Motivation for Attending Carpentries Workshops
+- Workshop Type and Perception of Workshop Environment/Experience
+- Effect of Workshops on Learners' Self-Reported Perspectives, Skills, and Confidence
+- Ability to Perform Computing Tasks
+- Demographics
+- Summary
+
+## Motivation for Attending Carpentries Workshops
+
+Learners attend Carpentries workshops for many reasons. Data Carpentry's workshops are domain-specific and focus on the fundamental data skills needed to conduct research. Data Carpentry's Ecology and Social Sciences curricula begin with a lesson on data organization and include data cleaning with OpenRefine. From there, learners spend time learning a programming language, either Python or R, to manipulate and visualize data.
+
+Data Carpentry's Genomics curriculum focuses on best practices for organization of bioinformatics projects and data, use of command line utilities and tools to analyze sequence quality and perform variant calling, and connecting to and using cloud computing.
+
+### Why are learners participating in our workshops?
+
+We are interested in knowing why learners attend our workshops. Respondents were asked to check all that apply for several factors provided in the tables below.
+
+```{r why-attending-helpers}
+tally_nona <- function(x) sum(!is.na(x))
+percent_nona <- function(x) round(tally_nona(x)/length(x) * 100, 1)
+
+## Extract the relevant columns, and remove answers where repondant didn't
+## select anything.
+extract_multi_columns <- function(.data, column_prefix) {
+    .data %>%
+        select(starts_with(column_prefix),
+               ) %>%
+        filter(has_answers(.))
+}
+
+summarize_multi_columns <- function(.data) {
+
+    ## Make table of column name to question correspondance
+    get_key_multi_answer <- . %>%
+        gather(column_name, question) %>%
+        filter(!is.na(question)) %>%
+        mutate(question = case_when(
+                   grepl("_(other|open_ended)", column_name) ~ "Other",
+                   TRUE ~ question)
+               ) %>%
+        distinct(column_name, question)
+
+    ## Get numbers and percentage of each option
+    tally_percent_multi_answer <- . %>%
+        summarize_all(funs(n = tally_nona, percent = percent_nona)) %>%    
+        gather() %>%
+        extract(key, c("column_name", "metric"),
+                regex = "([a-z_]+_[a-z0-9]+)_(n|percent)") %>%
+        spread(metric, value)
+
+    answer_key <- .data %>%
+        get_key_multi_answer
+
+    .data %>%
+        tally_percent_multi_answer %>%
+        inner_join(answer_key, by = "column_name")
+}
+
+extract_percentage <- function(.data, .var, .value) {
+    col_var <- enquo(.var)
+    .data %>%
+        filter(!!col_var == .value) %>%
+        pull(percent)
+}
+
+render_table <- function(.data, col, col.names, arrange = TRUE) {
+    col <- enquo(col)
+
+    res <- .data  %>%
+        select(!! col, n, percent)
+
+    if (arrange)
+        res <- res %>%
+            arrange(desc(n))
+
+    res %>% 
+        kable(format = 'markdown', row.names = NA,
+              col.names =  col.names)
+}
+
+summarize_single_column <- function(.data, .var, var_levels) {
+    var <- enquo(.var)
+    
+    .data %>%
+        select(!! var) %>%
+        mutate(!! quo_name(var) := replace(!!var, is.na(!!var),
+                                           "Didn't answer")) %>%
+        count(!!var) %>%
+        right_join(expand(., !! quo_name(var) := na.omit(var_levels)),
+                   by = quo_name(var)) %>%
+        replace_na(list(n = 0)) %>% 
+        mutate(percent = round(n/sum(n) * 100, 1)) %>%
+        arrange(factor(!!var, levels = var_levels)) 
+}
+
+transform_likert_labels <- function(.data) {
+    .data$results$Item <- convert_label(.data$results$Item)
+    names(.data$items) <- convert_label(names(.data$items))
+    .data
+}
+
+
+```
+
+```{r dc-why-attending}
+## Why are you attending this workshop?
+dc_why_attending_data <- dcpredata %>%
+    extract_multi_columns("why_attending")
+
+dc_why_attending <- dc_why_attending_data %>%
+    summarize_multi_columns()
+
+### inline statistics
+n_dc_why_attending <- nrow(dc_why_attending_data)
+
+## percent of DC learners coming to learn skills they will use in the future (in
+## column 'why_attending_1').
+p_work_future <- dc_why_attending %>%
+    extract_percentage(column_name, "why_attending_1") 
+
+## table
+dc_why_attending %>%
+    render_table(
+        question,
+        col.names = c(
+              paste0(
+                  "Why learners attend Data Carpentry workshops? (n = ",
+                  n_dc_why_attending, ")"),
+            "n", "%")
+    )
+```
+
+`r p_work_future`% of Data Carpentry learners attend workshops to learn skills they can apply to their current work.
+
+Software Carpentry’s curriculum teaches basic lab skills for scientific computing. Their workshops include automation with the Unix shell, version control with Git, and programming with R or Python. These tools help learners to increase the efficiency and reproducibility of their computational work.
+
+```{r swc-why-attending}
+# Why are you attending this workshop?
+swc_why_attending_data <- swcpredata %>%
+    extract_multi_columns("why_attending")
+    
+swc_why_attending <- swc_why_attending_data %>%
+    summarize_multi_columns()
+
+### inline statistics
+n_swc_why_attending <- nrow(swc_why_attending_data)
+
+## percent SWC learners coming to learn new/additional topics (in column
+## 'why_attending_2').
+p_swc_why_attending <- swc_why_attending %>%
+    extract_percentage(column_name, "why_attending_2")
+
+## table
+swc_why_attending %>%
+    render_table(
+        question, 
+        col.names = c(
+              paste0("Why learners attend Software Carpentry Workshops? (n = ",
+                     n_swc_why_attending, ")"),
+            "n", "%")
+    )
+```	
+
+
+```{r first-timers-swc}
+# 1st time attending 
+# Software Carpentry: Will this be your first time attending a SWC workshop (as a learner)?
+
+swc_first_timers <- swcpredata %>%
+    summarize_single_column(first_time, c("Yes", "No", "Didn't answer"))
+
+p_first_timers <- swc_first_timers %>%
+    extract_percentage(first_time, "Yes")
+
+swc_first_timers %>%
+    render_table(
+        first_time, 
+        col.names = c ("Software Carpentry 1st Time Learners", "n", "%")
+    )
+```
+
+Compared to Data Carpentry's learners, Software Carpentry's tend to have more experience with the tools covered in the workshops, and learners come to learn new and/or additional topics (`r p_swc_why_attending`%). It is also interesting to note that `r p_first_timers`% of Software Carpentry respondents are first-time attendees.
+
+
+### What is the current level of satisfaction of the data management practices of our learners before attending our workshops?
+
+```{r dc-satisfaction-level}
+## Satisfaction with current data management practices 
+## Data Carpentry
+satisfaction_levels <- c("Very unsatisfied", "Unsatisfied", "Neutral",
+                         "Satisfied", "Very satisfied", "Not sure",
+                         "Not applicable", "Didn't answer")
+
+dc_satisfaction <- dcpredata %>%
+    summarize_single_column(current_satisfaction, satisfaction_levels)
+
+dc_percent_unsatisfied <- dc_satisfaction %>%
+    filter(current_satisfaction %in% satisfaction_levels[1:3]) %>%
+    summarize(p = sum(percent)) %>%
+    pull(p)
+```
+
+```{r dc-satisfaction-level-plot}
+dc_satisfaction %>%
+    ggassessment_lolli(
+        aes(y = factor(current_satisfaction,
+                       levels = rev(satisfaction_levels)),
+            x = percent), color = "dc") +
+    labs(
+        y = "",
+        title = "Pre-workshop Satisfaction Level with Current Data Management Practices"
+    ) 
+```
+
+The majority (`r dc_percent_unsatisfied`%) of Data Carpentry's respondents are either unsatisfied or feel neutral with their current data management practices. By data management practices, we include behaviors such as keeping your raw data raw, reusing code, and using databases, queries, and scripts to manage large data sets.
+
+### How often do our workshop participants program before attending our workshops?
+
+```{r dc-programming-usage}
+## Programming usage
+## Data Carpentry
+usage_levels <- c("Never", "Less than once per year",
+                  "Several times per year",
+                  "Monthly", "Weekly", "Daily",
+                  "Didn't answer")
+
+dc_programming_usage <- dcpredata %>%
+    summarize_single_column(current_programming, usage_levels)
+
+dc_percent_programming_rare <- dc_programming_usage %>%
+    filter(current_programming %in% usage_levels[1:2]) %>%
+    summarize(p = sum(percent)) %>%
+    pull(p)
+
+dc_percent_programming_daily <- dc_programming_usage %>%
+    filter(current_programming  == "Daily") %>%
+    pull(percent)
+```
+
+
+```{r dc-programming-level-plot}
+dc_programming_usage %>%
+    ggassessment_lolli(
+        aes(y = factor(current_programming,
+                       levels = rev(usage_levels)),
+            x = percent), color = "dc") +
+    labs(
+        y = "",
+        title = "Pre-workshop Programming Usage"
+    ) 
+```
+
+In terms of current programming usage, `r dc_percent_programming_rare`% of learners either never use programming, use programming less than once per year, or no more than several times per year. Only `r dc_percent_programming_daily`% program on a daily basis. This is no surprise, as Data Carpentry workshops are intended for novices.
+
+```{r dc-exposure}
+## How did you find out about this workshop? 
+dc_exposure_data <- dcpredata %>%
+    extract_multi_columns("exposure")
+
+dc_exposure <- dc_exposure_data %>%
+    summarize_multi_columns()
+
+
+dc_exposure_mailing <- dc_exposure %>%
+    extract_percentage(column_name, "exposure_1") # mailing lists
+
+dc_exposure %>%
+    render_table(
+        question, 
+        col.names = c(
+            paste0("How respondents find out about Data Carpentry workshops (n =",
+                   nrow(dc_exposure_data),
+                   ")"), "n", "%")
+    )
+```
+
+```{r swc-exposure}
+## How did you find out about this workshop? 
+swc_exposure_data <- swcpredata %>%
+    extract_multi_columns("exposure")
+
+swc_exposure <- swc_exposure_data %>%
+    summarize_multi_columns()
+
+swc_exposure_mailing <- swc_exposure %>%
+    extract_percentage(column_name, "exposure_3")  # mailing lists + flyers
+
+swc_exposure %>%
+    render_table(
+        question, 
+        col.names = c(
+            paste0("How respondents find out about Software Carpentry workshops (n = ",
+                   nrow(swc_exposure_data), ")"), 
+            "n", "%"))
+```
+
+Data Carpentry and Software Carpentry workshop participants often find out about our workshops through institutional mailing lists (`r dc_exposure_mailing`% and `r swc_exposure_mailing`% respectively). However, "word-of-mouth" recommendations also play a significant role in populating workshops.
+
+
+In summary, both Data and Software Carpentry workshop respondents attend workshops to learn about or improve upon their current data management and analysis skills.
+
+
+## Workshop Type
+
+```{r dc-workshop-type}
+# Workshop topics
+# Data Carpentry: Which workshop are you attending?
+workshop_types <- c("Ecology", "Genomics", "Reproducible Research",
+                    "Social Sciences", "Geospatial", "I don't know.",
+                    "Didn't answer")
+
+dc_workshop_type <- dcpostdata %>%    
+    summarize_single_column(workshop, workshop_types)
+
+## dc_workshop_type %>%
+##     kable(format = 'markdown', row.names = NA,
+##           col.names = c ("Data Carpentry Workshop Type Attended", "n", "%"))
+```
+
+
+```{r dc-workshop-type-plot}
+ggassessment_lolli(dc_workshop_type,
+                   aes(y = factor(workshop, levels = rev(workshop_types)),
+                       x = percent), color = "dc") +                       
+    labs(
+        title = "Majority of Data Carpentry Respondents \nAttend Ecology Workshops"
+    )
+
+```	
+
+```{r dc-workshop-language}	
+## Language covered 
+## Data Carpentry: Which programming language is being covered?
+workshop_language <- c("R", "Python", "I don't know./I don't remember.",
+                       "Neither", "Didn't answer")
+
+dc_programming_language <- dcpostdata %>%
+    summarize_single_column(programming_language, workshop_language)
+
+dc_programming_language_r <- dc_programming_language %>%
+    extract_percentage(programming_language, "R") 
+
+dc_programming_language_py <- dc_programming_language %>%
+    extract_percentage(programming_language, "Python") 
+
+dc_programming_language %>%
+    render_table(
+        programming_language, 
+        col.names = c("Data Carpentry: Language Covered in Workshops", "n", "%"))
+
+```
+
+As previously mentioned, Data Carpentry workshops are domain-specific, and
+curricula include Ecology, Genomics, Geospatial, Social Sciences, and
+Reproducible Research. `r dc_programming_language_r`% of respondents learned R
+in their workshop, while `r dc_programming_language_py`% learned Python.
+
+
+
+## Perception of Workshop Environment and Experience
+
+### Comfort of the environment
+
+```{r workshop-environment}
+# Environment
+# Data Carpentry: I felt comfortable learning in this workshop environment
+
+comfortable_levels <- c("Strongly disagree", "Disagree", "Neutral", "Agree",
+                        "Strongly agree", "Didn't answer")
+
+atmosphere_levels <- c("Strongly Disagree", "Disagree",
+                       "Neither Agree nor Disagree", "Agree", "Strongly Agree",
+                       "Didn't answer")
+
+atmosphere_levels_match <- replace(
+    atmosphere_levels,
+    atmosphere_levels == "Neither Agree nor Disagree",
+    "Neutral"
+)
+
+dc_comfortable <- dcpostdata %>%
+    summarize_single_column(comfortable, comfortable_levels)
+
+dc_comfortable_percent_agree <- dc_comfortable %>%
+    filter(comfortable %in% c("Agree", "Strongly agree")) %>%
+    summarize(p = sum(percent)) %>%
+    pull(p)
+    
+swc_comfortable <- swcpostdata %>%
+    summarize_single_column(atmosphere, atmosphere_levels) %>%
+    mutate(atmosphere = replace(atmosphere,
+                                atmosphere == "Neither Agree nor Disagree",
+                                "Neutral"))
+
+swc_comfortable_percent_agree <- swc_comfortable %>%
+    filter(atmosphere %in% c("Agree", "Strongly Agree")) %>%
+    summarize(p = sum(percent)) %>%
+    pull(p)
+```
+
+The Carpentries is committed to making participation in our workshops a
+harassment-free experience for everyone, regardless of who learners are, where they
+are from, or what their experience is with the tools we teach. We establish norms for
+interaction by having, discussing, and enforcing a Code of Conduct so that our
+workshops provide open and inclusive learning environments. `r dc_comfortable_percent_agree`% of Data Carpentry respondents either agree or
+strongly agree that they felt comfortable learning in their workshop
+environment, and `r swc_comfortable_percent_agree`% of Software Carpentry's
+respondents agreed or strongly agreed that the workshop atmosphere was welcoming.
+
+
+```{r dc-post-workshop-comfortable-environment}
+## Data Carpentry plot for workshop environment
+ggassessment_lolli(dc_comfortable, 
+                   aes(y = factor(comfortable,
+                                  levels = rev(comfortable_levels)), 
+                       x = percent),
+                   color = "dc") +
+    labs(
+        title = "Data Carpentry Respondents felt comfortable learning \n in their workshop environment"
+    )
+```
+
+```{r swc-post-workshop-environment}
+# Software Carpentry plot for workshop environment
+ggassessment_lolli(swc_comfortable, 
+                   aes(y = factor(atmosphere,
+                                  levels = rev(atmosphere_levels_match)),
+                       x = percent),
+                   color = "swc") +
+    labs(
+        x = "Level of Agreement", 
+        title = "Software Carpentry Respondents felt the workshop \natmosphere was welcoming"
+    )
+                   
+```
+
+### Interaction with Instructors and Helpers
+
+Data Carpentry respondents were asked to rate their level of agreement with several statements regarding their instructors' knowledge, instructional method, and enthusiasm. Their responses are in the figure below, and axis labels correspond to the statements as follows:
+
++ __Instructors Knowledge__: The instructors were knowledgeable about the material being taught.
++ __Instructors Interacting__: I felt comfortable interacting with the instructors. 
++ __Instructors Enthusiastic__: The instructors were enthusiastic about the workshop.
++ __Instructors Clear Answers__: I was able to get clear answers to my questions from the instructors. 
+
+
+```{r dc-perception-instructors-data}
+## Perception of instructors and helpers
+## Data Carpentry
+perception_levels <- c("Strongly disagree", "Disagree", "Neutral", "Agree",
+                       "Strongly agree")
+
+dc_perception_instructors_data <- dcpostdata %>%
+    extract_multi_columns("instructors")
+
+dc_perception_percent_agree <- dc_perception_instructors_data %>%
+    summarize_all(~ sum(. %in% c("Agree", "Strongly agree"))/length(.)) %>%
+    gather(skill, percent) %>%
+    mutate(percent = round(percent * 100, 1))
+
+dc_perception_instructors_interacting <- dc_perception_percent_agree %>%
+    filter(skill == "instructors_interacting") %>%
+    pull(percent)
+
+dc_perception_instructors_clear_answers <- dc_perception_percent_agree %>%
+    filter(skill == "instructors_clear_answers") %>%
+    pull(percent)
+
+dc_perception_instructors_knowledgeable <- dc_perception_percent_agree %>%
+    filter(skill == "instructors_knowledgeable") %>%
+    pull(percent)
+
+dc_perception_instructors_enthusiastic <- dc_perception_percent_agree %>%
+    filter(skill == "instructors_enthusiastic") %>%
+    pull(percent)
+
+dc_perception_instructors_likert <- dc_perception_instructors_data %>%
+    make_likert_data(perception_levels)
+```
+
+```{r dc-perception-instructors-heatmap}
+## Data Carpentry
+## Heatmap for Data Carpentry perception of instructors and helpers
+title <- "Perception of Data Carpentry Instructors"
+
+plot(dc_perception_instructors_likert,
+     type = "heat",
+     panel.arrange = NULL, panel.strip.color = "darkcyan",
+     legend.position = "bottom") +
+    ggtitle(title)
+```
+
+The largest impact we see is that `r dc_perception_instructors_interacting`% of respondents said they felt comfortable interacting with the instructors. We know that our instructors *are* the reason why our workshops are so well-received. It is also great to see that `r dc_perception_instructors_knowledgeable`% and `r dc_perception_instructors_enthusiastic`% of respondents felt our instructors were knowledgeable about the material being taught, and were enthusiastic about the workshop, respectively. Lastly, `r dc_perception_instructors_clear_answers`% of respondents felt they were able to get clear answers to their questions from their instructors.
+
+Software Carpentry respondents were asked to rate how they felt instructors and helpers worked as a team, based on the following criteria:
+
++ __Considerate__: Instructors/Helpers were considerate.
++ __Enthusiastic__: Instructors/Helpers were enthusiastic. 
++ __Clear Answers__: Instructors/Helpers gave clear answers to your questions. 
++ __Communicators__: Instructors/Helpers were good communicators.    
+
+The two neutral centered plots below provide an analysis of respondent's answers for both instructors and helpers.
+
+```{r swc-perception-instructors}	
+## Software Carpentry: Perception of SWC workshop instructors/helpers
+frequency_levels <- c("Never", "Rarely", "Sometimes", "Often",
+                      "All of the time")
+
+swc_instructor_perception_data <- swcpostdata %>%
+    extract_multi_columns("instructors")
+
+swc_instructor_perception_likert <- swc_instructor_perception_data %>%
+    make_likert_data(frequency_levels)
+
+## Software Carpentry Instructors Plot
+plot(swc_instructor_perception_likert) +
+    ggtitle("Perception of Software Carpentry Instructors")
+```
+
+```{r swc-perception-helpers}
+swc_helper_perception_likert <- swcpostdata %>%
+    extract_multi_columns("helpers") %>%
+    ## wrong column name in data
+    rename(helpers_considerate = helpers_teamwork) %>% 
+    make_likert_data(frequency_levels)
+
+## Software Carpentry: Helpers Plot
+plot(swc_helper_perception_likert) +
+    ggtitle("Perception of Software Carpentry Helpers")
+```
+
+From the figures above, we see that Software Carpentry instructors and helpers are considerate, enthusiastic, give clear answers to questions, and are good communicators. As a whole, our instructors work as a team and are successful in creating a warm and welcoming workshop environment.
+
+## Applicability of the skills learned
+
+```{r dc-skill-applicability}
+## Data Carpentry: I can immediately apply what I learned at this workshop
+applicability_levels <- c("Strongly disagree", "Disagree", "Neutral", "Agree",
+                          "Strongly agree", "Didn't answer")
+
+dc_applicability <- dcpostdata %>%
+    summarize_single_column(immediately_apply, applicability_levels)
+
+dc_applicability_percent <- dc_applicability %>%
+    filter(immediately_apply %in% c("Agree", "Strongly agree")) %>%
+    summarize(p = sum(percent)) %>%
+    pull(p)
+```
+
+One of the goals for Data Carpentry's lessons is that learners are able to
+immediately apply what they learned at the workshop. The figure below shows that
+`r dc_applicability_percent`% either agree or strongly agree that they were able
+to apply what they learned immediately.
+
+```{r dc-skill-applicability-plot}
+ggassessment_lolli(dc_applicability,
+                   aes(y = factor(immediately_apply,
+                                  levels = rev(applicability_levels)),
+                       x = percent), color = "dc") +
+    labs(
+        title = "Data Carpentry respondents can immediately apply \nwhat they learned at the workshop" 
+    )
+```
+
+## Was the information covered in the workshops new?
+
+```{r swc-new-info}
+## How much information was new??? 
+## Software Carpentry: How much information presented at the SWC workshop was
+## new.
+swcpostdata$new_information <- iconv(swcpostdata$new_information,
+                                     "latin1", "ASCII", sub=" ")
+swcpostdata$new_information <- gsub("\\s+", " ", swcpostdata$new_information)
+
+newinfo_levels <- c("None of it", "Some of it", "About half of it",
+                    "Most of it", "All of it", "Didn't answer")
+
+swc_new_info <- swcpostdata %>%
+    summarize_single_column(new_information, newinfo_levels)
+
+
+swc_new_info_percent <- swc_new_info %>%
+    filter(new_information %in% c("Most of it", "All of it")) %>%
+    summarize(p = sum(percent)) %>%
+    pull(p)
+
+swc_some_new_info_percent <- swc_new_info %>%
+    filter(new_information %in% c("Some of it")) %>%
+    summarize(p = sum(percent)) %>%
+    pull(p)
+
+```
+
+As the majority of Software Carpentry learners attend workshops to learn new skills, it is great to see that `r swc_new_info_percent`% of learners either learned mostly or all new information during the workshop, while another `r swc_some_new_info_percent`% learned something new.
+
+```{r swc-new-information-plot}
+# Software Carpentry plot for new information
+ggassessment_lolli(swc_new_info,
+                   aes(y = factor(new_information,
+                                  levels = rev(newinfo_levels)), 
+                       x = percent), color = "swc") +
+    labs(
+        y = "How much information was new?",
+        title = "Software Carpentry Respondents Learned \nMostly New Information"
+    )
+```
+
+## Workshop Experience
+
+
+```{r dc-accessibility}
+## Accessibility Data Carpentry: Were there any accessibility issues that
+## affected your ability to participate in this workshop?
+dc_accessibility <- dcpostdata %>%
+    summarize_single_column(accessibility_issues, c("Yes", "No",
+                                                    "Didn't answer"))
+
+dc_accessibility_percent <- dc_accessibility %>%
+    extract_percentage(accessibility_issues, "Yes")
+
+dc_accessibility %>%
+    render_table(
+        accessibility_issues,        
+        col.names = c("Data Carpentry Respondents Having Accessibility Issues",
+                      "n", "%"),
+        arrange = FALSE)
+```
+
+We want to be proactive in ensuring learners have access to whatever they need to participate in a workshop. Both Data Carpentry and Software Carpentry learners were asked to inform workshop organizers if there was anything they needed to make their workshop experience better. Data Carpentry's respondents were asked if they had accessibility issues, and `r dc_accessibility_percent`% reported they did. After reading the open-ended responses, we can see that the issues were related to not being able to hear and/or see in the back of the room. The Instructor Training Team has been made aware of this, and will be making recommendations.
+
+## Net Promoter Score
+
+We use the [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter) to measure learners' likelihood of recommending workshops to a friend or colleague. The scoring for this question is on a 0 to 100 scale. Respondents scoring from 0 to 64 are labeled *Detractors*, and are believed to be less likely to recommend a workshop. Those who respond with a score of 85 to 100 are called *Promoters*, and are considered likely to recommend a workshop. Respondents between 65 and 84 are labeled *Passives*, and their behavior falls between Promoters and Detractors.
+
+```{r dc-nps}
+compute_nps <- . %>%
+    pull(likely_to_recommend) %>%
+    as.numeric() %>% 
+    npc(breaks = list(0:64, 65:84, 85:100)) %>%
+    data_frame(category = .) %>%
+    mutate(category = as.character(category),
+           category = replace_na(category, "Didn't answer")) %>% 
+    count(category) %>%
+    mutate(percent = round(n / sum(n) * 100, 1)) %>%
+    arrange(category = factor(category,
+                              levels = c("Detractor",  "Passive",
+                                         "Promoter",
+                                         "Didn't answer")))
+compute_nps_percent <- . %>%
+    filter(category != "Didn't answer") %>%
+    mutate(p = round(n / sum(n) * 100, 1)) %>%
+    filter(category == "Promoter") %>% 
+    pull(p) 
+
+
+## NPS 
+## Data Carpentry
+dc_nps  <- dcpostdata %>%
+    compute_nps
+
+dc_nps %>%
+    render_table(
+        category, 
+        col.names = c("Data Carpentry Net Promoter Score", "n", "%"),
+        arrange = FALSE
+    )
+
+dc_nps_promoters <- dc_nps %>%
+    compute_nps_percent
+```
+
+`r dc_nps_promoters`% of Data Carpentry respondents who answered this question are promoters (i.e. would recommend a workshop). 
+
+
+```{r swc-nps}
+# NPS
+# Software Carpentry
+swc_nps <- swcpostdata %>%
+    mutate(likely_to_recommend = as.numeric(likely_to_recommend) * 10) %>%
+    compute_nps
+
+swc_nps_percent <- swc_nps %>%
+    compute_nps_percent
+```
+
+For Software Carpentry respondents who answered this questions, `r swc_nps_percent`% are promoters.
+
+
+In summary, Data Carpentry and Software Carpentry workshops provide a warm and welcoming environment, whether learners are brand new to programming or have some experience. Attendees are recommending workshops to their friends and colleagues, and we know that our instructors and helpers are the major reason why.
+
+## Effect of Workshops on Learners Self-Reported Perspectives: Skills & Confidence
+
+Learners were asked to rate their level of agreement with the following statements related to Data Carpentry's workshop goals and learning objectives. The figure below provides a visual representation of their responses, comparing them before the workshop and after the workshop. Axis labels and the corresponding question are organized around 3 themes as follows:
+
+* Efficiency:
+    + __Write Program__: I can write a small program/script/macro to solve a
+      problem in my own work.
+    + __Programming Efficient__: Using a programming language (like R or
+      Python) can make me more efficient at working with data.
+* Reproducibility:
+	+ __Raw Data__: Having access to the original, raw data is important to be
+	  able to repeat an analysis.
+	+ __Analyses Easier__: Using a programming language (like R or Python) can
+      make my analyses easier to reproduce.
+* Self-efficacy
+	+ __Search Online__: I know how to search for answers to my technical
+      questions online.
+	+ __Overcome Problem__: While working on a programming project, if I get
+      stuck, I can find ways of overcoming the problem.
+	+ __Programming Confident__: I am confident in my ability to make use of
+      programming software to work with data.
+
+ 
+The scoring for the above factors ranges from strongly disagree (1) to strongly agree (5).
+
+```{r dc-paired-data}
+## Data Carpentry
+## Ability to perform various computing tasks before and after completing the workshop
+## Paired analysis plot to compare DC pre scores with post scores
+prep_paired_data <- . %>%
+    select(unique_id, raw_data:programming_efficient) %>%
+    filter(!is.na(unique_id)) %>%
+    gather(skill, feeling, -unique_id) %>%
+    mutate(feeling_score = case_when(
+               feeling == "Strongly disagree" ~ 1,
+               feeling == "Disagree"          ~ 2,
+               feeling == "Neutral"           ~ 3,
+               feeling == "Agree"             ~ 4, 
+               feeling == "Strongly agree"    ~ 5,
+               is.na(feeling)                 ~ NA_real_, 
+               TRUE                           ~ 999
+           )) %>%
+    assert(in_set(NA, 1, 2, 3, 4, 5), feeling_score)
+
+
+pre_paired <- dcpredata %>%
+    prep_paired_data %>%
+    rename_at(vars(-unique_id, -skill), ~ paste0("pre_", .))
+    
+post_paired <- dcpostdata %>%
+    prep_paired_data %>%
+    rename_at(vars(-unique_id, -skill), ~ paste0("post_", .))
+
+paired_data <- inner_join(pre_paired, post_paired, by = c("unique_id", "skill")) %>%
+    filter(!is.na(pre_feeling_score) & !is.na(post_feeling_score))
+```
+
+```{r dc-paired-data-mean}
+paired_data %>%
+    select(unique_id, skill,
+           pre_feeling_score,
+           post_feeling_score) %>%
+    gather(score, type, -unique_id, -skill) %>%
+    mutate(skill = convert_label(skill)) %>%
+    group_by(skill, score) %>%
+    summarize(
+        mean = mean(type, na.rm = TRUE),
+        sd = sd(type, na.rm = TRUE)
+    ) %>%
+    ungroup() %>% 
+    mutate(skill = factor(skill,
+                          levels = rev(c(
+                              "Write Program",
+                              "Programming Efficient",
+                              "Raw Data",
+                              "Analyses Easier",
+                              "Search Online",
+                              "Overcome Problem",
+                              "Programming Confident"
+                          )))) %>% 
+    ggplot(aes(x = skill, y = mean, color = score)) +
+    geom_point(size=5) +
+    coord_flip() +
+    ylim(c(0, 5)) +
+    theme_minimal() +
+    scale_color_viridis(breaks = c("pre_feeling_score", "post_feeling_score"),
+                        labels = c("Pre-workshop Score",
+                                   "Post-workshop Score"), 
+                        end = .7, discrete=TRUE) +
+    labs(title = "Pre and Post Comparison of Skills and Perception") +
+    theme(text = element_text(size = 16))
+
+```
+
+The comparison above is paired, meaning, we are comparing those who provided us with a unique identifier and who completed both the pre- and post-workshop survey. This figure includes `r n_distinct(paired_data$unique_id)` responses. The data shows, for multiple factors, a full point increase in mean score. We are significantly impacting respondents' confidence in programming, ability to write programs to solve problems, and ability to overcome problems if they get stuck.
+
+In the figures below, we show another representation of the pre- and post-comparison of respondents skills and perspectives. The figures below include the data for all learners, not only those who provided a unique identifier *and* took both the pre- and post-workshop surveys. What we see is a shift in the distribution for each factor, meaning, respondents' self-reported confidence and ability shifted in positive directions.
+
+The neutral centered graphs below provide an even clearer picture of the shift in respondents' self-reported confidence and skills. 
+
+```{r dc-tools-perception, fig.height=12}
+# Data Carpentry pre-workshop neutral centered graph code
+perception_levels <- c("Strongly disagree", "Disagree", "Neutral", "Agree",
+                       "Strongly agree")
+
+prep_perception_tools <- . %>%
+    select(raw_data:programming_efficient) %>%
+    filter(has_answers(.)) %>% 
+    make_likert_data(perception_levels)
+
+dc_pre_perception_tools <- dcpredata %>%
+    prep_perception_tools
+
+dc_post_perception_tools <- dcpostdata %>%
+    prep_perception_tools
+
+dc_pre_tools_likert <- dc_pre_perception_tools %>%
+    plot() +
+    labs(
+        title = "Data Carpentry Respondents: Pre-Workshop Perception of Tools"
+    ) +
+    theme(legend.position = "none")
+
+dc_post_tools_likert <- dc_post_perception_tools %>%
+    plot() +
+    labs(
+        title = "Data Carpentry Respondents: Post-Workshop Perception of Tools"
+    )
+
+## summary likert
+summarize_programming_confidence <- .  %>%
+    filter(Item == "Programming Confident") %>%
+    select("Agree", "Strongly agree") %>%
+    sum() %>%
+    round(0)
+
+dc_pre_confidence_programming <- dc_pre_perception_tools$results %>%
+    summarize_programming_confidence
+
+
+dc_post_confidence_programming <- dc_post_perception_tools$results %>%
+    summarize_programming_confidence
+
+
+## combine both plots
+dc_pre_tools_likert + dc_post_tools_likert +
+    plot_layout(ncol=1)
+```
+
+It is interesting to see the shift in neutrality between the pre-workshop scores and post-workshop scores, especially for *Programming Efficient*. There was a higher percentage of learners beginning the workshop who felt programming with R or Python can make them more efficient at working with data. Contrarily, confidence in using programming to work with data increased from `r dc_pre_confidence_programming`% to `r dc_post_confidence_programming`%.
+
+
+Software Carpentry Respondents were asked to tell us about their experience with these topics before the workshop:
+
++ R
++ Unix Shell
++ SQL
++ Python
++ Version Control with Git
+
+```{r swc-pre-tools}
+## Software Carpentry
+## Software Carpentry
+## Pre/Post plots for knowledge and perception of tools covered
+## Because the pre- and post- columns are quite different, we
+## cannot put them on the same plot. So let's do two plots then stack them up
+
+pre_knowledge_levels <- c("Little or no knowledge of topic",
+                          "Some knowledge of topic",
+                          "Extensive knowledge of topic")
+
+post_knowledge_levels <- c("No increase in my knowledge",
+                           "Knowledge increased slightly",
+                           "Knowledge increased a little",
+                           "Knowledge increased a great deal")
+
+swc_pre_knowledge <- swcpostdata %>% 
+    select(matches("knowledge_pre")) %>%
+    rename_all(~ gsub("_pre", "", .)) %>%
+    filter(has_answers(.))
+
+swc_post_knowledge <- swcpostdata %>%
+    select(matches("knowledge_increase")) %>%    
+    rename_all(~ gsub("_increase", "", .)) %>%
+    filter(has_answers(.))
+
+swc_pre_knowledge_likert_data <- swc_pre_knowledge %>%
+    make_likert_data(pre_knowledge_levels)
+
+swc_pre_knowledge_range <- range(swc_pre_knowledge_likert_data$results$`Extensive knowledge of topic`)
+
+swc_pre_knowledge_topic_min <- swc_pre_knowledge_likert_data$results[swc_pre_knowledge_likert_data$results$`Extensive knowledge of topic` == min(swc_pre_knowledge_range), "Item"]
+
+swc_pre_knowledge_topic_max <- swc_pre_knowledge_likert_data$results[swc_pre_knowledge_likert_data$results$`Extensive knowledge of topic` == max(swc_pre_knowledge_range), "Item"]
+
+
+swc_pre_knowledge_likert_data %>% 
+    plot() +
+    labs(
+        title = "Software Carpentry Self-Reported Knowledge of Tools Covered Pre-Workshop"
+    )
+```
+
+From the figure, we see that learners consider themselves beginners from the topics covered in our workshops. When asked their knowledge of the tools covered in their workshops, learners rated their knowledge as extensive from `r round(swc_pre_knowledge_range[1])`% to `r round(swc_pre_knowledge_range[2])`% for "`r swc_pre_knowledge_topic_min`" and "`r swc_pre_knowledge_topic_max`".
+
+The following is a comparison of Software Carpentry respondents' knowledge about the tools before compared to after the workshop. We see clearly that after the workshop, respondents' knowledge of Git, Python, R, and the Unix Shell had increased a great deal.
+
+```{r swc-knowledge-change, fig.height=10}
+
+prep_knowledge_plot <- function(.data, var_levels) {
+    .data %>%
+        gather(skill, level) %>%
+        filter(level %in% var_levels) %>%
+        count(skill, level) %>%
+        group_by(skill) %>%
+        mutate(n_skill = sum(n),
+               percent = round(n/n_skill * 100, 1)) %>%
+        ungroup() %>% 
+        mutate(skill = convert_label(skill))    
+}
+
+ggknowledge <- function(data, mapping) {
+    data <- mutate(data, text_pos = percent + .75)
+    ggplot(data, mapping) +
+        geom_col(position = "dodge") +
+        geom_text(aes(label = n, y = text_pos), size= 3, hjust = 0, 
+                  position = position_dodge(width = .9)) +
+        theme_classic() +
+        coord_flip() + 
+        scale_fill_viridis(name = "", discrete = TRUE) +
+        labs(
+            x = "",
+            y = "% Respondants"
+        )
+}
+
+swc_pre_knowledge_plot <- swc_pre_knowledge %>%
+    prep_knowledge_plot(pre_knowledge_levels) %>%
+    ggknowledge(aes(x = skill, y = percent,
+                    fill = factor(level, levels = rev(pre_knowledge_levels)))) +
+    labs(
+        title =  "Knowledge Before SWC Workshop"
+    ) +
+    theme(legend.position="bottom")
+
+swc_post_knowledge_plot <- swc_post_knowledge %>% 
+    prep_knowledge_plot(post_knowledge_levels) %>%
+    ggknowledge(aes(x = skill, y = percent,
+                    fill = factor(level, levels = rev(post_knowledge_levels)))) +
+    labs(
+        title = "Knowledge After SWC Workshop"
+    ) +
+    theme(legend.position="bottom")
+
+
+swc_pre_knowledge_plot + swc_post_knowledge_plot +
+    plot_layout(ncol = 1)
+
+```
+
+### Respondent Ability to Perform Computing Tasks
+
+Motivation is important, but being confident in your ability to complete specific computing tasks is an equally important goal of Software Carpentry. The grid below shows respondents' self-reported ability to complete tasks including: 
+
+* __Pipes__: Using pipes to connect shell commands 
+* __Loops__: Writing a 'for loop' to automate tasks   
+* __Git__: Initializing a repository with git 
+* __Function__: Writing a function 
+* __Import Library__: Importing a library or package in R or Python 
+* __Unit Test__: Writing a unit test in Python or R 
+* __SQL Query__: Writing an SQL query 
+
+It also provides their self-reported level of confidence in being able to complete the tasks above after completing the workshop. 
+
+
+```{r swc-ability-confidence, fig.height=10}
+## Software Carpentry
+## Code chunk for ability to perform various computing tasks
+swc_ability_levels <- c("Yes", "No", "Maybe")
+
+swc_confidence_levels <- c("Confidence increased slightly",
+                           "Confidence increased a bit",
+                           "Confidence increased greatly",
+                           "No change in confidence",
+                           "N/A - Not covered at workshop")
+swc_knowledge_skill_levels <- c(
+    "Pipes", 
+    "Loops", 
+    "Git", 
+    "Function", 
+    "Import Library", 
+    "Unit Test", 
+    "SQL Query"
+)
+
+swc_ability_pre <- swcpostdata %>%
+    select(contains("_before")) %>%
+    rename_all(~ gsub("_before", "", .)) %>%
+    rename_all(~ gsub("_ability", "", .)) %>%
+    filter(has_answers(.))
+
+swc_confidence_post <- swcpostdata %>%
+    select(contains("_after")) %>%
+    rename_all(~ gsub("_after", "", .)) %>%
+    rename_all(~ gsub("_confidence", "", .)) %>% 
+    filter(has_answers(.))
+
+swc_ability_pre_data <- swc_ability_pre %>%
+    prep_knowledge_plot(swc_ability_levels)
+
+swc_ability_pre_plot <- swc_ability_pre_data %>% 
+    ggknowledge(aes(x = factor(skill, levels = rev(swc_knowledge_skill_levels)),
+                    y = percent,
+                    fill = factor(level, levels = rev(swc_ability_levels)))) +
+    labs(
+        title = "Ability Before SWC Workshop"
+    )
+
+swc_confidence_post_data <- swc_confidence_post %>%
+    prep_knowledge_plot(swc_confidence_levels)
+
+
+swc_confidence_post_plot <- swc_confidence_post_data %>%
+    ggknowledge(aes(x = factor(skill, levels = rev(swc_knowledge_skill_levels)),
+                    y = percent,
+                    fill = factor(level,
+                                  levels = rev(swc_confidence_levels)))) +
+    labs(
+        title = "Confidence After SWC Workshop"
+    )
+
+swc_ability_pre_range <- swc_ability_pre_data %>%
+    filter(level == "No") %>%
+    pull(percent) %>% 
+    range()
+
+swc_confidence_post_import <- swc_confidence_post_data %>%
+    filter(level == "Confidence increased greatly" &
+           skill == "Import Library") %>% 
+    pull(percent)
+
+
+swc_ability_pre_plot + swc_confidence_post_plot +
+    plot_layout(ncol = 1, heights = c(3, 5))
+```
+
+These figures tell us that, before the workshop, between `r swc_ability_pre_range[1]`% and `r swc_ability_pre_range[2]`% of the respondents did not feel they could initialize a repository in Git, write a 'for loop' to automate tasks, use pipes to connect shell commands, write a SQL query, and/or write a unit test in R or Python. `r swc_confidence_post_import`% of learners felt their confidence increased greatly with respect to importing a library or package in R or Python. We consider this significant as it is one of the fundamental skills that allows learners to be successful in the other areas mentioned above.
+
+In summary, respondents experienced increased confidence in their ability to perform specific computing tasks and solve problems, or at least search for answers to problems, as a result of participating in Software Carpentry and Data Carpentry workshops.
+
+
+
+## Demographics
+
+
+### Countries
+
+```{r dc-country-workshops}
+## Data Carpentry learners are asked what country their workshop is held.
+## Tally Data Carpentry's pre-workshop respondents by Country
+
+dc_country <- dcpredata %>%
+    group_by(country) %>%
+    tally(sort = TRUE) %>%
+    mutate(percent = round(100 * (n/sum(n)), 1)) %>% # add the % col
+    filter(!is.na(country))
+
+get_dc_country_percent <- function(country_var, .data = dc_country) {
+    extract_percentage(.data, .var = country, .value = country_var)
+}
+
+```
+
+The Carpentries is a global community that has recognized the importance of bringing people to data through high-impact trainings. Though the majority of Data Carpentry respondents report attendeding a workshop in the United States of America (`r get_dc_country_percent("United States of America")`%), we also see that learners attend workshops in African (e.g., Ethiopia `r get_dc_country_percent("Ethiopia")`%) and European (e.g., Switzerland `r get_dc_country_percent("Switzerland")`%) countries. Note that we haven't held workshops in Albania or Afghanistan, learners who selected these countries interpreted this question to indicate their country of origin, or made a mistake when selecting their answers.
+
+```{r dc-country-workshop-plot, fig.height=7}
+## Plot Data Carpentry's respondents by Country
+ggassessment_lolli(dc_country,
+                   aes(y = reorder(country, percent),
+                       x = percent),
+                   color = "dc") +
+    labs(
+        title="Breakdown of Data Carpentry's Survey Respondents by Country")
+```
+
+
+```{r swc-country-workshop}
+## Tally Software Carpentry's pre-workshop respondents by Country
+swc_country <- swcpredata %>% 
+    mutate(us_workshop = replace(us_workshop, is.na(us_workshop),
+                                 "Didn't answer")) %>% 
+    count(us_workshop, sort = TRUE) %>% 
+    mutate(percent = round(100 * (n/sum(n)), 1))
+
+swc_in_us <- swc_country %>%
+    filter(us_workshop == "Yes") %>%
+    pull(percent)
+
+swc_country %>%
+    render_table(
+        us_workshop, 
+        col.names = c("Software Carpentry Workshops in US", "n", "%"))
+```
+
+In Software Carpentry's pre-workshop survey, respondents are asked whether or not their workshop will take place in the United States. `r swc_in_us`% of respondents attended a U.S. workshop.
+
+
+### Learners' discipline
+
+```{r dc-discipline}
+## Domain 
+## Tally Data Carpentry's pre-workshop respondents by Discipline
+## Responses are in columns 'Discipline' through 'Column13'
+dc_discipline_data <- dcpredata %>%
+    extract_multi_columns("discipline")
+
+dc_discipline <- dc_discipline_data %>%
+    summarize_multi_columns()
+
+get_dc_discipline_percent <- function(discipline_var, .data = dc_discipline) {
+    extract_percentage(.data, .var = column_name, .value = discipline_var) 
+}
+
+dc_discipline %>%
+    render_table(
+        question, 
+        col.names = c("Data Carpentry's Respondents by Discipline", "n", "%")
+    )
+```
+
+As previously mentioned, Data Carpentry's curricula is domain-specific to Ecology, Genomics, Geospatial, and the Social Sciences. We see this in the distribution of respondents by discipline. `r get_dc_discipline_percent("discipline_10")`% are in the Life Science, while `r get_dc_discipline_percent("discipline_1")`%, `r get_dc_discipline_percent("discipline_2")`%, and `r get_dc_discipline_percent("discipline_3")`% are in Agricultural or Environmental Sciences, Bioinformatics/Genomics, and Biomedical/Health Sciences, respectively.
+
+```{r swc-discipline}
+# Tally Software Carpentry's pre-workshop respondents by Discipline
+# Responses are in columns 'Domain' through 'Column61'
+swc_discipline_data <- swcpredata %>%
+    extract_multi_columns("domain")
+
+swc_discipline <- swc_discipline_data %>%
+    summarize_multi_columns()
+    
+swc_discipline %>%
+    render_table(
+        question, 
+        col.names = c("Software Carpentry's Respondents by Discipline", "n", "%"))
+```
+
+Software Carpentry's respondent base also has a majority Life Sciences base; however we also see representation from those working in Psychology, High Performance Computing, and Chemistry.
+
+
+### Learners' career stage
+
+```{r dc-staus}
+# Position/Status
+# Data Carpentry Respondents by Status
+# Responses are in columns 'Status' through 'Column22'
+dc_status_levels <- c("Undergraduate Student", "Graduate Student",
+                      "Postdoctoral Researcher", "Faculty", "Industry Employee",
+                      "Government Employee", "Research Staff",
+                      "Management/Administrator", "Retired/Not Employed",
+                      "Other")
+
+dc_status_data <- dcpredata %>%
+    extract_multi_columns("status")
+
+dc_status <- dc_status_data %>%
+    summarize_multi_columns()
+
+get_dc_status_percent <- function(status_var, .data = dc_status) {
+    extract_percentage(.data, .var = column_name, .value = status_var)
+}
+
+dc_status %>%
+    render_table(
+        question, 
+        col.names = c("Data Carpentry's Respondents by Career Stage", "n", "%")
+    )
+```
+
+
+```{r swc-status}
+## Software Carpentry Respondents by Position/Status
+swc_status_levels <- c(    
+    "Undergraduate Student",
+    "Graduate Student",
+    "Post-doctoral researcher",
+    "Faculty",
+    "Research staff (including research programmer)",
+    "Support staff (including technical support)",
+    "Librarian/archivist",
+    "Commercial software developer",
+    "Other (please specify)",
+    "Didn't answer"
+    )
+
+swc_status <- swcpredata %>%
+    summarize_single_column(status, swc_status_levels)
+
+get_swc_status_percent <- function(status_var, .data = swc_status) {
+    extract_percentage(.data, .var = status, .value = status_var)
+}
+```
+
+As many of The Carpentries' workshops are hosted on university or college campuses and other research-based communities, it is no surprise that the majority of respondents are Graduate Students (`r get_dc_status_percent("status_2")`% - DC, `r get_swc_status_percent("Graduate Student")`% - SWC), Research Staff (`r get_dc_status_percent("status_7")`% - DC,`r get_swc_status_percent("Research staff (including research programmer)")`% - SWC), and Postdoctoral Researchers (`r get_dc_status_percent("status_9")`% - DC, `r get_swc_status_percent("Post-doctoral researcher")`% - SWC).
+
+```{r dc-status-plot, fig.height=7}
+## Data Carpentry plot of learners by position/status
+ggassessment_lolli(dc_status,
+                   aes(y = factor(question, levels = rev(dc_status_levels)),
+                       x = percent), color = "dc") +
+    labs(
+        title = "Data Carpentry Respondents by Career Stage"
+    )
+```
+
+```{r swc-status-plot, fig.height=8}
+# Plot for Software Carpentry Respondents by Position/Status
+ggassessment_lolli(swc_status,
+                   aes(
+                       y = factor(status, rev(swc_status_levels)),
+                       x = percent
+                   ), color = "swc") +
+    labs(
+        title = "Software Carpentry Respondents by Career Stage"
+    )
+```
+
+### Learners' operating system
+
+```{r dc-os}
+## OS 
+## Data Carpentry
+dc_os <- dcpredata %>%
+    summarize_single_column(os, unique(pull(dcpredata, os)))
+
+dc_os_mac <- dc_os %>%
+    extract_percentage(os, "Apple/Mac OS")
+
+dc_os_win <- dc_os %>%
+    extract_percentage(os, "Windows") 
+
+dc_os_lin <- dc_os %>%
+    extract_percentage(os, "UNIX/Linux")
+
+## Table
+dc_os %>%
+    render_table(
+        os, 
+        col.names = c("Operating System Respondents Use in Data Carpentry Workshops",
+                      "n", "%"))
+```
+
+In our workshops, we recommend that learners use their own personal laptop computers. It is important for learners to leave the workshop with their own machine set up to do real work. Our instructors teach on three major platforms: Windows, Mac OS X, and UNIX/Linux. We see a very close representation of Windows (`r dc_os_win`%)  and Apple/Mac OS (`r dc_os_mac`%) users in our Data Carpentry workshops, and even a few UNIX/Linux users (`r dc_os_lin`%).
+
+### Gender and Racial/Ethnic Identity
+
+
+```{r dc-gender}
+# Gender Identity 
+# Data Carpentry
+# With what gender do you most identify?
+dc_gender_levels <- c("Female", "Male", "Transgender female",
+                      "Transgender male", "Gender variant/non-conforming",
+                      "Prefer not to answer", "Didn't answer")
+
+dcpredata$gender_identity <- iconv(dcpredata$gender_identity, "latin1", "ASCII",
+                                   sub=" ")
+
+dc_gender <- dcpredata %>%
+    filter(country == "United States of America") %>% 
+    summarize_single_column(gender_identity, dc_gender_levels) 
+
+dc_gender_female <- dc_gender %>%
+    filter(gender_identity == "Female") %>%
+    pull(percent)
+
+dc_gender %>%
+    render_table(
+        gender_identity, 
+        col.names = c("Data Carpentry's U.S. Respondents' Gender Identity",
+                      "n", "%"),
+        arrange = FALSE)
+```
+
+```{r dc-ethnicity}
+# Data Carpentry: Race/Ethnic Identity
+# Responses are in columns 'RaceEthnicIdentity' through 'Column49'
+dc_ethnicity_data <- dcpredata %>%
+    filter(country == "United States of America") %>%
+    extract_multi_columns("ethnic_identity")
+
+dc_ethnicity <- dc_ethnicity_data %>%
+    summarize_multi_columns()
+
+dc_underrepresented <- dc_ethnicity %>%
+    filter(question != "White") %>%
+    pull(percent) %>%
+    sum()
+
+dc_ethnicity %>%
+    render_table(
+        question, 
+        col.names = c("Data Carpentry's U.S. Respondents Racial/Ethnic Identity",                      
+                      "n", "%"),
+        arrange = FALSE)
+```
+
+
+
+```{r swc-gender}
+# Software Carpentry
+# With what gender do you most identify?
+swc_gender_levels <- c("Female", "Male", "Other", "Prefer not to say")
+
+swc_gender <- swcpredata %>%
+    filter(us_workshop == "Yes") %>% 
+    summarize_single_column(gender, swc_gender_levels)
+
+swc_gender_female <- swc_gender %>%
+    filter(gender == "Female") %>%
+    pull(percent)
+
+swc_gender %>%
+    render_table(
+        gender, 
+        col.names = c("Software Carpentry's U.S. Respondents' Gender Identity",
+                      "n", "%"),
+        arrange = FALSE)
+
+```
+
+
+```{r swc-ethnicity}
+# Software Carpentry: Race/Ethnic Identity
+swc_ethnicity_levels <- c("American Indian or Alaskan Native",
+                          "Asian / Pacific Islander",
+                          "Black or African American", "Hispanic or Latino",
+                          "Native Hawaiian or Other Pacific Islander",
+                          "White / Caucasian",
+                          "Multiple ethnicity / Other (please specify)",
+                          "Prefer not to say")
+
+swc_ethnicity <- swcpredata %>%
+    filter(us_workshop == "Yes") %>% 
+    summarize_single_column(race, swc_ethnicity_levels)
+
+swc_underrepresented <- swc_ethnicity %>%
+    filter(race != "White / Caucasian") %>%
+    pull(percent) %>%
+    sum()
+
+swc_ethnicity %>%
+    render_table(
+        race, 
+        col.names = c("Software Carpentry's U.S. Respondents' Racial/Ethnic Identity",
+                      "n", "%"),
+        arrange = FALSE)
+
+```
+
+Gender and racial/ethnic identity information is collected for U.S. participants, as we are keen to increase the number of diverse instructors and learners we serve. Understanding our demographic makeup helps us to understand what communities we reach and what programs we should develop. 
+
+
+Currently, both Data (`r dc_gender_female`%) Carpentry and Software (`r swc_gender_female`%) Carpentry see strong representation from women in the United States. Where we hope to improve is in reaching the non-White audience, as fewer than `r dc_underrepresented`% for Data Carpentry, and `r swc_underrepresented`% for SWC of our respondents are from communities historically underrepresented in the science, technology, engineering, and mathematics (STEM) fields.
+
+
+## Summary
+
+This report focused on Data and Software Carpentry learners' skills, perspectives, and experiences in workshops. Our two-day coding workshops increase researchers’ daily programming usage, and confidence in working with open source tools. Currently, Data Carpentry and Software Carpentry use different surveys to collect pre and post workshop data. In the coming months, we plan to develop one common survey to be used for both Data Carpentry and Software Carpentry.
+
+For a comprehensive look at our workshops and instructor training, have a look at our [programmatic assessment report](https://carpentries.github.io/assessment/programmatic-assessment/workshops/outputs/final_report.html).
+
+
+
+
+
+
+
+
+ 
