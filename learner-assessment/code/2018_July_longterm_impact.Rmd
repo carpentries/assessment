@@ -695,6 +695,11 @@ impactdata %>%
   group_by(key, value) %>%
   tally() %>%
   mutate( perc = round(100 * (n/sum(n)), 1)) %>%
+  transform(key = factor(
+    key,
+    levels = c("ProgrammingBefore", "ProgrammingSince"),
+    labels = c("Pre", "Post")
+  )) %>%
   filter(!is.na(key),
          !is.na(value))
 ```
