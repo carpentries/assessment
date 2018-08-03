@@ -32,7 +32,11 @@ Check out [this list](report_ideas.md) for some suggestions -- or add your own i
 
 
 ##### Jupyter Notebook files 
-* [final\_notebook\_report.ipynb](./workshops/final_notebook_report.ipynb): Static graphs and charts of workshop data. Final report in progress; noting gaps and areas to fill in.
+* [programmatic\_report\_20180615.ipynb](./workshops/programmatic_report_20180615.ipynb): Jupyter notebook of Programmatic Assessment report published June 2018
+
+##### html and pdf output files
+* [outputs](./outputs): html and pdf outputs of Programmatic Assessment reports published June 2018 and August 2018
+Note the source notebook and data for the August 2018 report contain confidential data and are kept in [this private repo](https://github.com/carpentries/private-data/tree/master/programmatic-assessment).  Updates to that notebook and data files will be reflected here.
 
 
 ##### Convert to pdf or html
