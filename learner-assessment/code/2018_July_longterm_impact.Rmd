@@ -698,23 +698,20 @@ impactdata %>%
   transform(key = factor(
     key,
     levels = c("ProgrammingBefore", "ProgrammingSince"),
-    labels = c("Pre", "Post")
+    labels = c("Respondents' Programming Usage Pre ...", "... and Post Workshop (%)")
   )) %>%
   filter(!is.na(key),
          !is.na(value))
 ```
 
 ```{r slope_in_programming_usage}
-source("https://raw.githubusercontent.com/katrinleinweber/r-slopegraph/patches/slopegraph.r")
-  
-build_slopegraph(pre_and_post_usage,
-                 x = "key",
-                 y = "perc",
-                 group = "value") %>% 
-  plot_slopegraph(font_size = 4,
-                  slope_col = "darkcyan") +
-    ggtitle("Respondents' Programming Usage Pre and Post Workshop (in %)") +
-    theme(text = element_text(size = 16))
+slopegraph::ggslopegraph2(
+  dataframe = pre_and_post_usage,
+  times = key,
+  measurement = perc,
+  grouping = value,
+  title = NULL
+  )
 ```
 
 # Workshop Impact
