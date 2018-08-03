@@ -694,33 +694,22 @@ impactdata %>%
   gather() %>%
   group_by(key, value) %>%
   tally() %>%
-  mutate( perc = 100 * (n/sum(n))) %>%
+  mutate( perc = round(100 * (n/sum(n)), 1)) %>%
   filter(!is.na(key),
          !is.na(value))
 ```
 
-```{r longterm_change_in_programming_usage}
-  ggplot(pre_and_post_usage,
-         aes(x = factor(value,
-                        levels = programming),
-             y = perc,
-             fill = key)) +
-    geom_bar(stat = "identity",
-             position = "dodge") +
-    geom_text(aes(label=n), size= 4, vjust=-0.25, position = position_dodge(width = 1)) +
-    scale_x_discrete(labels = function(x) lapply(strwrap(x,
-                                                         width = 10,
-                                                         simplify = FALSE),
-                                                 paste,
-                                                 collapse = "\n")) +
-    theme_classic() +
-    xlab("Timeframe") +
-    ylab("% Respondents") +
-    scale_fill_discrete(name = "",
-                        labels = c("Before Workshop", "After Workshop")) +
-    ggtitle("Pre/Post Workshop Comparison of Programming Usage") +
-    theme(plot.title = element_text(hjust = 0.5)) +
-    theme_classic(base_size = 14)
+```{r slope_in_programming_usage}
+source("https://raw.githubusercontent.com/katrinleinweber/r-slopegraph/patches/slopegraph.r")
+  
+build_slopegraph(pre_and_post_usage,
+                 x = "key",
+                 y = "perc",
+                 group = "value") %>% 
+  plot_slopegraph(font_size = 4,
+                  slope_col = "darkcyan") +
+    ggtitle("Respondents' Programming Usage Pre and Post Workshop (in %)") +
+    theme(text = element_text(size = 16))
 ```
 
 # Workshop Impact
