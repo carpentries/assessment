@@ -2,7 +2,7 @@
 library(dplyr)
 
 # Load member organization dataset
-slug <- read.csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/data/workshops_current_members.csv", stringsAsFactors = FALSE)
+slug <- read.csv("learner-assessment/data/workshops_current_members.csv", stringsAsFactors = FALSE)
 
 # Load SWC and DC pre and post workshop data sets (RAW)
 source("learner-assessment/code/paths.R")
