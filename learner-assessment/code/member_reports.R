@@ -5,10 +5,10 @@ library(dplyr)
 slug <- read.csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/data/workshops_current_members.csv", stringsAsFactors = FALSE)
 
 # Load SWC and DC pre and post workshop data sets (RAW)
-swcpredata <- read.csv("https://raw.githubusercontent.com/carpentries/private-data/master/learner-assessment/swcpre_180521.csv?token=AUDcF_-RaLZBV7G-Hr3f1rU9p_OT5Cqoks5bazUdwA%3D%3D", stringsAsFactors = FALSE)
-swcpostdata <- read.csv("https://raw.githubusercontent.com/carpentries/private-data/master/learner-assessment/swcpost_180521.csv?token=AUDcF-7vb6nx8MsOb_d67lJBfjKpCnnUks5bazVGwA%3D%3D", stringsAsFactors = FALSE)
-dcpredata <- read.csv("https://raw.githubusercontent.com/carpentries/private-data/master/learner-assessment/dcpre_20180511.csv?token=AUDcF3oLvF9wF4fMqjfnGJI3NGh64W47ks5bazVqwA%3D%3D", stringsAsFactors = FALSE)
-dcpostdata <- read.csv("https://raw.githubusercontent.com/carpentries/private-data/master/learner-assessment/dcpost_20180511.csv?token=AUDcFzIrS7b6SUlclIRMuR16EdlQ1ZuKks5bazWGwA%3D%3D", stringsAsFactors = FALSE)
+swcpredata <- read.csv("https://raw.githubusercontent.com/carpentries/private-data/master/learner-assessment/swcpre_20180803.csv?token=AUDcF3t70p7F0lgBWKC0-54zfDqHVKAVks5bfarPwA%3D%3D", stringsAsFactors = FALSE)
+swcpostdata <- read.csv("https://raw.githubusercontent.com/carpentries/private-data/master/learner-assessment/swcpost_20180803.csv?token=AUDcF-B8sUeev9uSSqQ-2PkRj_98GlIDks5bfaq4wA%3D%3D", stringsAsFactors = FALSE)
+dcpredata <- read.csv("https://raw.githubusercontent.com/carpentries/private-data/master/learner-assessment/dcpre_20180803.csv?token=AUDcF32moSh6wBuOijwvlA7XyQNWbhZFks5bfaqjwA%3D%3D", stringsAsFactors = FALSE)
+dcpostdata <- read.csv("https://raw.githubusercontent.com/carpentries/private-data/master/learner-assessment/dcpost_20180803.csv?token=AUDcF0m6ja7TKq6l9GTKdGSAookBTiTGks5bfaqBwA%3D%3D", stringsAsFactors = FALSE)
 
 
 # SWC Pre Data
@@ -58,10 +58,10 @@ write_split_data = function(data_in, file_extension) {
 }
 
 # Write out each of the datasets back into the private-data repo
-write.csv(dcpostdata, "dcpostdata_memberorgs.csv")
-write.csv(dcpredata, "dcpredata_memberorgs.csv")
-write.csv(swcpostdata, "swcpostdata_memberorgs.csv")
-write.csv(swcpredata, "swcpredata_memberorgs.csv")
+write.csv(dcpostdata, "20180803_dcpostdata_memberorgs_raw.csv")
+write.csv(dcpredata, "20180803_dcpredata_memberorgs_raw.csv")
+write.csv(swcpostdata, "20180803_swcpostdata_memberorgs_raw.csv")
+write.csv(swcpredata, "20180803_swcpredata_memberorgs_raw.csv")
 
 # write_split_data(data_in = swcpredata_members, file_extension = "_swcpredata.csv")
 # write_split_data(data_in = swcpostdata_members, file_extension = "_swcpostdata.csv")
