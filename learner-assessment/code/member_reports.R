@@ -58,10 +58,10 @@ write_split_data = function(data_in, file_extension) {
 }
 
 # Write out each of the datasets back into the private-data repo
-write.csv(dcpostdata, "20180803_dcpostdata_memberorgs_raw.csv")
-write.csv(dcpredata, "20180803_dcpredata_memberorgs_raw.csv")
-write.csv(swcpostdata, "20180803_swcpostdata_memberorgs_raw.csv")
-write.csv(swcpredata, "20180803_swcpredata_memberorgs_raw.csv")
+write.csv(dcpostdata, "data/20180803_dcpostdata_memberorgs_raw.csv")
+write.csv(dcpredata, "data/20180803_dcpredata_memberorgs_raw.csv")
+write.csv(swcpostdata, "data/20180803_swcpostdata_memberorgs_raw.csv")
+write.csv(swcpredata, "data/20180803_swcpredata_memberorgs_raw.csv")
 
 # write_split_data(data_in = swcpredata_members, file_extension = "_swcpredata.csv")
 # write_split_data(data_in = swcpostdata_members, file_extension = "_swcpostdata.csv")
