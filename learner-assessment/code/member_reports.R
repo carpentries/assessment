@@ -5,15 +5,15 @@ library(dplyr)
 slug <- read.csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/data/workshops_current_members.csv", stringsAsFactors = FALSE)
 
 # Load SWC and DC pre and post workshop data sets (RAW)
-swcpredata <- read.csv("https://raw.githubusercontent.com/carpentries/private-data/master/learner-assessment/swcpre_20180803.csv?token=AUDcF3t70p7F0lgBWKC0-54zfDqHVKAVks5bfarPwA%3D%3D", stringsAsFactors = FALSE)
-swcpostdata <- read.csv("https://raw.githubusercontent.com/carpentries/private-data/master/learner-assessment/swcpost_20180803.csv?token=AUDcF-B8sUeev9uSSqQ-2PkRj_98GlIDks5bfaq4wA%3D%3D", stringsAsFactors = FALSE)
-dcpredata <- read.csv("https://raw.githubusercontent.com/carpentries/private-data/master/learner-assessment/dcpre_20180803.csv?token=AUDcF32moSh6wBuOijwvlA7XyQNWbhZFks5bfaqjwA%3D%3D", stringsAsFactors = FALSE)
-dcpostdata <- read.csv("https://raw.githubusercontent.com/carpentries/private-data/master/learner-assessment/dcpost_20180803.csv?token=AUDcF0m6ja7TKq6l9GTKdGSAookBTiTGks5bfaqBwA%3D%3D", stringsAsFactors = FALSE)
+swcpredata <- read.csv("https://raw.githubusercontent.com/carpentries/assessment/2018-07-08-learners-pre-post-surveys.Rmd/learner-assessment/data/20180521_swcpre.csv", stringsAsFactors = FALSE)
+swcpostdata <- read.csv("https://raw.githubusercontent.com/carpentries/assessment/2018-07-08-learners-pre-post-surveys.Rmd/learner-assessment/data/20180521_swcpost.csv", stringsAsFactors = FALSE)
+dcpredata <- read.csv("https://raw.githubusercontent.com/carpentries/assessment/2018-07-08-learners-pre-post-surveys.Rmd/learner-assessment/data/20180511_dcpre.csv", stringsAsFactors = FALSE)
+dcpostdata <- read.csv("https://raw.githubusercontent.com/carpentries/assessment/2018-07-08-learners-pre-post-surveys.Rmd/learner-assessment/data/20180511_dcpost.csv", stringsAsFactors = FALSE)
 
 
 # SWC Pre Data
 # Rename Workshop ID column to 'slug'
-swcpredata$slug <- swcpredata$Workshop.ID
+swcpredata$slug <- swcpredata$WorkshopID
 # This step created a dataframe that includes slug and fullname 
 slug <- select(slug, "slug", "fullname")
 # This step merged the slug dataframe into swcpreadata (adding a column to swcpredata called fullname)
@@ -23,7 +23,7 @@ swcpredata_members <- split(swcpredata, swcpredata$fullname)
 
 # SWC Post Data
 # Rename Workshop ID column to 'slug'
-swcpostdata$slug <- swcpostdata$Workshop.ID
+swcpostdata$slug <- swcpostdata$WorkshopID
 # This step merged the slug dataframe into swcpreadata (adding a column to swcpredata called fullname)
 swcpostdata <- merge(swcpostdata, slug, by = "slug")
 # We want to now subset the data by institution name (lists)
@@ -58,10 +58,10 @@ write_split_data = function(data_in, file_extension) {
 }
 
 # Write out each of the datasets back into the private-data repo
-write.csv(dcpostdata, "data/20180803_dcpostdata_memberorgs_raw.csv")
-write.csv(dcpredata, "data/20180803_dcpredata_memberorgs_raw.csv")
-write.csv(swcpostdata, "data/20180803_swcpostdata_memberorgs_raw.csv")
-write.csv(swcpredata, "data/20180803_swcpredata_memberorgs_raw.csv")
+write.csv(dcpostdata, "data/20180816_dcpostdata_memberorgs.csv")
+write.csv(dcpredata, "data/20180816_dcpredata_memberorgs.csv")
+write.csv(swcpostdata, "data/20180816_swcpostdata_memberorgs.csv")
+write.csv(swcpredata, "data/20180816_swcpredata_memberorgs.csv")
 
 # write_split_data(data_in = swcpredata_members, file_extension = "_swcpredata.csv")
 # write_split_data(data_in = swcpostdata_members, file_extension = "_swcpostdata.csv")
