@@ -1589,6 +1589,3 @@ swc_ethnicity %>%
 ## Summary
 
 This report focused on Data and Software Carpentry learners' skills, perspectives, and experiences in your workshops. Our two-day coding workshops increase researchers’ daily programming usage, and confidence in working with open source tools. If you'd like to discuss the results from this report, please [contact](mailto:kariljordan@carpentries.org) Kari L. Jordan, Director of Assessment and Community Equity for The Carpentries.
-
-
- 
