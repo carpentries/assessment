@@ -4,11 +4,10 @@
 
 ## I want the title of each report to include the member site that the report is written for
 title: Analysis of Software and Data Carpentry's Pre- and Post-Workshop Surveys
-author:
+authors:
 - Kari L. Jordan^[https://twitter.com/drkariljordan]
 - François Michonneau^[https://twitter.com/fmic_]
-- Belinda Weaver^[https://twitter.com/cloudaus]
-date: July 17th, 2018
+date: September 30, 2018
 output:
   html_document:
     self_contained: no
@@ -137,7 +136,7 @@ make_likert_data <- function(.data, var_levels) {
 ```{r load-dc-data}
 # Load DC pre and post-workshop data
 # Data Carpentry Pre-Workshop Data
-dcpredata <- readr::read_csv("../data/20180511_dcpre.csv",
+dcpredata <- readr::read_csv("../data/20180816_dcpredata_memberorgs.csv",
                              col_types = cols(
                                  Date =  col_datetime(
                                      format = "%m/%d/%y %H:%M"
@@ -199,7 +198,7 @@ dcpredata <- readr::read_csv("../data/20180511_dcpre.csv",
     filter(has_answers(.))
 
 ## Data Carpentry Post-Workshop Data
-dcpostdata <- readr::read_csv("../data/20180511_dcpost.csv",
+dcpostdata <- readr::read_csv("../data/20180816_dcpostdata_memberorgs.csv",
                               col_types = cols(
                                   Date =  col_datetime(
                                       format = "%m/%d/%y %H:%M"
@@ -213,7 +212,7 @@ dcpostdata <- readr::read_csv("../data/20180511_dcpost.csv",
 ```{r load-swc-data}
 ## Load SWC pre and post-workshop data
 ## Software Carpentry Pre-Workshop Data
-swcpredata <- readr::read_csv("../data/20180521_swcpre.csv",
+swcpredata <- readr::read_csv("../data/20180816_swcpredata_memberorgs.csv",
                               col_types = cols(
                                   Date =  col_datetime(
                                       format = "%m/%d/%y %H:%M"
@@ -266,7 +265,7 @@ swcpredata <- readr::read_csv("../data/20180521_swcpre.csv",
     filter(has_answers(.))
 
 ## Software Carpentry Post-Workshop Data
-swcpostdata <- readr::read_csv("../data/20180521_swcpost.csv",
+swcpostdata <- readr::read_csv("../data/20180816_swcpostdata_memberorgs.csv",
                                col_types = cols(
                                    Date =  col_datetime(
                                        format = "%m/%d/%y %H:%M"
