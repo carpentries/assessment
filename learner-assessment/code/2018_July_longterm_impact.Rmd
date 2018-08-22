@@ -1,6 +1,14 @@
-# Analysis of The Carpentries Long-Term Impact Survey
-### Author: [Kari L. Jordan](twitter.com/drkariljordan)
-### 17-July 2018 
+---
+title: Analysis of The Carpentries Long-Term Impact Survey
+author:
+- Kari L. Jordan^[https://twitter.com/drkariljordan]
+date: July 17th, 2018
+output:
+  html_document:
+    self_contained: no
+    toc: true
+    toc_float: true
+---
 
 ```{r setup, include=FALSE}
 library(tidyverse)
