@@ -130,16 +130,16 @@ impactdata %>%
 
 ```{r longterm_percent_by_country}
 ggplot(impactdata_country_tally,
-       aes(reorder(Country, perc),
-           perc)) +
-  geom_bar(stat = "identity", fill = "darkcyan") +
-  theme_classic() +
-  xlab("Country") +
-  ylab("% Respondents") +
-  coord_flip() +
-  ggtitle("Percentage of Respondents by Country") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_bw(base_size = 14)
+       aes(y = reorder(Country, perc),
+           x = perc)) +
+  geom_lollipop(color = "darkcyan", horizontal = TRUE) +
+  ylab("Country") +
+  xlab("% Respondents") +
+  ggtitle("Percentage of Respondents by Country")  +
+  theme_minimal(base_size = 14) +
+  theme(plot.title = element_text(hjust = 0.5),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor  = element_blank())
 
 # There are only a few responses to this question because it was omitted during the second round
 # of the survey
@@ -193,17 +193,18 @@ impactdata_status_tally <-
 
 ```{r longterm_status}
 ggplot(impactdata_status_tally,
-       aes(Status, y = 100 * (n/sum(n)),
+       aes(y = Status, x = 100 * (n/sum(n)),
            n)) +
-  geom_bar(stat = "identity", fill="darkcyan") +
-  geom_text(aes(label=n), size= 4, vjust=-0.25) +
-  scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-  theme_classic() +
-  xlab("Career Stage") +
-  ylab("% Respondents") +
-  ggtitle("Marjority Respondents are Graduate Students") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
+  geom_lollipop(color="darkcyan", horizontal = TRUE) +
+  geom_text(aes(label=n), size= 4, hjust=0, nudge_x = 1.25) +
+  scale_y_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
+  ylab("Career Stage") +
+  xlab("% Respondents") +
+  ggtitle("Marjority Respondents are Graduate Students")  +
+  theme_minimal(base_size = 14) +
+  theme(plot.title = element_text(hjust = 0.5),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor  = element_blank())
 ```
 
 Provided below is a table of participant counts in each category. Multiple selection was possible.
@@ -333,15 +334,17 @@ impactdata_workshops_tally <-
 ggplot(impactdata_workshops_tally,
        aes(NumWorkshops, y = 100 * (n/sum(n)),
            n)) +
-  geom_bar(stat = "identity", fill="darkcyan") +
-  geom_text(aes(label=n), size= 4, vjust=-0.25) +
+  geom_lollipop(color="darkcyan") +
+  geom_text(aes(label=n), size= 4, hjust=0, nudge_y=1.24) +
   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-  theme_classic() +
+  coord_flip() +
   xlab("Number of Workshops Attended") +
   ylab("% Respondents") +
   ggtitle("Some respondents attend multiple workshops") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
+  theme_minimal(base_size = 14) +
+  theme(plot.title = element_text(hjust = 0.5),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor  = element_blank())
 ```
 
 ```{r}
@@ -384,15 +387,17 @@ impactdata_timesinceworkshop_tally <-
 ggplot(impactdata_timesinceworkshop_tally,
        aes(TimeSinceWorkshop, y = 100 * (n/sum(n)),
            n)) +
-  geom_bar(stat = "identity", fill="darkcyan") +
-  geom_text(aes(label=n), size= 4 , vjust=-0.25) +
+  geom_lollipop(color="darkcyan") +
+  geom_text(aes(label=n), size= 4 , hjust=0, nudge_y=1.25) +
   scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-  theme_classic() +
+  coord_flip() +
   xlab("Time Since Attending Carpentry Workshop") +
   ylab("% Respondents") +
   ggtitle("Majority Respondents Attended a Workshop One Year Ago") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme_classic(base_size = 14)
+  theme_minimal(base_size = 14) +
+  theme(plot.title = element_text(hjust = 0.5),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor  = element_blank())
 ```
 
 #### Last Carpentries Workshop Attended
@@ -646,12 +651,13 @@ impactdata %>%
                                                           simplify = FALSE),
                                                   paste,
                                                   collapse = "\n")) +
-     theme_classic() +
      xlab("Timeframe") +
      ylab("% respondents") +
      ggtitle("Respondents Programming Usage Pre-Workshop") +
-     theme(plot.title = element_text(hjust = 0.5)) +
-    theme_classic(base_size = 14)
+  theme_minimal(base_size = 14) +
+  theme(plot.title = element_text(hjust = 0.5),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor  = element_blank())
 ```
 
 ```{r}
@@ -687,12 +693,13 @@ scale_x_discrete(labels = function(x) lapply(strwrap(x,
                                                          simplify = FALSE),
                                                  paste,
                                                  collapse = "\n")) +
-    theme_classic() +
     xlab("Timeframe") +
     ylab("% respondents") +
     ggtitle("Respondents Programming Usage Since Attending a Workshop") +
-    theme(plot.title = element_text(hjust = 0.5)) +
-    theme_classic(base_size = 14)
+  theme_minimal(base_size = 14) +
+  theme(plot.title = element_text(hjust = 0.5),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor  = element_blank())
 ```
 
 ```{r}
@@ -833,15 +840,17 @@ impactdata_change_in_confidence_tally <-
 ggplot(impactdata_change_in_confidence_tally,
        aes(ChangeInConfidence, y = 100 * (n/sum(n)),
            n)) +
-   geom_bar(stat = "identity", fill = "darkcyan") +
-   geom_text(aes(label=n), size= 4, vjust=-0.25) +
+   geom_lollipop(color = "darkcyan") +
+   geom_text(aes(label=n), size= 4, hjust=0, nudge_y=1.25) +
    scale_x_discrete(labels = function(x) lapply(strwrap(x, width = 10, simplify = FALSE), paste, collapse="\n")) +
-   theme_classic() +
+  coord_flip() +
    xlab("Change in Confidence") +
    ylab("% Respondents") +
-   ggtitle("Respondents Change in Confidence 6 or More \nMonths After a Workshop") +
-   theme(plot.title = element_text(hjust = 0.5)) +
-   theme_bw(base_size = 14)
+   ggtitle("Respondents Change in Confidence 6 or More \nMonths After a Workshop")  +
+  theme_minimal(base_size = 14) +
+  theme(plot.title = element_text(hjust = 0.5),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor  = element_blank())
 ```
 
 ```{r}
