@@ -8,6 +8,10 @@ output:
     self_contained: no
     toc: true
     toc_float: true
+  pdf_document:
+    toc: true
+    highlight: zenburn
+    df_print: kable
 ---
 
 ```{r setup, include=FALSE}
@@ -27,8 +31,16 @@ library(slopegraph)
 opts_chunk$set(echo = FALSE,
                message = FALSE,
                warning = FALSE)
+
+if (opts_knit$get("rmarkdown.pandoc.to") == "latex") {
+    figout <- "\\maxwidth"
+} else {
+    figout <- NULL
+}
+
 ## puts all figures in figures folder
-opts_chunk$set(fig.path='figures/', fig.width = 10,  fig.retina = 2)
+opts_chunk$set(fig.path='figures/', fig.width = 10, fig.retina = 2,
+               out.width = figout)
 ```
 
 ```{r load-long-term-data}
