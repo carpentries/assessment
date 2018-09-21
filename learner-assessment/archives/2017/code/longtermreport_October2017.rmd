@@ -28,7 +28,7 @@ opts_chunk$set(fig.path='figures/') #puts all figures in figures folder
 
 
 ```{r include=FALSE}
-data <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/archives/2017/data/longterm_October2017.csv")
+data <- readr::read_csv("../data/longterm_October2017.csv")
 ```
 
 

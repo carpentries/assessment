@@ -28,7 +28,7 @@ A [PDF](https://github.com/carpentries/assessment/blob/master/learner-assessment
 Community members are invited to contribute code to this analysis. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
 
 ```{r include=FALSE}
-data <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/archives/2017/data/2017-July-data.csv")
+data <- readr::read_csv("../data/2017-July-data.csv")
 ```
 ### Respondent Demographics
 A host of initiatives have been developed and implemented globally to address gender disparities in computing. Software Carpentry's volunteer instructors have hosted hundreds of workshops since 1998, and the post-workshop survey data shows __parity__ in attendance of males compared to females.

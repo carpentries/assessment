@@ -1,8 +1,8 @@
 # Load Pre-Workshop Data
-predata <- read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/data-carpentry/postworkshop/2018-March/180118_dcpre.csv")
+predata <- read_csv("learner-assessment/archives/2018/data/180118_dcpre.csv")
 
 # Load Post-Workshop Data
-postdata <- read_csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/data-carpentry/postworkshop/2018-March/180108_dcpost.csv")
+postdata <- read_csv("learner-assessment/archives/2018/data/180108_dcpost.csv")
 
 predata$uniqueID = predata[["UniqueID"]]
 predata[["UniqueID"]] = NULL
