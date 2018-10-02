@@ -1,0 +1,22 @@
+\contentsline {subsection}{Overview}{1}{section*.2}
+\contentsline {subsection}{Motivation for Attending Carpentries Workshops}{2}{section*.3}
+\contentsline {subsubsection}{Why are learners participating in our workshops?}{2}{section*.4}
+\contentsline {subsubsection}{What is the current level of satisfaction of the data management practices of our learners before attending our workshops?}{3}{section*.5}
+\contentsline {subsubsection}{How often do our workshop participants program before attending our workshops?}{3}{section*.6}
+\contentsline {subsection}{Workshop Type}{4}{section*.7}
+\contentsline {subsection}{Perception of Workshop Environment and Experience}{5}{section*.8}
+\contentsline {subsubsection}{Comfort of the environment}{5}{section*.9}
+\contentsline {subsubsection}{Interaction with Instructors and Helpers}{6}{section*.10}
+\contentsline {subsection}{Applicability of the skills learned}{8}{section*.11}
+\contentsline {subsection}{Was the information covered in the workshops new?}{8}{section*.12}
+\contentsline {subsection}{Workshop Experience}{9}{section*.13}
+\contentsline {subsection}{Net Promoter Score}{9}{section*.14}
+\contentsline {subsection}{Effect of Workshops on Learners Self-Reported Perspectives: Skills \& Confidence}{10}{section*.15}
+\contentsline {subsubsection}{Respondent Ability to Perform Computing Tasks}{14}{section*.16}
+\contentsline {subsection}{Demographics}{16}{section*.17}
+\contentsline {subsubsection}{Countries}{16}{section*.18}
+\contentsline {subsubsection}{Learners' discipline}{16}{section*.19}
+\contentsline {subsubsection}{Learners' career stage}{17}{section*.20}
+\contentsline {subsubsection}{Learners' operating system}{19}{section*.21}
+\contentsline {subsubsection}{Gender and Racial/Ethnic Identity}{19}{section*.22}
+\contentsline {subsection}{Summary}{21}{section*.23}

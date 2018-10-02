@@ -14,8 +14,8 @@ dcpostdata <- read.csv(path_dcpost, stringsAsFactors = FALSE)
 
 # SWC Pre Data
 # Rename Workshop ID column to 'slug'
-swcpredata$slug <- swcpredata$Workshop.ID
-# This step created a dataframe that includes slug and fullname
+swcpredata$slug <- swcpredata$WorkshopID
+# This step created a dataframe that includes slug and fullname 
 slug <- select(slug, "slug", "fullname")
 # This step merged the slug dataframe into swcpreadata (adding a column to swcpredata called fullname)
 swcpredata <- merge(swcpredata, slug, by = "slug")
@@ -24,7 +24,7 @@ swcpredata_members <- split(swcpredata, swcpredata$fullname)
 
 # SWC Post Data
 # Rename Workshop ID column to 'slug'
-swcpostdata$slug <- swcpostdata$Workshop.ID
+swcpostdata$slug <- swcpostdata$WorkshopID
 # This step merged the slug dataframe into swcpreadata (adding a column to swcpredata called fullname)
 swcpostdata <- merge(swcpostdata, slug, by = "slug")
 # We want to now subset the data by institution name (lists)
@@ -59,10 +59,10 @@ write_split_data = function(data_in, file_extension) {
 }
 
 # Write out each of the datasets back into the private-data repo
-write.csv(dcpostdata, "dcpostdata_memberorgs.csv")
-write.csv(dcpredata, "dcpredata_memberorgs.csv")
-write.csv(swcpostdata, "swcpostdata_memberorgs.csv")
-write.csv(swcpredata, "swcpredata_memberorgs.csv")
+write.csv(dcpostdata, "data/20180816_dcpostdata_memberorgs.csv")
+write.csv(dcpredata, "data/20180816_dcpredata_memberorgs.csv")
+write.csv(swcpostdata, "data/20180816_swcpostdata_memberorgs.csv")
+write.csv(swcpredata, "data/20180816_swcpredata_memberorgs.csv")
 
 # write_split_data(data_in = swcpredata_members, file_extension = "_swcpredata.csv")
 # write_split_data(data_in = swcpostdata_members, file_extension = "_swcpostdata.csv")
