@@ -21,7 +21,7 @@ opts_chunk$set(fig.path='figures/') #puts all figures in figures folder
 A [PDF](https://github.com/carpentries/assessment/blob/master/learner-assessment/data-carpentry/postworkshop/2018-January/survey.pdf) of the survey questions, the data used in this analysis, and full R code are located on the Data Carpentry [assessment](https://github.com/carpentries/assessment/tree/master/learner-assessment/data-carpentry/postworkshop) repo on GitHub. Feel free to use the data and [tell us](mailto: kariljordan@carpentries.org) about your findings.
 
 ```{r echo=FALSE}
-data <- readr::read_csv("https://raw.githubusercontent.com/kariljordan/assessment-fork/master/learner-assessment/archives/2017/data/2017-December.csv")
+data <- readr::read_csv("../data/2017-December.csv")
 ```
 
 ```{r}

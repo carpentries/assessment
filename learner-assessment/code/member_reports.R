@@ -2,13 +2,14 @@
 library(dplyr)
 
 # Load member organization dataset
-slug <- read.csv("https://raw.githubusercontent.com/carpentries/assessment/master/learner-assessment/data/workshops_current_members.csv", stringsAsFactors = FALSE)
+slug <- read.csv("learner-assessment/data/workshops_current_members.csv", stringsAsFactors = FALSE)
 
 # Load SWC and DC pre and post workshop data sets (RAW)
-swcpredata <- read.csv("https://raw.githubusercontent.com/carpentries/assessment/2018-07-08-learners-pre-post-surveys.Rmd/learner-assessment/data/20180521_swcpre.csv", stringsAsFactors = FALSE)
-swcpostdata <- read.csv("https://raw.githubusercontent.com/carpentries/assessment/2018-07-08-learners-pre-post-surveys.Rmd/learner-assessment/data/20180521_swcpost.csv", stringsAsFactors = FALSE)
-dcpredata <- read.csv("https://raw.githubusercontent.com/carpentries/assessment/2018-07-08-learners-pre-post-surveys.Rmd/learner-assessment/data/20180511_dcpre.csv", stringsAsFactors = FALSE)
-dcpostdata <- read.csv("https://raw.githubusercontent.com/carpentries/assessment/2018-07-08-learners-pre-post-surveys.Rmd/learner-assessment/data/20180511_dcpost.csv", stringsAsFactors = FALSE)
+source("learner-assessment/code/paths.R")
+swcpredata <- read.csv(path_swcpre, stringsAsFactors = FALSE)
+swcpostdata <- read.csv(path_swcpost, stringsAsFactors = FALSE)
+dcpredata <- read.csv(path_dcpre, stringsAsFactors = FALSE)
+dcpostdata <- read.csv(path_dcpost, stringsAsFactors = FALSE)
 
 
 # SWC Pre Data
@@ -32,7 +33,7 @@ swcpostdata_members <- split(swcpostdata, swcpostdata$fullname)
 # DC Pre Data
 # Rename Workshop ID column to 'slug'
 dcpredata$slug <- dcpredata$The.unique.identifier.of.the.workshop
-# This step created a dataframe that includes slug and fullname 
+# This step created a dataframe that includes slug and fullname
 slug <- select(slug, "slug", "fullname")
 # This step merged the slug dataframe into swcpreadata (adding a column to swcpredata called fullname)
 dcpredata <- merge(dcpredata, slug, by = "slug")
