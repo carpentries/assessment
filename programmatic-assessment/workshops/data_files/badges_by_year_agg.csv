@@ -1,0 +1,20 @@
+title,count(a.person_id),year
+Software Carpentry Instructor,34,2012
+Software Carpentry Instructor,69,2013
+Software Carpentry Instructor,174,2014
+Software Carpentry Instructor,197,2015
+Software Carpentry Instructor,331,2016
+Software Carpentry Instructor,285,2017
+Software Carpentry Instructor,121,2018
+Data Carpentry Instructor,2,2014
+Data Carpentry Instructor,1,2015
+Data Carpentry Instructor,344,2016
+Data Carpentry Instructor,212,2017
+Data Carpentry Instructor,59,2018
+Maintainer,31,2016
+Maintainer,1,2017
+Maintainer,46,2018
+Trainer,1,2012
+Trainer,14,2016
+Trainer,29,2017
+Trainer,17,2018

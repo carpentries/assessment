@@ -1,0 +1,130 @@
+slug,start,end,fullname,agreement_start,agreement_end
+2016-02-17-UCL_software_carpentry,2016-02-17,2016-02-18,University College London,2016-02-01,2019-01-31
+2016-06-22-UCL_software_carpentry,2016-06-22,2016-06-23,University College London,2016-02-01,2019-01-31
+2016-09-22-UCL_software_carpentry,2016-09-22,2016-09-23,University College London,2016-02-01,2019-01-31
+2016-11-10-uclhep,2016-11-10,2016-11-11,University College London,2016-02-01,2019-01-31
+2016-12-13-UCL_software_carpentry,2016-12-13,2016-12-14,University College London,2016-02-01,2019-01-31
+2017-04-27-UCL_software_carpentry,2017-04-27,2017-04-28,University College London,2016-02-01,2019-01-31
+2017-04-27-london,2017-04-27,2017-04-28,University College London,2016-02-01,2019-01-31
+2017-07-25-UCL_software_carpentry,2017-07-26,2017-07-26,University College London,2016-02-01,2019-01-31
+2017-08-09-lc-tucson,2017-08-09,2017-08-14,University of Arizona,2017-07-15,2018-07-17
+2017-08-17-umswc-hg,2017-08-17,2017-08-18,University of Michigan,2017-07-15,2018-07-15
+2017-08-26-Tucson,2017-08-26,2017-08-27,University of Arizona,2017-07-15,2018-07-17
+2017-09-04-ttt-manchester,2017-09-04,2017-09-04,University of Manchester,2017-06-01,2020-12-30
+2017-09-09-hlt-workshop,2017-09-09,2017-09-10,University of Arizona,2017-07-15,2018-07-17
+2017-09-11-cambridge,2017-09-11,2017-09-12,University of Cambridge,2017-08-01,2018-08-01
+2017-09-25-UCL_software_carpentry,2017-09-25,2017-09-26,University College London,2016-02-01,2019-01-31
+2017-09-30-TDWG-Ottawa,2017-09-30,2017-10-01,University of Florida,2017-08-15,2018-08-15
+2017-10-02-uw,2017-10-02,2017-10-05,University of Washington,2017-08-15,2018-08-15
+2017-10-16-Monsanto-ttt,2017-10-16,2017-10-17,Monsanto,2015-11-30,2018-11-30
+2017-10-16-umswc,2017-10-16,2017-10-16,University of Michigan,2017-07-15,2018-07-15
+2017-10-24-ARC-16S,2017-10-24,2017-10-27,North-West University,2017-08-15,2018-08-15
+2017-10-30-iDigBio-Summit-UFII,2017-10-30,2017-10-31,University of Florida,2017-08-15,2018-08-15
+2017-10-31-UCL_software_carpentry,2017-10-31,2017-11-01,University College London,2016-02-01,2019-01-31
+2017-11-01-NWU-Mafikeng,2017-11-01,2017-11-03,North-West University,2017-08-15,2018-08-15
+2017-11-03-gwu-R,2017-11-03,2017-11-04,George Washington University,2017-09-01,2018-09-01
+2017-11-06-manchester,2017-11-06,2017-11-07,University of Manchester,2017-06-01,2020-12-30
+2017-11-09-uclhep,2017-11-09,2017-11-10,University College London,2016-02-01,2019-01-31
+2017-11-20-ou,2017-11-20,2017-11-21,University of Oklahoma,2017-09-01,2018-09-01
+2017-11-30-NWU-IT,2017-11-30,2017-12-01,North-West University,2017-08-15,2018-08-15
+2017-12-01-gwu-Python,2017-12-01,2017-12-02,George Washington University,2017-09-01,2018-09-01
+2017-12-02-UCSF-Python,2017-12-02,2017-12-03,University of California San Francisco,2017-10-15,2018-10-15
+2017-12-02-UCSF-R,2017-12-02,2017-12-03,University of California San Francisco,2017-10-15,2018-10-15
+2017-12-07-Monsanto,2017-12-07,2017-12-08,Monsanto,2015-11-30,2018-11-30
+2017-12-12-MQU-R,2017-12-12,2017-12-13,Macquarie University,2017-11-15,2018-11-15
+2017-12-14-MAN-SS-PILOT01,2017-12-14,2017-12-15,University of Manchester,2017-06-01,2020-12-30
+2017-12-14-UCL_software_carpentry,2017-12-14,2017-12-15,University College London,2016-02-01,2019-01-31
+2017-12-18-osu,2017-12-18,2017-12-19,Oklahoma State University,2017-12-01,2018-12-01
+2017-12-18-umich,2017-12-18,2017-12-19,University of Michigan,2017-07-15,2018-07-15
+2018-01-03-davis,2018-01-03,2018-01-04,University of California Davis,2018-01-01,2019-01-01
+2018-01-08-okstate,2018-01-08,2018-01-09,Oklahoma State University,2017-12-01,2018-12-01
+2018-01-08-uw,2018-01-08,2018-01-11,University of Washington,2017-08-15,2018-08-15
+2018-01-10-ou,2018-01-10,2018-01-11,University of Oklahoma,2017-09-01,2018-09-01
+2018-01-11-oxford,2018-01-11,2018-01-11,University of Oxford,2017-10-15,2018-10-15
+2018-01-18-UF-R,2018-01-18,2018-03-01,University of Florida,2017-08-15,2018-08-15
+2018-01-18-UMWISE,2018-01-18,2018-01-19,University of Michigan,2017-07-15,2018-07-15
+2018-01-18-stonybrook,2018-01-18,2018-01-19,Stony Brook University,2017-11-01,2018-11-01
+2018-01-22-UFII,2018-01-22,2018-01-23,University of Florida,2017-08-15,2018-08-15
+2018-01-24-ucdavis,2018-01-24,2018-01-25,University of California Davis,2018-01-01,2019-01-01
+2018-01-26-unt-swc,2018-01-26,2018-01-27,University of North Texas,2017-12-01,2018-12-01
+2018-01-31-WITS,2018-01-31,2018-02-01,North-West University,2017-08-15,2018-08-15
+2018-02-07-dunedin,2018-02-07,2018-02-09,University of Otago,2018-01-01,2019-01-01
+2018-02-07-smithsonian,2018-02-07,2018-02-08,"Smithsonian Institution, National Museum of Natural History",2017-09-01,2018-09-01
+2018-02-10-tucson,2018-02-10,2018-02-11,University of Arizona,2017-07-15,2018-07-17
+2018-02-20-MQU-DC,2018-02-20,2018-02-21,Macquarie University,2017-11-15,2018-11-15
+2018-02-22-Potsdam-Berlin,2018-02-22,2018-02-23,GFZ Potsdam,2018-01-15,2019-01-15
+2018-02-22-roche,2018-02-22,2018-02-23,University of Arizona,2017-07-15,2018-07-17
+2018-02-26-UMich,2018-02-26,2018-02-27,University of Michigan,2017-07-15,2018-07-15
+2018-02-26-umich-shapiro,2018-02-26,2018-02-27,University of Michigan,2017-07-15,2018-07-15
+2018-03-05-aarhus,2018-03-05,2018-03-06,Aarhus University,2017-12-20,2018-12-20
+2018-03-07-UCSD,2018-03-07,2018-03-08,University of California San Diego,2017-07-15,2018-07-15
+2018-03-07-serc,2018-03-07,2018-03-08,"Smithsonian Institution, National Museum of Natural History",2017-09-01,2018-09-01
+2018-03-08-gwu,2018-03-08,2018-03-09,George Washington University,2017-09-01,2018-09-01
+2018-03-08-manchester-swc,2018-03-08,2018-03-09,University of Manchester,2017-06-01,2020-12-30
+2018-03-10-uscf-R,2018-03-10,2018-03-11,University of California San Francisco,2017-10-15,2018-10-15
+2018-03-10-uscf-python,2018-03-10,2018-03-11,University of California San Francisco,2017-10-15,2018-10-15
+2018-03-13-census,2018-03-13,2018-03-14,National Institute of Standards and Technology,2018-01-01,2019-01-01
+2018-03-14-SFU-python,2018-03-14,2018-03-15,Simon Fraser University,2018-02-01,2019-02-01
+2018-03-14-unt-swc,2018-03-14,2018-03-15,University of North Texas,2017-12-01,2018-12-01
+2018-03-15-Boise,2018-03-15,2018-03-16,Boise State University,2017-12-01,2018-12-01
+2018-03-19-ou,2018-03-19,2018-03-20,University of Oklahoma,2017-09-01,2018-09-01
+2018-03-20-UFDataSymposium,2018-03-20,2018-03-21,University of Florida,2017-08-15,2018-08-15
+2018-03-20-gpn,2018-03-20,2018-03-21,Great Plains Network,2018-02-01,2019-02-01
+2018-03-22-nasa,2018-03-22,2018-03-23,NASA (National Aeronautics and Space Administration),2018-01-10,2019-01-10
+2018-03-22-ttt-westbigdatahub,2018-03-22,2018-03-23,West Big Data Hub,2018-01-01,2019-01-01
+2018-04-02-ou,2018-04-02,2018-04-03,University of Oklahoma,2017-09-01,2018-09-01
+2018-04-05-gpn,2018-04-05,2018-04-06,Great Plains Network,2018-02-01,2019-02-01
+2018-04-11-gwu,2018-04-11,2018-04-12,George Washington University,2017-09-01,2018-09-01
+2018-04-16-uw,2018-04-16,2018-04-19,University of Washington,2017-08-15,2018-08-15
+2018-04-21-wvu,2018-04-21,2018-04-22,West Virginia University,2018-04-01,2019-04-01
+2018-04-23-uf-flrec,2018-04-23,2018-04-24,University of Florida,2017-08-15,2018-08-15
+2018-04-23-umich,2018-04-23,2018-04-24,University of Michigan,2017-07-15,2018-07-15
+2018-04-25-LBNL,2018-04-25,2018-04-26,Lawrence Berkeley National Laboratory,2018-04-01,2018-09-30
+2018-04-25-Potsdam-Berlin,2018-04-25,2018-04-26,GFZ Potsdam,2018-01-15,2019-01-15
+2018-04-25-UCL_software_carpentry,2018-04-25,2018-04-26,University College London,2016-02-01,2019-01-31
+2018-04-30-sfu,2018-04-30,2018-05-01,Simon Fraser University,2018-02-01,2019-02-01
+2018-05-03-LBNL,2018-05-03,2018-05-04,Lawrence Berkeley National Laboratory,2018-04-01,2018-09-30
+2018-05-07-ttt-monash,2018-05-07,2018-05-08,Monash University,2018-01-20,2019-01-20
+2018-05-09-WHOI,2018-05-09,2018-05-10,Woods Hole Oceanographic Institute,2018-04-15,2019-04-15
+2018-05-09-ttt-monsanto,2018-05-09,2018-05-10,Monsanto,2015-11-30,2018-11-30
+2018-05-10-macquarie-university,2018-05-10,2018-05-11,Macquarie University,2017-11-15,2018-11-15
+2018-05-15-swc-manchester,2018-05-15,2018-05-16,University of Manchester,2017-06-01,2020-12-30
+2018-05-16-ou-dc,2018-05-16,2018-05-17,University of Oklahoma,2017-09-01,2018-09-01
+2018-05-22-UCSD,2018-05-22,2018-05-23,University of California San Diego,2017-07-15,2018-07-15
+2018-05-24-LBNL,2018-05-24,2018-05-25,Lawrence Berkeley National Laboratory,2018-04-01,2018-09-30
+2018-05-24-ucla,2018-05-24,2018-05-25,University of California Los Angeles,2018-05-01,2019-05-01
+2018-05-31-nist,2018-05-31,2018-06-01,National Institute of Standards and Technology,2018-01-01,2019-01-01
+2018-06-05-unt-swc,2018-06-05,2018-06-06,University of North Texas,2017-12-01,2018-12-01
+2018-06-12-nmnh,2018-06-12,2018-06-12,"Smithsonian Institution, National Museum of Natural History",2017-09-01,2018-09-01
+2018-06-14-NASA-LRC,2018-06-14,2018-06-15,NASA (National Aeronautics and Space Administration),2018-01-10,2019-01-10
+2018-06-14-NWU,2018-06-14,2018-06-15,North-West University,2017-08-15,2018-08-15
+2018-06-14-umich,2018-06-14,2018-06-15,University of Michigan,2017-07-15,2018-07-15
+2018-06-14-umich,2018-06-14,2018-06-15,University of Michigan,2018-05-04,2019-05-04
+2018-06-26-NASA,2018-06-26,2018-06-27,NASA (National Aeronautics and Space Administration),2018-01-10,2019-01-10
+2018-06-26-ucsd,2018-06-26,2018-06-29,University of California San Diego,2017-07-15,2018-07-15
+2018-06-27-DIBSI-Genomics,2018-06-27,2018-06-28,University of California Davis,2018-01-01,2019-01-01
+2018-06-27-DIBSI-Geospatial,2018-06-27,2018-06-28,University of California Davis,2018-01-01,2019-01-01
+2018-06-27-DIBSI-SWC,2018-06-28,2018-06-29,University of California Davis,2018-01-01,2019-01-01
+2018-06-27-DIBSI-SocialSci,2018-06-27,2018-06-28,University of California Davis,2018-01-01,2019-01-01
+2018-06-27-LBNL,2018-06-27,2018-06-28,Lawrence Berkeley National Laboratory,2018-04-01,2018-09-30
+2018-06-27-SpanishSWC,2018-06-27,2018-06-28,University of California Davis,2018-01-01,2019-01-01
+2018-06-29-und-mbdh,2018-06-29,2018-06-30,University of North Dakota,2017-10-01,2018-10-01
+2018-07-03-ResBazPythonIntro,2018-07-03,2018-07-04,Macquarie University,2017-11-15,2018-11-15
+2018-07-03-ResbazSydney,2018-07-03,2018-07-04,Macquarie University,2017-11-15,2018-11-15
+2018-07-03-manchester,2018-07-03,2018-07-04,University of Manchester,2017-06-01,2020-12-30
+2018-07-03-resbaz-python-advanced,2018-07-03,2018-07-04,Macquarie University,2017-11-15,2018-11-15
+2018-07-03-resbaz-sydneyAdvR,2018-07-03,2018-07-04,Macquarie University,2017-11-15,2018-11-15
+2018-07-03-resbaz2018sql,2018-07-03,2018-07-04,Macquarie University,2017-11-15,2018-11-15
+2018-07-04-otago-dc,2018-07-04,2018-07-05,University of Otago,2018-01-01,2019-01-01
+2018-07-05-dunedin,2018-07-05,2018-07-05,University of Otago,2018-01-01,2019-01-01
+2018-07-18-NWU-Mafikeng,2018-07-18,2018-07-20,North-West University,2017-08-15,2018-08-15
+2018-07-23-nyu,2018-07-23,2018-07-24,New York University,2018-05-01,2019-05-01
+2018-07-25-LBNL,2018-07-25,2018-07-26,Lawrence Berkeley National Laboratory,2018-04-01,2018-09-30
+2018-08-15-whoi,2018-08-15,2018-08-15,Woods Hole Oceanographic Institute,2018-04-15,2019-04-15
+2018-08-23-LBNL,2018-08-23,2018-08-24,Lawrence Berkeley National Laboratory,2018-04-01,2018-09-30
+2018-08-23-ttt-otago,2018-08-23,2018-08-24,University of Otago,2018-01-01,2019-01-01
+2018-09-17-und-mbdh,2018-09-17,2018-09-18,University of North Dakota,2017-10-01,2018-10-01
+2018-10-04-nyu,2018-10-04,2018-10-05,New York University,2018-05-01,2019-05-01
+2018-25-06-UF-DataCarp,2018-06-25,2018-06-25,University of Florida,2017-08-15,2018-08-15
+2019-01-10-nyu,2019-01-10,2019-01-11,New York University,2018-05-01,2019-05-01
+2019-02-28-nyu,2019-02-28,2019-03-01,New York University,2018-05-01,2019-05-01
