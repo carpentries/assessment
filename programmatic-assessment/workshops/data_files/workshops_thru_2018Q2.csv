@@ -1,0 +1,1594 @@
+slug,tag_name,start_date,attendance,host_name,country
+2012-01-18-stsci,SWC,2012-01-18,14,Space Telescope Science Institute,US
+2012-02-20-itcp,SWC,2012-02-20,50,International Centre for Theoretical Physics,IT
+2012-02-23-toronto,SWC,2012-02-23,28,University of Toronto,CA
+2012-03-07-indiana,SWC,2012-03-07,39,Indiana University,US
+2012-03-26-mbari,SWC,2012-03-26,38,Monterey Bay Aquarium Research Institute,US
+2012-03-28-nersc,SWC,2012-03-28,35,NERSC,US
+2012-04-02-chicago,SWC,2012-04-02,35,University of Chicago,US
+2012-04-14-utahstate,SWC,2012-04-14,32,Utah State University,US
+2012-04-30-ucl,SWC,2012-04-30,44,University College London,GB
+2012-05-07-michiganstate,SWC,2012-05-07,55,Michigan State University,US
+2012-05-14-newcastle,SWC,2012-05-14,41,University of Newcastle,GB
+2012-05-16-alberta,SWC,2012-05-16,38,University of Alberta,CA
+2012-05-22-ubc,SWC,2012-05-22,39,University of British Columbia,CA
+2012-06-18-jhu,SWC,2012-06-18,20,Johns Hopkins University,US
+2012-06-28-inria,SWC,2012-06-28,28,INRIA (Paris),FR
+2012-07-09-mit,SWC,2012-07-09,36,Massachusetts Institute of Technology,US
+2012-07-10-ral,SWC,2012-07-10,24,Science & Technology Facilities Council,GB
+2012-07-12-waterloo,SWC,2012-07-12,40,University of Waterloo,CA
+2012-07-16-halifax,SWC,2012-07-16,40,Saint Mary's University,CA
+2012-07-19-utsc,SWC,2012-07-19,39,University of Toronto (Scarborough),CA
+2012-08-26-ttt-online,"TTT,online",2012-08-26,20,Software Carpentry,W3
+2012-09-13-dafx,SWC,2012-09-13,33,DAFX Conference,GB
+2012-09-17-oslo,SWC,2012-09-17,34,University of Oslo,NO
+2012-09-28-columbia,SWC,2012-09-28,39,Columbia University,US
+2012-10-08-purdue,SWC,2012-10-08,42,Purdue University,US
+2012-10-11-ttt-online,"TTT,online",2012-10-11,25,Software Carpentry,W3
+2012-10-17-lbl,SWC,2012-10-17,40,Lawrence Berkeley National Laboratory,US
+2012-10-18-ubc,SWC,2012-10-18,62,University of British Columbia,CA
+2012-10-20-ucb,SWC,2012-10-20,29,University of California Berkeley,US
+2012-10-22-newcastle,SWC,2012-10-22,31,University of Newcastle,GB
+2012-10-23-caltech,SWC,2012-10-23,34,California Institute of Technology,US
+2012-10-25-gmu,SWC,2012-10-25,7,George Mason University,US
+2012-10-30-oxford,SWC,2012-10-30,19,University of Oxford,GB
+2012-11-08-mcmaster,SWC,2012-11-08,31,McMaster University,CA
+2012-11-10-wustl,SWC,2012-11-10,21,Washington University in St. Louis,US
+2012-11-15-scripps,SWC,2012-11-15,39,Scripps Institute,US
+2012-11-28-unc,SWC,2012-11-28,41,University of North Carolina,US
+2012-11-30-hawaii,SWC,2012-11-30,46,University of Hawaii,US
+2012-12-04-edinburgh,SWC,2012-12-04,36,University of Edinburgh,GB
+2012-12-10-uta,SWC,2012-12-10,79,University of Texas (Austin),US
+2013-01-06-ttt-online,"TTT,online",2013-01-06,12,Software Carpentry,W3
+2013-01-11-ubc,SWC,2013-01-11,18,University of British Columbia,CA
+2013-01-12-chicago,SWC,2013-01-12,54,University of Chicago,US
+2013-01-12-mcgill,SWC,2013-01-12,40,McGill University,CA
+2013-01-12-waterloo,SWC,2013-01-12,24,University of Waterloo,CA
+2013-01-21-ubc,SWC,2013-01-21,24,University of British Columbia,CA
+2013-01-22-tum,SWC,2013-01-22,25,Technical University Munich,DE
+2013-01-24-camh,SWC,2013-01-24,28,Centre for Addiction and Mental Health,CA
+2013-01-25-tuebingen,SWC,2013-01-25,40,Max Planck Institute Tuebingen,DE
+2013-01-30-columbia,SWC,2013-01-30,133,Columbia University,US
+2013-01-31-vt,SWC,2013-01-31,35,Virginia Tech,US
+2013-02-05-ubc,SWC,2013-02-05,30,University of British Columbia,CA
+2013-02-06-qmul,SWC,2013-02-06,27,Queen Mary University London,GB
+2013-02-07-macquarie,SWC,2013-02-07,38,Macquarie University,AU
+2013-02-14-amos,SWC,2013-02-14,68,AMOS Conference (Melbourne),AU
+2013-02-25-uwash,SWC,2013-02-25,92,University of Washington,US
+2013-03-04-lbl,SWC,2013-03-04,60,Lawrence Berkeley National Laboratory,US
+2013-03-07-virginia,SWC,2013-03-07,34,University of Virginia,US
+2013-03-12-ttt-online,"TTT,online",2013-03-12,27,Software Carpentry,W3
+2013-03-20-aub,SWC,2013-03-20,25,American University in Beirut,LB
+2013-03-23-utahstate,SWC,2013-03-23,36,Utah State University,US
+2013-03-24-kaust,SWC,2013-03-24,20,King Abdullah University of Science and Technology,SA
+2013-04-04-arizona,SWC,2013-04-04,35,University of Arizona,US
+2013-04-04-ucl,SWC,2013-04-04,31,University College London,GB
+2013-04-08-stellenbosch,SWC,2013-04-08,10,Stellenbosch University,ZA
+2013-04-11-egi,SWC,2013-04-13,20,European Grid Infrastructure,GB
+2013-04-13-ucb,SWC,2013-04-13,24,University of California Berkeley,US
+2013-04-18-manchester,SWC,2013-04-18,28,University of Manchester,GB
+2013-04-20-paris,SWC,2013-04-20,25,Telecom ParisTech,FR
+2013-04-27-umaryland,SWC,2013-04-27,15,University of Maryland,US
+2013-04-29-wisc,SWC,2013-04-29,30,University of Wisconsin - Madison,US
+2013-05-02-vu,SWC,2013-05-02,39,Vrije Universiteit,NL
+2013-05-06-geomar,SWC,2013-05-06,32,GEOMAR (Kiel),DE
+2013-05-06-hhmi,SWC,2013-05-06,35,Howard Hughes Medical Institute,US
+2013-05-06-stanford,SWC,2013-05-06,50,Stanford University,US
+2013-05-09-lbl,SWC,2013-05-09,24,Lawrence Berkeley National Laboratory,US
+2013-05-09-mozilla,SWC,2013-05-09,28,Mozilla Foundation,CA
+2013-05-09-oxford,SWC,2013-05-09,33,University of Oxford,GB
+2013-05-12-ttt-online,"TTT,online",2013-05-12,45,Software Carpentry,W3
+2013-05-13-ucdavis,SWC,2013-05-13,36,University of California Davis,US
+2013-05-16-nescent,SWC,2013-05-16,12,NESCENT,US
+2013-05-18-krakow,SWC,2013-05-18,28,Jagiellonian University,PL
+2013-05-20-duke,SWC,2013-05-20,40,Duke University,US
+2013-05-23-ucar,SWC,2013-05-23,16,University Corporation for Atmospheric Research,US
+2013-05-23-umass,SWC,2013-05-23,39,University of Massachusetts,US
+2013-05-30-alberta,SWC,2013-05-30,37,University of Alberta,CA
+2013-06-03-southampton,SWC,2013-06-03,48,University of Southampton,GB
+2013-06-03-tufts,SWC,2013-06-03,52,Tufts University,US
+2013-06-04-dssg,SWC,2013-06-04,43,University of Chicago,US
+2013-06-06-sfu,SWC,2013-06-06,37,Simon Fraser University,CA
+2013-06-10-salk,SWC,2013-06-09,36,Salk Institute,US
+2013-06-17-chicago,SWC,2013-06-17,44,University of Chicago,US
+2013-06-24-wise,"WiSE,SWC",2013-06-24,118,Software Carpentry,US
+2013-06-25-scipy,SWC,2013-06-25,25,SciPy Conference,US
+2013-07-01-christchurch,SWC,2013-07-01,19,New Zealand eScience Infrastructure,NZ
+2013-07-01-oklahoma,SWC,2013-07-01,40,University of Oklahoma,US
+2013-07-03-oslo,SWC,2013-07-03,31,University of Oslo,NO
+2013-07-08-wuhan,SWC,2013-07-08,24,Wuhan Institute of Virology,CN
+2013-07-11-indiana,SWC,2013-07-11,28,Indiana University,US
+2013-07-15-bath,SWC,2013-07-15,25,University of Bath,GB
+2013-07-15-vt,SWC,2013-07-15,21,Virginia Tech,US
+2013-07-16-cuahsi,SWC,2013-07-25,40,Utah State University,US
+2013-07-18-notredame,SWC,2013-07-18,41,University of Notre Dame,US
+2013-07-18-washington,SWC,2013-07-18,32,University of Washington,US
+2013-07-27-cmu,SWC,2013-07-27,38,Carnegie Mellon University,US
+2013-08-04-esa,SWC,2013-08-04,12,Ecological Society of America,US
+2013-08-12-ttt-online,"TTT,online",2013-08-12,41,Software Carpentry,W3
+2013-08-22-ku,SWC,2013-08-22,41,University of Kansas,US
+2013-08-23-harvard,SWC,2013-08-23,33,Harvard University,US
+2013-08-27-erdc,SWC,2013-08-27,34,US Army Engineer Research and Development Center,US
+2013-08-28-wisc,SWC,2013-08-28,34,University of Wisconsin - Madison,US
+2013-09-05-iowa,SWC,2013-09-05,31,University of Iowa,US
+2013-09-12-bristol,SWC,2013-09-12,27,University of Bristol,GB
+2013-09-16-ISI,SWC,2013-09-16,27,Information Sciences Institute,US
+2013-09-16-stsci,SWC,2013-09-16,18,Space Telescope Science Institute,US
+2013-09-19-chicago,SWC,2013-09-19,49,University of Chicago,US
+2013-09-21-uwaterloo,SWC,2013-09-21,44,University of Waterloo,CA
+2013-09-23-msu,SWC,2013-09-23,37,Michigan State University,US
+2013-09-24-acpfgA,SWC,2013-09-24,20,Australian Centre for Plant Functional Genomics,AU
+2013-09-26-ubc,SWC,2013-09-26,24,University of British Columbia,CA
+2013-09-27-ucl,SWC,2013-09-27,32,University College London,GB
+2013-09-30-ttt-online,"TTT,online",2013-09-30,57,Software Carpentry,W3
+2013-10-01-acpfgM,SWC,2013-10-01,27,Australian Centre for Plant Functional Genomics,AU
+2013-10-03-pasteur,SWC,2013-10-03,19,Pasteur Institute,FR
+2013-10-09-canberra,SWC,2013-10-09,35,Australian National University,AU
+2013-10-17-uic,SWC,2013-10-17,40,University of Illinois at Chicago,US
+2013-10-24-greenwich,SWC,2013-10-24,36,"Greenwich Digital Enterprise, London",GB
+2013-10-25-columbia,SWC,2013-10-25,27,New York University,US
+2013-10-29-vertpaleo,SWC,2013-10-29,8,Society of Vertebrate Paleontology,US
+2013-11-14-exeter,SWC,2013-11-14,23,University of Exeter,GB
+2013-11-14-whoi,SWC,2013-11-14,35,Woods Hole Oceanographic Institute,US
+2013-11-18-lbl,SWC,2013-11-18,32,Lawrence Berkeley National Laboratory,US
+2013-11-23-berkeley,SWC,2013-11-23,20,University of California Berkeley,US
+2013-11-25-unimelb,SWC,2013-11-25,36,University of Melbourne,AU
+2013-12-03-edinburgh,SWC,2013-12-03,34,University of Edinburgh,GB
+2013-12-03-sesync,SWC,2013-12-03,42,National Socio-Environmental Synthesis Center,US
+2013-12-12-glasgow,SWC,2013-12-12,43,Scottish Universities Physics Alliance,GB
+2013-12-16-dundee,SWC,2013-12-16,32,University of Dundee,GB
+2014-01-06-unb,SWC,2014-01-06,20,University of New Brunswick,CA
+2014-01-07-cam,SWC,2014-01-07,24,University of Cambridge,GB
+2014-01-08-iastate,SWC,2014-01-08,64,Iowa State University,US
+2014-01-13-uri,SWC,2014-01-13,40,University of Rhode Island,US
+2014-01-13-wisc,SWC,2014-01-13,32,University of Wisconsin - Madison,US
+2014-01-14-manchester,SWC,2014-01-14,19,University of Manchester,GB
+2014-01-16-ttt-online,"TTT,online",2014-01-16,67,Software Carpentry,W3
+2014-01-18-ucb,SWC,2014-01-18,21,University of California Berkeley,US
+2014-01-20-montreal,SWC,2014-01-20,26,Computer Research Institute of Montreal,CA
+2014-01-21-erdc,SWC,2014-01-21,26,US Army Engineer Research and Development Center,US
+2014-01-27-Stanford,SWC,2014-01-27,28,Stanford University,US
+2014-01-27-miami,SWC,2014-01-27,120,University of Miami,US
+2014-01-30-cse,SWC,2014-01-30,28,University of Illinois at Urbana-Champaign,US
+2014-01-30-mit,SWC,2014-01-30,30,Massachusetts Institute of Technology,US
+2014-01-31-ucsb,SWC,2014-01-31,36,University of California Santa Barbara,US
+2014-02-03-TGAC,SWC,2014-02-03,24,The Genome Analysis Centre,GB
+2014-02-10-hobart,SWC,2014-02-10,37,AMOS Conference (Melbourne),AU
+2014-02-11-toronto,SWC,2014-02-11,23,Mozilla Foundation,CA
+2014-02-13-UNSW,SWC,2014-02-13,38,University of New South Wales,AU
+2014-02-15-umkc,SWC,2014-02-15,27,University of Missouri-Kansas City,US
+2014-02-18-UCL,SWC,2014-02-18,27,University College London,GB
+2014-02-18-UTS,SWC,2014-02-18,29,University of Technology Sydney,AU
+2014-02-18-aims,SWC,2014-02-18,24,African Institute of Mathematical Sciences,GH
+2014-02-22-SFU,SWC,2014-02-22,47,Simon Fraser University,CA
+2014-02-24-esac,SWC,2014-02-24,42,European Space Astronomy Centre,ES
+2014-02-28-ethz,SWC,2014-02-28,27,Swiss Federal Institute of Technology Zurich,CH
+2014-03-10-uva,SWC,2014-03-10,37,University of Virginia,US
+2014-03-17-nyu,SWC,2014-03-17,70,New York University,US
+2014-03-17-purdue,SWC,2014-03-17,25,Purdue University,US
+2014-03-17-ucb,SWC,2014-03-17,74,University of California Berkeley,US
+2014-03-17-uw,SWC,2014-03-17,74,University of Washington,US
+2014-03-18-combine,SWC,2014-03-18,42,University of Melbourne,AU
+2014-04-02-uvic,SWC,2014-04-02,26,University of Victoria,CA
+2014-04-03-sdu,SWC,2014-04-03,20,University of Southern Denmark,DK
+2014-04-04-ou,SWC,2014-04-04,39,University of Oklahoma,US
+2014-04-09-GARNET,SWC,2014-04-09,28,University of Warwick,GB
+2014-04-09-ucar,SWC,2014-04-09,12,University Corporation for Atmospheric Research,US
+2014-04-14-pycon,SWC,2014-04-14,40,PyCon,CA
+2014-04-14-pycon-lib,SWC,2014-04-14,41,PyCon,CA
+2014-04-14-pycon-ngs,SWC,2014-04-14,39,PyCon,CA
+2014-04-14-pycon-r,SWC,2014-04-14,40,PyCon,CA
+2014-04-14-ttt-pycon,"TTT,online",2014-04-14,34,Software Carpentry,W3
+2014-04-14-wise,"WiSE,SWC",2014-04-14,130,Software Carpentry,US
+2014-04-23-uib,SWC,2014-04-23,25,University of Bergen,NO
+2014-04-24-ttt-online,"TTT,online",2014-04-24,58,Software Carpentry,W3
+2014-04-28-ttt-mozilla,TTT,2014-04-28,43,Software Carpentry,CA
+2014-04-29-gwu,SWC,2014-04-29,23,George Washington University,US
+2014-05-05-mcmaster,SWC,2014-05-05,30,McMaster University,CA
+2014-05-08-datacarpentry,SWC,2014-05-08,30,NESCENT,US
+2014-05-08-soton,SWC,2014-05-08,39,University of Southampton,GB
+2014-05-12-cshl,SWC,2014-05-12,36,Cold Spring Harbor Laboratory,US
+2014-05-12-furg,SWC,2014-05-12,30,Universidade Federal do Rio Grande,BR
+2014-05-12-oicr-toronto,SWC,2014-05-12,15,Mozilla Foundation,CA
+2014-05-12-ubc,SWC,2014-05-12,16,University of British Columbia,CA
+2014-05-19-scilifelab,SWC,2014-05-19,54,"Science Life Lab, Stockholm",SE
+2014-05-19-ucl,SWC,2014-05-19,12,University College London,GB
+2014-05-23-csdms,SWC,2014-05-23,39,Community Surface Dynamics Modeling System,US
+2014-05-29-ucsd,SWC,2014-05-29,39,Scripps Institute,US
+2014-06-02-icl-geo,"SWC,unresponsive",2014-06-02,,Imperial College London,GB
+2014-06-02-monash,SWC,2014-06-02,36,Monash University,AU
+2014-06-02-ou,SWC,2014-06-02,12,University of Oklahoma,US
+2014-06-03-cern,SWC,2014-06-04,31,Universita di Pisa,IT
+2014-06-04-cornell,SWC,2014-06-04,43,Cornell University,US
+2014-06-05-ttt-online,"TTT,online",2014-06-05,29,Software Carpentry,W3
+2014-06-10-cyi,SWC,2014-06-10,25,Cyprus Institute,CY
+2014-06-10-spelman,SWC,2014-06-10,49,Spelman College,US
+2014-06-11-ttt-online,"TTT,online",2014-06-11,59,Software Carpentry,W3
+2014-06-15-khbp,SWC,2014-06-15,34,SESAME,JO
+2014-06-16-claremont,SWC,2014-06-16,81,Claremont Colleges,US
+2014-06-16-davis,SWC,2014-06-16,82,University of California Davis,US
+2014-06-16-duke,SWC,2014-06-16,33,Duke University,US
+2014-06-16-toronto,SWC,2014-06-16,38,Mozilla Foundation,CA
+2014-06-20-yale,SWC,2014-06-20,38,Yale University,US
+2014-06-22-caims,SWC,2014-06-22,6,Canadian Applied and Industrial Mathematics Society,CA
+2014-06-24-ru,SWC,2014-06-24,53,Rockefeller University,US
+2014-06-24-wise-penn,"WiSE,SWC",2014-06-24,54,University of Pennsylvania,US
+2014-06-25-Reading,SWC,2014-06-25,27,University of Reading,GB
+2014-06-26-nd,SWC,2014-06-26,34,University of Notre Dame,US
+2014-06-30-stanford,SWC,2014-06-30,30,Stanford University,US
+2014-07-02-smu,SWC,2014-07-02,39,Saint Mary's University,CA
+2014-07-08-stonybrook,SWC,2014-07-08,33,Stony Brook University,US
+2014-07-08-wise-toronto,"WiSE,SWC",2014-07-08,44,University of Toronto,CA
+2014-07-10-Nottingham,SWC,2014-07-10,25,University of Nottingham,GB
+2014-07-10-esip,SWC,2014-07-10,18,Federation of Earth Science Information Partners,US
+2014-07-14-Dalhousie,SWC,2014-07-14,34,Dalhousie University,CA
+2014-07-17-aspb,SWC,2014-07-17,38,American Society of Plant Biologists,US
+2014-07-19-umich,SWC,2014-07-19,38,University of Michigan,US
+2014-07-21-cranfield,SWC,2014-07-21,28,Cranfield University,GB
+2014-07-23-jfrc,SWC,2014-07-23,26,Howard Hughes Medical Institute,US
+2014-07-24-beacon,DC,2014-07-24,35,BEACON,US
+2014-07-28-stanford,SWC,2014-07-28,35,Stanford University,US
+2014-07-30-pyconaus,SWC,2014-07-30,40,University of Queensland,AU
+2014-08-05-frf,SWC,2014-08-05,8,US Army Engineer Research and Development Center,US
+2014-08-11-wustl,SWC,2014-08-11,56,Washington University in St. Louis,US
+2014-08-12-vu,SWC,2014-08-12,40,Vanderbilt University,US
+2014-08-14-stanford,SWC,2014-08-14,35,Stanford University,US
+2014-08-18-ufrj,SWC,2014-08-18,15,Universidade Federal do Rio de Janeiro,BR
+2014-08-18-unimelb,SWC,2014-08-18,45,University of Melbourne,AU
+2014-08-21-kiel,SWC,2014-08-21,35,GEOMAR (Kiel),DE
+2014-08-21-upenn,SWC,2014-08-21,25,University of Pennsylvania,US
+2014-08-23-ttu,SWC,2014-08-23,29,Texas Tech University,US
+2014-08-25-wisc,SWC,2014-08-25,37,University of Wisconsin - Madison,US
+2014-08-26-cam,SWC,2014-08-26,25,University of Cambridge,GB
+2014-08-28-ufrgs,SWC,2014-08-28,30,Universidade Federal do Rio Grande do Sul,BR
+2014-09-01-ccsl,SWC,2014-09-01,12,Centro de Competencia em Software Livre,BR
+2014-09-04-ccsl,SWC,2014-09-04,14,Centro de Competencia em Software Livre,BR
+2014-09-10-ttt-online,"TTT,online",2014-09-10,81,Software Carpentry,W3
+2014-09-11-udel,SWC,2014-09-11,40,University of Delaware,US
+2014-09-13-uwaterloo,SWC,2014-09-13,25,University of Waterloo,CA
+2014-09-15-unimelb,SWC,2014-09-15,44,University of Melbourne,AU
+2014-09-16-imperial,SWC,2014-09-16,31,Imperial College London,GB
+2014-09-18-chicago,SWC,2014-09-18,40,University of Chicago,US
+2014-09-22-lbl,SWC,2014-09-22,20,Lawrence Berkeley National Laboratory,US
+2014-09-22-ttt-uva,"TTT,online",2014-09-22,31,Software Carpentry,W3
+2014-09-24-frb,SWC,2014-09-24,19,Federal Reserve Board,US
+2014-09-25-ubc,SWC,2014-09-25,24,University of British Columbia,CA
+2014-09-27-asu,SWC,2014-09-27,35,Arizona State University,US
+2014-09-29-iDigBio,DC,2014-09-29,24,iDigBio,US
+2014-09-30-msu,SWC,2014-09-30,19,Michigan State University,US
+2014-10-06-indiana,SWC,2014-10-06,12,Indiana University,US
+2014-10-06-osu,SWC,2014-10-06,30,Ohio State,US
+2014-10-06-rotman,SWC,2014-10-06,71,University of Toronto,CA
+2014-10-11-yale,SWC,2014-10-11,17,Yale University,US
+2014-10-13-geosim,SWC,2014-10-13,28,GFZ Potsdam,DE
+2014-10-13-rice,SWC,2014-10-13,40,Rice University,US
+2014-10-22-ttt-tgac,"TTT,online",2014-10-22,41,Software Carpentry,W3
+2014-10-30-utoronto,SWC,2014-10-30,24,University of Toronto,CA
+2014-10-31-USyd,SWC,2014-10-31,27,University of Sydney,AU
+2014-10-31-nw,SWC,2014-10-31,50,Northwestern University,US
+2014-11-05-UCL,SWC,2014-11-05,27,University College London,GB
+2014-11-05-uclhep,SWC,2014-11-05,16,University College London,GB
+2014-11-06-UZH,SWC,2014-11-06,36,University of Zurich,CH
+2014-11-06-fmv,SWC,2014-11-06,21,Universite de Montreal,CA
+2014-11-07-harvard,SWC,2014-11-07,37,Harvard University,US
+2014-11-10-manchester,SWC,2014-11-10,29,University of Manchester,GB
+2014-11-12-embl,SWC,2014-11-12,23,European Molecular Biology Laboratory,DE
+2014-11-12-ttt-washington,TTT,2014-11-12,20,Software Carpentry,US
+2014-11-17-liverpool,SWC,2014-11-17,30,University of Liverpool,GB
+2014-11-24-leeds,SWC,2014-11-24,20,University of Leeds,GB
+2014-11-27-elixiruk-manchester,SWC,2014-11-27,29,University of Manchester,GB
+2014-11-27-uct,SWC,2014-11-27,84,University of Cape Town,ZA
+2014-12-03-edinburgh,SWC,2014-12-03,35,University of Edinburgh,GB
+2014-12-06-wise-krakow,SWC,2014-12-06,72,Jagiellonian University,PL
+2014-12-08-combine-r,SWC,2014-12-08,42,University of Melbourne,AU
+2014-12-11-ufsc,SWC,2014-12-11,17,Universidade Federal de Santa Catarina,BR
+2014-12-11-ugsupa,SWC,2014-12-11,14,University of Glasgow,GB
+2014-12-15-UChicago,SWC,2014-12-15,16,University of Chicago,US
+2014-12-16-lbl,SWC,2014-12-16,27,Lawrence Berkeley National Laboratory,US
+2014-12-18-yale,SWC,2014-12-18,18,Yale University,US
+2015-01-03-aas,SWC,2015-01-03,27,American Astronomical Society,US
+2015-01-05-wise-cuboulder,"WiSE,SWC",2015-01-05,27,University of Colorado,US
+2015-01-05-wise-umich,"WiSE,SWC",2015-01-05,57,University of Michigan,US
+2015-01-06-ttt-ucdavis,"TTT,online",2015-01-06,44,Software Carpentry,W3
+2015-01-07-instaar,SWC,2015-01-07,8,Institute of Arctic and Alpine Research,US
+2015-01-08-NIH,SWC,2015-01-08,30,National Institutes of Health,US
+2015-01-08-nber,SWC,2015-01-08,37,National Bureau of Economic Research,US
+2015-01-08-unl,SWC,2015-01-08,40,University of Nebraska,US
+2015-01-08-uoit,SWC,2015-01-08,24,University of Ontario Institute of Technology,CA
+2015-01-10-mcgill,SWC,2015-01-10,42,McGill University,CA
+2015-01-10-st_josephs,SWC,2015-01-10,6,"St. Joseph's Hospital, Phoenix AZ",US
+2015-01-11-earlham,SWC,2015-01-11,58,Earlham College,US
+2015-01-13-oxford,SWC,2015-01-13,28,University of Oxford,GB
+2015-01-13-wisc,SWC,2015-01-13,37,University of Wisconsin - Madison,US
+2015-01-14-leeds,SWC,2015-01-14,22,University of Leeds,GB
+2015-01-14-oxford,SWC,2015-01-14,67,University of Oxford,GB
+2015-01-15-cornell,DC,2015-01-15,41,Cornell University,US
+2015-01-15-umd,DC,2015-01-15,30,University of Maryland,US
+2015-01-15-uw,SWC,2015-01-15,59,University of Washington,US
+2015-01-26-tulane,SWC,2015-01-26,47,Tulane University,US
+2015-01-27-msu_icer,SWC,2015-01-27,12,Michigan State University,US
+2015-01-27-ubc,SWC,2015-01-27,31,University of British Columbia,CA
+2015-01-29-ncsu,SWC,2015-01-29,24,North Carolina State University,US
+2015-01-29-sickkids,SWC,2015-01-29,37,"Hospital for Sick Children, Toronto",CA
+2015-01-29-uiuc,SWC,2015-01-29,29,University of Illinois at Urbana-Champaign,US
+2015-01-31-ualbany,SWC,2015-01-31,23,SUNY Albany,US
+2015-02-01-ttt-online,"TTT,online",2015-02-01,127,Software Carpentry,W3
+2015-02-03-CDT-reg-medicine,SWC,2015-02-03,11,EPSRC & MRC Centre for Doctoral Training (CDT) in Regenerative Medicine,GB
+2015-02-05-toronto,SWC,2015-02-05,28,University of Toronto,CA
+2015-02-09-ucdavis,DC,2015-02-09,25,University of California Davis,US
+2015-02-11-ttt-melbourne,"TTT,online",2015-02-11,46,Software Carpentry,W3
+2015-02-14-ucla,SWC,2015-02-14,47,University of California Los Angeles,US
+2015-02-16-resbaz-matlab,SWC,2015-02-16,17,University of Melbourne,AU
+2015-02-16-resbaz-python,SWC,2015-02-16,47,University of Melbourne,AU
+2015-02-16-resbaz-r,SWC,2015-02-16,43,University of Melbourne,AU
+2015-02-21-Krakow,SWC,2015-02-21,36,Jagiellonian University,PL
+2015-02-21-iplant,SWC,2015-02-21,55,iPlant,US
+2015-02-21-uci,SWC,2015-02-21,50,University of California Irvine,US
+2015-02-23-canterbury,SWC,2015-02-23,37,University of Canterbury,NZ
+2015-02-25-seoul,SWC,2015-02-25,12,Korea Radio Promotion Association,KR
+2015-02-25-ucl,SWC,2015-02-25,14,University College London,GB
+2015-02-26-Oslo,SWC,2015-02-26,27,University of Oslo,NO
+2015-02-26-auckland,SWC,2015-02-26,19,University of Auckland,NZ
+2015-03-02-clemson,SWC,2015-03-02,20,Clemson University,US
+2015-03-03-iupui,SWC,2015-03-03,10,Indiana University-Purdue University Indianapolis,US
+2015-03-05-ubc,SWC,2015-03-05,40,University of British Columbia,CA
+2015-03-06-nyas,SWC,2015-03-06,44,New York Academy of Sciences,US
+2015-03-09-ISI-CODATA,DC,2015-03-10,44,Indian Statistical Institute,IN
+2015-03-10-ttt-lbl,"TTT,online",2015-03-10,12,Software Carpentry,W3
+2015-03-16-utahstate,SWC,2015-03-16,47,Utah State University,US
+2015-03-18-csc-espoo,DC,2015-03-18,29,CSC - IT Center for Science,FI
+2015-03-19-arkansas,SWC,2015-03-19,21,University of Arkansas,US
+2015-03-20-unl,SWC,2015-03-20,42,University of Nebraska,US
+2015-03-21-uwaterloo,SWC,2015-03-21,34,University of Waterloo,CA
+2015-03-23-hsph,SWC,2015-03-23,20,Harvard University,US
+2015-03-24-ou,SWC,2015-03-24,24,University of Oklahoma,US
+2015-03-26-mahidol,SWC,2015-03-26,6,Mahidol University,TH
+2015-03-30-AAAS,DC,2015-03-30,30,AAAS,US
+2015-03-30-umiami,SWC,2015-03-30,38,University of Miami,US
+2015-04-01-wcmc,SWC,2015-04-01,36,Weill Cornell Medical College,US
+2015-04-02-umiami,SWC,2015-04-02,33,University of Miami,US
+2015-04-08-SWC-UniMelb-Biosciences,SWC,2015-04-08,42,University of Melbourne,AU
+2015-04-08-ttt-nih,"TTT,online",2015-04-08,17,Software Carpentry,W3
+2015-04-09-UW,SWC,2015-04-09,47,University of Washington,US
+2015-04-13-leiden,SWC,2015-04-13,38,Leiden,NL
+2015-04-13-samsi,SWC,2015-04-13,29,Sandia National Laboratory,US
+2015-04-15-ncar,SWC,2015-04-15,22,University Corporation for Atmospheric Research,US
+2015-04-16-imperial,SWC,2015-04-16,18,Imperial College London,GB
+2015-04-16-uvalib,SWC,2015-04-16,18,University of Virginia,US
+2015-04-16-uvasom,SWC,2015-04-16,18,University of Virginia,US
+2015-04-17-nw,SWC,2015-04-17,50,Northwestern University,US
+2015-04-17-ucsb,SWC,2015-04-17,25,University of California Santa Barbara,US
+2015-04-18-ASU,SWC,2015-04-18,38,Arizona State University,US
+2015-04-18-UT-Arlington,SWC,2015-04-18,61,University of Texas Arlington,US
+2015-04-22-UNO,SWC,2015-04-22,16,University of Nebraska - Omaha,US
+2015-04-23-stanford,DC,2015-04-23,23,Stanford University,US
+2015-04-27-wsu,SWC,2015-04-27,32,Washington State University,US
+2015-04-29-pangyo,SWC,2015-04-29,3,Korea Radio Promotion Association,KR
+2015-04-30-SFU,SWC,2015-04-30,57,Simon Fraser University,CA
+2015-05-03-NDIC,DC,2015-05-03,40,NDIC,US
+2015-05-04-lbl,SWC,2015-05-04,26,Lawrence Berkeley National Laboratory,US
+2015-05-04-matlab,SWC,2015-05-04,17,University of Melbourne,AU
+2015-05-04-swinpython,SWC,2015-05-04,28,Swinburne University of Technology,AU
+2015-05-04-usfcms,SWC,2015-05-04,20,University of South Florida,US
+2015-05-11-ttt-compute-canada,TTT,2015-05-11,22,Compute Canada,CA
+2015-05-11-unm,SWC,2015-05-11,45,University of New Mexico,US
+2015-05-11-westernu,SWC,2015-05-11,40,Western University,CA
+2015-05-12-BUSM,SWC,2015-05-12,27,Boston University,US
+2015-05-14-Stellenbosch,SWC,2015-05-14,32,Stellenbosch University,ZA
+2015-05-14-wsu,DC,2015-05-14,40,University of Washington,US
+2015-05-19-ou,SWC,2015-05-19,57,University of Oklahoma,US
+2015-05-25-unimelb,SWC,2015-05-25,24,University of Melbourne,AU
+2015-05-26-amnh,"SWC,unresponsive",2015-05-26,0,American Museum of Natural History,US
+2015-05-27-FRB,SWC,2015-05-27,25,Federal Reserve Board,US
+2015-05-27-osu,SWC,2015-05-27,47,Oklahoma State University,US
+2015-05-27-ttt-msu,TTT,2015-05-27,26,Michigan State University,US
+2015-05-28-monsanto,"SWC,unresponsive",2015-05-28,,Monsanto,US
+2015-05-29-great-plains,DC,2015-05-29,22,Great Plains Network,US
+2015-05-30-HASTAC,DC,2015-05-30,19,Michigan State University,US
+2015-05-30-hastac-swc,SWC,2015-05-30,1,Michigan State University,US
+2015-05-30-ufpr,SWC,2015-05-30,20,Universidade Federal do Paraná,BR
+2015-06-02-Oslo,SWC,2015-06-02,25,University of Oslo,NO
+2015-06-02-cern-lhcb,SWC,2015-06-02,40,CERN,CH
+2015-06-03-wisc,SWC,2015-06-03,29,University of Wisconsin - Madison,US
+2015-06-04-berkeley,SWC,2015-06-04,25,University of California Berkeley,US
+2015-06-04-unicamp,SWC,2015-06-04,23,Universidade Estadual de Campinas,BR
+2015-06-08-matlab,SWC,2015-06-08,22,University of Melbourne,AU
+2015-06-08-ttt-online,"TTT,online",2015-06-08,23,Software Carpentry,W3
+2015-06-09-nih,SWC,2015-06-09,20,National Institutes of Health,US
+2015-06-10-sgpe,"SWC,unresponsive",2015-06-10,0,University of Edinburgh,GB
+2015-06-12-ttt-iplant,"TTT,online",2015-06-12,26,iPlant,US
+2015-06-15-cambridge,SWC,2015-06-15,38,University of Cambridge,GB
+2015-06-15-cfmehu,SWC,2015-06-15,42,University of the Basque Country,ES
+2015-06-15-uconn,SWC,2015-06-15,15,University of Connecticut,US
+2015-06-16-ttt-aciref,TTT,2015-06-16,24,ACI-REF,US
+2015-06-17-ucstorrs,SWC,2015-06-17,34,University of Connecticut,US
+2015-06-18-StAndrews,SWC,2015-06-18,29,University of St. Andrews,GB
+2015-06-18-otago,SWC,2015-06-18,32,University of Otago,NZ
+2015-06-18-ucl,SWC,2015-06-18,20,University College London,GB
+2015-06-19-labvis,SWC,2015-06-19,30,Universidade Federal do Ceará,BR
+2015-06-22-caltech,SWC,2015-06-22,70,California Institute of Technology,US
+2015-06-22-hawaii,SWC,2015-06-22,29,University of Hawaii,US
+2015-06-22-psu,SWC,2015-06-22,40,Penn State,US
+2015-06-22-vt,SWC,2015-06-22,41,Virginia Tech,US
+2015-06-23-jackson,SWC,2015-06-23,33,Jackson Laboratory,US
+2015-06-23-massey,SWC,2015-06-23,25,Massey University,NZ
+2015-06-24-dc-utrecht,DC,2015-06-24,30,Uniersity of Utrecht,NL
+2015-06-24-gatech,SWC,2015-06-24,29,Georgia Tech,US
+2015-06-25-PNW,DC,2015-06-25,0,University of Oregon,US
+2015-06-25-byu,SWC,2015-06-25,30,Brigham Young University,US
+2015-06-25-jhu,SWC,2015-06-25,23,Johns Hopkins University,US
+2015-06-25-nd,SWC,2015-06-25,29,University of Notre Dame,US
+2015-06-25-uw,SWC,2015-06-25,33,University of Washington,US
+2015-06-25-wise-toronto,"SWC,WiSE",2015-06-25,18,University of Toronto,CA
+2015-06-29-qaeco-unimelb,SWC,2015-06-29,21,University of Melbourne,AU
+2015-06-29-yonsei,SWC,2015-06-29,9,Yonsei University,KR
+2015-07-02-UQ,SWC,2015-07-02,39,University of Queensland,AU
+2015-07-02-monash,SWC,2015-07-02,35,Monash University,AU
+2015-07-06-scipy,SWC,2015-07-06,22,SciPy Conference,US
+2015-07-06-ucdavis,SWC,2015-07-06,40,University of California Davis,US
+2015-07-09-berkeley,SWC,2015-07-09,20,University of California Berkeley,US
+2015-07-13-amos,SWC,2015-07-13,24,University of Queensland,AU
+2015-07-13-ncsu,SWC,2015-07-13,33,North Carolina State University,US
+2015-07-13-unimelb,SWC,2015-07-13,22,University of Melbourne,AU
+2015-07-15-UNL,SWC,2015-07-15,43,University of Nebraska,US
+2015-07-15-feltham,SWC,2015-07-15,25,Imperial College London,GB
+2015-07-16-UCT,SWC,2015-07-16,52,University of Cape Town,ZA
+2015-07-16-sickkids,SWC,2015-07-16,38,"Hospital for Sick Children, Toronto",CA
+2015-07-20-perth,SWC,2015-07-20,19,Curtin University,AU
+2015-07-22-JamesMadison,DC,2015-07-22,25,James Madison University,US
+2015-07-22-harvard,SWC,2015-07-22,38,Harvard University,US
+2015-07-22-ljubljana,DC,2015-07-20,29,University of Ljubljana,SI
+2015-07-23-nist,SWC,2015-07-23,35,National Institute of Standards and Technology,US
+2015-07-23-stanford,SWC,2015-07-23,21,Stanford University,US
+2015-07-24-LSIUBC,SWC,2015-07-24,40,University of British Columbia,CA
+2015-07-27-cern-webfest,SWC,2015-07-27,20,CERN,CH
+2015-07-30-ASPB,DC,2015-07-30,40,American Society of Plant Biologists,US
+2015-08-03-IBRC,SWC,2015-08-03,31,Diversity of the Indo-Pacific Network,ID
+2015-08-04-asu,SWC,2015-08-04,36,Arizona State University,US
+2015-08-05-UWS,SWC,2015-08-05,15,Intersect Australia,AU
+2015-08-06-colorado,"SWC,unresponsive",2015-08-06,14,University of Colorado,US
+2015-08-10-utk,SWC,2015-08-10,33,University of Tennessee Knoxville,US
+2015-08-13-nmsu,SWC,2015-08-13,27,New Mexico State University,US
+2015-08-17-ucdavis-wise,"SWC,WiSE",2015-08-17,44,University of California Davis,US
+2015-08-19-ou,SWC,2015-08-19,31,University of Oklahoma,US
+2015-08-19-zurich,"DC,unresponsive",2015-08-19,,University of Zurich,CH
+2015-08-20-daejeon,SWC,2015-08-20,11,Fablab Tide Institute,KR
+2015-08-20-msu,SWC,2015-08-20,12,Michigan State University,US
+2015-08-20-ttu,SWC,2015-08-20,28,Texas Tech University,US
+2015-08-20-vanderbilt,SWC,2015-08-20,40,Vanderbilt University,US
+2015-08-21-northwestern,SWC,2015-08-21,46,Northwestern University,US
+2015-08-24-Sloan-Kettering,DC,2015-08-24,41,Memorial Sloan Kettering Cancer Center,US
+2015-08-24-isu,"DC,unresponsive",2015-08-24,0,Iowa State University,US
+2015-08-24-stanford,SWC,2015-08-24,26,Stanford University,US
+2015-08-24-vuw,SWC,2015-08-24,40,Victoria University of Wellington,NZ
+2015-08-26-leeds,SWC,2015-08-26,23,University of Leeds,GB
+2015-08-26-umswc,SWC,2015-08-26,20,University of Michigan,US
+2015-08-26-uw-madison,SWC,2015-08-26,31,University of Wisconsin - Madison,US
+2015-08-27-ualberta,SWC,2015-08-27,37,University of Alberta,CA
+2015-08-27-unh,SWC,2015-08-27,23,University of New Hampshire,US
+2015-08-31-UFBA,SWC,2015-08-24,14,"Universidade Federal da Bahia, Salvador",BR
+2015-09-03-whoi,SWC,2015-09-03,37,Woods Hole Oceanographic Institute,US
+2015-09-06-saeon,SWC,2015-09-06,25,Talarify,ZA
+2015-09-07-clemson,SWC,2015-09-07,10,Clemson University,US
+2015-09-07-guildford,SWC,2015-09-07,19,University of surrey,GB
+2015-09-08-ccny-crest,SWC,2015-09-08,9,City University of New York,US
+2015-09-08-ttt-online,"TTT,online",2015-09-08,18,Software Carpentry,W3
+2015-09-10-CAM,DC,2015-09-10,39,University of Cambridge,GB
+2015-09-10-SWC-ANU,SWC,2015-09-10,41,Australian National University,AU
+2015-09-10-leeds,SWC,2015-09-10,22,University of Leeds,GB
+2015-09-10-usp,SWC,2015-09-10,48,Universidade de Sao Paolo,BR
+2015-09-14-ttt-leeds,TTT,2015-09-14,18,University of Leeds,GB
+2015-09-15-chicago,SWC,2015-09-15,40,University of Chicago,US
+2015-09-15-msu,SWC,2015-09-15,7,Michigan State University,US
+2015-09-17-WSU,SWC,2015-09-17,17,Intersect Australia,AU
+2015-09-17-indiana,SWC,2015-09-17,9,Indiana University,US
+2015-09-17-southampton,SWC,2015-09-17,37,University of Southampton,GB
+2015-09-19-uwaterloo,SWC,2015-09-19,75,University of Waterloo,CA
+2015-09-21-Genentech,DC,2015-09-21,32,Genentech,US
+2015-09-21-ttt-icl,TTT,2015-09-21,14,Imperial College London,GB
+2015-09-22-ubc,SWC,2015-09-22,11,University of British Columbia,CA
+2015-09-22-ucdavis,DC,2015-09-22,18,University of California Davis,US
+2015-09-23-TDWG,DC,2015-09-23,30,TDWG,KE
+2015-09-23-gfz-potsdam,SWC,2015-09-23,0,GFZ Potsdam,DE
+2015-09-23-nist,SWC,2015-09-23,43,National Institute of Standards and Technology,US
+2015-09-24-chicagobooth,SWC,2015-09-24,29,The University of Chicago Booth School of Business,US
+2015-09-24-stsci,SWC,2015-09-24,23,Space Telescope Science Institute,US
+2015-09-26-conestoga,SWC,2015-09-26,75,Conestoga College,CA
+2015-09-28-UQ,SWC,2015-09-28,38,University of Queensland,AU
+2015-09-28-oxford,SWC,2015-09-28,25,The Doctoral Training Programme in Environmental Research of the University of Oxford,GB
+2015-09-28-umich,SWC,2015-09-28,17,University of Michigan,US
+2015-09-28-unimelb-r-psychology,SWC,2015-09-28,23,University of Melbourne,AU
+2015-10-01-CPCEMCR,SWC,2015-10-01,20,University of Sydney,AU
+2015-10-01-JamesCookUni,SWC,2015-10-01,23,James Cook University,AU
+2015-10-03-Krakow-techspace,SWC,2015-10-03,32,Tech Space ,PL
+2015-10-03-jozihub,SWC,2015-10-03,4,Pycon South Africa,ZA
+2015-10-03-ua-iplant,SWC,2015-10-03,74,iPlant,US
+2015-10-05-ucalgary,SWC,2015-10-05,37,University of Calgary,CA
+2015-10-06-UVM,SWC,2015-10-06,12,University of Vermont,US
+2015-10-07-R-Data-Sydney,DC,2015-10-07,19,University of Sydney,AU
+2015-10-08-ttt-ucl,TTT,2015-10-08,18,University College London,GB
+2015-10-12-cecam-julich,SWC,2015-10-12,18, CECAM - Centre Européen de Calcul Atomique et Moléculaire,CH
+2015-10-12-vt,SWC,2015-10-12,18,Virginia Tech,US
+2015-10-15-ttt-online,"TTT,online",2015-10-15,48,Software Carpentry,W3
+2015-10-17-IEEE-Python,SWC,2015-10-17,27,University of Melbourne,AU
+2015-10-17-SFU,SWC,2015-10-17,30,Simon Fraser University,CA
+2015-10-17-avida,SWC,2015-10-17,8,Michigan State University,US
+2015-10-19-SWC-Acadia,SWC,2015-10-19,7,Acadia University,CA
+2015-10-19-UMich,SWC,2015-10-19,22,University of Michigan,US
+2015-10-19-hawaii,SWC,2015-10-19,30,University of Hawaii,US
+2015-10-19-ualberta,SWC,2015-10-19,26,University of Alberta,CA
+2015-10-21-gfz-potsdam,"SWC,unresponsive",2015-10-21,,GFZ Potsdam,DE
+2015-10-21-jackson,SWC,2015-10-21,25,Jackson Laboratory,US
+2015-10-22-uw,SWC,2015-10-22,29,University of Washington,US
+2015-10-25-instructortraining-cracov,TTT,2015-10-25,13,Cyfronet,PL
+2015-10-26-jackson,SWC,2015-10-26,22,Jackson Laboratory,US
+2015-10-26-umanitoba,SWC,2015-10-26,13,University of Manitoba,CA
+2015-10-27-SWC-Universite-Laval,SWC,2015-10-27,40,University of Laval,CA
+2015-10-27-duke,SWC,2015-10-27,42,Duke University,US
+2015-10-29-Leeds-DC,DC,2015-10-29,39,University of Leeds,GB
+2015-11-02-DC-Brussels,"DC,unresponsive",2015-11-02,0,Belgian Science Policy (BELSPO),BE
+2015-11-02-pnnl,SWC,2015-11-02,35,Pacific Northwest National Lab ,US
+2015-11-03-albany,SWC,2015-11-03,32,New Zealand eScience Infrastructure,NZ
+2015-11-04-ACUNS,DC,2015-11-04,9,Association of Canadian Universities for Northern Studies,US
+2015-11-04-embl,SWC,2015-11-04,27,European Molecular Biology Laboratory,DE
+2015-11-05-CSU,SWC,2015-11-05,5,Charles Sturt University,AU
+2015-11-05-NWU,SWC,2015-11-05,43,Talarify,ZA
+2015-11-05-UNL,SWC,2015-11-05,27,University of Nebraska,US
+2015-11-05-nd,SWC,2015-11-05,12,University of Notre Dame,US
+2015-11-05-umiami-Python,SWC,2015-11-05,27,University of Miami,US
+2015-11-09-SWC-UQAM,SWC,2015-11-09,33,Université du Québec à Montréal,CA
+2015-11-09-culham,SWC,2015-11-09,43,Culham Centre for Fusion Energy,GB
+2015-11-09-london-royal-h-,SWC,2015-11-11,17,"Royal Holloway, University of London",GB
+2015-11-09-manchester,SWC,2015-11-09,9,University of Manchester,GB
+2015-11-10-UCL_software_carpentry,SWC,2015-11-10,21,University College London,GB
+2015-11-11-northwestern,SWC,2015-11-11,35,Northwestern University,US
+2015-11-11-nyu-med,"SWC,WiSE",2015-11-11,25,New York University,US
+2015-11-16-iastate,SWC,2015-11-16,17,Iowa State University,US
+2015-11-16-manchester-codima,SWC,2015-11-16,22,University of Manchester,GB
+2015-11-17-tatuy,SWC,2015-11-17,12,Colegio Universitario Hotel Escuela de los Andes Venezolanos,VE
+2015-11-19-eitn,SWC,2015-11-19,29,The European Institute for Theoretical Neuroscience (EITN),FR
+2015-11-19-umiami-R,SWC,2015-11-19,19,University of Miami,US
+2015-11-19-utoronto,SWC,2015-11-19,38,University of Toronto,CA
+2015-11-20-NVI,SWC,2015-11-20,13,Norwegian Veterinary Institute,NO
+2015-11-20-ucsf-Python,SWC,2015-11-20,34,University of California San Francisco,US
+2015-11-20-ucsf-R,SWC,2015-11-20,30,University of California San Francisco,US
+2015-11-23-caltech,DC,2015-11-23,28,California Institute of Technology,US
+2015-11-23-ccrc,SWC,2015-11-22,30,University of New South Wales,AU
+2015-11-23-instructor-training-manchester,TTT,2015-11-23,25,Software Carpentry,GB
+2015-11-25-edinburgh,SWC,2015-11-25,40,University of Edinburgh,GB
+2015-11-25-helsinki,SWC,2015-11-25,34,University of Helsinki,FI
+2015-11-26-adelaide-python,SWC,2015-11-26,42,University of Adelaide,AU
+2015-11-26-lincoln,SWC,2015-11-26,39,New Zealand eScience Infrastructure,NZ
+2015-11-30-swc_data,SWC,2015-11-30,35,"Science Life Lab, Stockholm",SE
+2015-12-01-uow,SWC,2015-12-01,14,University of Wollongong,AU
+2015-12-02-Oslo,SWC,2015-12-02,17,University of Oslo,NO
+2015-12-07-Python-for-Science,SWC,2015-12-07,38,University of Melbourne,AU
+2015-12-07-eu-instructor-training,"TTT,online",2015-12-07,15,Software Carpentry,W3
+2015-12-07-na-instructor-training,"TTT,online",2015-12-07,22,Software Carpentry,W3
+2015-12-07-rijkzwaan,DC,2015-12-07,15,Rijkzwaan,NL
+2015-12-07-ttt-Au,"TTT,online",2015-12-07,4,Software Carpentry,W3
+2015-12-07-ttt-toronto,"TTT,online",2015-12-07,17,Software Carpentry,W3
+2015-12-08-USYD,SWC,2015-12-08,22,University of Sydney,AU
+2015-12-09-TRI,SWC,2015-12-09,24,Translational Research Institute,AU
+2015-12-10-OklahomaStateLibraries,SWC,2015-12-10,32,University of Oklahoma,US
+2015-12-14-NIH,"SWC,unresponsive",2015-12-14,0,National Institutes of Health,US
+2015-12-14-Portsmouth,SWC,2015-12-14,28,University of Portsmouth,GB
+2015-12-14-Python-for-Researchers,SWC,2015-12-14,31,University of Melbourne,AU
+2015-12-14-berkeley,SWC,2015-12-14,32,University of California Berkeley,US
+2015-12-14-gfz-potsdam,"SWC,unresponsive",2015-12-14,,GFZ Potsdam,DE
+2015-12-15-Southampton,SWC,2015-12-15,74,University of Southampton,GB
+2015-12-15-rutgers,DC,2015-12-15,35,Rutgers University,US
+2015-12-16-datacarpentry-onboarding,online,2015-12-16,0,Data Carpentry Onboarding,W3
+2015-12-wise-uk,"SWC,WiSE",2015-12-14,34,University of Manchester,GB
+2016-01-03-aas,SWC,2016-01-03,14,American Astronomical Society,US
+2016-01-04-wise-umich,SWC,2016-01-04,30,University of Michigan,US
+2016-01-05-ok-instructor-training,TTT,2016-01-05,19,Oklahoma State University,US
+2016-01-06-UNL,SWC,2016-01-06,40,University of Nebraska,US
+2016-01-06-bristol,SWC,2016-01-06,26,University of Bristol,GB
+2016-01-07-uwash,SWC,2016-01-07,35,University of Washington,US
+2016-01-07_asu_physics,SWC,2016-01-07,25,Arizona State University,US
+2016-01-09-uwo,SWC,2016-01-09,31,Western University,CA
+2016-01-11-dundee,SWC,2016-01-11,29,University of Dundee,GB
+2016-01-11-huddersfield,SWC,2016-01-11,21,University of Huddersfield,GB
+2016-01-11-nber,SWC,2016-01-11,30,National Bureau of Economic Research,US
+2016-01-11-uwmadison,DC,2016-01-11,27,University of Wisconsin - Madison,US
+2016-01-12-ou,SWC,2016-01-12,19,University of Oklahoma,US
+2016-01-13-boston,SWC,2016-01-13,17,Boston College,US
+2016-01-13-instructor-training-lausanne,TTT,2016-01-13,20,SIB Swiss Institute of Bioinformatics,CH
+2016-01-14-berkeley,SWC,2016-01-14,35,Berkeley Institute for Data Science,US
+2016-01-14-uwmadison,SWC,2016-01-14,29,University of Wisconsin - Madison,US
+2016-01-16-ubc,"SWC,unresponsive",2016-01-16,0,University of British Columbia,CA
+2016-01-16-waterloo,SWC,2016-01-16,28,University of Waterloo,CA
+2016-01-18-brisbane-instructor-training,TTT,2016-01-18,25,University of Queensland,AU
+2016-01-18-leeds,SWC,2016-01-18,25,University of Leeds,GB
+2016-01-18-msu,DC,2016-01-18,13,Michigan State University,US
+2016-01-19-cdc,SWC,2016-01-19,24,Centers for Disease Control,US
+2016-01-19-cuny,SWC,2016-01-19,34,City University of New York,US
+2016-01-19-london-nhm,DC,2016-01-19,19,National History Museum,GB
+2016-01-19-sbu,DC,2016-01-19,35,Stony Brook University,US
+2016-01-19-usda,DC,2016-01-19,32,United States Deparment of Agriculture,US
+2016-01-21-melbourne-instructor-training,TTT,2016-01-21,27,University of Melbourne,AU
+2016-01-21-training-florida,TTT,2016-01-21,25,University of Florida,US
+2016-01-23-U-of-Arizona,"SWC,unresponsive",2016-01-23,0,University of Arizona,US
+2016-01-25-Utrecht,"SWC,DC",2016-01-25,25,Netherlands eScience Center,NL
+2016-01-26-london-nhm,DC,2016-01-26,15,National History Museum,GB
+2016-01-28-NCSA,SWC,2016-01-28,20,University of Illinois at Chicago,US
+2016-01-28-auckland-instructor-training,TTT,2016-01-28,20,University of Auckland,NZ
+2016-01-29-UBC,"SWC,unresponsive",2015-01-29,0,University of British Columbia,CA
+2016-01-30-UTA,SWC,2016-01-30,37,University of Texas Arlington,US
+2016-01-30-UofArizonaIntroPython,SWC,2016-01-30,38,University of Arizona,US
+2016-02-01-BrisbaneResBaz-Python,SWC,2016-02-01,32,Queensland University of Technology,AU
+2016-02-01-BrisbaneResBaz-R,SWC,2016-02-01,34,Queensland University of Technology,AU
+2016-02-01-ResBaz,SWC,2016-02-01,22,University of Sydney,AU
+2016-02-01-ResBaz-Sydney-RBeginner,SWC,2016-02-01,15,University of Sydney,AU
+2016-02-01-oslo,"DC,unresponsive",2016-02-01,0,University of Oslo,NO
+2016-02-01-perth,SWC,2016-02-01,78,Curtin University,AU
+2016-02-01-python-resbaz-2016,"SWC,unresponsive",2016-02-01,,University of Melbourne,AU
+2016-02-01-rezbazsydneypython,SWC,2016-02-01,23,University of Sydney,AU
+2016-02-02-SFU,"SWC,unresponsive",2016-02-02,0,Simon Fraser University,CA
+2016-02-02-auckland,SWC,2016-02-02,50,University of Auckland,NZ
+2016-02-02-otago,SWC,2016-02-02,51,University of Otago,NZ
+2016-02-04-ornl,SWC,2016-02-04,15,Oak Ridge National Laboratory,US
+2016-02-04-us_geo_survey,SWC,2016-02-04,32,United States Geological Survey,US
+2016-02-05-nyas-R,SWC,2016-02-05,26,New York Academy of Sciences,US
+2016-02-05-nyas-python,SWC,2016-02-05,32,New York Academy of Sciences,US
+2016-02-06-uguelph,SWC,2016-02-06,27,University of Guelph,CA
+2016-02-08-NCSA,SWC,2016-02-08,14,University of Illinois at Chicago,US
+2016-02-16-EPCC,SWC,2016-02-16,22,University of Edinburgh,GB
+2016-02-16-NIH,SWC,2016-02-16,21,National Institutes of Health,US
+2016-02-16-training-online,"TTT,online",2016-02-16,27,Software Carpentry,W3
+2016-02-16-ualberta,SWC,2016-02-16,14,University of Alberta,CA
+2016-02-17-UCL_software_carpentry,SWC,2016-02-17,35,University College London,GB
+2016-02-17-queens,"SWC,unresponsive",2016-02-17,0,Queen's University,CA
+2016-02-18-cracov-acc-cyfronet,"SWC,unresponsive",2016-02-18,0,Cyfronet,PL
+2016-02-18-ucalgary,SWC,2016-02-18,10,University of Calgary,CA
+2016-02-22-iastate,DC,2016-02-22,26,Iowa State University,US
+2016-02-22-miami-dc,DC,2016-02-22,29,University of Miami,US
+2016-02-22-training-ucdavis,TTT,2016-02-22,25,University of California Davis,US
+2016-02-22-tulane,SWC,2016-02-22,24,Tulane University,US
+2016-02-22-ubco,"SWC,unresponsive",2016-02-22,0,University of British Columbia,CA
+2016-02-22-upenn,SWC,2016-02-22,22,University of Pennsylvania,US
+2016-02-25-NCSA,SWC,2016-02-25,26,University of Illinois at Chicago,US
+2016-02-25-clemson,SWC,2016-02-25,20,Clemson University,US
+2016-02-29-UMichigan,SWC,2016-02-29,46,University of Michigan,US
+2016-03-01-Universite-Laval,SWC,2016-03-01,19,University of Laval,CA
+2016-03-02-NMFS-Seattle,SWC,2016-03-02,34,National Oceanic and Atmospheric Administration,US
+2016-03-04-ucmp,DC,2016-03-03,36,University of California Museum of Paleontology,US
+2016-03-07-boston,DC,2016-03-07,39,Boston College,US
+2016-03-07-notredame,DC,2016-03-07,15,University of Notre Dame,US
+2016-03-07-uconn,DC,2016-03-07,19,University of Connecticut,US
+2016-03-08-TGAC,SWC,2016-03-08,19,The Genome Analysis Centre,GB
+2016-03-09-ttt-uw,TTT,2016-03-09,14,University of Washington,US
+2016-03-10-CDT-reg-medicine,SWC,2016-03-10,10,EPSRC & MRC Centre for Doctoral Training (CDT) in Regenerative Medicine,GB
+2016-03-12-Krakow,"SWC,unresponsive",2016-03-12,0,Cyfronet,PL
+2016-03-12-ubc,"SWC,unresponsive",2016-03-12,0,University of British Columbia,CA
+2016-03-14-miami,SWC,2016-03-14,30,University of Miami,US
+2016-03-14-okstate,SWC,2016-03-14,15,Oklahoma State University,US
+2016-03-15-OSLOdataGeo,"DC,unresponsive",2016-03-15,0,University of Oslo,NO
+2016-03-15-Oslo-SWC,"SWC,unresponsive",2016-03-15,0,University of Oslo,NO
+2016-03-15-Oslo-data-bio,DC,2016-03-15,19,University of Oslo,NO
+2016-03-17-ou,SWC,2016-03-17,25,University of Oklahoma,US
+2016-03-19-brocku,SWC,2016-03-19,18,Brock University,CA
+2016-03-21-uconn,SWC,2016-03-21,19,University of Connecticut,US
+2016-03-23-Imperial,SWC,2016-03-23,19,Imperial College London,GB
+2016-03-24-UFII-SWC,SWC,2016-03-23,18,University of Florida,US
+2016-03-28-miami,SWC,2016-03-28,19,University of Miami,US
+2016-03-28-tucson,SWC,2016-03-28,12,University of Arizona,US
+2016-03-29-gif-sur-yvette,"SWC,unresponsive",2016-03-29,0,Unit of Neuroscience Information and Complexity,FR
+2016-03-30-Python-for-Positive-Psychology,SWC,2016-03-29,58,University of Melbourne,AU
+2016-03-31-UNSW,SWC,2016-03-31,27,Intersect Australia,AU
+2016-03-31-uw,SWC,2016-03-31,44,University of Washington,US
+2016-04-02-UTA,SWC,2016-04-02,58,University of Texas Arlington,US
+2016-04-02-conestoga,SWC,2016-04-02,48,Conestoga College,CA
+2016-04-04-gonzaga,DC,2016-04-04,26,Gonzaga University,US
+2016-04-04-ilmenau,SWC,2016-04-04,21,University of surrey,DE
+2016-04-06-UON,SWC,2016-04-06,22,Intersect Australia,AU
+2016-04-07-FederalReserveBoard,DC,2016-04-07,17,Federal Reserve Board,US
+2016-04-11-dsiti,SWC,2016-04-11,16,"Department of Science, Information Technology and Innovation",AU
+2016-04-11-unc,SWC,2016-04-11,28,University of North Carolina,US
+2016-04-12-UTS,SWC,2016-04-12,21,Intersect Australia,AU
+2016-04-12-boston_university,DC,2016-04-12,21,Boston University,US
+2016-04-12-usgs_denver_DC,DC,2016-04-12,27,United States Geological Survey,US
+2016-04-12-usgs_denver_SWC,SWC,2016-04-12,31,United States Geological Survey,US
+2016-04-13-training-online,"TTT,online",2016-04-13,33,Software Carpentry,W3
+2016-04-14-jacksonlabs,DC,2016-04-14,25,Jackson Laboratory,US
+2016-04-14-ucsb,SWC,2016-04-14,40,University of California Santa Barbara,US
+2016-04-15-UCSB,SWC,2016-04-15,40,University of California Santa Barbara,US
+2016-04-17-instructor-training-nwu,TTT,2016-04-17,23,North-West University,ZA
+2016-04-18-USYD,SWC,2016-04-18,18,Intersect Australia,AU
+2016-04-18-leeds,SWC,2016-04-18,18,University of Leeds,GB
+2016-04-18-pfr,SWC,2016-04-18,36,New Zealand eScience Infrastructure,NZ
+2016-04-19-GriffithUni,SWC,2016-04-19,22,Griffith University,AU
+2016-04-19-USDA-Athens-GA,DC,2016-04-19,30,United States Deparment of Agriculture,US
+2016-04-23-OSU-Spring,DC,2016-04-23,15,Ohio State,US
+2016-04-25-UW-mke,SWC,2016-04-25,27,University of Wisconsin - Madison,US
+2016-04-25-stanford,SWC,2016-04-25,47,Stanford University,US
+2016-04-25-utoronto,SWC,2016-04-25,29,University of Toronto,CA
+2016-04-27-NIH,SWC,2016-04-27,20,National Institutes of Health,US
+2016-04-27-ou,SWC,2016-04-27,12,University of Oklahoma,US
+2016-04-28-ualberta,SWC,2016-04-28,16,University of Alberta,CA
+2016-04-28-upenn,SWC,2016-04-28,17,University of Pennsylvania,US
+2016-04-29-ucsf,SWC,2016-04-29,55,University of California San Francisco,US
+2016-05-02-umichigan,SWC,2016-05-02,22,University of Michigan,US
+2016-05-04-dupont,DC,2016-05-04,26,Dupont Industrial Biosciences,US
+2016-05-04-instructor-training-ssi,TTT,2016-05-04,15,SSI Software Sustainability Institute,GB
+2016-05-05-saintmarys,"SWC,unresponsive",2016-05-05,0,Saint Mary's University,CA
+2016-05-05-uwaterloo,"SWC,unresponsive",2016-05-05,0,University of Waterloo,CA
+2016-05-06-RDAP16-Atlanta,DC,2016-05-06,35,Association for Information Science and Technology,US
+2016-05-07-Krakow,SWC,2016-05-07,13,Cyfronet,PL
+2016-05-09-utoronto,SWC,2016-05-09,37,University of Toronto,CA
+2016-05-11-ttt-compute-canada,TTT,2016-05-11,27,Software Carpentry,CA
+2016-05-12-CharlesDarwinUni,"DC,unresponsive",2016-05-12,0,Charles Darwin University,AU
+2016-05-14-ubc,"SWC,unresponsive",2016-05-14,0,University of British Columbia,CA
+2016-05-16-CAM,DC,2016-05-16,34,University of Cambridge,GB
+2016-05-16-csdms,SWC,2016-05-16,19,Community Surface Dynamics Modeling System,US
+2016-05-16-royalholloway,SWC,2016-05-16,0,"Royal Holloway, University of London",GB
+2016-05-16-scipyla,"SWC,unresponsive",2016-05-16,0,Universidade Federal de Santa Catarina,BR
+2016-05-17-UBC,"SWC,unresponsive",2016-05-17,0,University of British Columbia,CA
+2016-05-17-ucsd,SWC,2016-05-17,21,University of California San Diego,US
+2016-05-18-ttt-online,"TTT,online",2016-05-18,23,Software Carpentry,W3
+2016-05-21-ubc,SWC,2016-05-21,0,University of British Columbia,CA
+2016-05-23-BiodesignASU,SWC,2016-05-23,6,Arizona State University,US
+2016-05-23-nist,"unresponsive,SWC",2016-05-23,0,National Institute of Standards and Technology,US
+2016-05-23-okstate,SWC,2016-05-23,25,Oklahoma State University,US
+2016-05-23-unicamp,"SWC,unresponsive",2016-05-23,0,Universidade Estadual de Campinas,BR
+2016-05-24-mcmaster,SWC,2016-05-24,32,McMaster University,CA
+2016-05-24-proto204,SWC,2016-05-24,39,Unit of Neuroscience Information and Complexity,FR
+2016-05-25-culibraries,SWC,2016-05-25,24,University of Colorado,US
+2016-05-25-lunduni,SWC,2016-05-25,21,Lund University,SE
+2016-05-25-ou_reu,SWC,2016-05-25,10,University of Oklahoma,US
+2016-05-26-NIH,DC,2016-05-26,22,National Institutes of Health,US
+2016-05-26-nist,"SWC,unresponsive",2016-05-26,0,National Institute of Standards and Technology,US
+2016-05-26-sfwmd,DC,2016-05-26,15,South Florida Water Management District,US
+2016-05-26-utoronto,"SWC,WiSE",2016-05-26,30,University of Toronto,CA
+2016-05-27-ccsl,"SWC,unresponsive",2016-05-27,0,Centro de Competencia em Software Livre,BR
+2016-05-30-Zurich,DC,2016-05-30,40,University of Zurich,CH
+2016-05-31-CQU-R,SWC,2016-05-31,11,CQUniversity,AU
+2016-05-31-NDIC,DC,2016-05-31,24,Society of Quality Assurance,US
+2016-05-31-puertorico,DC,2016-05-31,12,University of Puerto Rico,PR
+2016-06-01-mcgill,"SWC,unresponsive",2016-06-01,0,McGill University,CA
+2016-06-01-wisc,DC,2016-06-01,27,University of Wisconsin - Madison,US
+2016-06-02-frb_washingtondc,DC,2016-06-02,11,Federal Reserve Board,US
+2016-06-02-imagexd,SWC,2016-06-02,8,Berkeley Institute for Data Science,US
+2016-06-03-kansas_state,SWC,2016-06-03,30,Kansas State University,US
+2016-06-06-Bishops,"SWC,unresponsive",2016-06-06,0,Université Bishop's,CA
+2016-06-06-GriffithUni-Python,"SWC,unresponsive",2016-06-06,0,Griffith University,AU
+2016-06-07-TGAC,SWC,2016-06-07,16,The Genome Analysis Centre,GB
+2016-06-07-albany,SWC,2016-06-07,18,New Zealand eScience Infrastructure,NZ
+2016-06-07-palmerstonnorth,SWC,2016-06-07,37,New Zealand eScience Infrastructure,NZ
+2016-06-07-ucincinnati,DC,2016-06-07,16,University of Cincinnati,US
+2016-06-08-ECSU,SWC,2016-06-08,16,Elizabeth City State University,US
+2016-06-08-LANGEBIO-Mexico,SWC,2016-06-08,31,Langebio,MX
+2016-06-08-researchpark,SWC,2016-06-08,8,University of Illinois at Urbana-Champaign,US
+2016-06-08-ttt-arizona,"TTT,online",2016-06-08,17,University of Arizona,W3
+2016-06-08-ttt-online,"TTT,online",2016-06-08,7,Software Carpentry,W3
+2016-06-08-uwmadison,SWC,2016-06-08,27,University of Wisconsin - Madison,US
+2016-06-09-Belfast,SWC,2016-06-09,26,Queen's University Belfast,GB
+2016-06-09-NIH,SWC,2016-06-09,27,National Institutes of Health,US
+2016-06-09-nyu,SWC,2016-06-09,37,New York University,US
+2016-06-11-Tucson,"unresponsive,SWC",2016-06-11,0,University of Arizona,US
+2016-06-13-cornell,DC,2016-06-13,31,Cornell University,US
+2016-06-14-uw,SWC,2016-06-14,27,University of Washington,US
+2016-06-15-USDA-NOLA,DC,2016-06-15,11,United States Deparment of Agriculture,US
+2016-06-15-ou_bio,SWC,2016-06-15,22,University of Oklahoma,US
+2016-06-16-VetSciUnimelb,SWC,2016-06-16,38,COMBINE,AU
+2016-06-16-leeds,SWC,2016-06-16,12,University of Leeds,GB
+2016-06-17-ihub-nairobi,SWC,2016-06-17,16,"iHub, Nairobi, Kenya",KE
+2016-06-20-Oslo-SWC,SWC,2016-06-20,11,University of Oslo,NO
+2016-06-20-lausanne,SWC,2016-06-20,29,University of Lausanne,CH
+2016-06-21-LTU,SWC,2016-06-21,10,Intersect Australia,AU
+2016-06-22-Christchurch,SWC,2016-06-22,40,New Zealand eScience Infrastructure,NZ
+2016-06-22-UCL_software_carpentry,SWC,2016-06-22,22,University College London,GB
+2016-06-23-CC,"DC,unresponsive",2016-06-23,,Compute Canada,CA
+2016-06-23-basel,SWC,2016-06-23,18,SIB Swiss Institute of Bioinformatics,CH
+2016-06-23-leeds,SWC,2016-06-23,22,University of Leeds,GB
+2016-06-23-ualberta-DC,DC,2016-06-23,15,University of Alberta,CA
+2016-06-27-cfmehu,SWC,2016-06-27,38,University of the Basque Country,ES
+2016-06-27-clemson,SWC,2016-06-27,25,Clemson University,US
+2016-06-27-leeds,SWC,2016-06-27,24,University of Leeds,GB
+2016-06-29-Otago,SWC,2016-06-29,23,University of Otago,NZ
+2016-06-29-frb_washingtondc,SWC,2016-06-29,14,Federal Reserve Board,US
+2016-06-29-leeds,SWC,2016-06-29,27,University of Leeds,GB
+2016-06-30-Oslo-ttt,TTT,2016-06-30,22,University of Oslo,NO
+2016-07-06-pnnl,SWC,2016-07-06,25,Pacific Northwest National Lab ,US
+2016-07-11-UNSW,SWC,2016-07-11,26,Intersect Australia,AU
+2016-07-11-UoA-winterbootcamp,"SWC,unresponsive",2016-07-11,,New Zealand eScience Infrastructure,NZ
+2016-07-11-UoA-winterbootcamp-II,"SWC,unresponsive",2016-07-11,,New Zealand eScience Infrastructure,NZ
+2016-07-11-bne-R,SWC,2016-07-11,1,University of Queensland,AU
+2016-07-11-ttt-scipy,TTT,2016-07-11,21,Software Carpentry,US
+2016-07-12-Oxford,SWC,2016-07-12,32,University of Oxford,GB
+2016-07-14-UNO,SWC,2016-07-14,27,University of Nebraska - Omaha,US
+2016-07-18-curtin,"SWC,unresponsive",2016-07-18,0,Curtin University,AU
+2016-07-18-usq,"SWC,unresponsive",2016-07-18,0,University of Southern Queensland,AU
+2016-07-18-zurich,DC,2016-07-18,38,University of Zurich,CH
+2016-07-20-UTS_Library_Data_Carpentry,DC,2016-07-12,40,University of Melbourne,AU
+2016-07-21-sfwmd,DC,2016-07-21,10,South Florida Water Management District,US
+2016-07-25-philippines,DC,2016-07-25,42,California State University Monterey Bay,PH
+2016-07-26-BU,DC,2016-07-26,18,Boston University,US
+2016-07-26-okstate,SWC,2016-07-26,4,Oklahoma State University,US
+2016-07-28-colorado-state,SWC,2016-07-28,20,Colorado State University,US
+2016-08-01-codata-rda-trieste,SWC,2016-08-01,68,Abdus Salam International Centre for Theoretical Physics,IT
+2016-08-01-ufpr,SWC,2016-08-01,14,Universidade Federal do Paraná,BR
+2016-08-02-dsiti,"SWC,unresponsive",2016-08-02,0,"Department of Science, Information Technology and Innovation",AU
+2016-08-03-frb_washingtondc,DC,2016-08-02,16,Federal Reserve Board,US
+2016-08-04-UCSF-Python,SWC,2016-08-04,31,University of California San Francisco,US
+2016-08-04-UCSF-R,SWC,2016-08-04,36,University of California San Francisco,US
+2016-08-05-hobart,SWC,2016-08-26,45,Data Science Hobart,AU
+2016-08-07-neon_esa,DC,2016-08-07,23,Neon Data Skills,US
+2016-08-08-uottawa,SWC,2016-08-08,30,Compute Canada,CA
+2016-08-09-rmacc,SWC,2016-08-09,20,University of Colorado,US
+2016-08-10-Pre-Pycon_Data_Carpentry_Workshop,DC,2016-08-10,33,VLSCI,AU
+2016-08-11-ISU,DC,2016-08-11,32,Iowa State University,US
+2016-08-11-cornell-mbg,SWC,2016-08-11,28,Cornell University,US
+2016-08-15-msu,SWC,2016-08-15,10,Michigan State University,US
+2016-08-16-WSU,"SWC,unresponsive",2016-08-16,0,Intersect Australia,AU
+2016-08-17-UF-Informatics-Institute,SWC,2016-08-17,52,University of Florida,US
+2016-08-17-ou,SWC,2016-08-17,3,University of Oklahoma,US
+2016-08-17-vumc,SWC,2016-08-17,22,Vanderbilt University,US
+2016-08-19-stonybrook,DC,2016-08-19,23,Stony Brook University,US
+2016-08-22-aarhus,SWC,2016-08-22,19,Aarhus University,DK
+2016-08-22-edinburgh,DC,2016-08-22,24,University of Edinburgh,GB
+2016-08-22-johns_hopkins,SWC,2016-08-22,19,Johns Hopkins University,US
+2016-08-22-unam,SWC,2016-08-22,23,University of Namibia,NA
+2016-08-23-UNT,SWC,2016-08-23,29,University of Oklahoma,US
+2016-08-23-uw_madison,DC,2016-08-23,29,University of Wisconsin - Madison,US
+2016-08-24-edinburgh,SWC,2016-08-24,24,University of Edinburgh,GB
+2016-08-24-federal-reserve,SWC,2016-08-24,10,Federal Reserve Board,US
+2016-08-25-augustsc,SWC,2016-08-25,20,University of Colorado,US
+2016-08-26-TTU,SWC,2016-08-26,24,Texas Tech University,US
+2016-08-29-UWCswc,"SWC,unresponsive",2016-08-30,0,South African National Bioinformatics Institute,ZA
+2016-08-29-northeastern,SWC,2016-08-29,27,Northeastern University,US
+2016-08-29-nwu-mafikeng,"SWC,DC",2016-08-29,8,North-West University,ZA
+2016-08-29-uri,DC,2016-08-29,29,University of Rhode Island,US
+2016-08-29-uw_madison,SWC,2016-08-29,25,University of Wisconsin - Madison,US
+2016-08-31-southampton,SWC,2016-08-31,22,University of Southampton,GB
+2016-08-31-umswc,SWC,2016-08-31,17,University of Michigan,US
+2016-09-01-columbia_Matlab,SWC,2016-09-01,51,Columbia University,US
+2016-09-01-columbia_R,SWC,2016-09-01,52,Columbia University,US
+2016-09-01-cu-python,SWC,2016-09-01,34,Columbia University,US
+2016-09-01-vuw,SWC,2016-09-01,40,Victoria University of Wellington,NZ
+2016-09-05-denmark,SWC,2016-09-05,34,Novo Nordisk Center for Biosustainability,DK
+2016-09-06-OSUHMSC,DC,2016-09-06,20,Oregon State University,US
+2016-09-06-aura_lsst,SWC,2016-09-06,14,Large Synoptic Survey Telescope,US
+2016-09-08-anschutz,SWC,2016-09-08,12,University of Colorado,US
+2016-09-08-mcgill,SWC,2016-09-08,16,McGill University,CA
+2016-09-12-FIU,SWC,2016-09-12,22,Florida International University,US
+2016-09-13-Universite-Laval,SWC,2016-09-13,4,University of Laval,CA
+2016-09-14-GriffithUni-Python,"SWC,unresponsive",2016-09-14,0,Griffith University,AU
+2016-09-14-mpac,"SWC,unresponsive",2016-09-14,0,Municipal Property Assessment Corporation,CA
+2016-09-14-yorku,SWC,2016-09-14,28,York University,CA
+2016-09-15-chicago,SWC,2016-09-15,47,University of Chicago,US
+2016-09-17-uwaterloo,SWC,2016-09-17,25,University of Waterloo,CA
+2016-09-19-UCSD-SIO,SWC,2016-09-19,23,University of California San Diego,US
+2016-09-19-heidelberg,SWC,2016-09-19,25,European Molecular Biology Laboratory,DE
+2016-09-19-ttt-cambridge,TTT,2016-09-19,28,Software Carpentry,GB
+2016-09-19-ttt-osu,TTT,2016-09-19,9,Oregon State University,US
+2016-09-20-ubc,"SWC,unresponsive",2016-09-20,19,University of British Columbia,CA
+2016-09-21-UON,"SWC,unresponsive",2016-09-21,0,Intersect Australia,AU
+2016-09-22-UCL_software_carpentry,SWC,2016-09-22,22,University College London,GB
+2016-09-23-gwu,SWC,2016-09-23,23,George Washington University,US
+2016-09-26-nwu-genomics,DC,2016-09-26,23,North-West University,ZA
+2016-09-26-usq,"SWC,unresponsive",2016-09-26,0,University of Southern Queensland,AU
+2016-09-27-SoftwareCarpentry-tsv,"SWC,unresponsive",2016-09-27,0,James Cook University,AU
+2016-09-27-UNSW,"SWC,unresponsive",2016-09-27,0,Intersect Australia,AU
+2016-09-27-milan,DC,2016-09-27,21,IFOM Istituto FIRC di Oncologia Molecolare,IT
+2016-09-28-GriffithUni-R,"SWC,unresponsive",2016-09-28,0,Griffith University,AU
+2016-09-28-MSU,DC,2016-09-28,22,Michigan State University,US
+2016-09-28-ttt-sesync,TTT,2016-09-28,17,National Socio-Environmental Synthesis Center,US
+2016-09-29-jackson,DC,2016-09-29,22,Jackson Laboratory,US
+2016-09-29-ubc,SWC,2016-09-29,35,University of British Columbia,CA
+2016-10-03-Uni-Neuchatel,DC,2016-10-03,30,Université de Neuchâtel,CH
+2016-10-03-sfu,SWC,2016-10-03,19,Simon Fraser University,CA
+2016-10-03-ttt-online,"TTT,online",2016-10-03,23,Software Carpentry,W3
+2016-10-04-clemson,SWC,2016-06-27,10,Clemson University,US
+2016-10-04-thessaloniki,SWC,2016-10-04,31,Aristotle University of Thessaloniki,GR
+2016-10-05-LTU,"SWC,unresponsive",2016-10-05,0,Intersect Australia,AU
+2016-10-05-SFU,"SWC,unresponsive",2016-10-05,26,Simon Fraser University,CA
+2016-10-05-nottingham,SWC,2016-10-05,21,University of Nottingham,GB
+2016-10-05-riverclub,SWC,2016-10-05,25,Pycon South Africa,ZA
+2016-10-06-QBI,"SWC,unresponsive",2016-10-06,0,University of Queensland,AU
+2016-10-06-harvard,SWC,2016-10-06,18,Harvard University,US
+2016-10-06-jackson,SWC,2016-10-06,25,Jackson Laboratory,US
+2016-10-10-uw,SWC,2016-10-10,44,University of Washington,US
+2016-10-11-NIH,SWC,2016-10-11,14,National Institutes of Health,US
+2016-10-11-colorado,SWC,2016-10-11,23,University of Colorado,US
+2016-10-12-sacnas,"SWC,unresponsive",2016-10-12,,Society for the Advancement of Chicanos/Hispanics and Native Americans in Science (SACNAS),US
+2016-10-13-okstate,SWC,2016-10-13,19,Oklahoma State University,US
+2016-10-15-UTA,SWC,2016-10-15,29,University of Texas Arlington,US
+2016-10-17-EEB-SNRE,SWC,2016-10-17,21,University of Michigan,US
+2016-10-17-amsterdam,SWC,2016-10-17,26,University of Amsterdam,NL
+2016-10-17-edinburgh,SWC,2016-10-17,26,University of Edinburgh,GB
+2016-10-17-lincoln,"SWC,unresponsive",2016-10-17,0,Plant & Food Research,NZ
+2016-10-17-uf,DC,2016-10-17,23,University of Florida,US
+2016-10-18-EI,DC,2016-10-18,15,Earlham Institute,GB
+2016-10-20-ttt-online,"TTT,online",2016-10-20,15,Software Carpentry,W3
+2016-10-22-CUAnschutz,SWC,2016-10-22,16,University of Colorado,US
+2016-10-22-uwo,DC,2016-10-22,25,Western University,CA
+2016-10-24-ttt-uwmadison,TTT,2016-10-24,25,Software Carpentry,US
+2016-10-24-umontreal,"SWC,unresponsive",2016-10-24,0,Universite de Montreal,CA
+2016-10-25-ou,SWC,2016-10-25,4,University of Oklahoma,US
+2016-10-25-uwa,DC,2016-10-25,35,University of Western Australia,AU
+2016-10-26-Wuerzburg,SWC,2016-10-26,22,University of Wuerzburg,DE
+2016-10-26-queensu,SWC,2016-10-26,30,Queen's University,CA
+2016-10-27-purdue,SWC,2016-10-27,5,Purdue University,US
+2016-10-27-ttt-online,"TTT,online",2016-10-27,20,Software Carpentry,W3
+2016-10-27-umswc-hg,SWC,2016-10-27,8,University of Michigan,US
+2016-10-31-univenda,DC,2016-11-01,20,University of Venda,ZA
+2016-11-01-chifed,SWC,2016-11-01,20,Federal Reserve Bank of Chicago,US
+2016-11-01-otago,SWC,2016-11-01,25,University of Otago,NZ
+2016-11-01-southampton,SWC,2016-11-01,21,University of Southampton,GB
+2016-11-02-EPCC,DC,2016-11-02,22,Edinburgh Parallel Computing Centre,GB
+2016-11-03-nsbe_atlanta,DC,2016-11-03,15,National Society of Black Engineers,US
+2016-11-03-nsbe_norfolk,DC,2016-11-03,20,National Society of Black Engineers,US
+2016-11-03-ttt-cuny,TTT,2016-11-03,12,City University of New York,US
+2016-11-05-CUAnschutz,SWC,2016-11-05,14,University of Colorado,US
+2016-11-05-Tucson,SWC,2016-11-05,36,University of Arizona,US
+2016-11-06-sogang,DC,2016-11-06,12,Korea Radio Promotion Association,KR
+2016-11-07-Curtin,"SWC,unresponsive",2016-11-07,,Curtin University,AU
+2016-11-07-manchester,SWC,2016-11-07,13,University of Manchester,GB
+2016-11-07-ttt-online,"TTT,online",2016-11-07,10,Software Carpentry,W3
+2016-11-09-NIH,SWC,2016-11-09,22,National Institutes of Health,US
+2016-11-09-Wuerzburg,SWC,2016-11-09,8,University of Wuerzburg,DE
+2016-11-10-uclhep,SWC,2016-11-10,18,University College London,GB
+2016-11-11-RUCamden,SWC,2016-11-11,9,Rutgers University,US
+2016-11-14-CESAB,DC,2016-11-14,9,Centre de synthèse et d'analyse sur la biodiversité,FR
+2016-11-14-Krakow,SWC,2016-11-14,7,Cyfronet,PL
+2016-11-14-frb_washingtondc,SWC,2016-11-14,14,Federal Reserve Board,US
+2016-11-14-unimelb,SWC,2016-11-14,9,ARC Centre of Excellence for Climate System Science,AU
+2016-11-15-kansas,SWC,2016-11-15,34,University of Kansas,US
+2016-11-15-ttt-online,"TTT,online",2016-11-15,15,Software Carpentry,W3
+2016-11-15-wellington,"SWC,unresponsive",2016-11-15,,National Institute of Water and Atmospheric Research,NZ
+2016-11-16-stellenbosch-python,SWC,2016-11-16,16,Stellenbosch University,ZA
+2016-11-21-genomics-unm,DC,2016-11-21,37,University of Minnesota,US
+2016-11-21-leeds,DC,2016-11-21,15,University of Leeds,GB
+2016-11-21-ou,SWC,2016-11-21,12,University of Oklahoma,US
+2016-11-24-scion,"SWC,unresponsive",2016-11-24,0,New Zealand eScience Infrastructure,NZ
+2016-11-24-ttt-metoffice,TTT,2016-11-24,17,UK Met Office,GB
+2016-11-29-qut,SWC,2016-11-29,31,Queensland University of Technology,AU
+2016-11-29-ttt-nesi,TTT,2016-11-29,10,New Zealand eScience Infrastructure,NZ
+2016-12-01-DC-Social-Sciences,DC,2016-12-01,24,Harvard University,US
+2016-12-01-PNNL-ttt,TTT,2016-12-01,14,Pacific Northwest National Lab ,US
+2016-12-03-tdwg-costa-rica,SWC,2016-12-03,13,Florida State University,CO
+2016-12-05-campinas,SWC,2016-12-05,20,Universidade Estadual de Campinas,BR
+2016-12-05-oxford,SWC,2016-12-05,22,University of Oxford,GB
+2016-12-07-uvic,"SWC,unresponsive",2016-12-07,0,University of Victoria,CA
+2016-12-09-UCSF-R,SWC,2016-12-09,38,University of California San Francisco,US
+2016-12-09-ucsf_Python,SWC,2016-12-09,23,University of California San Francisco,US
+2016-12-12-Deakin,"SWC,unresponsive",2016-12-12,0,Intersect Australia,AU
+2016-12-12-ttt-uiuc,TTT,2016-12-12,12,University of Illinois at Urbana-Champaign,US
+2016-12-13-UCL_software_carpentry,SWC,2016-12-13,20,University College London,GB
+2016-12-13-ttt-ucsf,TTT,2016-12-13,18,University of California San Francisco,US
+2016-12-14-ttt-online,"TTT,online",2016-12-14,11,Software Carpentry,NZ
+2016-12-15-ttt-online,"TTT,online",2016-12-15,16,Software Carpentry,W3
+2017-01-03-aas,SWC,2017-01-03,32,American Astronomical Society,US
+2017-01-03-okstate,SWC,2017-01-03,18,Oklahoma State University,US
+2017-01-04-bristol,SWC,2017-01-04,25,University of Bristol,GB
+2017-01-05-UNL,SWC,2017-01-05,20,University of Nebraska,US
+2017-01-05-agci,DC,2017-01-05,6,Aspen Global Change Institute,US
+2017-01-09-dundee,SWC,2016-01-09,28,University of Dundee,GB
+2017-01-09-oxford,SWC,2017-01-09,26,School of Anthropology and Museum Ethnography,GB
+2017-01-09-uw,SWC,2017-01-09,40,University of Washington,US
+2017-01-10-uw_madison,DC,2017-01-10,33,University of Wisconsin - Madison,US
+2017-01-11-ttt-online,"TTT,online",2017-01-11,23,Software Carpentry,W3
+2017-01-12-bids,SWC,2017-01-12,30,Berkeley Institute for Data Science,US
+2017-01-12-ou,SWC,2017-01-12,8,University of Oklahoma,US
+2017-01-12-uconn,SWC,2017-01-12,36,University of Connecticut,US
+2017-01-12-uw_madison,SWC,2017-01-12,33,University of Wisconsin - Madison,US
+2017-01-16-ccg-unam,SWC,2017-01-16,70,Universidad Nacional Autonoma de Mexico,MX
+2017-01-17-UMich,SWC,2017-01-17,33,University of Michigan,US
+2017-01-18-CAM,DC,2017-01-18,37,University of Cambridge,GB
+2017-01-18-bristol,SWC,2017-01-18,23,University of Bristol,GB
+2017-01-19-ttt-ecp,"TTT,online",2017-01-19,20,DOE Exascale Computing Project,W3
+2017-01-21-stanford,DC,2017-01-21,33,Stanford University,US
+2017-01-25-ttt-nz-otago,TTT,2017-01-25,28,New Zealand eScience Infrastructure,NZ
+2017-01-26-Langley,SWC,2017-01-26,13,NASA (National Aeronautics and Space Administration),US
+2017-01-26-imperial,SWC,2017-01-26,15,Imperial College London,GB
+2017-01-26-tufts,DC,2017-01-26,30,Tufts University,US
+2017-01-26-uiuc,SWC,2017-01-26,34,University of Illinois,US
+2017-01-26-utoronto,SWC,2017-01-26,16,University of Toronto,CA
+2017-01-30-NeuRA-Python,SWC,2017-01-30,23,Neuroscience Research Australia,AU
+2017-01-31-resbaztas-python,SWC,2017-01-31,40,Data Science Hobart,AU
+2017-01-31-resbaztas-r,SWC,2017-01-31,50,Data Science Hobart,AU
+2017-02-01-swc,SWC,2017-02-01,59,University of Oslo,NO
+2017-02-02-SFU,"SWC,unresponsive",2017-02-02,32,Simon Fraser University,CA
+2017-02-03-nyas-r,SWC,2017-02-03,36,New York Academy of Sciences,US
+2017-02-03-nyas_python,SWC,2017-02-03,28,New York Academy of Sciences,US
+2017-02-03-utoronto,SWC,2017-02-03,29,University of Toronto,CA
+2017-02-04-UTA,SWC,2017-02-04,53,University of Texas Arlington,US
+2017-02-04-conestoga,SWC,2017-02-04,40,Conestoga College,CA
+2017-02-05-amos,SWC,2017-02-05,17,Australian Meteorological and Oceanographic Society,AU
+2017-02-06-UF-Informatics-Institute,SWC,2017-02-06,22,University of Florida,US
+2017-02-08-dunedin,"SWC,unresponsive",2017-02-08,,University of Otago,NZ
+2017-02-08-resbaz2017-pn,"SWC,unresponsive",2017-02-08,,Massey University,NZ
+2017-02-09-jax,DC,2017-02-09,11,Jackson Laboratory,US
+2017-02-09-ttt-usu,TTT,2017-02-09,11,Utah State University,US
+2017-02-12-Chiangmai-data,DC,2017-02-12,4,Chiangmai University,TH
+2017-02-13-ttt-nih,"TTT,online",2017-02-13,4,National Institutes of Health,US
+2017-02-14-kcfrb,SWC,2017-02-14,25,Federal Reserve Bank of Kansas City,US
+2017-02-15-library_of_congress,SWC,2017-02-15,34,Library of Congress,US
+2017-02-15-uiuc,SWC,2017-02-15,19,University of Illinois,US
+2017-02-16-barHarbor,SWC,2017-02-16,13,Jackson Laboratory,US
+2017-02-16-rc-days,SWC,2017-02-16,34,Boise State University,US
+2017-02-21-online-instructor-training,"TTT,online",2017-02-21,14,Software Carpentry,W3
+2017-02-21-queensu,SWC,2017-02-21,30,Queen's University,CA
+2017-02-23-allen_institute,SWC,2017-02-23,40,Allen Institute for Brain Science,US
+2017-02-23-uottawa,SWC,2017-02-23,30,Univerity of Ottawa,CA
+2017-02-24-west_virginia,SWC,2017-02-24,15,West Virginia University,US
+2017-02-25-CyVerse,SWC,2017-02-25,41,University of Arizona,US
+2017-02-27-UTS,SWC,2017-02-27,25,University of Technology Sydney,AU
+2017-02-27-umich,SWC,2017-02-27,9,University of Michigan,US
+2017-03-02-SoftwareCarpentry-tsv,"SWC,unresponsive",2017-03-02,0,James Cook University,AU
+2017-03-02-manchester,SWC,2017-03-02,11,EPSRC & MRC Centre for Doctoral Training (CDT) in Regenerative Medicine,GB
+2017-03-02-mcgill,SWC,2017-03-02,21,McGill University,CA
+2017-03-05-ucsf-R,SWC,2017-03-05,31,University of California San Francisco,US
+2017-03-05-ucsf-python,SWC,2017-03-05,21,University of California San Francisco,US
+2017-03-06-winona,SWC,2017-03-06,14,Winona State University,US
+2017-03-07-Universite-Laval,SWC,2017-03-07,20,University of Laval,CA
+2017-03-07-ttt-online,"TTT,online",2017-03-07,13,Software Carpentry,W3
+2017-03-09-freiburg,SWC,2017-03-09,26,University of Freiburg,DE
+2017-03-11-ubc,SWC,2017-03-11,44,University of British Columbia,CA
+2017-03-13-colorado,SWC,2017-03-13,16,University of Colorado,US
+2017-03-13-ou,SWC,2017-03-13,8,University of Oklahoma,US
+2017-03-13-oxford,SWC,2017-03-13,28,School of Anthropology and Museum Ethnography,GB
+2017-03-16-SoftwareCarpentryPy-TSV,SWC,2017-03-16,24,James Cook University,AU
+2017-03-16-dartmouth,SWC,2017-03-16,20,Dartmouth College,US
+2017-03-16-okstate,SWC,2017-03-16,11,Oklahoma State University,US
+2017-03-16-ttt-oxford,TTT,2017-03-16,24,University of Oxford,GB
+2017-03-20-wsu,DC,2017-03-20,26,Washington State University,US
+2017-03-22-amsterdam,DC,2017-03-22,26,Amsterdam Science Park,NL
+2017-03-22-calstate_Monterey,DC,2017-03-22,17,California State University Monterey Bay,US
+2017-03-23-Mafikeng,"DC,unresponsive",2017-03-23,28,North-West University,ZA
+2017-03-23-standrews,SWC,2017-03-23,20,University of St. Andrews,GB
+2017-03-24-ttt-upr,TTT,2017-03-24,12,University of Puerto Rico,PR
+2017-03-25-brocku,SWC,2017-03-25,16,Brock University,CA
+2017-03-27-nebraska,SWC,2017-03-27,20,University of Nebraska,US
+2017-03-27-uw,SWC,2017-03-27,46,University of Washington,US
+2017-03-29-delaware,DC,2017-03-29,21,University of Delaware,US
+2017-03-29-munchen,SWC,2017-03-29,17,Technical University Munich,DE
+2017-03-30-manchester,DC,2017-03-30,14,Cathie Marsh Institute for Social Research,GB
+2017-04-04-commerce-library,SWC,2017-04-04,39,Commerce Research Library,US
+2017-04-06-DataCarpentry-Genomics-TSV,DC,2017-04-06,0,James Cook University,AU
+2017-04-06-farmington,DC,2017-04-06,23,Jackson Laboratory,US
+2017-04-06-wsu,SWC,2017-04-06,30,Washington State University,US
+2017-04-07-ou,SWC,2017-04-07,12,University of Oklahoma,US
+2017-04-10-Albany,SWC,2017-04-10,,Massey University,NZ
+2017-04-10-GriffithUni-Python,SWC,2017-04-10,24,Griffith University,AU
+2017-04-10-uw-ttt,TTT,2017-04-10,15,University of Washington,US
+2017-04-11-nist,SWC,2017-04-11,13,National Institute of Standards and Technology,US
+2017-04-12-GriffithUni-Git,SWC,2017-04-12,32,Griffith University,AU
+2017-04-20-SWC-Melbourne,SWC,2017-04-20,25,COMBINE,AU
+2017-04-20-leeds,SWC,2017-04-20,25,University of Leeds,GB
+2017-04-20-otago,DC,2017-04-20,22,University of Otago,NZ
+2017-04-21-ucsb,SWC,2017-04-20,27,University of California Santa Barbara,US
+2017-04-24-queensu,SWC,2017-04-24,30,Queen's University,CA
+2017-04-24-ttt-VT_NIST,"TTT,online",2017-04-24,12,Software Carpentry,W3
+2017-04-26-caltech,DC,2017-04-26,25,California Institute of Technology,US
+2017-04-26-norwich,SWC,2017-04-26,13,Earlham Institute,GB
+2017-04-27-UCL_software_carpentry,SWC,2017-04-27,24,University College London,GB
+2017-04-27-wsu,SWC,2017-04-27,31,Wayne State University,US
+2017-04-30-eResearchAfrica-ttt,TTT,2017-04-30,28,Software Carpentry,ZA
+2017-05-01-frb_datacarp,DC,2017-05-01,13,Federal Reserve Board,US
+2017-05-01-frb_swcarp,SWC,2017-05-01,13,Federal Reserve Board,US
+2017-05-04-pnnl,SWC,2017-05-04,20,Pacific Northwest National Lab ,US
+2017-05-04-portland-ttt,TTT,2017-05-04,28,California Digital Library,US
+2017-05-04-ttt-frb,TTT,2017-05-04,16,Federal Reserve Board,US
+2017-05-04-upstate_medical_university,DC,2017-05-04,24,Upstate Medical University (State University of New York),US
+2017-05-06-caltech,DC,2017-04-26,11,California Institute of Technology,US
+2017-05-08-NIH,SWC,2017-05-08,17,National Institutes of Health,US
+2017-05-08-leeds,SWC,2017-05-08,18,University of Leeds,GB
+2017-05-08-scion,SWC,2017-05-08,,Scion New Zealand,NZ
+2017-05-08-upenn_digital_humanities,SWC,2017-05-08,22,University of Pennsylvania,US
+2017-05-09-edinburgh,SWC,2017-05-09,32,Edinburgh Parallel Computing Centre,GB
+2017-05-11-edinburgh,DC,2017-05-11,23,Edinburgh Parallel Computing Centre,GB
+2017-05-15-GFZ,SWC,2017-05-15,25,GFZ Potsdam,DE
+2017-05-15-UNIVENDA,DC,2017-05-15,22,University of Venda,ZA
+2017-05-15-okstate,SWC,2017-05-15,25,Oklahoma State University,US
+2017-05-15-ualberta,SWC,2017-05-15,25,University of Alberta,CA
+2017-05-17-GFZ,SWC,2017-05-17,22,GFZ Potsdam,DE
+2017-05-17-JLAB,SWC,2017-05-17,36,Open Science Grid,US
+2017-05-17-qbi,SWC,2017-05-17,17,University of Queensland,AU
+2017-05-18-McMaster,SWC,2017-05-18,27,McMaster University,CA
+2017-05-18-R-Macquarie,SWC,2017-05-18,18,Macquarie University,AU
+2017-05-18-WVU,SWC,2017-05-18,26,West Virginia University,US
+2017-05-18-arkansas,SWC,2017-05-18,27,University of Arkansas,US
+2017-05-18-northeastern,DC,2017-05-18,40,Northeastern University,US
+2017-05-18-sac-water-science-r-workshop,SWC,2017-05-18,26,State Water Agencies,US
+2017-05-18-standrews,SWC,2017-05-18,13,University of St. Andrews,GB
+2017-05-18-stanford-TTT,TTT,2017-05-18,13,Stanford University,US
+2017-05-20-ucsf-R,SWC,2017-05-20,37,University of California San Francisco,US
+2017-05-20-ucsf-python,SWC,2017-05-20,33,University of California San Francisco,US
+2017-05-22-florida-TTT,TTT,2017-05-22,22,University of Florida,US
+2017-05-23-ucsd,SWC,2017-05-23,26,University of California San Diego,US
+2017-05-24-nist,SWC,2017-05-24,34,National Institute of Standards and Technology,US
+2017-05-25-UF,SWC,2017-05-25,21,University of Florida,US
+2017-05-27-MUN,SWC,2017-05-27,22,Memorial University,CA
+2017-05-29-GriffithUni-R,SWC,2017-05-29,27,Griffith University,AU
+2017-05-31-Vaal,DC,2017-05-31,20,North-West University,ZA
+2017-06-01-Belfast,DC,2017-06-01,26,Queen's University Belfast,GB
+2017-06-01-stanford,SWC,2017-06-01,22,Stanford University,US
+2017-06-05-ghana,SWC,2017-06-05,,AfriGEOSS,GH
+2017-06-06-Curtin,SWC,2017-06-06,,Curtin University,AU
+2017-06-06-ncsa,SWC,2017-06-06,7,University of Illinois at Urbana-Champaign,US
+2017-06-07-uri,DC,2017-06-07,27,University of Rhode Island,US
+2017-06-08-langley,SWC,2017-06-08,15,NASA (National Aeronautics and Space Administration),US
+2017-06-08-minnesota,DC,2017-06-08,18,University of Minnesota,US
+2017-06-08-wsu,DC,2017-06-08,17,Washington State University,US
+2017-06-12-wise,SWC,2017-06-12,9,NASA (National Aeronautics and Space Administration),US
+2017-06-13-uw,SWC,2017-06-13,39,University of Washington,US
+2017-06-14-cornell,DC,2017-06-14,29,Cornell University,US
+2017-06-15-frb_washingtondc,DC,2017-06-15,21,Federal Reserve Board,US
+2017-06-15-uow,DC,2017-06-15,19,University of Wollongong,AU
+2017-06-17-stanford,DC,2017-06-17,40,Stanford University,US
+2017-06-17-stlouis,"DC,unresponsive",2017-06-17,,University of California Davis,US
+2017-06-19-berlin,SWC,2017-06-19,34,Integrative Research Institute of Life Sciences,DE
+2017-06-19-nasa-rm1,SWC,2017-06-19,38,NASA (National Aeronautics and Space Administration),US
+2017-06-19-nasa-rm2,SWC,2017-06-19,32,NASA (National Aeronautics and Space Administration),US
+2017-06-19-sydney-ttt,TTT,2017-06-19,18,Macquarie University,AU
+2017-06-19-tgen,SWC,2017-06-19,52,Translational Genomics Institute,US
+2017-06-19-ttt-davis,TTT,2017-06-19,13,University of California Davis,US
+2017-06-19-uwmadison-dc,DC,2017-06-19,27,University of Wisconsin - Madison,US
+2017-06-20-Spelman,SWC,2017-06-20,11,Spelman College,US
+2017-06-21-Crick,DC,2017-06-21,20,The Francis Crick Institute,GB
+2017-06-21-qmul,SWC,2017-06-21,14,Queen Mary University London,GB
+2017-06-26-pnnl,SWC,2017-06-26,16,Pacific Northwest National Lab ,US
+2017-06-26-ttt-online,"TTT,online",2017-06-26,6,Software Carpentry,W3
+2017-06-26-wuerzburg,SWC,2017-06-26,20,University of Wuerzburg,DE
+2017-06-27-LBL,DC,2017-06-27,7,Lawrence Berkeley National Laboratory,US
+2017-06-28-cfmehu,SWC,2017-06-28,27,University of the Basque Country,ES
+2017-06-28-ecsu,SWC,2017-06-28,9,Elizabeth City State University,US
+2017-06-28-otago,SWC,2017-06-28,30,University of Otago,NZ
+2017-06-28-uwmadison-swc,SWC,2017-06-28,27,University of Wisconsin - Madison,US
+2017-06-29-fsu,DC,2017-06-29,18,Florida State University,US
+2017-07-03-ResBaz-Python,SWC,2017-07-03,,Intersect Australia,AU
+2017-07-03-ResBaz-R,SWC,2017-07-03,,Intersect Australia,AU
+2017-07-03-cab,DC,2017-07-03,25,Central African Biodiversity Alliance,GA
+2017-07-03-ngb-leeds,SWC,2017-07-03,18,University of Leeds,GB
+2017-07-03-sydney-resbaz-r-novice,SWC,2017-07-03,25,Macquarie University,AU
+2017-07-03-wuerzburg,SWC,2017-07-03,19,University of Wuerzburg,DE
+2017-07-05-uniarkansas,DC,2017-07-06,23,University of Arkansas,US
+2017-07-10-auckland,SWC,2017-07-10,,University of Auckland,NZ
+2017-07-10-ttt-online,"TTT,online",2017-07-10,21,Software Carpentry,W3
+2017-07-10-uqws,SWC,2017-07-10,31,University of Queensland,AU
+2017-07-11-uchicago,SWC,2017-07-11,14,University of Chicago,US
+2017-07-12-LBNL,SWC,2017-07-12,8,Lawrence Berkeley National Laboratory,US
+2017-07-12-ualberta-DC,DC,2017-07-12,13,University of Alberta,CA
+2017-07-13-jaxlab-instructor-training,"TTT,online",2017-07-13,7,Software Carpentry,W3
+2017-07-13-ttt-online,"TTT,online",2017-07-13,16,Software Carpentry,W3
+2017-07-15-UCSF-Python,SWC,2017-07-15,42,University of California San Francisco,US
+2017-07-15-UCSF-R,SWC,2017-07-15,33,University of California San Francisco,US
+2017-07-17-imperial,DC,2017-07-17,19,Imperial College London,GB
+2017-07-19-Mauritius,SWC,2017-07-19,25,University of Mauritius,MU
+2017-07-19-imperial,SWC,2017-07-19,24,Imperial College London,GB
+2017-07-20-caltech,DC,2017-07-20,19,California Institute of Technology,US
+2017-07-21-LBNL,SWC,2017-07-20,29,Lawrence Berkeley National Laboratory,US
+2017-07-24-chicago,SWC,2017-07-24,9,University of Chicago,US
+2017-07-25-UCL_software_carpentry,SWC,2017-07-26,29,University College London,GB
+2017-07-25-tucson-ttt,TTT,2017-07-25,9,Software Carpentry,US
+2017-07-26-LBNL,SWC,2017-07-26,7,Lawrence Berkeley National Laboratory,US
+2017-07-26-Sheffield,DC,2017-07-26,20,University of Sheffield,GB
+2017-07-27-PNNL,SWC,2017-07-27,18,Pacific Northwest National Lab ,US
+2017-07-27-hobart,SWC,2017-07-27,45,Data Science Hobart,AU
+2017-07-27-mcmaster,SWC,2017-07-27,30,McMaster University,CA
+2017-07-27-okstate,DC,2017-07-27,21,Oklahoma State University,US
+2017-07-27-qcif,TTT,2017-07-27,23,Queensland Cyber Infrastructure Foundation,AU
+2017-07-31-noble-research,SWC,2017-07-31,26,Noble Research Institute,US
+2017-07-31-ttt-online,"TTT,online",2017-07-31,27,Software Carpentry,W3
+2017-08-01-LBNL,DC,2017-08-01,8,Lawrence Berkeley National Laboratory,US
+2017-08-01-Potch,"DC,unresponsive",2017-08-01,13,North-West University,ZA
+2017-08-01-resbazp,SWC,2017-02-08,37,University of Queensland,AU
+2017-08-01-resbazr,SWC,2017-02-08,38,University of Queensland,AU
+2017-08-01-southampton-dc,DC,2017-08-01,46,University of Southampton,GB
+2017-08-01-southampton-swc,SWC,2017-08-01,25,University of Southampton,GB
+2017-08-01-stony-brook,SWC,2017-08-01,26,Stony Brook University,US
+2017-08-02-canterbury,"SWC,unresponsive",2017-02-08,,University of Canterbury,NZ
+2017-08-02-chicago-frb,SWC,2017-08-02,23,Federal Reserve Bank of Chicago,US
+2017-08-03-creighton,SWC,2017-08-03,36,Creighton University,US
+2017-08-03-frb_washingtondc,SWC,2017-08-03,19,Federal Reserve Board,US
+2017-08-05-stanford,SWC,2017-08-05,16,Stanford University,US
+2017-08-07-LBNL,DC,2017-08-07,18,Lawrence Berkeley National Laboratory,US
+2017-08-07-jackson-ttt,"TTT,online",2017-08-07,34,Software Carpentry,W3
+2017-08-07-notredame,SWC,2017-08-07,24,University of Notre Dame,US
+2017-08-08-stsci,SWC,2017-08-08,20,Space Telescope Science Institute,US
+2017-08-10-qbi,SWC,2017-08-10,9,University of Queensland,AU
+2017-08-14-Ethiopia,DC,2017-08-14,27,Ethiopian Research and Education Network,ET
+2017-08-14-UCB-ttt,TTT,2017-08-14,11,Berkeley Institute for Data Science,US
+2017-08-14-UFII-DC,DC,2017-08-14,29,University of Florida,US
+2017-08-14-UFII-SwC,SWC,2017-08-14,22,University of Florida,US
+2017-08-14-delaware,SWC,2017-08-14,24,University of Delaware,US
+2017-08-14-winona,SWC,2017-08-14,19,Winona State University,US
+2017-08-16-pyconpl,DC,2017-08-16,1,PyCon,PL
+2017-08-16-sheffield,SWC,2017-08-16,28,University of Sheffield,GB
+2017-08-16-ttt-online,"TTT,online",2017-08-16,21,Software Carpentry,W3
+2017-08-16-wsu,SWC,2017-08-16,38,Washington State University,US
+2017-08-17-Yosemite,DC,2017-08-17,20,University of California Merced,US
+2017-08-17-oklahoma,SWC,2017-08-17,11,University of Oklahoma,US
+2017-08-17-umswc-hg,SWC,2017-08-17,19,University of Michigan,US
+2017-08-17-vumc,SWC,2017-08-17,40,Vanderbilt University,US
+2017-08-18-Windhoek,SWC,2017-08-18,15,University of Namibia,NA
+2017-08-21-GriffithUni-R,SWC,2017-08-21,22,Griffith University,AU
+2017-08-21-aarhus,SWC,2017-08-21,,Aarhus University,DK
+2017-08-22-uwmadison-dc,DC,2017-08-22,,University of Wisconsin - Madison,US
+2017-08-24-losalamos,SWC,2017-08-24,20,Los Alamos National Laboratory,US
+2017-08-25-wvu,SWC,2017-08-25,32,West Virginia University,US
+2017-08-26-Tucson,SWC,2017-08-26,71,University of Arizona,US
+2017-08-28-nmsu,DC,2017-08-28,32,New Mexico State University,US
+2017-08-30-lbl-pyseclang,SWC,2017-08-30,22,Lawrence Berkeley National Laboratory,US
+2017-08-30-uwmadison-swc,SWC,2017-08-30,23,University of Wisconsin - Madison,US
+2017-08-31-MacquarieUniversity,SWC,2017-08-31,16,Macquarie University,AU
+2017-08-31-ncsa,SWC,2017-08-31,23,"National Center for Supercomputing Applications, University of Illinois at Urbana–Champaign",US
+2017-08-31-uri,DC,2017-08-31,32,University of Rhode Island,US
+2017-09-04-ttt-manchester,TTT,2017-09-04,22,University of Manchester,GB
+2017-09-04-wuerzburg,SWC,2017-09-04,22,University of Wuerzburg,DE
+2017-09-09-hlt-workshop,SWC,2017-09-09,16,University of Arizona,US
+2017-09-09-utah_swc,SWC,2017-09-09,,Utah State University,US
+2017-09-11-cambridge,DC,2017-09-11,38,University of Cambridge,GB
+2017-09-12-isu,SWC,2017-09-12,12,Iowa State University,US
+2017-09-14-gent-cmet,SWC,2017-09-14,19,Univeristy of Ghent,BE
+2017-09-14-osucgrb,SWC,2017-09-14,22,Oregon State University,US
+2017-09-18-SFU-python,SWC,2017-09-18,,Simon Fraser University,CA
+2017-09-18-TechUnivDenm,SWC,2017-09-18,,Technical University of Denmark,DK
+2017-09-18-UniversityLimpopo,DC,2017-09-18,27,University of Limpopo,ZA
+2017-09-18-stanford,SWC,2017-09-18,40,Stanford University,US
+2017-09-19-LBNL,DC,2017-09-19,1,Lawrence Berkeley National Laboratory,US
+2017-09-20-NASADEVELOP-PY,SWC,2017-09-20,5,NASA (National Aeronautics and Space Administration),US
+2017-09-21-ttt-online,"TTT,online",2017-09-21,26,Software Carpentry,W3
+2017-09-21-ucr,SWC,2017-09-21,12,"University of California, Riverside",US
+2017-09-21-uiuc,SWC,2017-09-21,25,University of Illinois,US
+2017-09-23-chicago,SWC,2017-09-23,26,University of Chicago,US
+2017-09-25-TTT-online,"TTT,online",2017-09-25,17,Software Carpentry,W3
+2017-09-25-UCL_software_carpentry,SWC,2017-09-25,14,University College London,GB
+2017-09-25-usq,SWC,2017-09-25,,University of Southern Queensland,AU
+2017-09-26-Exeter,SWC,2017-09-26,32,University of Exeter,GB
+2017-09-26-MacquarieUniversity,SWC,2017-09-26,16,Macquarie University,AU
+2017-09-26-oxford,DC,2017-09-26,13,University of Oxford,GB
+2017-09-26-ubc,SWC,2017-09-26,9,University of British Columbia,CA
+2017-09-27-LBNL,DC,2017-09-27,4,Lawrence Berkeley National Laboratory,US
+2017-09-28-NIH-CMN,SWC,2017-09-28,20,National Institutes of Health,US
+2017-09-28-curtin,TTT,2017-09-28,16,Curtin University,AU
+2017-09-28-nsbe,DC,2017-09-28,16,National Society of Black Engineers,US
+2017-09-29-DC_USU,DC,2017-09-29,14,Utah State University,US
+2017-09-30-TDWG-Ottawa,DC,2017-09-30,18,University of Florida,CA
+2017-10-02-uw,SWC,2017-10-02,,University of Washington,US
+2017-10-03-LLNL,SWC,2017-10-03,18,Lawrence Livermore National Labs,US
+2017-10-03-NDIC,DC,2017-10-03,14,University of Colorado,US
+2017-10-03-riverclub,SWC,2017-10-03,37,The River Club,ZA
+2017-10-09-NWU-eResearch-ttt,TTT,2017-10-09,34,Software Carpentry,ZA
+2017-10-09-aarhus,SWC,2017-10-09,24,Aarhus University,DK
+2017-10-10-norwich,SWC,2017-10-10,16,Earlham Institute,GB
+2017-10-10-ttt-doe,"TTT,online",2017-10-10,24,Software Carpentry,W3
+2017-10-12-london,SWC,2017-10-12,18,The Francis Crick Institute,GB
+2017-10-12-oxford-swc,SWC,2017-10-12,15,School of Anthropology and Museum Ethnography,GB
+2017-10-16-Glasgow,SWC,2017-10-16,20,University of Glasgow,GB
+2017-10-16-Monsanto-ttt,TTT,2017-10-16,7,Monsanto,US
+2017-10-16-UNO,SWC,2017-10-16,8,University of Nebraska - Omaha,US
+2017-10-16-YorkU,SWC,2017-10-18,,York University,CA
+2017-10-16-karolinska,SWC,2017-10-16,12,Karolinska Institutet,SE
+2017-10-16-ucla,SWC,2017-10-16,10,University of California Los Angeles,US
+2017-10-16-umswc,SWC,2017-10-16,18,University of Michigan,US
+2017-10-16-upenn-ibi,SWC,2017-10-16,26,University of Pennsylvania,US
+2017-10-17-bu,SWC,2017-10-17,17,Boston University,US
+2017-10-17-heidelberg,SWC,2017-10-17,25,European Molecular Biology Laboratory,DE
+2017-10-18-SACNAS,DC,2017-10-18,,Society for the Advancement of Chicanos/Hispanics and Native Americans in Science (SACNAS),US
+2017-10-19-UIC,SWC,2017-10-19,21,University of Illinois at Chicago,US
+2017-10-19-UniversityBotswana,SWC,2017-10-19,22,University of Botswana,BW
+2017-10-19-otago,SWC,2017-10-19,11,University of Otago,NZ
+2017-10-19-ucsf-ttt,"TTT,online",2017-10-19,5,Software Carpentry,W3
+2017-10-23-ufs,SWC,2017-10-23,19,University of the Free State,ZA
+2017-10-24-ARC-16S,DC,2017-10-24,23,North-West University,ZA
+2017-10-24-ttt-online,"TTT,online",2017-10-24,19,Software Carpentry,W3
+2017-10-24-ttt-online-USA,"TTT,online",2017-10-24,23,Software Carpentry,W3
+2017-10-25-ift,SWC,2017-10-25,18,Institute for Theoretical Physics UAM-CSIC,ES
+2017-10-26-merced,DC,2017-10-26,24,University of California Merced,US
+2017-10-26-york-university,SWC,2017-10-26,20,York University,CA
+2017-10-27-Moorhead,SWC,2017-10-27,15,Minnesota State Colleges and Universities,US
+2017-10-27-RUCamden,SWC,2017-10-27,10,Rutgers University,US
+2017-10-27-ttt-UND,TTT,2017-10-27,5,Software Carpentry,US
+2017-10-30-Ethiopia,DC,2017-10-30,25,Ethiopian Research and Education Network,ET
+2017-10-30-TTT-online,"TTT,online",2017-10-30,12,Software Carpentry,W3
+2017-10-30-harvard,SWC,2017-10-30,21,Harvard University,US
+2017-10-30-iDigBio-Summit-UFII,DC,2017-10-30,16,University of Florida,US
+2017-10-30-icahn,SWC,2017-10-30,26,Icahn School of Medicine at Mount Sinai,US
+2017-10-30-imperial-ttt,TTT,2017-10-30,19,Software Carpentry,GB
+2017-10-31-UCL_software_carpentry,SWC,2017-10-31,30,University College London,GB
+2017-10-31-qut,SWC,2017-10-31,34,Queensland University of Technology,AU
+2017-10-31-ulaval,SWC,2017-10-31,21,University of Laval,CA
+2017-11-01-NWU-Mafikeng,DC,2017-11-01,24,North-West University,ZA
+2017-11-02-TTT-online,"TTT,online",2017-11-02,25,Software Carpentry,W3
+2017-11-02-nist,SWC,2017-11-02,15,National Institute of Standards and Technology,US
+2017-11-03-gwu-R,SWC,2017-11-03,15,George Washington University,US
+2017-11-05-AAU,DC,2017-11-05,46,Addis Ababa University,ET
+2017-11-06-SUN-DC,DC,2017-11-06,24,Stellenbosch University,ZA
+2017-11-06-lugano,DC,2017-11-06,21,University of Zurich,CH
+2017-11-06-manchester,SWC,2017-11-06,15,University of Manchester,GB
+2017-11-06-ttt-Utrecht,TTT,2017-11-07,16,Uniersity of Utrecht,NL
+2017-11-06-umontreal,SWC,2017-11-06,19,Universite de Montreal,CA
+2017-11-07-curtin,SWC,2017-11-07,,Curtin University,AU
+2017-11-07-mcgill,SWC,2017-11-07,17,McGill University,CA
+2017-11-07-mizzou,SWC,2017-11-07,15,University of Missouri,US
+2017-11-08-lugano,DC,2017-11-08,9,University of Zurich,CH
+2017-11-08-southampton-swc,SWC,2017-11-08,17,SSI Software Sustainability Institute,GB
+2017-11-09-sfn,SWC,2017-11-09,26,Society for Neuroscience,US
+2017-11-09-uclhep,SWC,2017-11-09,14,University College London,GB
+2017-11-11-UTA,SWC,2017-11-11,12,University of Texas Arlington,US
+2017-11-13-ethiopia,SWC,2017-12-12,27,Addis Ababa University,ET
+2017-11-14-ttt-online,"TTT,online",2017-11-14,12,Software Carpentry,W3
+2017-11-15-ttt-stanford,TTT,2017-11-15,15,Software Carpentry,US
+2017-11-15-ualberta,DC,2017-11-15,10,University of Alberta,CA
+2017-11-17-tufts,SWC,2017-11-17,14,Tufts University,US
+2017-11-20-ou,SWC,2017-11-20,20,University of Oklahoma,US
+2017-11-21-EI,DC,2017-11-21,15,Earlham Institute,GB
+2017-11-23-GriffithUni-Python,SWC,2017-11-23,24,Griffith University,AU
+2017-11-27-USyd-Python,SWC,2017-11-27,12,University of Sydney,AU
+2017-11-30-MBARI,SWC,2017-11-30,44,Monterey Bay Aquarium Research Institute,US
+2017-11-30-NWU-IT,SWC,2017-11-30,16,North-West University,ZA
+2017-11-30-minnesota,SWC,2017-11-30,18,University of Minnesota,US
+2017-11-30-queensu,SWC,2017-11-30,25,Queen's University,CA
+2017-12-01-gwu-Python,SWC,2017-12-01,15,George Washington University,US
+2017-12-02-UCSF-Python,SWC,2017-12-02,24,University of California San Francisco,US
+2017-12-02-UCSF-R,SWC,2017-12-02,34,University of California San Francisco,US
+2017-12-02-mun,SWC,2017-12-02,33,Memorial University,CA
+2017-12-04-standrews,SWC,2017-12-04,17,University of St. Andrews,GB
+2017-12-04-ttt,"TTT,online",2017-12-04,8,Software Carpentry,W3
+2017-12-05-rutgers,DC,2017-12-05,34,Rutgers University,US
+2017-12-05-ttt-southampton,TTT,2017-12-05,18,Software Carpentry,GB
+2017-12-07-Monsanto,SWC,2017-12-07,,Monsanto,US
+2017-12-11-Imperial,SWC,2017-12-11,26,Imperial College London,GB
+2017-12-12-MQU-R,SWC,2017-12-12,34,Macquarie University,AU
+2017-12-12-acadia,SWC,2017-12-12,23,Acadia University,CA
+2017-12-12-ttt-online,"TTT,online",2017-12-12,17,Software Carpentry,W3
+2017-12-13-amsterdam,DC,2017-12-13,11,University of Amsterdam,NL
+2017-12-14-MAN-SS-PILOT01,DC,2017-12-14,13,University of Manchester,GB
+2017-12-14-UCL_software_carpentry,SWC,2017-12-14,,University College London,GB
+2017-12-14-mcmaster,DC,2017-12-14,27,McMaster University,CA
+2017-12-14-ttt-uiuc,TTT,2017-12-14,10,Software Carpentry,US
+2017-12-14-ucr,SWC,2017-12-14,9,"University of California, Riverside",US
+2017-12-18-PNNL,"SWC,unresponsive",2017-12-18,14,Pacific Northwest National Lab ,US
+2017-12-18-grand-valley,DC,2017-12-18,19,Grand Valley State University,US
+2017-12-18-knoxville,SWC,2017-12-18,31,University of Tennessee Knoxville,US
+2017-12-18-osu,SWC,2017-12-18,21,Oklahoma State University,US
+2017-12-18-umich,SWC,2017-12-18,15,University of Michigan,US
+2017-12-20-normandale,SWC,2017-12-20,19,Winona State University,US
+2018-01-03-UNL,SWC,2018-01-03,46,University of Nebraska,US
+2018-01-03-davis,SWC,2018-01-03,37,University of California Davis,US
+2018-01-07-aas,SWC,2018-01-07,21,American Astronomical Society,US
+2018-01-08-okstate,SWC,2018-01-08,17,Oklahoma State University,US
+2018-01-08-uw,SWC,2018-01-08,,University of Washington,US
+2018-01-08-uwmadison-dc,DC,2018-01-08,39,University of Wisconsin - Madison,US
+2018-01-09-gpn,SWC,2018-01-09,26,Great Plains Network,US
+2018-01-10-ou,SWC,2018-01-10,9,University of Oklahoma,US
+2018-01-10-uwmadison-swc,SWC,2018-01-10,28,University of Wisconsin - Madison,US
+2018-01-11-UKZN-Civil,DC,2018-01-11,,University of KwaZulu Natal,ZA
+2018-01-11-bids,SWC,2018-01-11,30,Berkeley Institute for Data Science,US
+2018-01-11-ireland,SWC,2018-01-11,25,"National University of Ireland, Galway",IE
+2018-01-11-oxford,SWC,2018-01-11,,University of Oxford,GB
+2018-01-11-rutgers,DC,2018-01-11,21,Rutgers University,US
+2018-01-11-ucmerced,DC,2018-01-11,25,University of California Merced,US
+2018-01-12-khartoum,SWC,2018-01-12,,University of Khartoum,SD
+2018-01-18-UF-R,DC,2018-01-18,6,University of Florida,US
+2018-01-18-UMWISE,SWC,2018-01-18,13,University of Michigan,US
+2018-01-18-stonybrook,SWC,2018-01-18,13,Stony Brook University,US
+2018-01-18-uiuc,SWC,2018-01-18,35,University of Illinois at Urbana-Champaign,US
+2018-01-18-utoronto,SWC,2018-01-18,,University of Toronto,CA
+2018-01-19-csumb,SWC,2018-01-19,29,California State University Monterey Bay,US
+2018-01-20-coloradomines,SWC,2018-01-20,14,Colorado School of MInes,US
+2018-01-22-UFII,SWC,2018-01-22,13,University of Florida,US
+2018-01-22-morelia,SWC,2018-01-22,40,ENES Unidad Morelia,MX
+2018-01-23-uwa,SWC,2018-01-23,,Curtin University,AU
+2018-01-24-ucdavis,SWC,2018-01-24,28,University of California Davis,US
+2018-01-25-swansea,SWC,2018-01-25,35,Swansea University,GB
+2018-01-26-unt-swc,SWC,2018-01-26,23,University of North Texas,US
+2018-01-27-wvu,SWC,2018-01-27,24,West Virginia University,US
+2018-01-29-MAN-SS-PILOT02,DC,2018-01-29,6,Cathie Marsh Institute for Social Research,GB
+2018-01-29-maxplanck,DC,2018-01-29,31,Max Planck Institute for Molecular Biomedicine,DE
+2018-01-30-ttt-USA,"TTT,online",2018-01-30,19,Software Carpentry,W3
+2018-01-30-ttt-online-UK,"TTT,online",2018-01-30,14,Software Carpentry,W3
+2018-01-31-WITS,DC,2018-01-31,,North-West University,ZA
+2018-01-xx-bath,SWC,2018-01-28,,University of Bath,GB
+2018-02-01-uiuc,SWC,2018-02-01,19,University of Illinois at Urbana-Champaign,US
+2018-02-03-swc-antarctica,SWC,2018-02-03,,McMurdo Station,AQ
+2018-02-04-amos-icshmo,DC,2018-02-04,40,Australian Meteorological and Oceanographic Society,AU
+2018-02-05-Oslo,SWC,2018-02-05,12,University of Oslo,NO
+2018-02-05-ttt-online,"TTT,online",2018-02-05,24,Software Carpentry,W3
+2018-02-07-GriffithUni-Python,SWC,2018-02-07,13,Griffith University,AU
+2018-02-07-dunedin,SWC,2018-02-07,20,University of Otago,NZ
+2018-02-07-smithsonian,DC,2018-02-07,39,"Smithsonian Institution, National Museum of Natural History",US
+2018-02-08-AAU,DC,2018-02-08,35,Addis Ababa University,ET
+2018-02-10-tucson,SWC,2018-02-10,67,University of Arizona,US
+2018-02-12-Imperial,SWC,2018-02-12,,Imperial College London,GB
+2018-02-13-ttt-online,"TTT,online",2018-02-13,15,Software Carpentry,W3
+2018-02-14-Albany,SWC,2018-02-14,,Massey University,NZ
+2018-02-15-earlham,SWC,2018-02-15,25,Earlham College,US
+2018-02-19-edinburgh,SWC,2018-02-19,,University of Edinburgh,GB
+2018-02-20-MQU-DC,DC,2018-02-20,,Macquarie University,AU
+2018-02-20-qut,SWC,2018-02-20,,Queensland University of Technology,AU
+2018-02-20-uiuc,DC,2018-02-20,,University of Illinois at Urbana-Champaign,US
+2018-02-21-South-Africa-ttt,TTT,2018-02-21,17,Software Carpentry,ZA
+2018-02-21-ttt-online,"TTT,online",2018-02-21,6,Software Carpentry,W3
+2018-02-22-KCL,DC,2018-02-22,,King's College London,GB
+2018-02-22-Potsdam-Berlin,SWC,2018-02-22,27,GFZ Potsdam,DE
+2018-02-22-milan,SWC,2018-02-22,21,University of Milano Bicocca,IT
+2018-02-24-UTA,SWC,2018-02-24,31,University of Texas Arlington,US
+2018-02-24-nyas-Python,SWC,2018-02-24,45,New York Academy of Sciences,US
+2018-02-24-nyas-R,SWC,2018-02-24,45,New York Academy of Sciences,US
+2018-02-26-Leicester,SWC,2018-02-26,,University of Leicester,GB
+2018-02-26-UMich,SWC,2018-02-26,28,University of Michigan,US
+2018-02-26-ttt-csiro,TTT,2018-02-26,4,Software Carpentry,AU
+2018-02-26-ttt-stanford,TTT,2018-02-26,12,Stanford University,US
+2018-02-26-umich-shapiro,SWC,2018-02-26,16,University of Michigan,US
+2018-02-28-ttt-online,"TTT,online",2018-02-28,16,Software Carpentry,W3
+2018-02-28-wsu,SWC,2018-02-28,24,Washington State University,US
+2018-03-01-ttt-online,"TTT,online",2018-03-01,18,Software Carpentry,W3
+2018-03-03-conestoga,SWC,2018-03-03,,Conestoga College,CA
+2018-03-03-nyumc,DC,2018-03-03,,New York University,US
+2018-03-05-DC-AU,DC,2018-03-05,31,Aksum University,ET
+2018-03-05-aarhus,SWC,2018-03-05,6,Aarhus University,DK
+2018-03-05-ttt-florida,TTT,2018-03-05,20,Software Carpentry,US
+2018-03-06-maintainer-onboarding,SWC,2018-03-06,23,Software Carpentry,W3
+2018-03-06-nyu,SWC,2018-03-06,13,New York University,US
+2018-03-06-stanford,SWC,2018-03-06,20,Stanford University,US
+2018-03-07-UCSD,SWC,2018-03-07,35,University of California San Diego,US
+2018-03-07-ncstate,DC,2018-03-07,40,North Carolina State University,US
+2018-03-07-serc,DC,2018-03-07,26,"Smithsonian Institution, National Museum of Natural History",US
+2018-03-08-geneva,SWC,2018-03-08,17,University of Geneva,CH
+2018-03-08-gwu,SWC,2018-03-08,7,George Washington University,US
+2018-03-08-manchester-swc,SWC,2018-03-08,20,University of Manchester,GB
+2018-03-10-uscf-R,SWC,2018-03-10,25,University of California San Francisco,US
+2018-03-10-uscf-python,SWC,2018-03-10,25,University of California San Francisco,US
+2018-03-12-mun,SWC,2018-03-12,15,Memorial University,CA
+2018-03-12-stockholm,SWC,2018-03-12,13,Lund University,SE
+2018-03-12-tamu,SWC,2018-03-12,22,Texas A&M University,US
+2018-03-12-ttt-online,"TTT,online",2018-03-12,18,Software Carpentry,W3
+2018-03-13-census,SWC,2018-03-13,19,National Institute of Standards and Technology,US
+2018-03-13-ttt-Amsterdam,TTT,2018-03-13,9,Netherlands eScience Center,NL
+2018-03-14-SFU-python,SWC,2018-03-14,,Simon Fraser University,CA
+2018-03-14-unt-swc,SWC,2018-03-14,14,University of North Texas,US
+2018-03-15-Boise,SWC,2018-03-15,48,Boise State University,US
+2018-03-15-lund,SWC,2018-03-15,16,Lund University,SE
+2018-03-19-Imperial,SWC,2018-03-19,,Imperial College London,GB
+2018-03-19-curtin,SWC,2018-03-19,,Curtin University,AU
+2018-03-19-ou,SWC,2018-03-19,,University of Oklahoma,US
+2018-03-19-ttt-sfu,TTT,2018-03-19,10,Software Carpentry,CA
+2018-03-20-UFDataSymposium,DC,2018-03-20,21,University of Florida,US
+2018-03-20-genentech,DC,2018-03-20,37,Genentech,US
+2018-03-20-gpn,"SWC,unresponsive",2018-03-20,,Great Plains Network,US
+2018-03-20-online,DC,2018-03-20,4,Talarify,ZA
+2018-03-20-ttt-online,"TTT,online",2018-03-20,11,Software Carpentry,W3
+2018-03-22-csumb,"SWC,unresponsive",2018-03-22,,California State University Monterey Bay,US
+2018-03-22-nasa,SWC,2018-03-22,19,NASA (National Aeronautics and Space Administration),US
+2018-03-22-ttt-westbigdatahub,TTT,2018-03-22,19,West Big Data Hub,US
+2018-03-26-DC-HU,DC,2018-03-26,,Hawassa University,ET
+2018-03-26-ttt-davis,TTT,2018-03-26,24,Software Carpentry,US
+2018-03-26-ucriverside,SWC,2018-03-26,10,"University of California, Riverside",US
+2018-03-28-paris,SWC,2018-03-28,12,ELIXIR-UK,FR
+2018-03-28-stanford,SWC,2018-03-28,21,Stanford University,US
+2018-03-28-ucirvine,SWC,2018-03-28,22,University of California Irvine,US
+2018-03-29-SWC-HU,SWC,2018-03-29,,Hawassa University,ET
+2018-03-29-standrews,SWC,2018-03-29,,University of St. Andrews,GB
+2018-03-29-stanford,SWC,2018-03-29,40,Stanford University,US
+2018-04-02-ou,SWC,2018-04-02,3,University of Oklahoma,US
+2018-04-02-ttt-online,"TTT,online",2018-04-02,24,Software Carpentry,W3
+2018-04-03-Utrecht,DC,2018-04-03,13,Uniersity of Utrecht,NL
+2018-04-04-NIH,SWC,2018-04-04,25,National Institutes of Health,US
+2018-04-05-gpn,SWC,2018-04-05,23,Great Plains Network,US
+2018-04-07-ucla-eeb,SWC,2018-04-07,9,University of California Los Angeles,US
+2018-04-09-ttt-qcif,TTT,2018-04-09,14,Software Carpentry,AU
+2018-04-09-wuerzburg,SWC,2018-04-09,21,University of Wuerzburg,DE
+2018-04-10-Aberystwyth_shell,SWC,2018-04-10,6,University of Aberystwyth,GB
+2018-04-11-GriffithUni-R,SWC,2018-04-11,,Griffith University,AU
+2018-04-11-czbiohub,DC,2018-04-11,,Chan Zuckerberg Biohub,US
+2018-04-11-gwu,SWC,2018-04-11,11,George Washington University,US
+2018-04-12-southampton-swc,SWC,2018-04-12,,University of Southampton,GB
+2018-04-16-DC-DU,DC,2018-04-16,55,Dilla University,ET
+2018-04-16-maxplanck,SWC,2018-04-16,,Max Planck Institute for Plasma Physics,DE
+2018-04-16-nas,DC,2018-04-16,14,National Academy of Science,US
+2018-04-16-uw,SWC,2018-04-16,23,University of Washington,US
+2018-04-18-ttt-leeds,TTT,2018-04-09,5,Software Carpentry,GB
+2018-04-19-ttt-macquarie,TTT,2018-04-19,12,Software Carpentry,AU
+2018-04-19-ttt-online,"TTT,online",2018-04-19,16,Software Carpentry,W3
+2018-04-21-wvu,SWC,2018-04-21,12,West Virginia University,US
+2018-04-23-Imperial,SWC,2018-04-23,,Imperial College London,GB
+2018-04-23-curtin,SWC,2018-04-23,,Curtin University,AU
+2018-04-23-ttt-nz,TTT,2018-04-23,15,Victoria University of Wellington,NZ
+2018-04-23-uf-flrec,DC,2018-04-23,25,University of Florida,US
+2018-04-23-umich,SWC,2018-04-23,16,University of Michigan,US
+2018-04-24-Aberystwyth_git,SWC,2018-04-24,3,University of Aberystwyth,GB
+2018-04-24-ttt-online,"TTT,online",2018-04-24,8,Software Carpentry,W3
+2018-04-25-LBNL,SWC,2018-04-25,23,Lawrence Berkeley National Laboratory,US
+2018-04-25-Potsdam-Berlin,SWC,2018-04-25,22,GFZ Potsdam,DE
+2018-04-25-UCL_software_carpentry,SWC,2018-04-25,,University College London,GB
+2018-04-26-DC-AAU,DC,2018-04-16,28,Addis Ababa University,ET
+2018-04-26-WEHI,SWC,2018-04-26,,COMBINE,AU
+2018-04-30-sfu,SWC,2018-04-30,,Simon Fraser University,CA
+2018-04-30-ttt-computecanada,"TTT,online",2018-04-30,21,Software Carpentry,W3
+2018-05-01-noble,online,2018-05-01,20,Noble Research Institute,US
+2018-05-02-EMBL,DC,2018-05-02,26,European Molecular Biology Laboratory,DE
+2018-05-03-LBNL,DC,2018-05-03,12,Lawrence Berkeley National Laboratory,US
+2018-05-03-queensu,SWC,2018-05-03,,Queen's University,CA
+2018-05-03-scsu,SWC,2018-05-03,,Southern Connecticut State Universtiy,US
+2018-05-05-drexel,SWC,2018-05-05,10,Drexel University,US
+2018-05-07-ttt-monash,TTT,2018-05-07,14,Monash University,AU
+2018-05-07-ttt-uiuc,TTT,2018-05-07,6,Software Carpentry,US
+2018-05-08-Aberystwyth_python,SWC,2018-05-08,15,University of Aberystwyth,GB
+2018-05-09-WHOI,SWC,2018-05-09,37,Woods Hole Oceanographic Institute,US
+2018-05-09-ttt-monsanto,TTT,2018-05-09,8,Monsanto,
+2018-05-09-ualberta-dc,DC,2018-05-09,24,University of Alberta,CA
+2018-05-09-ufs,DC,2018-05-09,,University of the Free State,ZA
+2018-05-10-czbiohub,DC,2018-05-10,,Chan Zuckerberg Biohub,US
+2018-05-10-macquarie-university,SWC,2018-05-10,,Macquarie University,AU
+2018-05-10-uconn,SWC,2018-05-10,30,University of Connecticut,US
+2018-05-14-ualberta-sc,SWC,2018-05-14,19,University of Alberta,CA
+2018-05-15-swc-manchester,SWC,2018-05-15,23,University of Manchester,GB
+2018-05-16-coloradomines,SWC,2018-05-16,30,Colorado School of MInes,US
+2018-05-16-ou-dc,DC,2018-05-16,,University of Oklahoma,US
+2018-05-16-rutgers,DC,2018-05-16,,Rutgers University,US
+2018-05-16-ttt-arizona,TTT,2018-05-16,14,Software Carpentry,US
+2018-05-16-uno,DC,2018-05-16,,University of New Orleans,US
+2018-05-21-Imperial,SWC,2018-05-21,,Imperial College London,GB
+2018-05-21-JLAB,SWC,2018-05-21,,Jefferson Lab,FI
+2018-05-21-ttt-UW_eScience,TTT,2018-05-21,13,Software Carpentry,US
+2018-05-22-DC-DU,DC,2018-05-22,,Dilla University,ET
+2018-05-22-UCSD,SWC,2018-05-22,,University of California San Diego,US
+2018-05-22-camh,DC,2018-05-22,,Centre for Addiction and Mental Health,CA
+2018-05-24-LBNL,SWC,2018-05-24,29,Lawrence Berkeley National Laboratory,US
+2018-05-24-inclusion,SWC,2018-05-24,12,University of Illinois at Urbana-Champaign,US
+2018-05-24-ttt-online,"TTT,online",2018-05-24,16,Software Carpentry,W3
+2018-05-26-conestoga,SWC,2018-05-26,,Conestoga College,CA
+2018-05-28-Dublin,DC,2018-05-28,32,European Molecular Biology Laboratory,IE
+2018-05-28-ualberta-hpc,SWC,2018-05-28,,University of Alberta,CA
+2018-05-29-kingcounty,SWC,2018-05-29,,King County Department of Community and Human Services,US
+2018-05-31-grenoble,SWC,2018-05-31,32,"Université Grenoble Alpes, Grenoble Alpes Data Institute",FR
+2018-05-31-nist,SWC,2018-05-31,,National Institute of Standards and Technology,US
+2018-06-02-stcloud,DC,2018-06-02,14,St. Cloud State University,US
+2018-06-04-ttt-ethiopia,TTT,2018-06-04,15,Software Carpentry,ET
+2018-06-04-uwmadison-dc,DC,2018-06-04,31,University of Wisconsin - Madison,US
+2018-06-05-noble,DC,2018-06-05,17,Noble Research Institute,US
+2018-06-05-unt-swc,SWC,2018-06-05,19,University of North Texas,US
+2018-06-06-ResbazBris-Python,SWC,2018-06-06,,Griffith University,AU
+2018-06-06-ResbazBris-R,SWC,2018-06-06,,Griffith University,AU
+2018-06-06-uwmadison-swc,SWC,2018-06-06,27,University of Wisconsin - Madison,US
+2018-06-07-Oslo,SWC,2018-06-07,8,University of Oslo,NO
+2018-06-07-mcmaster,SWC,2018-06-07,,McMaster University,CA
+2018-06-07-researchpark,SWC,2018-06-07,,University of Illinois at Urbana-Champaign,US
+2018-06-11-BIDS,SWC,2018-06-11,36,Berkeley Institute for Data Science,US
+2018-06-11-Gothenburg,SWC,2018-06-11,,Software Carpentry,SE
+2018-06-11-UFSC,SWC,2018-06-11,,Universidade Federal de Santa Catarina,BR
+2018-06-11-ttt-jax,TTT,2018-06-11,11,Software Carpentry,
+2018-06-12-bru-datacarpentry-inbo-elixir,DC,2018-06-12,17,ELIXIR-UK,BE
+2018-06-12-nmnh,DC,2018-06-12,,"Smithsonian Institution, National Museum of Natural History",US
+2018-06-12-ttt-online,"TTT,online",2018-06-12,10,Software Carpentry,W3
+2018-06-12-wrds,SWC,2018-06-12,15,University of Queensland,AU
+2018-06-13-BIDS,DC,2018-06-13,,Berkeley Institute for Data Science,US
+2018-06-13-LANL,SWC,2018-06-13,,Los Alamos National Laboratory,US
+2018-06-13-UMP,DC,2018-06-13,,University of Mpumalanga,ZA
+2018-06-14-FRB,SWC,2018-06-14,,Federal Reserve Board,US
+2018-06-14-Imperial,SWC,2018-06-14,,Imperial College London,GB
+2018-06-14-NASA-LRC,SWC,2018-06-14,,NASA (National Aeronautics and Space Administration),US
+2018-06-14-NWU,DC,2018-06-14,,North-West University,ZA
+2018-06-14-umich,SWC,2018-06-14,,University of Michigan,US
+2018-06-16-davos,SWC,2018-06-16,,Davos Congress Centre,CH
+2018-06-18-LSE,SWC,2018-06-18,,LSE London School of Economics,GB
+2018-06-18-ttt-usda,TTT,2018-06-18,16,Software Carpentry,
+2018-06-18-utoronto,DC,2018-06-18,28,University of Toronto,CA
+2018-06-20-DIRISA,DC,2018-06-20,,CSIR (Council for Scientific and Industrial Research),ZA
+2018-06-20-ttt-online,"TTT,online",2018-06-20,10,Software Carpentry,W3
+2018-06-21-gatech,DC,2018-06-21,,Georgia Tech,US
+2018-06-22-cshl,DC,2018-06-22,,Cold Spring Harbor Laboratory,US
+2018-06-25-ttt-DIBSI,TTT,2018-06-25,14,Software Carpentry,US
+2018-06-26-NASA,SWC,2018-06-26,,NASA (National Aeronautics and Space Administration),US
+2018-06-26-UCL_software_carpentry,SWC,2018-06-26,26,University College London,GB
+2018-06-26-ucsd,SWC,2018-06-26,,University of California San Diego,US
+2018-06-26-wuerzburg,SWC,2018-06-26,,University of Wuerzburg,DE
+2018-06-27-DIBSI-Genomics,DC,2018-06-27,,University of California Davis,US
+2018-06-27-DIBSI-Geospatial,DC,2018-06-27,,University of California Davis,US
+2018-06-27-DIBSI-SWC,SWC,2018-06-28,,University of California Davis,US
+2018-06-27-DIBSI-SocialSci,SWC,2018-06-27,,University of California Davis,US
+2018-06-27-LBNL,SWC,2018-06-27,,Lawrence Berkeley National Laboratory,US
+2018-06-27-Lahore,SWC,2018-06-27,,"University of Punjab, Lahore",PK
+2018-06-27-cfmehu,SWC,2018-06-27,,University of the Basque Country,ES
+2018-06-27-ttt-online,"TTT,online",2018-06-27,15,Software Carpentry,W3
+2018-06-28-cambridge,DC,2018-06-28,,University of Cambridge,GB
+2018-06-28-dartmouth,SWC,2018-06-28,,Dartmouth College,US
+2018-06-28-uqws,SWC,2018-06-28,32,University of Queensland,AU
+2018-06-29-und-mbdh,DC,2018-06-29,,University of North Dakota,US
+2018-25-06-UF-DataCarp,DC,2018-06-25,,University of Florida,US
+datacarpentry_2015-11-23_VLSCI,DC,2015-11-23,18,VLSCI,AU
