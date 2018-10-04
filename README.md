@@ -14,9 +14,14 @@ The repository currently contains assessment of the following:
 
 Additionally, the repository contains minutes from the [assessment-network](https://github.com/carpentries/assessment/tree/master/assessment-network) meetings. This group collaborates and shares resources on assessment within the open source/research computing space. 
 
-# Reports  
+# Reports
+
+The published reports are listed below
+
 + __Software Carpentry__ 
+
   + [2017-July](https://carpentries.github.io/assessment/learner-assessment/archives/2017/code/2017-July-post.html) Post-Workshop Survey Report  
+
 + __Data Carpentry__
   + [2018-January](https://carpentries.github.io/assessment/learner-assessment/archives/2018/code/2018-January-post.html) Post-Workshop Survey Report  
   + [2017-December](https://carpentries.github.io/assessment/learner-assessment/archives/2017/code/2017-December-post.html) Post-Workshop Survey Report  
