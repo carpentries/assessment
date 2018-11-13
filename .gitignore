@@ -3,5 +3,6 @@ programmatic-assessment/workshops/test_notebooks/
 learner-assessment/code/paths.R
 learner-assessment/figures/*.pdf
 programmatic-assessment/workshops/jupyter_notebooks/sandbox/*.*
+programmatic-assessment/workshops/data_files/data_archives/*.*
 
 
