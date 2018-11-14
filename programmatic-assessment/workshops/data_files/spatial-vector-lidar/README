@@ -1,0 +1,12 @@
+# About
+
+These data were compiled by Leah A. Wasser for the Spring 2017 Earth Analytics
+course. Where possible, metadata associated with the data are included in
+each directory. In the case of NEON data, metadata are not explicitly available
+as of yet however visit neonscience.org to learn more about the data.
+
+Last Modified: 6 Feb 2017
+
+June 2018 Updates
+
+usa-boundary-dissolved was originally a dissolved layer using the US census states layer. I’ve renamed the data and updated the attributes - removing the residual single state’s info for California and replaced it with the name “United States”. 
