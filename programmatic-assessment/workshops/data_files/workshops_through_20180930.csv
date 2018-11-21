@@ -19,7 +19,7 @@ slug,tag_name,start_date,attendance,host_name,country,latitude,longitude
 2012-07-12-waterloo,SWC,2012-07-12,40,University of Waterloo,CA,43.4701302,-80.5357712
 2012-07-16-halifax,SWC,2012-07-16,40,Saint Mary's University,CA,44.6322608,-63.5802627
 2012-07-19-utsc,SWC,2012-07-19,39,University of Toronto (Scarborough),CA,43.7835514,-79.1863972
-2012-08-26-ttt-online,"TTT,online",2012-08-26,20,Software Carpentry,W3,-48.876667,-123.393333
+2012-08-26-ttt-online,"TTT,online",2012-08-26,21,Software Carpentry,W3,-48.876667,-123.393333
 2012-09-13-dafx,SWC,2012-09-13,33,University of York,GB,53.9481933,-1.0529144
 2012-09-17-oslo,SWC,2012-09-17,34,University of Oslo,NO,59.9399586,10.7217496
 2012-09-28-columbia,SWC,2012-09-28,39,Columbia University,US,40.8080777,-73.9635678
@@ -1418,7 +1418,7 @@ slug,tag_name,start_date,attendance,host_name,country,latitude,longitude
 2018-02-28-wsu,SWC,2018-02-28,24,Washington State University,US,46.7295857,-117.1545807
 2018-03-01-ttt-online,"TTT,online",2018-03-01,18,Software Carpentry,W3,-48.876667,-123.393333
 2018-03-03-conestoga,SWC,2018-03-03,,Conestoga College,CA,43.389485,-80.404178
-2018-03-03-nyumc,DC,2018-03-03,,New York University,US,40.742068,-73.974332
+2018-03-03-nyumc,"DC,unresponsive",2018-03-03,,New York University,US,40.742068,-73.974332
 2018-03-05-DC-AU,DC,2018-03-05,31,Aksum University,ET,14.10636,38.7045213
 2018-03-05-aarhus,SWC,2018-03-05,6,Aarhus University,DK,56.088815,10.223342
 2018-03-05-ttt-florida,TTT,2018-03-05,20,University of Florida,US,29.648272,-82.34416
@@ -1453,7 +1453,7 @@ slug,tag_name,start_date,attendance,host_name,country,latitude,longitude
 2018-03-20-gpn,"SWC,unresponsive",2018-03-20,,Great Plains Network,US,39.1904455,-96.5882617
 2018-03-20-online,DC,2018-03-20,4,Talarify,ZA,-34.003139,18.4654324
 2018-03-20-ttt-online,"TTT,online",2018-03-20,11,Software Carpentry,W3,-48.876667,-123.393333
-2018-03-22-csumb,"SWC,unresponsive",2018-03-22,,California State University Monterey Bay,US,,
+2018-03-22-csumb,"SWC,unresponsive",2018-03-22,30,California State University Monterey Bay,US,,
 2018-03-22-nasa,SWC,2018-03-22,19,NASA (National Aeronautics and Space Administration),US,37.086247,-76.38088
 2018-03-22-ttt-westbigdatahub,TTT,2018-03-22,19,West Big Data Hub,US,47.653383,-122.311865
 2018-03-26-DC-HU,DC,2018-03-26,,Hawassa University,ET,7.0522,38.4994
@@ -1475,11 +1475,11 @@ slug,tag_name,start_date,attendance,host_name,country,latitude,longitude
 2018-04-09-wuerzburg,SWC,2018-04-09,21,University of Wuerzburg,DE,49.80198,9.956515
 2018-04-10-Aberystwyth_shell,SWC,2018-04-10,6,University of Aberystwyth,GB,52.4159,-4.0659
 2018-04-11-GriffithUni-R,SWC,2018-04-11,,Griffith University,AU,-27.552941,153.052425
-2018-04-11-czbiohub,DC,2018-04-11,,Chan Zuckerberg Biohub,US,37.7659063,-122.3896333
+2018-04-11-czbiohub,"DC,unresponsive",2018-04-11,,Chan Zuckerberg Biohub,US,37.7659063,-122.3896333
 2018-04-11-gwu,SWC,2018-04-11,11,George Washington University,US,,
 2018-04-12-southampton-swc,SWC,2018-04-12,,University of Southampton,GB,50.936714,-1.3966
 2018-04-16-DC-DU,DC,2018-04-16,55,Dilla University,ET,6.4215,38.2789
-2018-04-16-maxplanck,SWC,2018-04-16,,Max Planck Institute for Plasma Physics,DE,48.263188,11.671895
+2018-04-16-maxplanck,SWC,2018-04-16,10,Max Planck Institute for Plasma Physics,DE,48.263188,11.671895
 2018-04-16-nas,DC,2018-04-16,14,National Academy of Science,US,27.716548,-97.328816
 2018-04-16-uw,SWC,2018-04-16,23,University of Washington,US,47.606209,-122.332071
 2018-04-18-ttt-leeds,TTT,2018-04-09,5,Software Carpentry,GB,53.808152,-1.5709498
@@ -1505,7 +1505,7 @@ slug,tag_name,start_date,attendance,host_name,country,latitude,longitude
 2018-05-03-KCL,DC,2018-05-03,,King's College London,GB,51.504001,-0.087794
 2018-05-03-LBNL,DC,2018-05-03,12,Lawrence Berkeley National Laboratory,US,37.875985,-122.250014
 2018-05-03-queensu,SWC,2018-05-03,,Queen's University,CA,44.2275652,-76.4972414
-2018-05-03-scsu,SWC,2018-05-03,,Southern Connecticut State Universtiy,US,41.306627,-72.926454
+2018-05-03-scsu,SWC,2018-05-03,14,Southern Connecticut State Universtiy,US,41.306627,-72.926454
 2018-05-05-drexel,SWC,2018-05-05,10,Drexel University,US,39.954093,-75.186861
 2018-05-07-ttt-monash,TTT,2018-05-07,14,Monash University,AU,-37.9105238,145.1340295
 2018-05-07-ttt-uiuc,TTT,2018-05-07,6,Software Carpentry,US,40.1047488,-88.2341386
@@ -1514,21 +1514,21 @@ slug,tag_name,start_date,attendance,host_name,country,latitude,longitude
 2018-05-09-ttt-monsanto,TTT,2018-05-09,8,Monsanto,,,
 2018-05-09-ualberta-dc,DC,2018-05-09,24,University of Alberta,CA,53.526591,-113.524765
 2018-05-09-ufs,DC,2018-05-09,,University of the Free State,ZA,-29.1091105,26.1832159
-2018-05-10-czbiohub,DC,2018-05-10,,Chan Zuckerberg Biohub,US,37.765839,-122.3877
+2018-05-10-czbiohub,"DC,unresponsive",2018-05-10,,Chan Zuckerberg Biohub,US,37.765839,-122.3877
 2018-05-10-macquarie-university,SWC,2018-05-10,,Macquarie University,AU,-33.774715,151.113321
 2018-05-10-uconn,SWC,2018-05-10,30,University of Connecticut,US,41.805992,-72.253772
 2018-05-14-ualberta-sc,SWC,2018-05-14,19,University of Alberta,CA,53.521575,-113.526347
 2018-05-15-swc-manchester,SWC,2018-05-15,23,University of Manchester,GB,53.467376,-2.234033
 2018-05-16-coloradomines,SWC,2018-05-16,30,Colorado School of MInes,US,39.751463,-105.223285
-2018-05-16-ou-dc,DC,2018-05-16,,University of Oklahoma,US,35.208275,-97.445848
-2018-05-16-rutgers,DC,2018-05-16,,Rutgers University,US,,
+2018-05-16-ou-dc,"DC,unresponsive",2018-05-16,,University of Oklahoma,US,35.208275,-97.445848
+2018-05-16-rutgers,DC,2018-05-16,9,Rutgers University,US,,
 2018-05-16-ttt-arizona,TTT,2018-05-16,14,Software Carpentry,US,32.238426,-110.947375
-2018-05-16-uno,DC,2018-05-16,,University of New Orleans,US,30.0285959,-90.0682305
+2018-05-16-uno,DC,2018-05-16,25,University of New Orleans,US,30.0285959,-90.0682305
 2018-05-21-Imperial,SWC,2018-05-21,,Imperial College London,GB,51.4988,-0.174877
-2018-05-21-JLAB,SWC,2018-05-21,,Jefferson Lab,FI,,
+2018-05-21-JLAB,SWC,2018-05-21,20,Jefferson Lab,FI,,
 2018-05-21-ttt-UW_eScience,TTT,2018-05-21,14,Software Carpentry,US,47.653383,-122.311865
 2018-05-22-DC-DU,DC,2018-05-22,,Dilla University,ET,9.045079,38.763472
-2018-05-22-UCSD,SWC,2018-05-22,35,University of California San Diego,US,32.875527,-117.237224
+2018-05-22-UCSD,"SWC,unresponsive",2018-05-22,35,University of California San Diego,US,32.875527,-117.237224
 2018-05-22-camh,DC,2018-05-22,,Centre for Addiction and Mental Health,CA,43.659501,-79.38967
 2018-05-24-LBNL,SWC,2018-05-24,29,Lawrence Berkeley National Laboratory,US,37.876055,-122.250644
 2018-05-24-inclusion,SWC,2018-05-24,12,University of Illinois at Urbana-Champaign,US,40.114921,-88.224765
@@ -1536,9 +1536,9 @@ slug,tag_name,start_date,attendance,host_name,country,latitude,longitude
 2018-05-26-conestoga,SWC,2018-05-26,,Conestoga College,CA,43.389485,-80.404178
 2018-05-28-Dublin,DC,2018-05-28,32,European Molecular Biology Laboratory,IE,53.142367,-7.692054
 2018-05-28-ualberta-hpc,SWC,2018-05-28,,University of Alberta,CA,53.521575,-113.526347
-2018-05-29-kingcounty,SWC,2018-05-29,,King County Department of Community and Human Services,US,47.600513,-122.331212
+2018-05-29-kingcounty,SWC,2018-05-29,28,King County Department of Community and Human Services,US,47.600513,-122.331212
 2018-05-31-grenoble,SWC,2018-05-31,32,"Université Grenoble Alpes, Grenoble Alpes Data Institute",FR,45.19056,5.76728
-2018-05-31-nist,SWC,2018-05-31,,National Institute of Standards and Technology,US,39.143441,-77.20137
+2018-05-31-nist,"SWC,unresponsive",2018-05-31,,National Institute of Standards and Technology,US,39.143441,-77.20137
 2018-06-02-stcloud,DC,2018-06-02,14,St. Cloud State University,US,45.551186,-94.151514
 2018-06-04-ttt-ethiopia,TTT,2018-06-04,15,Software Carpentry,ET,9.01515,38.768338
 2018-06-04-uwmadison-dc,DC,2018-06-04,31,University of Wisconsin - Madison,US,43.0764116,-89.4052577
@@ -1549,48 +1549,48 @@ slug,tag_name,start_date,attendance,host_name,country,latitude,longitude
 2018-06-06-uwmadison-swc,SWC,2018-06-06,27,University of Wisconsin - Madison,US,43.074437,-89.405801
 2018-06-07-Oslo,SWC,2018-06-07,8,University of Oslo,NO,,
 2018-06-07-mcmaster,SWC,2018-06-07,,McMaster University,CA,43.260879,-79.919225
-2018-06-07-researchpark,SWC,2018-06-07,,University of Illinois at Urbana-Champaign,US,40.0911053,-88.2423438
+2018-06-07-researchpark,SWC,2018-06-07,24,University of Illinois at Urbana-Champaign,US,40.0911053,-88.2423438
 2018-06-11-BIDS,SWC,2018-06-11,36,Berkeley Institute for Data Science,US,37.872495,-122.259556
 2018-06-11-Gothenburg,SWC,2018-06-11,,Software Carpentry,SE,57.686131,11.9586838
-2018-06-11-UFSC,SWC,2018-06-11,,Universidade Federal de Santa Catarina,BR,-27.5982559,-48.5203502
+2018-06-11-UFSC,"SWC,unresponsive",2018-06-11,,Universidade Federal de Santa Catarina,BR,-27.5982559,-48.5203502
 2018-06-11-ttt-jax,TTT,2018-06-11,11,Software Carpentry,US,44.363,-68.185
 2018-06-12-Edinburgh,DC,2018-06-12,22,University of Edinburgh,GB,55.943198,-3.186577
 2018-06-12-bru-datacarpentry-inbo-elixir,DC,2018-06-12,17,ELIXIR-UK,BE,50.824343,4.394176
-2018-06-12-nmnh,DC,2018-06-12,,"Smithsonian Institution, National Museum of Natural History",US,38.891266,-77.026065
+2018-06-12-nmnh,DC,2018-06-12,31,"Smithsonian Institution, National Museum of Natural History",US,38.891266,-77.026065
 2018-06-12-ttt-online,"TTT,online",2018-06-12,10,Software Carpentry,W3,-48.876667,-123.393333
 2018-06-12-wrds,SWC,2018-06-12,15,University of Queensland,AU,-27.5153012,152.9668827
-2018-06-13-BIDS,DC,2018-06-13,,Berkeley Institute for Data Science,US,37.871358,-122.258521
-2018-06-13-LANL,SWC,2018-06-13,,Los Alamos National Laboratory,US,35.88612,-106.319616
-2018-06-14-FRB,SWC,2018-06-14,,Federal Reserve Board,US,38.896676,-77.040454
+2018-06-13-BIDS,DC,2018-06-13,17,Berkeley Institute for Data Science,US,37.871358,-122.258521
+2018-06-13-LANL,SWC,2018-06-13,15,Los Alamos National Laboratory,US,35.88612,-106.319616
+2018-06-14-FRB,SWC,2018-06-14,18,Federal Reserve Board,US,38.896676,-77.040454
 2018-06-14-Imperial,SWC,2018-06-14,,Imperial College London,GB,51.4988,-0.174877
-2018-06-14-NASA-LRC,SWC,2018-06-14,,NASA (National Aeronautics and Space Administration),US,37.05765,-76.404445
+2018-06-14-NASA-LRC,SWC,2018-06-14,12,NASA (National Aeronautics and Space Administration),US,37.05765,-76.404445
 2018-06-14-NWU,DC,2018-06-14,,North-West University,ZA,-26.689181,27.092015
-2018-06-14-umich,SWC,2018-06-14,,University of Michigan,US,42.283415,-83.733888
-2018-06-16-davos,SWC,2018-06-16,,Davos Congress Centre,CH,46.800413,9.831758
+2018-06-14-umich,SWC,2018-06-14,13,University of Michigan,US,42.283415,-83.733888
+2018-06-16-davos,SWC,2018-06-16,35,Davos Congress Centre,CH,46.800413,9.831758
 2018-06-18-LSE,SWC,2018-06-18,,LSE London School of Economics,GB,51.51469,-0.115698
 2018-06-18-ttt-usda,TTT,2018-06-18,16,Software Carpentry,US,39.02625,-76.923358
 2018-06-18-utoronto,DC,2018-06-18,28,University of Toronto,CA,43.662195,-79.393965
 2018-06-20-DIRISA,DC,2018-06-20,,CSIR (Council for Scientific and Industrial Research),ZA,-25.7530047,28.2745998
 2018-06-20-ttt-online,"TTT,online",2018-06-20,10,Software Carpentry,W3,-48.876667,-123.393333
-2018-06-21-gatech,DC,2018-06-21,,Georgia Tech,US,33.781073,-84.404414
-2018-06-22-cshl,DC,2018-06-22,,Cold Spring Harbor Laboratory,US,40.859238,-73.469841
+2018-06-21-gatech,DC,2018-06-21,30,Georgia Tech,US,33.781073,-84.404414
+2018-06-22-cshl,DC,2018-06-22,23,Cold Spring Harbor Laboratory,US,40.859238,-73.469841
 2018-06-25-ttt-DIBSI,TTT,2018-06-25,16,Software Carpentry,US,38.5321544,-121.7635459
-2018-06-26-NASA,SWC,2018-06-26,,NASA (National Aeronautics and Space Administration),US,38.996052,-76.835762
+2018-06-26-NASA,SWC,2018-06-26,36,NASA (National Aeronautics and Space Administration),US,38.996052,-76.835762
 2018-06-26-UCL_software_carpentry,SWC,2018-06-26,26,University College London,GB,51.525652,-0.133414
-2018-06-26-ucsd,SWC,2018-06-26,30,University of California San Diego,US,32.8690614,-117.2511357
-2018-06-26-wuerzburg,SWC,2018-06-26,,University of Wuerzburg,DE,49.785411,9.970747
-2018-06-27-DIBSI-Genomics,DC,2018-06-27,,University of California Davis,US,38.5328167,-121.7658964
-2018-06-27-DIBSI-Geospatial,DC,2018-06-27,,University of California Davis,US,38.5328167,-121.7658964
-2018-06-27-DIBSI-SWC,SWC,2018-06-28,,University of California Davis,US,38.5328167,-121.7658964
-2018-06-27-DIBSI-SocialSci,SWC,2018-06-27,,University of California Davis,US,38.5328167,-121.7658964
-2018-06-27-LBNL,SWC,2018-06-27,,Lawrence Berkeley National Laboratory,US,37.875602,-122.250591
-2018-06-27-Lahore,SWC,2018-06-27,,"University of Punjab, Lahore",PK,31.5002836,74.3072758
-2018-06-27-cfmehu,SWC,2018-06-27,,University of the Basque Country,ES,43.313143,-2.009393
+2018-06-26-ucsd,"SWC,unresponsive",2018-06-26,30,University of California San Diego,US,32.8690614,-117.2511357
+2018-06-26-wuerzburg,SWC,2018-06-26,16,University of Wuerzburg,DE,49.785411,9.970747
+2018-06-27-DIBSI-Genomics,"DC,unresponsive",2018-06-27,,University of California Davis,US,38.5328167,-121.7658964
+2018-06-27-DIBSI-Geospatial,"DC,unresponsive",2018-06-27,,University of California Davis,US,38.5328167,-121.7658964
+2018-06-27-DIBSI-SWC,"SWC,unresponsive",2018-06-28,,University of California Davis,US,38.5328167,-121.7658964
+2018-06-27-DIBSI-SocialSci,"SWC,unresponsive",2018-06-27,,University of California Davis,US,38.5328167,-121.7658964
+2018-06-27-LBNL,SWC,2018-06-27,18,Lawrence Berkeley National Laboratory,US,37.875602,-122.250591
+2018-06-27-Lahore,SWC,2018-06-27,35,"University of Punjab, Lahore",PK,31.5002836,74.3072758
+2018-06-27-cfmehu,SWC,2018-06-27,32,University of the Basque Country,ES,43.313143,-2.009393
 2018-06-27-ttt-online,"TTT,online",2018-06-27,15,Software Carpentry,W3,-48.876667,-123.393333
 2018-06-28-cambridge,DC,2018-06-28,,University of Cambridge,GB,52.201951,0.122514
-2018-06-28-dartmouth,SWC,2018-06-28,,Dartmouth College,US,43.709062,-72.284951
+2018-06-28-dartmouth,SWC,2018-06-28,39,Dartmouth College,US,43.709062,-72.284951
 2018-06-28-uqws,SWC,2018-06-28,32,University of Queensland,AU,-27.5014792,153.0127279
-2018-06-29-und-mbdh,DC,2018-06-29,,University of North Dakota,US,43.533524,-96.742792
+2018-06-29-und-mbdh,"DC,unresponsive",2018-06-29,,University of North Dakota,US,43.533524,-96.742792
 2018-07-02-stanford,SWC,2018-07-02,34,Stanford University,US,37.43181,-122.175758
 2018-07-03-ResBazPythonIntro,SWC,2018-07-03,,Macquarie University,AU,-33.773824,151.11265
 2018-07-03-ResbazSydney,DC,2018-07-03,,Macquarie University,AU,-33.7755405,151.1121539
@@ -1599,41 +1599,41 @@ slug,tag_name,start_date,attendance,host_name,country,latitude,longitude
 2018-07-03-resbaz-sydneyAdvR,SWC,2018-07-03,,Macquarie University,AU,-33.773949,151.114946
 2018-07-03-resbaz2018sql,SWC,2018-07-03,,Macquarie University,AU,-33.7755405,151.1143426
 2018-07-04-otago-dc,DC,2018-07-04,,University of Otago,NZ,-45.863448,170.513837
-2018-07-09-Wageningen,SWC,2018-07-09,12,Wageningen University & Research,NL,51.982284,5.658714
+2018-07-09-Wageningen,SWC,2018-07-09,13,Wageningen University & Research,NL,51.982284,5.658714
 2018-07-09-ttt-scipy,TTT,2018-07-09,16,Software Carpentry,US,,
 2018-07-10-UKZN-PMB,DC,2018-07-10,40,University of KwaZulu Natal,ZA,-29.62125,30.396608
 2018-07-11-UMP,DC,2018-07-11,25,University of Mpumalanga,ZA,-25.4365196,30.9796137
-2018-07-12-NCSU,SWC,2018-07-12,,North Carolina State University,US,35.769275,-78.676425
+2018-07-12-NCSU,SWC,2018-07-12,14,North Carolina State University,US,35.769275,-78.676425
 2018-07-12-UoA-SWC,SWC,2018-07-12,,University of Auckland,NZ,-36.853303,174.770931
 2018-07-12-utoronto,DC,2018-07-12,,University of Toronto,CA,43.662195,-79.393965
-2018-07-16-bids,SWC,2018-07-16,,Berkeley Institute for Data Science,US,37.872495,-122.259556
+2018-07-16-bids,SWC,2018-07-16,25,Berkeley Institute for Data Science,US,37.872495,-122.259556
 2018-07-16-curtin,SWC,2018-07-16,,Curtin University,AU,-32.0069186,115.892092
 2018-07-18-NWU-Mafikeng,DC,2018-07-18,,North-West University,ZA,-25.8255172,25.6088492
 2018-07-18-ttt-online,"TTT,online",2018-07-18,18,Software Carpentry,W3,-48.876667,-123.393333
-2018-07-19-PNNL-SWC,SWC,2018-07-19,,Pacific Northwest National Lab ,US,46.3513347,-119.2783712
+2018-07-19-PNNL-SWC,"SWC,unresponsive",2018-07-19,,Pacific Northwest National Lab ,US,46.3513347,-119.2783712
 2018-07-19-ss-dc-manchester,DC,2018-07-19,21,University of Manchester,GB,53.466722,-2.236463
-2018-07-23-nyu,SWC,2018-07-23,,New York University,US,40.729513,-73.996461
-2018-07-24-jacksonLab,SWC,2018-07-24,,Jackson Laboratory,US,41.732284,-72.793404
-2018-07-25-LBNL,SWC,2018-07-25,,Lawrence Berkeley National Laboratory,US,37.8759845,-122.2500142
-2018-07-26-duke,DC,2018-07-26,,Duke University,US,36.002868,-78.943498
+2018-07-23-nyu,SWC,2018-07-23,12,New York University,US,40.729513,-73.996461
+2018-07-24-jacksonLab,SWC,2018-07-24,18,Jackson Laboratory,US,41.732284,-72.793404
+2018-07-25-LBNL,"SWC,unresponsive",2018-07-25,,Lawrence Berkeley National Laboratory,US,37.8759845,-122.2500142
+2018-07-26-duke,DC,2018-07-26,24,Duke University,US,36.002868,-78.943498
 2018-07-26-python,SWC,2018-07-26,20,University of Birmingham,GB,52.448434,-1.936395
 2018-07-30-ttt,"TTT,online",2018-07-30,,Software Carpentry,W3,-48.876667,-123.393333
 2018-07-31-swc-frb,SWC,2018-07-31,,Federal Reserve Bank of Chicago,US,41.878114,-87.629798
-2018-08-06-ICTP,SWC,2018-08-06,,International Centre for Theoretical Physics,IT,45.707337,13.714562
-2018-08-06-bids,DC,2018-08-06,,Berkeley Institute for Data Science,US,37.872495,-122.259556
-2018-08-06-purdue,SWC,2018-08-06,,Purdue University,US,40.427377,-86.913342
+2018-08-06-ICTP,SWC,2018-08-06,37,International Centre for Theoretical Physics,IT,45.707337,13.714562
+2018-08-06-bids,DC,2018-08-06,28,Berkeley Institute for Data Science,US,37.872495,-122.259556
+2018-08-06-purdue,"SWC,unresponsive",2018-08-06,,Purdue University,US,40.427377,-86.913342
 2018-08-07-ttt-northwestern,TTT,2018-08-07,20,Software Carpentry,US,,
 2018-08-13-Duke,SWC,2018-08-13,,Duke University,US,36.002868,-78.943498
-2018-08-13-NU,SWC,2018-08-13,,University of Nebraska,US,41.24714,-96.016767
-2018-08-13-caltech,SWC,2018-08-13,,California Institute of Technology,US,34.136859,-118.126089
-2018-08-13-chicostate,SWC,2018-08-13,,California State University Chico,US,39.72812,-121.846237
-2018-08-13-csu,DC,2018-08-13,,Colorado State University,US,40.573436,-105.0865473
+2018-08-13-NU,SWC,2018-08-13,32,University of Nebraska,US,41.24714,-96.016767
+2018-08-13-caltech,SWC,2018-08-13,12,California Institute of Technology,US,34.136859,-118.126089
+2018-08-13-chicostate,"SWC,unresponsive",2018-08-13,,California State University Chico,US,39.72812,-121.846237
+2018-08-13-csu,DC,2018-08-13,25,Colorado State University,US,40.573436,-105.0865473
 2018-08-14-ttt-online,"TTT,online",2018-08-14,12,Software Carpentry,W3,-48.876667,-123.393333
-2018-08-15-SWC,SWC,2018-08-15,,University of Florida,US,29.647984,-82.344002
-2018-08-15-puerto-rico,DC,2018-08-15,,University of Puerto Rico,PR,18.4036196,-66.0456309
-2018-08-15-stanford,SWC,2018-08-15,,Stanford University,US,37.4335,-122.1754
+2018-08-15-SWC,"SWC,unresponsive",2018-08-15,,University of Florida,US,29.647984,-82.344002
+2018-08-15-puerto-rico,DC,2018-08-15,12,University of Puerto Rico,PR,18.4036196,-66.0456309
+2018-08-15-stanford,"SWC,unresponsive",2018-08-15,,Stanford University,US,37.4335,-122.1754
 2018-08-15-stanford-opa,SWC,2018-08-15,33,Stanford University,US,37.433075,-122.175049
-2018-08-15-ufii,DC,2018-08-15,,University of Florida,US,29.648248,-82.344031
+2018-08-15-ufii,DC,2018-08-15,19,University of Florida,US,29.648248,-82.344031
 2018-08-15-whoi,DC,2018-08-15,25,Woods Hole Oceanographic Institute,US,41.534597,-70.647926
 2018-08-16-GPN,SWC,2018-08-16,,Great Plains Network,US,38.95487,-95.246741
 2018-08-16-lanl,SWC,2018-08-16,,Los Alamos National Laboratory,US,35.88612,-106.319616
@@ -1707,6 +1707,6 @@ slug,tag_name,start_date,attendance,host_name,country,latitude,longitude
 2018-09-27-dc-illinois,DC,2018-09-27,,University of Illinois,US,40.1047754,-88.2269122
 2018-09-27-ukzn,DC,2018-09-27,,University of KwaZulu Natal,ZA,-29.882179,30.987891
 2018-09-29-tamu-kingsville,SWC,2018-09-29,,Texas A&M University-Kingsville,US,27.524951,-97.882441
-2018-25-06-UF-DataCarp,DC,2018-06-25,,University of Florida,US,29.648248,-82.344031
+2018-25-06-UF-DataCarp,DC,2018-06-25,24,University of Florida,US,29.648248,-82.344031
 2019-01-14-uwmadison-swc,SWC,2018-01-14,,University of Wisconsin - Madison,US,43.0729163,-89.410268
 datacarpentry_2015-11-23_VLSCI,DC,2015-11-23,18,VLSCI,AU,-37.800189,144.964362
