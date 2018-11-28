@@ -1246,7 +1246,7 @@ slug,tag_name,start_date,attendance,host_name,country,latitude,longitude,url
 2017-09-28-nsbe,DC,2017-09-28,16,National Society of Black Engineers,US,41.8891327,-87.6216582,https://christinalk.github.io/2017-09-28-nsbe/
 2017-09-29-DC_USU,DC,2017-09-29,14,Utah State University,US,41.742246,-111.809627,https://wolflab.github.io/2017-09-29-DC_USU/
 2017-09-30-TDWG-Ottawa,DC,2017-09-30,18,University of Florida,CA,45.412766,-75.688662,https://idigbio.github.io/2017-09-30-TDWG-Ottawa/
-2017-10-02-uw,SWC,2017-10-02,,University of Washington,US,47.653383,-122.311865,https://uwescience.github.io/2017-10-02-uw/
+2017-10-02-uw,SWC,2017-10-02,26,University of Washington,US,47.653383,-122.311865,https://uwescience.github.io/2017-10-02-uw/
 2017-10-03-LLNL,SWC,2017-10-03,18,Lawrence Livermore National Labs,US,37.690998,-121.713635,https://markcmiller86.github.io/2017-10-03-LLNL/
 2017-10-03-NDIC,DC,2017-10-03,14,University of Colorado,US,40.573738,-105.084407,https://maglet.github.io/2017-10-03-NDIC/
 2017-10-03-riverclub,SWC,2017-10-03,37,The River Club,ZA,-33.93395,18.474866,https://ctpug.github.io/2017-10-03-riverclub/
@@ -1266,7 +1266,7 @@ slug,tag_name,start_date,attendance,host_name,country,latitude,longitude,url
 2017-10-16-upenn-ibi,SWC,2017-10-16,26,University of Pennsylvania,US,39.94787,-75.196834,https://mfoos.github.io/2017-10-16-upenn-ibi/
 2017-10-17-bu,SWC,2017-10-17,17,Boston University,US,42.336262,-71.072344,https://bpteague.github.io/2017-10-17-bu/
 2017-10-17-heidelberg,SWC,2017-10-17,25,European Molecular Biology Laboratory,DE,49.38406,8.710757,https://tobyhodges.github.io/2017-10-17-heidelberg/
-2017-10-18-SACNAS,DC,2017-10-18,,Society for the Advancement of Chicanos/Hispanics and Native Americans in Science (SACNAS),US,40.7608,-111.891,https://galaxyproject.org/events/2017-sacnas/#workshop-1-software-and-data-carpentry
+2017-10-18-SACNAS,"DC,unresponsive",2017-10-18,,Society for the Advancement of Chicanos/Hispanics and Native Americans in Science (SACNAS),US,40.7608,-111.891,https://galaxyproject.org/events/2017-sacnas/#workshop-1-software-and-data-carpentry
 2017-10-19-UIC,SWC,2017-10-19,21,University of Illinois at Chicago,US,41.871764,-87.671293,https://maglet.github.io/2017-10-19-UIC/
 2017-10-19-UniversityBotswana,SWC,2017-10-19,22,University of Botswana,BW,-24.660522,25.930781,https://anelda.github.io/2017-10-19-UniversityBotswana/
 2017-10-19-otago,SWC,2017-10-19,11,University of Otago,NZ,-45.8668,170.5182,https://eresearch-otago.github.io/2017-10-19-otago/
@@ -1329,7 +1329,7 @@ slug,tag_name,start_date,attendance,host_name,country,latitude,longitude,url
 2017-12-04-ttt,"TTT,online",2017-12-04,8,Software Carpentry,W3,-48.876667,-123.393333,https://fpsom.github.io/2017-12-04-ttt-online/
 2017-12-05-rutgers,DC,2017-12-05,34,Rutgers University,US,40.740084,-74.189704,https://butterflyology.github.io/2017-12-05-rutgers/
 2017-12-05-ttt-southampton,TTT,2017-12-05,18,Software Carpentry,GB,50.934433,-1.39535,https://softwaresaved.github.io/2017-12-05-ttt-southampton/
-2017-12-07-Monsanto,SWC,2017-12-07,,Monsanto,US,,,
+2017-12-07-Monsanto,"SWC,unresponsive",2017-12-07,,Monsanto,US,,,
 2017-12-11-Imperial,SWC,2017-12-11,26,Imperial College London,GB,51.497687,-0.178248,https://hpcarcher.github.io/2017-12-11-Imperial/
 2017-12-12-MQU-R,SWC,2017-12-12,34,Macquarie University,AU,-33.774693,151.112323,https://adivea.github.io/2017-12-12-MQU-R/
 2017-12-12-acadia,SWC,2017-12-12,23,Acadia University,CA,45.088573,-64.366817,https://daniellequinn.github.io/2017-12-12-acadia/
@@ -1350,7 +1350,7 @@ slug,tag_name,start_date,attendance,host_name,country,latitude,longitude,url
 2018-01-03-davis,SWC,2018-01-03,37,University of California Davis,US,38.539563,-121.748461,https://erwhite1.github.io/2017-01-03-Davis/
 2018-01-07-aas,SWC,2018-01-07,21,American Astronomical Society,US,38.781642,-77.017246,https://abostroem.github.io/2018-01-07-aas/.
 2018-01-08-okstate,SWC,2018-01-08,17,Oklahoma State University,US,36.122306,-97.071471,https://osu-carpentry.github.io/2018-01-08-okstate/
-2018-01-08-uw,SWC,2018-01-08,,University of Washington,US,47.606209,-122.332071,https://uwescience.github.io/2018-01-08-uw/
+2018-01-08-uw,SWC,2018-01-08,25,University of Washington,US,47.606209,-122.332071,https://uwescience.github.io/2018-01-08-uw/
 2018-01-08-uwmadison-dc,DC,2018-01-08,39,University of Wisconsin - Madison,US,43.0728339,-89.4103303,https://uw-madison-aci.github.io/2018-01-08-uwmadison-dc/
 2018-01-09-gpn,SWC,2018-01-09,26,Great Plains Network,US,38.95487,-95.246741,https://kulibraries.github.io/2018-01-09-gpn/
 2018-01-09-oxford,SWC,2018-01-09,12,School of Anthropology and Museum Ethnography,GB,51.756858,-1.260276,https://rroxford.github.io/2018-01-09-oxford/
@@ -1399,7 +1399,7 @@ slug,tag_name,start_date,attendance,host_name,country,latitude,longitude,url
 2018-02-19-edinburgh,SWC,2018-02-19,,University of Edinburgh,GB,55.92253,-3.171358,https://marioa.github.io/2018-02-19-edinburgh/
 2018-02-20-MQU-DC,DC,2018-02-20,,Macquarie University,AU,-33.775015,151.112545,https://adivea.github.io/2018-02-20-MQU-DC/
 2018-02-20-qut,SWC,2018-02-20,,Queensland University of Technology,AU,-27.456061,153.013368,https://stapleto.github.io/2018-02-20-qut/
-2018-02-20-uiuc,DC,2018-02-20,,University of Illinois at Urbana-Champaign,US,40.1028197,-88.2272995,https://swc-uiuc.github.io/2018-02-20-uiuc/
+2018-02-20-uiuc,DC,2018-02-20,14,University of Illinois at Urbana-Champaign,US,40.1028197,-88.2272995,https://swc-uiuc.github.io/2018-02-20-uiuc/
 2018-02-21-South-Africa-ttt,TTT,2018-02-21,17,Software Carpentry,ZA,-34.340543,19.031951,https://tenet-rccpii.github.io/2018-02-21-South-Africa-ttt/
 2018-02-21-ttt-online,"TTT,online",2018-02-21,6,Software Carpentry,W3,-48.876667,-123.393333,https://carpentries-work.github.io/2018-02-21-ttt-online/
 2018-02-22-KCL,DC,2018-02-22,,King's College London,GB,51.504001,-0.087794,https://tavareshugo.github.io/2018-02-22-KCL/
@@ -1445,7 +1445,6 @@ slug,tag_name,start_date,attendance,host_name,country,latitude,longitude,url
 2018-03-15-satRday,DC,2018-03-15,32,University of Cape Town,ZA,-33.9499831,18.4544602,https://katrintirok.github.io/2018-03-15-satRday/
 2018-03-19-Imperial,SWC,2018-03-19,,Imperial College London,GB,51.4988,-0.174877,https://kmichali.github.io/2018-03-19-Imperial/
 2018-03-19-curtin,SWC,2018-03-19,,Curtin University,AU,-32.006195,115.894418,https://curtinic.github.io/2018-03-19-curtin/
-2018-03-19-ou,SWC,2018-03-19,,University of Oklahoma,US,35.208275,-97.445848,https://oulib-swc.github.io/2018-03-19-ou/
 2018-03-19-ttt-sfu,TTT,2018-03-19,10,Software Carpentry,CA,49.279664,-122.918841,https://computecanada.github.io/2018-03-19-sfu-ttt/.
 2018-03-20-UFDataSymposium,DC,2018-03-20,21,University of Florida,US,29.648251,-82.344103,https://uf-carpentry.github.io/2018-03-20-UFDataSymposium/
 2018-03-20-genentech,DC,2018-03-20,37,Genentech,US,37.659596,-122.39914,https://erinbecker.github.io/2018-03-08-genentech/
@@ -1609,7 +1608,7 @@ slug,tag_name,start_date,attendance,host_name,country,latitude,longitude,url
 2018-07-16-curtin,SWC,2018-07-16,,Curtin University,AU,-32.0069186,115.892092,https://curtinic.github.io/2018-07-16-curtin/
 2018-07-18-NWU-Mafikeng,DC,2018-07-18,,North-West University,ZA,-25.8255172,25.6088492,https://tenet-rccpii.github.io/2018-07-18-NWU-Mafikeng/
 2018-07-18-ttt-online,"TTT,online",2018-07-18,18,Software Carpentry,W3,-48.876667,-123.393333,https://jcoliver.github.io/2018-07-18-ttt-online/
-2018-07-19-PNNL-SWC,"SWC,unresponsive",2018-07-19,,Pacific Northwest National Lab ,US,46.3513347,-119.2783712,https://pnnl-compbio.github.io/2018-07-19-PNNL-SWC/
+2018-07-19-PNNL-SWC,SWC,2018-07-19,12,Pacific Northwest National Lab ,US,46.3513347,-119.2783712,https://pnnl-compbio.github.io/2018-07-19-PNNL-SWC/
 2018-07-19-ss-dc-manchester,DC,2018-07-19,21,University of Manchester,GB,53.466722,-2.236463,https://petersmyth12.github.io/2018-07-19-ss-dc-manchester/
 2018-07-23-nyu,SWC,2018-07-23,12,New York University,US,40.729513,-73.996461,https://nesclic.github.io/2018-07-23-nyu/
 2018-07-24-jacksonLab,SWC,2018-07-24,18,Jackson Laboratory,US,41.732284,-72.793404,https://smcclatchy.github.io/2018-07-24-jacksonLab/
@@ -1622,7 +1621,7 @@ slug,tag_name,start_date,attendance,host_name,country,latitude,longitude,url
 2018-08-06-bids,DC,2018-08-06,28,Berkeley Institute for Data Science,US,37.872495,-122.259556,https://bids.github.io/2018-08-06-bids/
 2018-08-06-purdue,"SWC,unresponsive",2018-08-06,,Purdue University,US,40.427377,-86.913342,https://sshrivastava224.github.io/2018-08-06-purdue/
 2018-08-07-ttt-northwestern,TTT,2018-08-07,20,Software Carpentry,US,,,https://amyehodge.github.io/2018-08-07-ttt-northwestern/
-2018-08-13-Duke,SWC,2018-08-13,,Duke University,US,36.002868,-78.943498,https://duke-gcb.github.io/2018-08-13-Duke/
+2018-08-13-Duke,"SWC,unresponsive",2018-08-13,,Duke University,US,36.002868,-78.943498,https://duke-gcb.github.io/2018-08-13-Duke/
 2018-08-13-NU,SWC,2018-08-13,32,University of Nebraska,US,41.24714,-96.016767,https://unlhcc.github.io/2018-08-13-NU/
 2018-08-13-caltech,SWC,2018-08-13,12,California Institute of Technology,US,34.136859,-118.126089,https://caltechlibrary.github.io/2018-08-13-caltech/
 2018-08-13-chicostate,"SWC,unresponsive",2018-08-13,,California State University Chico,US,39.72812,-121.846237,https://csucdsi.github.io/2018-08-13-chicostate/
@@ -1646,9 +1645,9 @@ slug,tag_name,start_date,attendance,host_name,country,latitude,longitude,url
 2018-08-23-LBNL,DC,2018-08-23,,Lawrence Berkeley National Laboratory,US,37.875625,-122.250481,https://arthur-e.github.io/2018-08-23-LBNL/
 2018-08-23-ttt-otago,TTT,2018-08-23,9,University of Otago,NZ,,,https://otagocarpentries.github.io/2018-08-23-ttt-otago/
 2018-08-23-unt-swc,SWC,2018-08-23,7,University of North Texas,US,33.210068,-97.148954,https://unt-carpentries.github.io/2018-08-23-unt-swc/
-2018-08-27-Columbia-A,SWC,2018-08-27,,Columbia University,US,40.806444,-73.963194,https://columbiaswc.github.io/2018-08-27-Columbia-A/
-2018-08-27-Columbia-B,SWC,2018-08-27,,Columbia University,US,40.806444,-73.963194,https://columbiaswc.github.io/2018-08-27-Columbia-B/
-2018-08-27-Columbia-C,SWC,2018-08-27,,Columbia University,US,40.806444,-73.963194,https://columbiaswc.github.io/2018-08-27-Columbia-C/
+2018-08-27-Columbia-A,SWC,2018-08-27,34,Columbia University,US,40.806444,-73.963194,https://columbiaswc.github.io/2018-08-27-Columbia-A/
+2018-08-27-Columbia-B,SWC,2018-08-27,29,Columbia University,US,40.806444,-73.963194,https://columbiaswc.github.io/2018-08-27-Columbia-B/
+2018-08-27-Columbia-C,SWC,2018-08-27,24,Columbia University,US,40.806444,-73.963194,https://columbiaswc.github.io/2018-08-27-Columbia-C/
 2018-08-27-genentech-b,"DC,unresponsive",2018-08-27,,Genentech,US,37.65633,-122.37927,https://erinbecker.github.io/2018-08-27-genentech-b/
 2018-08-27-llnl,SWC,2018-08-27,18,Lawrence Livermore National Labs,US,37.690998,-121.713635,https://markcmiller86.github.io/2018-08-27-llnl/
 2018-08-27-uwmadison-dc,DC,2018-08-27,31,University of Wisconsin - Madison,US,43.0729163,-89.410268,https://uw-madison-aci.github.io/2018-08-27-uwmadison-dc/
@@ -1682,7 +1681,7 @@ slug,tag_name,start_date,attendance,host_name,country,latitude,longitude,url
 2018-09-13-umich,SWC,2018-09-13,18,University of Michigan,US,42.2739,-83.7358,https://umswc.github.io/2018-09-13-umich/
 2018-09-15-und-mbdh,"DC,unresponsive",2018-09-17,,University of North Dakota,US,37.954755,-91.776476,https://yeemey.github.io/2018-09-15-und-mbdh/
 2018-09-17-DC-DMU,DC,2018-09-17,,Debre Markos University,ET,10.33364,37.741036,https://mesfind.github.io/2018-09-17-DC-DMU/
-2018-09-17-Monsanto,SWC,2018-09-17,,Monsanto,NL,51.987636,4.512168,
+2018-09-17-Monsanto,"SWC,unresponsive",2018-09-17,,Monsanto,NL,51.987636,4.512168,
 2018-09-17-geospatial-onboarding,online,2018-09-17,38,Software Carpentry,W3,-48.876667,-123.393333,
 2018-09-18-mq-python,SWC,2018-09-18,,Macquarie University,AU,-33.775082,151.11301,https://mq-software-carpentry.github.io/2018-09-18-mq-python/
 2018-09-18-southampton-swc,SWC,2018-09-12,,University of Southampton,GB,50.89267,-1.39459,https://southampton-rsg.github.io/2018-09-18-southampton-swc/
@@ -1695,7 +1694,6 @@ slug,tag_name,start_date,attendance,host_name,country,latitude,longitude,url
 2018-09-22-emory,SWC,2018-09-22,35,Emory University,US,33.793181,-84.321305,https://data-science-for-scientists-atl.github.io/2018-09-22-emory/
 2018-09-24-CERTH,SWC,2018-09-24,27,"The Centre for Research & Technology, Hellas",GR,40.56797,22.997544,https://fpsom.github.io/2018-09-24-CERTH/
 2018-09-24-Imperial,SWC,2018-09-24,41,Imperial College London,GB,51.4988,-0.174877,https://kmichali.github.io/2018-09-24-Imperial/
-2018-09-24-koper,SWC,2018-09-24,,University of Primorska,SI,45.547969,13.729504,https://slel.github.io/2018-09-24-koper/
 2018-09-24-python,SWC,2018-09-24,16,University of Birmingham,GB,52.450237,-1.934362,https://bham-carpentries.github.io/2018-09-24-python/
 2018-09-25-ttt-online,"TTT,online",2018-09-25,15,Software Carpentry,W3,-48.876667,-123.393333,https://smcclatchy.github.io/2018-09-25-ttt-online/
 2018-09-25-ualberta-HPC,SWC,2018-09-25,16,University of Alberta,CA,53.528117,-113.525747,https://computecanada.github.io/2018-09-25-ualberta-HPC/
