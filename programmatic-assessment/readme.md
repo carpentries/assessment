@@ -21,22 +21,19 @@ Check out [this list](report_ideas.md) for some suggestions -- or add your own i
 #### Workshops folder contents
 
 ##### Data files
-* [attendance.csv](./workshops/data_files/attendance.csv): When available, attrition rates for workshops from number registered to number attended each day. This represents a small subset of total workshops.
-* [badges\_by\_country\_by\_year.csv](./workshops/data_files/badges_by_country_by_year.csv):  Count of all badges awarded each year by country
-* [badges\_by\_training\_event.csv](./workshops/data_files/badges_by_training_event.csv): List of all training events with number of participants and number getting badged
-* [badges\_by\_year\_agg.csv](./workshops/data_files/badges_by_year_agg.csv): Count of all Trainer, Software Carpentry Instructor, Data Carpentry Instructor, and Maintainer badges awarded by year.  An individual can have multiple badges.
-* [days\_badge\_to\_teach.csv](./workshops/data_files/days_badge_to_teach.csv): Anonymized ist of days between badging and teaching for all instructors
-* [num\_wkshps\_taught.csv](./workshops/data_files/num_wkshps_taught.csv): Anonymized list of all instructors and number of workshops taught
-* [trainers.csv](./workshops/data_files/trainers.csv): List of all Trainers with badge date and country.
-* [workshops.csv](./workshops/data_files/workshops.csv):  List of all lifetime Carpentries workshops.
 
+* [all_workshops.csv](./workshops/data_files/all_workshops.csv): List of all lifetime Carpentries workshops through October 2018
+* [amy_applications.csv](./workshops/data_files/amy_applications.csv): Anonymized data from The Carpentries [instructor training applications](https://amy.software-carpentry.org/forms/request_training/)
+* [instructor_training_events.csv](./workshops/data_files/instructor_training_events.csv): List of all Carpentries instructor training events through October 2019
+* [cumulative_instructors.csv](./workshops/data_files/cumulative_instructors.csv): Cumulative total of all certified instructors by date.
+* [teaching_frequency.csv](./workshops/data_files/teaching_frequency.csv): Anonymized counts of number of workshops each instructor has taught.
+* [trainers.csv](./workshops/data_files/trainers.csv): Anonymized list of award date and badge for each Trainer through October 2018.
 
-##### Jupyter Notebook files 
-* [programmatic\_report\_20180615.ipynb](./workshops/programmatic_report_20180615.ipynb): Jupyter notebook of Programmatic Assessment report published June 2018
+##### Latest Jupyter Notebook files 
+* [programmatic\_report\_20181031.ipynb](./workshops/jupyter_notebooks/programmatic_report_20181031.ipynb): Jupyter notebook of Programmatic Assessment report published December 2018
 
 ##### html and pdf output files
-* [outputs](./workshops/outputs): html and pdf outputs of Programmatic Assessment reports published June 2018 and August 2018
-Note the source notebook and data for the August 2018 report contain confidential data and are kept in [this private repo](https://github.com/carpentries/private-data/tree/master/programmatic-assessment).  Updates to that notebook and data files will be reflected here.
+* [outputs](./workshops/outputs): html and pdf outputs of Programmatic Assessment reports published June, August, and December 2018. Note the source notebook and data for the August 2018 report contain confidential data and are kept in [this private repo](https://github.com/carpentries/private-data/tree/master/programmatic-assessment). 
 
 
 ##### Convert to pdf or html
@@ -44,12 +41,14 @@ Convert to pdf, hiding all code cells using this shell command:
 
 ```jupyter nbconvert --to pdf final_report_draft.ipynb --TemplateExporter.exclude_input=True --TemplateExporter.exclude_input_prompt=True --TemplateExporter.exclude_output_prompt=True --output outputs/sample_report```
 
-Replace `final_report_draft.ipynb` with other file names as appropriate.
+jupyter nbconvert --to html sample_report.ipynb  --TemplateExporter.exclude_input=True --TemplateExporter.exclude_input_prompt=True --TemplateExporter.exclude_output_prompt=True --output sample_report
+
+Replace `sample_report.ipynb` with other file names as appropriate.
 Replace `--to pdf` with `to --html` to convert to html instead of pdf.
 A file extension is not required for the output file name; nbconvert will add the .pdf or .html extension as appropriate.
 See [nbconvert documentation](http://nbconvert.readthedocs.io/en/latest/config_options.html) for more options.
 
-Rendered html pages can be viewed following the path within the github repo under the `carpentries.github.io` domain.  For example: https://carpentries.github.io/assessment/programmatic-assessment/workshops/outputs/programmatic_report_20180803.html.
+Rendered html pages can be viewed following the path within the github repo under the `carpentries.github.io` domain.  For example: https://carpentries.github.io/assessment/programmatic-assessment/workshops/outputs/programmatic_report_20181031.html.
 
 ### Instructor Training folder
 
