@@ -48,7 +48,7 @@ Replace `--to pdf` with `to --html` to convert to html instead of pdf.
 A file extension is not required for the output file name; nbconvert will add the .pdf or .html extension as appropriate.
 See [nbconvert documentation](http://nbconvert.readthedocs.io/en/latest/config_options.html) for more options.
 
-Rendered html pages can be viewed following the path within the github repo under the `carpentries.github.io` domain.  For example: https://carpentries.github.io/assessment/programmatic-assessment/workshops/outputs/programmatic_report_20181031.html.
+Rendered html pages can be viewed following the path within the GitHub repo under the `carpentries.github.io` domain.  For example: https://carpentries.github.io/assessment/programmatic-assessment/workshops/outputs/programmatic_report_20181031.html.
 
 ### Instructor Training folder
 
