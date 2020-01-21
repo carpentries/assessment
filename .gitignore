@@ -6,3 +6,4 @@ programmatic-assessment/workshops/jupyter_notebooks/sandbox/*.*
 programmatic-assessment/workshops/data_files/data_archives/*.*
 
 
+*.csv#

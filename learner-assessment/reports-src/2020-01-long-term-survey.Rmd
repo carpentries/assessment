@@ -1,0 +1,375 @@
+---
+## To build this report, run: `source("build_reports.Rmd")` in the 
+## directory one level above
+title: Analysis of The Carpentries Long-term Surveys
+author:
+  - François Michonneau^[https://twitter.com/fmic_]
+  - Kari L. Jordan^[https://twitter.com/drkariljordan]
+date: January xxth, 2020
+output:
+  html_document:
+    self_contained: no
+    toc: true
+    toc_float: true
+    lib_dir: "../reports/libs"
+  pdf_document:
+    toc: true
+    highlight: zenburn
+    df_print: kable
+---
+
+```{r TODO, echo=FALSE}
+## - [x] remove Serah's answer in original input
+## - [ ] remove Albania from answers?
+## - [ ] use different variable names as input to not create ambiguity about
+##       data structure.
+```
+
+
+```{r setup, include=FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+library(ggalt)
+
+if (knitr::opts_knit$get("rmarkdown.pandoc.to") == "latex") {
+    figout <- "\\maxwidth"
+} else {
+    figout <- NULL   
+}
+
+## puts all figures in figures folder
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  fig.path='../figures/2020-01-longterm-',
+  fig.width = 10,
+  fig.retina = 2,
+  out.width = figout
+)
+
+source("../code/2020-longterm-survey/plots.R")
+base_path <- "../data/2020-longterm-survey"
+lt_data <- bind_cols(
+  read_csv(
+    file.path(
+      base_path,
+      "20200121-longterm-professional_profile-with-open.csv"
+    ),
+    col_types = cols(.default = "c")
+  ),
+  read_csv(
+    file.path(
+      base_path,
+      "20200121-longterm-other_questions-with-open.csv"
+    ),
+    col_types = cols(.default = "c")
+  ),
+  read_csv(
+    file.path(
+      base_path,
+      "20200121-longterm-demographics-with-open.csv"
+    ),
+    col_types = cols(.default = "c")
+  )
+)
+```
+
+
+## What is your current career stage?
+
+```{r occupation, fig.height=6}
+plot_multi(
+  lt_data,
+  var = occupation
+)
+```
+
+### Other answers
+
+```{r occupation-table}
+prepare_plot_multi_data(lt_data, occupation) %>%
+  purrr::pluck("other_data") %>%
+  knitr::kable()
+```
+
+
+## What is your field of research, work, or study?
+
+```{r domain, fig.height=8}
+plot_multi(
+  lt_data,
+  var = domain
+)
+
+```
+
+
+## Is this your first time completing this survey?
+
+```{r first-survey-take}
+plot_single(
+  lt_data,
+  var = first_survey_take
+)
+```
+
+## How many Carpentries (Software, Data, Library) workshops have you completed as a learner?
+
+```{r workshop_attended_amount}
+plot_single(
+  lt_data,
+  var = workshop_attended_amount
+)
+```
+
+## How long ago did you last complete a Carpentries workshop?
+
+```{r workshop_attended_age}
+plot_single(
+  lt_data,
+  var = workshop_attended_age
+)
+```
+
+## Which Carpentries workshop did you last attend?
+
+```{r workshop_attended_type}
+plot_single(
+  lt_data,
+  var = workshop_attended_type
+)
+```
+
+## Please tell us the location of the workshop you last attended.
+
+What do you want to do here? Should we manually recode the values to something we can interpret?
+
+What is the goal of this question?
+
+
+## What content was covered at the last Carpentries workshop you attended? Select all that apply.
+
+```{r workshop_attended_content}
+plot_multi(
+  lt_data,
+  var = workshop_attended_content,
+  wrap_width = 14
+)
+```
+
+
+## Which of the following behaviors have you adopted as a result of attending a Carpentries workshop? Check all that apply.
+
+```{r behavior_adopted, fig.height=10}
+plot_multi(
+  lt_data,
+  var = behavior_adopted
+)
+```
+
+## Before attending a Carpentries workshop, how often did you use programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell?
+
+```{r frequency_usage_before, fig.height=8}
+plot_single(
+  lt_data,
+  var = frequency_usage_before,
+  label_levels = rev(c(
+    "Daily",
+    "Weekly",
+    "Monthly",
+    "Several times per year",
+    "Less than once per year",
+    "I had not been using tools like these"
+  ))
+)
+```
+
+## Since attending a Carpentries workshop, how often do you currently use programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell?
+
+```{r frequency_usage_after, fig.height=8}
+plot_single(
+  lt_data,
+  var = frequency_usage_after,
+  label_levels = rev(c(
+    "Daily",
+    "Weekly",
+    "Monthly",
+    "Several times per year",
+    "Less than once per year",
+    "I have not been using tools like these"
+  ))
+)
+```
+
+## How would you rate your change in confidence in the tools that were covered during your Carpentries workshop(s) compared to before the workshop?
+
+```{r change_confidence}
+plot_single(
+  lt_data,
+  var = change_confidence,
+  label_levels = rev(c(
+    "I'm more confident now",
+    "I'm equally confident now", 
+    "I'm less confident now"
+  ))
+)
+```
+
+## If you are using the tools you learned in a Carpentries workshop, how are they helping you? Check all that apply.
+
+```{r how_tools_help, fig.height=8}
+plot_multi(
+  lt_data,
+  var = how_tools_help
+)
+```
+
+## Has attending a Carpentries workshop contributed to your writing of a research article, thesis, dissertation, or grant proposal?
+
+```{r workshop_contributed_academics}
+plot_single(
+  lt_data,
+  var = workshop_contributed_academics,
+  label_levels = rev(c(
+    "Yes",
+    "Not Sure",
+    "No"
+  ))
+)
+```
+
+### If you answered yes to question 16, please tell us how attending a Carpentries workshop contributed to your research writing.
+
+```{r workshop_contributed_academics_open}
+lt_data %>%
+  dplyr::select(workshop_contributed_academics_open) %>%
+  dplyr::filter(!is.na(workshop_contributed_academics_open)) %>%
+  knitr::kable()
+```
+
+## What topics could we offer that would motivate you to take another Carpentries workshop? Please describe below.
+
+Is there anything you'd want to do here?
+
+
+## The statements below reflect ways in which attending a Carpentries workshop may have impacted you. Please indicate your level of agreement with these statements.
+
+```{r workshop_impact, fig.height=15}
+lt_data %>%
+  mutate_at(
+    .vars = vars(starts_with("impact_"), -ends_with("open")),
+    ~ as.character(match(., c(
+      "Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree")
+    ))
+  ) %>% 
+  plot_group(
+  prefix = "impact",
+  y_levels = as.character(1:5),
+  title = "The statements below reflect ways in which attending a Carpentries workshop may have impacted you. Please indicate your level of agreement with these statements."
+  ) +
+  labs(subtitle = "(1: Strongly disagree, 3: Neutral, 5: Strongly agree)")
+```
+
+
+## Please tell us the most important way you were impacted as a result of attending a Carpentries workshop.
+
+```{r workshop_impact_open}
+lt_data %>%
+  dplyr::select(impact_open) %>%
+  dplyr::filter(!is.na(impact_open)) %>%
+  knitr::kable()
+```
+
+
+## Please indicate your involvement in the Carpentries community since attending a Carpentries workshop. Check all that apply.
+
+```{r community_involvement, fig.height=8}
+plot_multi(
+  lt_data,
+  var = community_involvement
+)
+```
+
+## Which of the following learning activities (for data management and analysis) have you participated in since attending a Carpentries workshop? Check all that apply.
+
+```{r other_activities, fig.height=8}
+plot_multi(
+  lt_data,
+  var = other_activities
+)
+```
+
+## Have you recommended a Carpentries workshop to a friend or colleague?
+
+```{r has_recommended}
+plot_single(
+  lt_data,
+  var = has_recommended
+)
+```
+
+## How likely are you to recommend a Carpentries workshop to a friend or colleague?
+
+```{r recommendation_score}
+plot_single(
+  lt_data,
+  var = recommendation_score,
+  label_levels = as.character(0:10)
+)
+```
+
+## Optional: Please tell us two outcomes you accomplished as a result of attending a Carpentries workshop.
+
+```{r outcomes_open}
+lt_data %>%
+  dplyr::select(outcomes_open) %>%
+  dplyr::filter(!is.na(outcomes_open)) %>%
+  knitr::kable()
+```
+
+
+## Optional: If you are not applying the skills you learned at a Carpentries workshop in your work, please tell us why.
+
+```{r dont_use_skills_open}
+lt_data %>%
+  dplyr::select(dont_use_skills_open) %>%
+  dplyr::filter(!is.na(dont_use_skills_open)) %>%
+  knitr::kable()
+```
+
+## Optional: If you would like to make additional comments about your Carpentries workshop experience, or ways you've used the tools you learned in a Carpentries workshop, please comment below.
+
+```{r additional_comments_open}
+lt_data %>%
+  dplyr::select(additional_comments_open) %>%
+  dplyr::filter(!is.na(additional_comments_open)) %>%
+  knitr::kable()
+```
+
+## In what country was the workshop you attended held?
+
+The Albania answer is wrong
+
+```{r workshop_country}
+plot_single(
+  lt_data,
+  var = workshop_country
+)
+```
+
+## To which gender identity do you most identify?
+
+```{r demographics_gender}
+plot_single(
+  lt_data,
+  var = demographics_gender
+)
+```
+
+## How would you describe yourself? Check all that apply.
+
+```{r demographics_ethnicity, fig.height=14}
+plot_multi(
+  lt_data,
+  var = demographics_ethnicity 
+)
+```

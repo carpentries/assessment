@@ -1,0 +1,35 @@
+original_name,short_name
+What is your current career stage?,occupation
+"What is your field of research, work, or study? Check all that apply.",domain
+Is this your first time completing this survey?,first_survey_take
+"How many Carpentries (Software, Data, Library) workshops have you completed as a learner?",workshop_attended_amount
+How long ago did you last complete a Carpentries workshop?,workshop_attended_age
+Which Carpentries workshop did you last attend?,workshop_attended_type
+Please tell us the location of the workshop you last attended.,workshop_attended_location
+What content was covered at the last Carpentries workshop you attended? Select all that apply.,workshop_attended_content
+Which of the following behaviors have you adopted as a result of attending a Carpentries workshop? Check all that apply.,behavior_adopted
+"Before attending a Carpentries workshop, how often did you use programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell?",frequency_usage_before
+"Since attending a Carpentries workshop, how often do you currently use programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell?",frequency_usage_after
+How would you rate your change in confidence in the tools that were covered during your Carpentries workshop(s) compared to before the workshop?,change_confidence
+"If you are using the tools you learned in a Carpentries workshop, how are they helping you? Check all that apply.",how_tools_help
+"Has attending a Carpentries workshop contributed to your writing of a research article, thesis, dissertation, or grant proposal?",workshop_contributed_academics
+"If you answered yes to question 16, please tell us how attending a Carpentries workshop contributed to your research writing.",workshop_contributed_academics_open
+What topics could we offer that would motivate you to take another Carpentries workshop? Please describe below.,topics_another_workshop_open
+I have used skills I learned at the workshop to advance my career.,impact_career_advancement
+I have been motivated to seek more knowledge about the tools I learned at the workshop.,impact_motivation_learning
+I have made my analyses more reproducible as a result of completing the workshop.,impact_increase_reproducibility
+I have received professional recognition for my work as a result of using the tools I learned at the workshop.,impact_professional_recognition
+I have improved my coding practices as a result of completing the workshop.,impact_improve_coding_practice
+My research productivity has improved as a result of completing the workshop.,impact_research_productivity
+I have gained confidence in working with data as a result of completing the workshop.,impact_increase_confidence
+Please tell us the most important way you were impacted as a result of attending a Carpentries workshop.,impact_open
+In what country was the workshop you attended held?,workshop_country
+Please indicate your involvement in the Carpentries community since attending a Carpentries workshop. Check all that apply.,community_involvement
+Which of the following learning activities (for data management and analysis) have you participated in since attending a Carpentries workshop? Check all that apply.,other_activities
+Have you recommended a Carpentries workshop to a friend or colleague?,has_recommended
+How likely are you to recommend a Carpentries workshop to a friend or colleague?,recommendation_score
+Optional: Please tell us two outcomes you accomplished as a result of attending a Carpentries workshop.,outcomes_open
+"Optional: If you are not applying the skills you learned at a Carpentries workshop in your work, please tell us why.",dont_use_skills_open
+"Optional: If you would like to make additional comments about your Carpentries workshop experience, or ways you've used the tools you learned in a Carpentries workshop, please comment below.",additional_comments_open
+To which gender identity do you most identify?,demographics_gender
+How would you describe yourself? Check all that apply.,demographics_ethnicity

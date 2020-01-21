@@ -1,0 +1,67 @@
+column,verbatim,short
+domain,Agricultural or Environmental Sciences,envsci
+domain,Biomedical/Health Sciences,biomed
+domain,Business,buis
+domain,Computer Science,cs
+domain,Earth Sciences,earth
+domain,Engineering,eng
+domain,Humanities,hum
+domain,Library Sciences,lib
+domain,Life Sciences,lifesci
+domain,Mathematics or Statistics,maths
+domain,Physical Sciences,physci
+domain,Social Sciences,socsci
+occupation,Graduate Student,grad
+occupation,Academic Research Staff,ars
+occupation,Postdoc,postdoc
+occupation,Faculty,faculty
+occupation,Industry,industry
+occupation,Undergraduate Student,undergrad
+occupation,Other Academic Staff,otheraca
+occupation,Other,other
+workshop_attended_content,Cloud Computing,cloud
+workshop_attended_content,Git,git
+workshop_attended_content,MATLAB,matlab
+workshop_attended_content,Mercurial,hg
+workshop_attended_content,OpenRefine,or
+workshop_attended_content,Python,py
+workshop_attended_content,R,r
+workshop_attended_content,Spreadsheets,spreads
+workshop_attended_content,SQL,sql
+workshop_attended_content,Unix Shell,unix
+workshop_attended_content,I don’t remember,dontknow
+behavior_adopted,Improving data management and project organization,projorg
+behavior_adopted,Developing a data management and analysis plan,plan
+behavior_adopted,"Using databases, scripts, and queries to manage large data sets",db
+behavior_adopted,Transforming step-by-step workflows into scripts or functions,scripts
+behavior_adopted,"Using programming languages like R or Python, or the command line to automate repetitive tasks",repetitive
+behavior_adopted,Reusing code,reuse
+behavior_adopted,Using version control to manage code,vcs
+behavior_adopted,Using version control to collaborate online (in public or private repositories),vcsshare
+behavior_adopted,Sharing code or data publicly on places like GitHub or FigShare,datashare
+how_tools_help,They are improving my overall efficiency,efficiency
+how_tools_help,They are improving my ability to analyze data,analysis
+how_tools_help,They are improving my ability to manage data,mgt
+how_tools_help,The tools I learned have not helped me with my work,nohelp
+how_tools_help,I am not using the tools I learned,nouse
+how_tools_help,Other,other
+community_involvement,Subscribed to the newsletter,newsletter
+community_involvement,Attended at least one community call,commcall
+community_involvement,Became a workshop helper,helper
+community_involvement,Joined a committee,comm
+community_involvement,Joined a mentoring group,mentor
+community_involvement,Participated in a Twitter chat,twitter
+community_involvement,Contributed to a Carpentry lesson,contrib
+other_activities,Participated in an in-person short course,inperson
+other_activities,Participated in a an online short course,online
+other_activities,Participated in a Meetup,meetup
+other_activities,Participated in a semester long course,semester
+other_activities,Used self-guided Carpentry lesson material,carp-sg
+other_activities,Used non-Carpentry self-guided material,other-sg
+demographics_ethnicity,"American Indian or Alaska Native(A person having origins in any of the original peoples of North and South America (including Central America), and who maintains a tribal affiliation or community attachment.)",amindian
+demographics_ethnicity,"Asian(A person having origins in any of the original peoples of the Far East, Southeast Asia, or the Indian subcontinent including, for example, Cambodia, China, India, Japan, Korea, Malaysia, Pakistan, the Philippine Islands, Thailand, and Vietnam.)",asian
+demographics_ethnicity,Black or African American(A person having origins in any of the Black racial groups of Africa – includes Caribbean Islanders and other of African origin.),black
+demographics_ethnicity,Hispanic or Latino(a)(A person of Spanish-speaking origin or ancestry and/or Latin American origin or ancestry – includes Portuguese and Brazilians.),latinx
+demographics_ethnicity,"Native Hawaiian or Other Pacific Islander(A person having origins in any of the original peoples of Hawaii, Guam, Samoa, or other Pacific Islands.)",islander
+demographics_ethnicity,"White(A person having origins in any of the original peoples of Europe, the Middle East, or North Africa.)",white
+demographics_ethnicity,I prefer not to say,noanswer
