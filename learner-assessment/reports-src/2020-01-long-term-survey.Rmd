@@ -1,11 +1,11 @@
 ---
 ## To build this report, run: `source("build_reports.Rmd")` in the 
 ## directory one level above
-title: Analysis of The Carpentries Long-term Surveys
+title: Analysis of The Carpentries Long-Term Surveys
 author:
   - François Michonneau^[https://twitter.com/fmic_]
   - Kari L. Jordan^[https://twitter.com/drkariljordan]
-date: January xxth, 2020
+date: April 1, 2020
 output:
   html_document:
     self_contained: no
@@ -73,6 +73,7 @@ lt_data <- bind_cols(
 )
 ```
 
+In the fourth quarter of 2019 The Carpentries collected feedback from community members who took a Carpentries workshop within six months. Find more information about this data collection period [on our blog](https://carpentries.org/blog/2019/11/long-term-impact-survey/). We are excited to release the results of our long-term survey, and invite community members to use this data to champion The Carpentries far and near. You can find all of the data and code in our [assessment repository on GitHub](https://github.com/carpentries/assessment/tree/master/learner-assessment).
 
 ## What is your current career stage?
 
@@ -82,6 +83,8 @@ plot_multi(
   var = occupation
 )
 ```
+
+The majority of long-term survey respondents are graduate students. Other career stages not shown on this figure include Librarians and Government Research Staff.
 
 ### Other answers
 
@@ -327,7 +330,7 @@ lt_data %>%
 ```
 
 
-## Optional: If you are not applying the skills you learned at a Carpentries workshop in your work, please tell us why.
+## Optional: If you are not applying the skills you learned at a Carpentries workshop in your work, please tell us why.
 
 ```{r dont_use_skills_open}
 lt_data %>%
@@ -336,7 +339,7 @@ lt_data %>%
   knitr::kable()
 ```
 
-## Optional: If you would like to make additional comments about your Carpentries workshop experience, or ways you've used the tools you learned in a Carpentries workshop, please comment below.
+## Optional: If you would like to make additional comments about your Carpentries workshop experience, or ways you've used the tools you learned in a Carpentries workshop, please comment below.
 
 ```{r additional_comments_open}
 lt_data %>%
