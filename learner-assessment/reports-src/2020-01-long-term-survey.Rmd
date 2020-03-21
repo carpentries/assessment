@@ -271,7 +271,7 @@ plot_single(
 )
 ```
 
-## Country Workshop Was Held
+## Country Where Respondents' Took Workshop
 
 
 ```{r workshop_country}
