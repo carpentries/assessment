@@ -86,7 +86,9 @@ The results included in this report only cover the data collected in 2019 (betwe
 
 ## Respondents Career Stage
 
-The majority of long-term survey respondents are graduate students. Other career stages not shown on this figure include Librarians and Government Research Staff.
+The majority of long-term survey respondents are graduate students. "Other
+academic staff" includes Librarians, Research Software Engineers, IT Staff, and
+Government Research Staff.
 
 ```{r occupation, fig.height=6}
 plot_multi(
