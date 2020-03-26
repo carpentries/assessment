@@ -358,17 +358,49 @@ Note: Gender identity responses apply to U.S. survey respondents only.
 ```{r demographics_gender}
 plot_single(
   lt_data,
-  var = demographics_gender
+  var = demographics_gender,
+  label_levels = rev(
+    c(
+      "Female",
+      "Gender variant/non-conforming",
+      "Male",
+      "Prefer not to answer"
+    )
+  )
 )
 ```
 
-## Respondents' Racial/Ethnic Identity 
+## Respondents' Racial/Ethnic Identity
 
 Note: Racial/ethnic identity responses apply to U.S. survey respondents only.
 
-```{r demographics_ethnicity, fig.height=14}
+
+```{r demographics_ethnicity, warning = FALSE}
+
+ethnicity_short <- tibble::tribble(
+  ~short, ~full_name,
+  "American Indian or Alaska Native", "American Indian or Alaska Native(A person having origins in any of the original peoples of North and South America (including Central America), and who maintains a tribal affiliation or community attachment.)",
+  "Asian", "Asian(A person having origins in any of the original peoples of the Far East, Southeast Asia, or the Indian subcontinent including, for example, Cambodia, China, India, Japan, Korea, Malaysia, Pakistan, the Philippine Islands, Thailand, and Vietnam.)",
+  "Black or African American", "Black or African American(A person having origins in any of the Black racial groups of Africa – includes Caribbean Islanders and other of African origin.)",
+  "Hispanic or Latino", "Hispanic or Latino(a)(A person of Spanish-speaking origin or ancestry and/or Latin American origin or ancestry – includes Portuguese and Brazilians.)",
+  "White", "White(A person having origins in any of the original peoples of Europe, the Middle East, or North Africa.)",
+  "I prefer not to say", "I prefer not to say"
+)
+ethnicity_short <- ethnicity_short[rev(seq_len(nrow(ethnicity_short))), ]
+
 plot_multi(
   lt_data,
-  var = demographics_ethnicity 
+  var = demographics_ethnicity,
+  label_levels = ethnicity_short
 )
+```
+
+```{r full_legend}
+ethnicity_short %>%
+  mutate(full_name = gsub("\\(A person", " (A person", full_name)) %>%
+  rename(
+    "Label on Plot" = short,
+    "Description in Survey" = full_name
+  ) %>%
+  knitr::kable()
 ```
