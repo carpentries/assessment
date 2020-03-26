@@ -20,14 +20,6 @@ output:
     df_print: kable
 ---
 
-```{r TODO, echo=FALSE}
-## - [x] remove Serah's answer in original input
-## - [ ] remove Albania from answers?
-## - [ ] use different variable names as input to not create ambiguity about
-##       data structure.
-```
-
-
 ```{r setup, include=FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 library(ggalt)
