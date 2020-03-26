@@ -18,16 +18,23 @@ output:
     toc: true
     highlight: zenburn
     df_print: kable
+    includes:
+      in_header: 2020-01-longterm-header.tex
 ---
 
 ```{r setup, include=FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 library(ggalt)
+library(kableExtra)
 
 if (knitr::opts_knit$get("rmarkdown.pandoc.to") == "latex") {
-    figout <- "\\maxwidth"
+  figout <- "\\maxwidth"
+  col_width <- "7cm"
+  table_format <- "latex"
 } else {
-    figout <- NULL
+  figout <- NULL
+  col_width <- "70%"
+  table_format <- "html"
 }
 
 ## puts all figures in figures folder
@@ -228,7 +235,7 @@ lt_data %>%
     legend.position = "top"
   ) +
   labs(
-    title = "How has the frequency of usage of programming languages, databases, version control and/or the shell changed before and after the workshop?",
+    title = str_wrap("How has the frequency of usage of programming languages, databases, version control and/or the shell, changed before and after the workshop?", 55),
     x = "% Respondents",
     y = ""
   )
@@ -402,5 +409,7 @@ ethnicity_short %>%
     "Label on Plot" = short,
     "Description in Survey" = full_name
   ) %>%
-  knitr::kable()
+  knitr::kable(format = table_format, booktabs = TRUE) %>%
+  kable_styling(bootstrap_options = "striped") %>%
+  kableExtra::column_spec(2, width = col_width)
 ```
