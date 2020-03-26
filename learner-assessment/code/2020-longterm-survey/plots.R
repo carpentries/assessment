@@ -179,6 +179,24 @@ plot_multi <- function(.data, var, label_levels = NULL, wrap_width = 20) {
       unique()
   }
 
+  if (inherits(label_levels, "data.frame") &&
+        all(names(label_levels) %in% c("short", "full_name"))) {
+    data_plot <- dplyr::left_join(
+      data_plot,
+      label_levels,
+       by = set_names("full_name", str_var)
+    )
+
+    label_levels_new <- data_plot %>%
+      pull(short)
+
+    data_plot <- data_plot %>%
+      select(- !!quo_var) %>%
+      rename(!!str_var := short)
+
+    label_levels <- label_levels_new[match(label_levels_new, label_levels$short)]
+  }
+
   lbl_widths <- .data %>%
     dplyr::pull(!!quo_var) %>%
     stringr::str_wrap(width = wrap_width)
