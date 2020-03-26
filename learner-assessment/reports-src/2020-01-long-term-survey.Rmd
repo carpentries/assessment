@@ -27,7 +27,7 @@ library(ggalt)
 if (knitr::opts_knit$get("rmarkdown.pandoc.to") == "latex") {
     figout <- "\\maxwidth"
 } else {
-    figout <- NULL   
+    figout <- NULL
 }
 
 ## puts all figures in figures folder
@@ -140,7 +140,7 @@ plot_single(
 )
 ```
 
-## Content Covered at Last Carpentries Workshop 
+## Content Covered at Last Carpentries Workshop
 
 ```{r workshop_attended_content}
 plot_multi(
@@ -150,7 +150,7 @@ plot_multi(
 )
 ```
 
-## Behaviors Adopted 
+## Behaviors Adopted
 
 ```{r behavior_adopted, fig.height=10}
 plot_multi(
@@ -243,13 +243,13 @@ plot_single(
   var = change_confidence,
   label_levels = rev(c(
     "I'm more confident now",
-    "I'm equally confident now", 
+    "I'm equally confident now",
     "I'm less confident now"
   ))
 )
 ```
 
-## How Tools Help Respondents 
+## How Tools Help Respondents
 
 ```{r how_tools_help, fig.height=8}
 plot_multi(
@@ -261,18 +261,20 @@ plot_multi(
 ## Carpentries Workshop Contributing to Research
 
 ```{r workshop_contributed_academics}
+
 plot_single(
   lt_data,
   var = workshop_contributed_academics,
   label_levels = rev(c(
     "Yes",
-    "Not Sure",
-    "No"
+    "No",
+    "Not sure"
   ))
 )
+
 ```
 
-## Potential Impact on Carpentries Respondents 
+## Potential Impact on Respondents
 
 ```{r workshop_impact, fig.height=15}
 lt_data %>%
@@ -281,7 +283,7 @@ lt_data %>%
     ~ as.character(match(., c(
       "Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree")
     ))
-  ) %>% 
+  ) %>%
   plot_group(
   prefix = "impact",
   y_levels = as.character(1:5),
@@ -300,7 +302,7 @@ plot_multi(
 )
 ```
 
-## Respondents Participating in Learning Activities 
+## Respondents Participating in Learning Activities
 
 ```{r other_activities, fig.height=8}
 plot_multi(
@@ -309,7 +311,7 @@ plot_multi(
 )
 ```
 
-## Respondents Who Recommended a Carpentries Workshop 
+## Respondents Who Recommended a Carpentries Workshop
 
 ```{r has_recommended}
 plot_single(
