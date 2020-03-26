@@ -41,26 +41,30 @@ knitr::opts_chunk$set(
 )
 
 source("../code/2020-longterm-survey/plots.R")
+
+## We combine the datasets into a single one but note that each of these
+## datasets is in a randomized order and therefore you can't assume that
+## each row corresponds to an individual
 base_path <- "../data/2020-longterm-survey"
 lt_data <- bind_cols(
   read_csv(
     file.path(
       base_path,
-      "20200121-longterm-professional_profile-with-open.csv"
+      "20200326-longterm-professional_profile-no-open.csv"
     ),
     col_types = cols(.default = "c")
   ),
   read_csv(
     file.path(
       base_path,
-      "20200121-longterm-other_questions-with-open.csv"
+      "20200326-longterm-other_questions-no-open.csv"
     ),
     col_types = cols(.default = "c")
   ),
   read_csv(
     file.path(
       base_path,
-      "20200121-longterm-demographics-with-open.csv"
+      "20200326-longterm-demographics-no-open.csv"
     ),
     col_types = cols(.default = "c")
   )
