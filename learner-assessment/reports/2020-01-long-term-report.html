@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="François Michonneau" />
+<meta name="author" content="Kari L. Jordan" />
+
+<meta name="date" content="2020-04-01" />
+
+<title>Analysis of The Carpentries Long-Term Surveys</title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Analysis of The Carpentries Long-Term Surveys</h1>
+<h4 class="author">François Michonneau<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></h4>
+<h4 class="author">Kari L. Jordan<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></h4>
+<h4 class="date">April 1, 2020</h4>
+
+</div>
+
+
+<p>In the fourth quarter of 2019 The Carpentries collected feedback from community members who took a Carpentries workshop within six months. Find more information about this data collection period <a href="https://carpentries.org/blog/2019/11/long-term-impact-survey/">on our blog</a>. We are excited to release the results of our long-term survey, and invite community members to use this data to champion The Carpentries far and near.</p>
+<p>We released <a href="https://datacarpentry.org/blog/2017/10/long-term-survey-results">our first long-term survey results</a> in October 2017. You can find <a href="https://github.com/carpentries/assessment/blob/master/learner-assessment/archives/2017/reports/longtermreport_October2017.pdf">the report</a> and <a href="https://github.com/carpentries/assessment/blob/master/learner-assessment/archives/2017/code/longtermreport_October2017.rmd">its source</a> in the <a href="https://github.com/carpentries/assessment/blob/master/learner-assessment/">assessment GitHub repository</a>.</p>
+<p>The results included in this report only cover the data collected in 2019 (between November 1st, 2019 and January 2nd, 2020). This report includes the analysis of 176 responses but most questions are optional and specific questions have less answers.</p>
+<div id="respondents-career-stage" class="section level2">
+<h2>Respondents Career Stage</h2>
+<p>The majority of long-term survey respondents are graduate students. “Other academic staff” includes Librarians, Research Software Engineers, IT Staff, and Government Research Staff.</p>
+<p><img src="../figures/2020-01-longterm-occupation-1.png" width="960" /></p>
+</div>
+<div id="respondents-field-of-research-work-or-study" class="section level2">
+<h2>Respondents Field of Research, Work, or Study</h2>
+<p><img src="../figures/2020-01-longterm-domain-1.png" width="960" /></p>
+</div>
+<div id="number-of-carpentries-workshops-completed" class="section level2">
+<h2>Number of Carpentries Workshops Completed</h2>
+<p><img src="../figures/2020-01-longterm-workshop_attended_amount-1.png" width="960" /></p>
+</div>
+<div id="time-since-completing-a-carpentries-workshop" class="section level2">
+<h2>Time Since Completing a Carpentries Workshop</h2>
+<p><img src="../figures/2020-01-longterm-workshop_attended_age-1.png" width="960" /></p>
+</div>
+<div id="last-carpentries-workshop-attended" class="section level2">
+<h2>Last Carpentries Workshop Attended</h2>
+<p><img src="../figures/2020-01-longterm-workshop_attended_type-1.png" width="960" /></p>
+</div>
+<div id="content-covered-at-last-carpentries-workshop" class="section level2">
+<h2>Content Covered at Last Carpentries Workshop</h2>
+<p><img src="../figures/2020-01-longterm-workshop_attended_content-1.png" width="960" /></p>
+</div>
+<div id="behaviors-adopted" class="section level2">
+<h2>Behaviors Adopted</h2>
+<p><img src="../figures/2020-01-longterm-behavior_adopted-1.png" width="960" /></p>
+</div>
+<div id="comparison-of-programming-usage-pre--and-post-carpentries-workshop" class="section level2">
+<h2>Comparison of Programming Usage Pre- and Post-Carpentries Workshop</h2>
+<p><img src="../figures/2020-01-longterm-change_usage_frequency-1.png" width="960" /></p>
+</div>
+<div id="change-in-confidence-in-tools-covered-at-workshop" class="section level2">
+<h2>Change in Confidence in Tools Covered at Workshop</h2>
+<p><img src="../figures/2020-01-longterm-change_confidence-1.png" width="960" /></p>
+</div>
+<div id="how-tools-help-respondents" class="section level2">
+<h2>How Tools Help Respondents</h2>
+<p><img src="../figures/2020-01-longterm-how_tools_help-1.png" width="960" /></p>
+</div>
+<div id="carpentries-workshop-contributing-to-research" class="section level2">
+<h2>Carpentries Workshop Contributing to Research</h2>
+<p><img src="../figures/2020-01-longterm-workshop_contributed_academics-1.png" width="960" /></p>
+</div>
+<div id="potential-impact-on-respondents" class="section level2">
+<h2>Potential Impact on Respondents</h2>
+<p><img src="../figures/2020-01-longterm-workshop_impact-1.png" width="960" /></p>
+</div>
+<div id="involvement-in-carpentries-community-post-workshop" class="section level2">
+<h2>Involvement in Carpentries Community Post-Workshop</h2>
+<p><img src="../figures/2020-01-longterm-community_involvement-1.png" width="960" /></p>
+</div>
+<div id="respondents-participating-in-learning-activities" class="section level2">
+<h2>Respondents Participating in Learning Activities</h2>
+<p><img src="../figures/2020-01-longterm-other_activities-1.png" width="960" /></p>
+</div>
+<div id="respondents-who-recommended-a-carpentries-workshop" class="section level2">
+<h2>Respondents Who Recommended a Carpentries Workshop</h2>
+<p><img src="../figures/2020-01-longterm-has_recommended-1.png" width="960" /></p>
+</div>
+<div id="recommendation-and-net-promoter-scores" class="section level2">
+<h2>Recommendation and Net Promoter Scores</h2>
+<p><img src="../figures/2020-01-longterm-recommendation_score-1.png" width="960" /></p>
+<p><img src="../figures/2020-01-longterm-nps-1.png" width="960" /></p>
+<p>The <a href="https://en.wikipedia.org/wiki/Net_Promoter">Net Promoter Score</a> (NPS) for our workshops according to the long-term survey is 63. The NPS varies between -100 and +100. It is calculated by substracting the percentage of respondents who are considered “Promoters” (rating of 9 or 10) and the percentage of respondents who are considered “Detractors” (rating equal or below 6). A positive NPS is deemed good, a NPS above 50 is deemed excellent, and an NPS above 70 is exceptional.</p>
+</div>
+<div id="respondents-gender-identity" class="section level2">
+<h2>Respondents’ Gender Identity</h2>
+<p>Note: Gender identity responses apply to U.S. survey respondents only.</p>
+<p><img src="../figures/2020-01-longterm-demographics_gender-1.png" width="960" /></p>
+</div>
+<div id="respondents-racialethnic-identity" class="section level2">
+<h2>Respondents’ Racial/Ethnic Identity</h2>
+<p>Note: Racial/ethnic identity responses apply to U.S. survey respondents only.</p>
+<p><img src="../figures/2020-01-longterm-demographics_ethnicity-1.png" width="960" /></p>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Label on Plot
+</th>
+<th style="text-align:left;">
+Description in Survey
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+I prefer not to say
+</td>
+<td style="text-align:left;width: 70%; ">
+I prefer not to say
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+White
+</td>
+<td style="text-align:left;width: 70%; ">
+White (A person having origins in any of the original peoples of Europe, the Middle East, or North Africa.)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hispanic or Latino
+</td>
+<td style="text-align:left;width: 70%; ">
+Hispanic or Latino(a) (A person of Spanish-speaking origin or ancestry and/or Latin American origin or ancestry – includes Portuguese and Brazilians.)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Black or African American
+</td>
+<td style="text-align:left;width: 70%; ">
+Black or African American (A person having origins in any of the Black racial groups of Africa – includes Caribbean Islanders and other of African origin.)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Asian
+</td>
+<td style="text-align:left;width: 70%; ">
+Asian (A person having origins in any of the original peoples of the Far East, Southeast Asia, or the Indian subcontinent including, for example, Cambodia, China, India, Japan, Korea, Malaysia, Pakistan, the Philippine Islands, Thailand, and Vietnam.)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+American Indian or Alaska Native
+</td>
+<td style="text-align:left;width: 70%; ">
+American Indian or Alaska Native (A person having origins in any of the original peoples of North and South America (including Central America), and who maintains a tribal affiliation or community attachment.)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="http://orcid.org/0000-0002-9092-966X" class="uri">http://orcid.org/0000-0002-9092-966X</a><a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p><a href="https://orcid.org/0000-0003-4121-2432" class="uri">https://orcid.org/0000-0003-4121-2432</a><a href="#fnref2" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

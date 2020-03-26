@@ -1,0 +1,415 @@
+---
+## To build this report, run:
+## `source("build_reports.Rmd");
+## build_2020_longterm_report()`
+## in the directory one level above
+title: Analysis of The Carpentries Long-Term Surveys
+author:
+  - François Michonneau^[http://orcid.org/0000-0002-9092-966X]
+  - Kari L. Jordan^[https://orcid.org/0000-0003-4121-2432]
+date: April 1, 2020
+output:
+  html_document:
+    self_contained: no
+    toc: true
+    toc_float: true
+    lib_dir: "../reports/libs"
+  pdf_document:
+    toc: true
+    highlight: zenburn
+    df_print: kable
+    includes:
+      in_header: 2020-01-longterm-header.tex
+---
+
+```{r setup, include=FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+library(ggalt)
+library(kableExtra)
+
+if (knitr::opts_knit$get("rmarkdown.pandoc.to") == "latex") {
+  figout <- "\\maxwidth"
+  col_width <- "7cm"
+  table_format <- "latex"
+} else {
+  figout <- NULL
+  col_width <- "70%"
+  table_format <- "html"
+}
+
+## puts all figures in figures folder
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  fig.path='../figures/2020-01-longterm-',
+  fig.width = 10,
+  fig.retina = 2,
+  out.width = figout
+)
+
+source("../code/2020-longterm-survey/plots.R")
+
+## We combine the datasets into a single one but note that each of these
+## datasets is in a randomized order and therefore you can't assume that
+## each row corresponds to an individual
+base_path <- "../data/2020-longterm-survey"
+lt_data <- bind_cols(
+  read_csv(
+    file.path(
+      base_path,
+      "20200326-longterm-professional_profile-no-open.csv"
+    ),
+    col_types = cols(.default = "c")
+  ),
+  read_csv(
+    file.path(
+      base_path,
+      "20200326-longterm-other_questions-no-open.csv"
+    ),
+    col_types = cols(.default = "c")
+  ),
+  read_csv(
+    file.path(
+      base_path,
+      "20200326-longterm-demographics-no-open.csv"
+    ),
+    col_types = cols(.default = "c")
+  )
+)
+```
+
+In the fourth quarter of 2019 The Carpentries collected feedback from community
+members who took a Carpentries workshop within six months. Find more information
+about this data collection period [on our
+blog](https://carpentries.org/blog/2019/11/long-term-impact-survey/). We are
+excited to release the results of our long-term survey, and invite community
+members to use this data to champion The Carpentries far and near.
+
+We released [our first long-term
+survey results](https://datacarpentry.org/blog/2017/10/long-term-survey-results)
+in October 2017. You can find [the report](https://github.com/carpentries/assessment/blob/master/learner-assessment/archives/2017/reports/longtermreport_October2017.pdf) and [its source](https://github.com/carpentries/assessment/blob/master/learner-assessment/archives/2017/code/longtermreport_October2017.rmd) in the [assessment GitHub repository](https://github.com/carpentries/assessment/blob/master/learner-assessment/).
+
+The results included in this report only cover the data collected in 2019 (between November 1st, 2019 and January 2nd, 2020). This report includes the analysis of `r nrow(lt_data)` responses but most questions are optional and specific questions have less answers.
+
+## Respondents Career Stage
+
+The majority of long-term survey respondents are graduate students. "Other
+academic staff" includes Librarians, Research Software Engineers, IT Staff, and
+Government Research Staff.
+
+```{r occupation, fig.height=6}
+plot_multi(
+  lt_data,
+  var = occupation
+)
+```
+
+## Respondents Field of Research, Work, or Study
+
+```{r domain, fig.height=8}
+plot_multi(
+  lt_data,
+  var = domain
+)
+
+```
+
+## Number of Carpentries Workshops Completed
+
+```{r workshop_attended_amount}
+plot_single(
+  lt_data,
+  var = workshop_attended_amount
+)
+```
+
+## Time Since Completing a Carpentries Workshop
+
+```{r workshop_attended_age}
+plot_single(
+  lt_data,
+  var = workshop_attended_age
+)
+```
+
+## Last Carpentries Workshop Attended
+
+```{r workshop_attended_type}
+plot_single(
+  lt_data,
+  var = workshop_attended_type,
+  label_levels = rev(c(
+    "Data Carpentry",
+    "Software Carpentry",
+    "Library Carpentry",
+    "I don't know"
+  ))
+)
+```
+
+## Content Covered at Last Carpentries Workshop
+
+```{r workshop_attended_content}
+plot_multi(
+  lt_data,
+  var = workshop_attended_content,
+  wrap_width = 14
+)
+```
+
+## Behaviors Adopted
+
+```{r behavior_adopted, fig.height=10}
+plot_multi(
+  lt_data,
+  var = behavior_adopted
+)
+```
+
+## Comparison of Programming Usage Pre- and Post-Carpentries Workshop
+
+```{r change_usage_frequency}
+
+lt_data %>%
+  select(frequency_usage_before, frequency_usage_after) %>%
+  drop_na() %>%
+  pivot_longer(
+    everything(),
+    names_to = "before_after",
+    names_prefix = "frequency_usage_",
+    values_to = "programming_usage"
+  ) %>%
+  mutate(
+    programming_usage = case_when(
+      grepl("tools", programming_usage) ~ "I don't use these tools",
+      TRUE ~ programming_usage
+    ),
+    before_after = case_when(
+      before_after == "before" ~ "Before attending workshop",
+      before_after == "after" ~ "After attending workshop"
+    )
+  ) %>%
+  count(before_after, programming_usage) %>%
+  group_by(before_after) %>%
+  mutate(
+    percent = n / sum(n)
+  ) %>%
+  ungroup() %>%
+  ggplot() +
+  geom_col(
+    aes(y = factor(
+      programming_usage,
+      levels = c(
+        "I don't use these tools",
+        "Less than once per year",
+        "Several times per year",
+        "Monthly",
+        "Weekly",
+        "Daily"
+      )),
+      x = percent,
+      fill = factor(before_after,
+        levels = c(
+          "Before attending workshop",
+          "After attending workshop"
+        ))),
+    position = "dodge"
+  ) +
+  scale_x_continuous(
+    expand=c(0, 0), labels = scales::percent,
+    breaks=seq(0, 1, by = 0.2), limits = c(0, 1.1)
+  ) +
+  scale_fill_viridis_d(end = .7) +
+  theme_minimal(base_size = 16) +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor  = element_blank(),
+    panel.spacing.x = unit(30, "pt"),
+    axis.line.y = element_line(color="#2b2b2b"),
+    plot.margin = unit(c(5, 30, 10, 30), "pt"),
+    plot.title = element_text(margin = margin(r = 100, b = 10),
+      face="bold"),
+    plot.subtitle = element_text(margin = margin(b = 10)),
+    plot.caption = element_text(size = 10, margin = margin(t = 10)),
+    legend.title = element_blank(),
+    legend.position = "top"
+  ) +
+  labs(
+    title = str_wrap("How has the frequency of usage of programming languages, databases, version control and/or the shell, changed before and after the workshop?", 55),
+    x = "% Respondents",
+    y = ""
+  )
+
+```
+
+## Change in Confidence in Tools Covered at Workshop
+
+```{r change_confidence}
+plot_single(
+  lt_data,
+  var = change_confidence,
+  label_levels = rev(c(
+    "I'm more confident now",
+    "I'm equally confident now",
+    "I'm less confident now"
+  ))
+)
+```
+
+## How Tools Help Respondents
+
+```{r how_tools_help, fig.height=8}
+plot_multi(
+  lt_data,
+  var = how_tools_help
+)
+```
+
+## Carpentries Workshop Contributing to Research
+
+```{r workshop_contributed_academics}
+
+plot_single(
+  lt_data,
+  var = workshop_contributed_academics,
+  label_levels = rev(c(
+    "Yes",
+    "No",
+    "Not sure"
+  ))
+)
+
+```
+
+## Potential Impact on Respondents
+
+```{r workshop_impact, fig.height=15}
+lt_data %>%
+  mutate_at(
+    .vars = vars(starts_with("impact_"), -ends_with("open")),
+    ~ as.character(match(., c(
+      "Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree")
+    ))
+  ) %>%
+  plot_group(
+  prefix = "impact",
+  y_levels = as.character(1:5),
+  title = " "
+  ) +
+  labs(subtitle = "(1: Strongly disagree, 3: Neutral, 5: Strongly agree)")
+```
+
+
+## Involvement in Carpentries Community Post-Workshop
+
+```{r community_involvement, fig.height=8}
+plot_multi(
+  lt_data,
+  var = community_involvement
+)
+```
+
+## Respondents Participating in Learning Activities
+
+```{r other_activities, fig.height=8}
+plot_multi(
+  lt_data,
+  var = other_activities
+)
+```
+
+## Respondents Who Recommended a Carpentries Workshop
+
+```{r has_recommended}
+plot_single(
+  lt_data,
+  var = has_recommended
+)
+```
+
+## Recommendation and Net Promoter Scores
+
+```{r recommendation_score}
+plot_single(
+  lt_data,
+  var = recommendation_score,
+  label_levels = as.character(0:10)
+)
+```
+
+```{r nps_score}
+nps_score <- nps(lt_data)
+```
+
+
+```{r nps, fig.height = 1.5}
+nps_plot(nps_score) +
+  labs(
+    title = "Net Promoter Score"
+  )
+```
+
+The [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter) (NPS) for
+our workshops according to the long-term survey is `r nps_score`. The NPS varies
+between -100 and +100. It is calculated by substracting the percentage of
+respondents who are considered "Promoters" (rating of 9 or 10) and the
+percentage of respondents who are considered "Detractors" (rating equal or below
+6). A positive NPS is deemed good, a NPS above 50 is deemed excellent, and an
+NPS above 70 is exceptional.
+
+
+## Respondents' Gender Identity
+
+Note: Gender identity responses apply to U.S. survey respondents only.
+
+```{r demographics_gender}
+plot_single(
+  lt_data,
+  var = demographics_gender,
+  label_levels = rev(
+    c(
+      "Female",
+      "Gender variant/non-conforming",
+      "Male",
+      "Prefer not to answer"
+    )
+  )
+)
+```
+
+## Respondents' Racial/Ethnic Identity
+
+Note: Racial/ethnic identity responses apply to U.S. survey respondents only.
+
+
+```{r demographics_ethnicity, warning = FALSE}
+
+ethnicity_short <- tibble::tribble(
+  ~short, ~full_name,
+  "American Indian or Alaska Native", "American Indian or Alaska Native(A person having origins in any of the original peoples of North and South America (including Central America), and who maintains a tribal affiliation or community attachment.)",
+  "Asian", "Asian(A person having origins in any of the original peoples of the Far East, Southeast Asia, or the Indian subcontinent including, for example, Cambodia, China, India, Japan, Korea, Malaysia, Pakistan, the Philippine Islands, Thailand, and Vietnam.)",
+  "Black or African American", "Black or African American(A person having origins in any of the Black racial groups of Africa – includes Caribbean Islanders and other of African origin.)",
+  "Hispanic or Latino", "Hispanic or Latino(a)(A person of Spanish-speaking origin or ancestry and/or Latin American origin or ancestry – includes Portuguese and Brazilians.)",
+  "White", "White(A person having origins in any of the original peoples of Europe, the Middle East, or North Africa.)",
+  "I prefer not to say", "I prefer not to say"
+)
+ethnicity_short <- ethnicity_short[rev(seq_len(nrow(ethnicity_short))), ]
+
+plot_multi(
+  lt_data,
+  var = demographics_ethnicity,
+  label_levels = ethnicity_short
+)
+```
+
+```{r full_legend}
+ethnicity_short %>%
+  mutate(full_name = gsub("\\(A person", " (A person", full_name)) %>%
+  rename(
+    "Label on Plot" = short,
+    "Description in Survey" = full_name
+  ) %>%
+  knitr::kable(format = table_format, booktabs = TRUE) %>%
+  kable_styling(bootstrap_options = "striped") %>%
+  kableExtra::column_spec(2, width = col_width)
+```
