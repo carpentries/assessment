@@ -1,6 +1,8 @@
 ---
-## To build this report, run: `source("build_reports.Rmd")` in the 
-## directory one level above
+## To build this report, run:
+## `source("build_reports.Rmd");
+## build_2020_longterm_report()`
+## in the directory one level above
 title: Analysis of The Carpentries Long-Term Surveys
 author:
   - François Michonneau^[https://twitter.com/fmic_]
