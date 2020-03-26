@@ -261,3 +261,62 @@ plot_group <- function(.data, prefix, y_levels, title) {
       title = str_wrap(title, 58)
     )
 }
+
+
+nps <- function(.data) {
+  nps_data <- .data %>%
+    dplyr::select(recommendation_score) %>%
+    dplyr::filter(!is.na(recommendation_score)) %>%
+    mutate(recommendation_score = as.numeric(recommendation_score)) %>%
+    mutate(nps = case_when(
+      recommendation_score >= 9 ~ "promoters",
+      recommendation_score < 7 ~ "detractors",
+      TRUE ~ "neutral"
+    )) %>%
+    group_by(nps) %>%
+    summarize(
+      n = n(),
+      p = n()/nrow(.)* 100
+    ) %>%
+    tidyr::complete(
+      nps = c("promoters", "neutral", "detractors"),
+      fill = list(n = 0, p = 0)
+    )
+
+  round(nps_data$p[nps_data$nps == "promoters"] -
+          nps_data$p[nps_data$nps == "detractors"])
+
+}
+
+nps_plot <- function(nps) {
+  tibble::tibble(nps = nps, y = 0) %>%
+    ggplot() +
+    geom_tile(
+      data = tibble::tibble(
+        x = seq(from = -100, to = 100, by = .5)
+      ),
+      aes(x = x, y = 0, fill = x), height = .2
+    ) +
+    scale_fill_viridis_c(option = "plasma") +
+    geom_polygon(data = tibble::tibble(
+      id = rep(1, 3),
+      x = c(nps, nps - 2, nps + 2),
+      y = c(.1, .2, .2)
+    ),
+    aes(x = x, y = y, group = id)
+    ) +
+    theme_minimal(base_size = 16) +
+    xlim(c(-100, 100)) +
+    ylim(c(-.1, .3)) +
+    theme(
+      axis.title.x = element_blank(),
+      axis.title.y = element_blank(),
+      axis.text.y = element_blank(),
+      axis.ticks.y = element_blank(),
+      axis.line.y = element_blank(),
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(),
+      plot.margin = unit(c(.2, 0, 0, 0), units = "lines"),
+      legend.position = "none"
+    )
+}
