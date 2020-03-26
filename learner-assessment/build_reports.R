@@ -6,6 +6,10 @@ build_2020_longterm_report <- function() {
     output_format = "html_document",
     output_file = "../reports/2020-01-long-term-report.html")
 
+  rmarkdown::render("reports-src/2020-01-long-term-survey.Rmd",
+    output_format = "pdf_document",
+    output_file = "../reports/2020-01-long-term-report.pdf")
+
 }
 
 ## Commands to build the PDF and HTML files for the 2018-07 short-term survey
