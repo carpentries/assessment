@@ -1,6 +1,12 @@
-add_percent <- function(.data) {
-  .data %>%
-    mutate(percent = n / sum(n) * 100)
+add_percent <- function(.d, denom = NULL) {
+  if (is.null(denom)) {
+    return(
+      .d %>%
+        dplyr::mutate(percent = .data$n / sum(.data$n) * 100)
+    )
+  }
+  .d %>%
+    dplyr::mutate(percent = .data$n / denom * 100)
 }
 
 ggassessment_lolli <- function(data, mapping, color, wrap_width = 20,
@@ -164,7 +170,7 @@ plot_multi <- function(.data, var, label_levels = NULL, wrap_width = 20) {
     dplyr::select(- !!quo_var) %>%
     dplyr::rename(!!str_var := "verbatim") %>%
     dplyr::count(!!quo_var) %>%
-    add_percent()
+    add_percent(denom = n_answers)
 
   if (is.null(label_levels)) {
     label_levels <- data_plot %>%
