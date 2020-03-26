@@ -318,7 +318,7 @@ plot_single(
 )
 ```
 
-## Net Promoter Score
+## Recommendation and Net Promoter Scores
 
 ```{r recommendation_score}
 plot_single(
@@ -328,17 +328,28 @@ plot_single(
 )
 ```
 
-## Country Where Respondents' Took Workshop
-
-
-```{r workshop_country}
-plot_single(
-  lt_data,
-  var = workshop_country
-)
+```{r nps_score}
+nps_score <- nps(lt_data)
 ```
 
-## Respondents' Gender Identity 
+
+```{r nps, fig.height = 1.5}
+nps_plot(nps_score) +
+  labs(
+    title = "Net Promoter Score"
+  )
+```
+
+The [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter) (NPS) for
+our workshops according to the long-term survey is `r nps_score`. The NPS varies
+between -100 and +100. It is calculated by substracting the percentage of
+respondents who are considered "Promoters" (rating of 9 or 10) and the
+percentage of respondents who are considered "Detractors" (rating equal or below
+6). A positive NPS is deemed good, a NPS above 50 is deemed excellent, and an
+NPS above 70 is exceptional.
+
+
+## Respondents' Gender Identity
 
 Note: Gender identity responses apply to U.S. survey respondents only.
 
