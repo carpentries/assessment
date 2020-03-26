@@ -159,38 +159,80 @@ plot_multi(
 )
 ```
 
-## Programming Usage Pre-Carpentries Workshop 
+## Comparison of Programming Usage Pre- and Post-Carpentries Workshop
 
-```{r frequency_usage_before, fig.height=8}
-plot_single(
-  lt_data,
-  var = frequency_usage_before,
-  label_levels = rev(c(
-    "Daily",
-    "Weekly",
-    "Monthly",
-    "Several times per year",
-    "Less than once per year",
-    "I had not been using tools like these"
-  ))
-)
-```
+```{r change_usage_frequency}
 
-## Programming Usage Post-Carpentries Workshop 
+lt_data %>%
+  select(frequency_usage_before, frequency_usage_after) %>%
+  drop_na() %>%
+  pivot_longer(
+    everything(),
+    names_to = "before_after",
+    names_prefix = "frequency_usage_",
+    values_to = "programming_usage"
+  ) %>%
+  mutate(
+    programming_usage = case_when(
+      grepl("tools", programming_usage) ~ "I don't use these tools",
+      TRUE ~ programming_usage
+    ),
+    before_after = case_when(
+      before_after == "before" ~ "Before attending workshop",
+      before_after == "after" ~ "After attending workshop"
+    )
+  ) %>%
+  count(before_after, programming_usage) %>%
+  group_by(before_after) %>%
+  mutate(
+    percent = n / sum(n)
+  ) %>%
+  ungroup() %>%
+  ggplot() +
+  geom_col(
+    aes(y = factor(
+      programming_usage,
+      levels = c(
+        "I don't use these tools",
+        "Less than once per year",
+        "Several times per year",
+        "Monthly",
+        "Weekly",
+        "Daily"
+      )),
+      x = percent,
+      fill = factor(before_after,
+        levels = c(
+          "Before attending workshop",
+          "After attending workshop"
+        ))),
+    position = "dodge"
+  ) +
+  scale_x_continuous(
+    expand=c(0, 0), labels = scales::percent,
+    breaks=seq(0, 1, by = 0.2), limits = c(0, 1.1)
+  ) +
+  scale_fill_viridis_d(end = .7) +
+  theme_minimal(base_size = 16) +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor  = element_blank(),
+    panel.spacing.x = unit(30, "pt"),
+    axis.line.y = element_line(color="#2b2b2b"),
+    plot.margin = unit(c(5, 30, 10, 30), "pt"),
+    plot.title = element_text(margin = margin(r = 100, b = 10),
+      face="bold"),
+    plot.subtitle = element_text(margin = margin(b = 10)),
+    plot.caption = element_text(size = 10, margin = margin(t = 10)),
+    legend.title = element_blank(),
+    legend.position = "top"
+  ) +
+  labs(
+    title = "How has the frequency of usage of programming languages, databases, version control and/or the shell changed before and after the workshop?",
+    x = "% Respondents",
+    y = ""
+  )
 
-```{r frequency_usage_after, fig.height=8}
-plot_single(
-  lt_data,
-  var = frequency_usage_after,
-  label_levels = rev(c(
-    "Daily",
-    "Weekly",
-    "Monthly",
-    "Several times per year",
-    "Less than once per year",
-    "I have not been using tools like these"
-  ))
-)
 ```
 
 ## Change in Confidence in Tools Covered at Workshop
