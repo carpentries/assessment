@@ -130,7 +130,13 @@ plot_single(
 ```{r workshop_attended_type}
 plot_single(
   lt_data,
-  var = workshop_attended_type
+  var = workshop_attended_type,
+  label_levels = rev(c(
+    "Data Carpentry",
+    "Software Carpentry",
+    "Library Carpentry",
+    "I don't know"
+  ))
 )
 ```
 
