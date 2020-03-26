@@ -71,9 +71,18 @@ lt_data <- bind_cols(
 )
 ```
 
-In the fourth quarter of 2019 The Carpentries collected feedback from community members who took a Carpentries workshop within six months. Find more information about this data collection period [on our blog](https://carpentries.org/blog/2019/11/long-term-impact-survey/). We are excited to release the results of our long-term survey, and invite community members to use this data to champion The Carpentries far and near. 
+In the fourth quarter of 2019 The Carpentries collected feedback from community
+members who took a Carpentries workshop within six months. Find more information
+about this data collection period [on our
+blog](https://carpentries.org/blog/2019/11/long-term-impact-survey/). We are
+excited to release the results of our long-term survey, and invite community
+members to use this data to champion The Carpentries far and near.
 
-The results of this survey are cumulative. We released [our first long-term survey results](https://datacarpentry.org/blog/2017/10/long-term-survey-results) in October 2017. You can find all of the data and code in our [assessment repository on GitHub](https://github.com/carpentries/assessment/tree/master/learner-assessment).
+We released [our first long-term
+survey results](https://datacarpentry.org/blog/2017/10/long-term-survey-results)
+in October 2017. You can find [the report](https://github.com/carpentries/assessment/blob/master/learner-assessment/archives/2017/reports/longtermreport_October2017.pdf) and [its source](https://github.com/carpentries/assessment/blob/master/learner-assessment/archives/2017/code/longtermreport_October2017.rmd) in the [assessment GitHub repository](https://github.com/carpentries/assessment/blob/master/learner-assessment/).
+
+The results included in this report only cover the data collected in 2019 (between November 1st, 2019 and January 2nd, 2020). This report includes the analysis of `r nrow(lt_data)` responses but most questions are optional and specific questions have less answers.
 
 ## Respondents Career Stage
 
