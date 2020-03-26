@@ -28,5 +28,6 @@ The published reports are listed below
   + [2017-September](https://carpentries.github.io/assessment/learner-assessment/archives/2017/code/2017-September-archived-analysis.html) Archived Pre and Post-Workshop Summary Plots.
   
 + __Carpentries Long-Term Survey__
+  + [2020-April](https://carpentries.github.io/assessment/learner-assessment/reports/2020-01-long-term-report.html)
   + [2018-January](https://carpentries.github.io/assessment/learner-assessment/archives/2018/code/2018_January_long_term_report.html) Report
   + [2017-October](https://carpentries.github.io/assessment/learner-assessment/archives/2017/code/longtermreport_October2017.html) Report
