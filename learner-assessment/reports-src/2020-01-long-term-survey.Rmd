@@ -5,8 +5,8 @@
 ## in the directory one level above
 title: Analysis of The Carpentries Long-Term Surveys
 author:
-  - François Michonneau^[https://twitter.com/fmic_]
-  - Kari L. Jordan^[https://twitter.com/drkariljordan]
+  - François Michonneau^[http://orcid.org/0000-0002-9092-966X]
+  - Kari L. Jordan^[https://orcid.org/0000-0003-4121-2432]
 date: April 1, 2020
 output:
   html_document:
