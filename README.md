@@ -4,7 +4,7 @@ This repository contains assessment data, source code, and analyses for The Carp
 
 [The Carpentries](https://carpentries.org) teach core computational and data skills to researchers. We also train instructors to teach workshops on computational skills. We value a culture of assessment, and consistently assess learner outcomes from workshops (short term),  programmatic efforts (instructor training), and the long-term impact we have on learners.
 
-Assessment projects are led by Kari L. Jordan, Director of Assessment and Community Equity. The data, code and reports in this repository are publicly available under the CC-BY 4.0 license. The projects in this repository are open for comments/feedback and collaboration.
+Assessment projects are led by The Carpentries Instructor Training Team. The data, code and reports in this repository are publicly available under the CC-BY 4.0 license. The projects in this repository are open for comments/feedback and collaboration.
 
 # Content
 The repository currently contains assessment of the following:
