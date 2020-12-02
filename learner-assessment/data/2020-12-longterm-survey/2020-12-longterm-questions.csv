@@ -1,0 +1,35 @@
+full,short
+I consent to taking this survey.,consent
+I am 18 years of age or above.,over_18
+This is my first time taking this survey.,first_time
+What is your current occupation/career stage? ,occupation
+Please indicate your relevant fields or disciplines. ,domain
+"How many Carpentries (Software, Data, Library) workshops have you completed as a learner?",workshop_attended_amount
+How long ago did you last complete a Carpentries workshop?,workshop_attended_age
+Which Carpentries workshop did you last attend?,workshop_attended_type
+Please tell us the location of the workshop you last attended.,workshop_attended_location
+What content was covered at the last Carpentries workshop you attended? Select all that apply.,workshop_attended_content
+Which of the following behaviors have you adopted as a result of attending a Carpentries workshop? Check all that apply.,behavior_adopted
+"Before attending a Carpentries workshop, how often did you use programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell?",frequency_usage_before
+"Since attending a Carpentries workshop, how often do you currently use programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell?",frequency_usage_after
+How would you rate your change in confidence in the tools that were covered during your Carpentries workshop(s) compared to before the workshop?,change_confidence
+"If you are using the tools you learned in a Carpentries workshop, how are they helping you? Check all that apply.",how_tools_help
+"Has attending a Carpentries workshop contributed to your writing of a research article, thesis, dissertation, or grant proposal?",workshop_contributed_academics
+"If you answered yes to question 16, please tell us how attending a Carpentries workshop contributed to your research writing.",workshop_contributed_academics_open
+What topics could we offer that would motivate you to take another Carpentries workshop? Please describe below.,new_topics
+The statements below reflect ways in which attending a Carpentries workshop may have impacted you. Please indicate your level of agreement with these statements.,impact
+Please tell us the most important way you were impacted as a result of attending a Carpentries workshop.,impact_open
+Please indicate your involvement in the Carpentries community since attending a Carpentries workshop. Check all that apply.,community_involvement
+Which of the following learning activities (for data management and analysis) have you participated in since attending a Carpentries workshop? Check all that apply.,other_activities
+Have you recommended a Carpentries workshop to a friend or colleague?,has_recommended
+How likely are you to recommend a Carpentries workshop to a friend or colleague?,recommendation_score
+OPTIONAL: Please tell us two outcomes you accomplished as a result of attending a Carpentries workshop.,outcomes_open
+"OPTIONAL: If you are not applying the skills you learned at a Carpentries workshop in your work, please tell us why.",why_not_applying_open
+"OPTIONAL: If you would like to make additional comments about your Carpentries workshop experience, or ways you've used the tools you learned in a Carpentries workshop, please comment below.",comments_open
+In what country is your workshop being held? ,workshop_country
+"*Demographic Questions*
+Thank you very much for participating in this survey.  We appreciate your input, which will help us to create a diverse, inclusive and welcoming event. 
+
+The Carpentries seek to promote a scientific computing community that is an inclusive and welcoming environment for all. In order to further this goal, we hope to understand the makeup of the community and the experiences of individuals within it. The data from this survey will help us to assess the diversity of our community.",demographics_prompt
+To which gender identity do you most identify?,gender
+How would you describe yourself? Check all that apply.,ethnicity

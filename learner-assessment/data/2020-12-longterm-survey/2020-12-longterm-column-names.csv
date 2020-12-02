@@ -1,0 +1,120 @@
+full,short
+#,respondent_id
+I consent to taking this survey.,consent
+I am 18 years of age or above.,over_18
+This is my first time taking this survey.,first_time
+Administrative Staff,occupation_administrator
+Analyst,occupation_analyst
+Commercial Software Developer,occupation_software_dev
+Faculty,occupation_faculty
+Government Employee,occupation_government
+Graduate Student,occupation_graduate
+Industry Employee,occupation_industry
+Librarian or Archivist,occupation_library
+Management,occupation_management
+Postdoctoral Researcher,occupation_postdoc
+Research Staff (including Research Programmer),occupation_research_staff
+Retired or Not Employed,occupation_retired_unemployed
+Support Staff (including Technical Support),occupation_support_staff
+Undergraduate Student,occupation_undergraduate
+Other,occupation_open
+Agricultural or Environmental Sciences,domain_environmental_sciences
+Biomedical or Health Sciences,domain_biomedical
+Chemistry,domain_chemistry
+"Civil, Mechanical, Chemical, or Nuclear Engineering",domain_engineering
+Computer Science or Electrical Engineering,domain_cs
+Earth Sciences,domain_earth_sciences
+Economics or Business,domain_business
+Education,domain_education
+"Genetics, Genomics, or Bioinformatics",domain_bioinformatics
+High Performance Computing,domain_hpc
+Humanities,domain_humanities
+Library and Information Science,domain_library_sciences
+Life Sciences,domain_life_sciences
+Mathematics or Statistics,domain_mathematics
+Medicine,domain_medicine
+"Organismal Biology (Ecology, Botany, Zoology, Microbiology, etc.)",domain_organismal_bio
+Physical Sciences,domain_physical_sciences
+"Planetary Sciences (Geology, Climatology, Oceanography, etc.)",domain_planetary_sciences
+Psychology or Neuroscience,domain_neurosciences
+Social Sciences,domain_social_sciences
+Space Sciences,domain_space_sciences
+Other_1,domain_open
+"How many Carpentries (Software, Data, Library) workshops have you completed as a learner?",workshop_attended_amount
+How long ago did you last complete a Carpentries workshop?,workshop_attended_age
+Which Carpentries workshop did you last attend?,workshop_attended_type
+Please tell us the location of the workshop you last attended.,workshop_attended_location
+Cloud Computing,workshop_attended_content_cloud
+Git,workshop_attended_content_git
+MATLAB,workshop_attended_content_matlab
+Mercurial,workshop_attended_content_mercurial
+OpenRefine,workshop_attended_content_openrefine
+Python,workshop_attended_content_python
+R,workshop_attended_content_r
+Spreadsheets,workshop_attended_content_spreadsheets
+SQL,workshop_attended_content_sql
+Unix Shell,workshop_attended_content_shell
+I don't remember.,workshop_attended_content_dont_remember
+Other_2,workshop_attended_content_open
+Improving data management and project organization.,behavior_adopted_improve_data_management
+Developing a data management and analysis plan.,behavior_adopted_data_plan
+"Using databases, scripts and queries to manage large data sets.",behavior_adopted_db_large_data
+Transforming step-by-step workflows into scripts or functions.,behavior_adopted_writing_functions
+"Using programming languages like R or Python, or the command line to automate repetitive tasks.",behavior_adopted_automation
+Reusing code.,behavior_adopted_code_reuse
+Using version control to manage code.Using version control to collaborate online (in public or private repositories).,behavior_adopted_version_control_collaboration
+Sharing code or data publicly on places like GitHub or FigShare.,behavior_adopted_share_data
+Other_3,behavior_adopted_open
+"Before attending a Carpentries workshop, how often did you use programming languages (R, Python, etc.), databases (Access, SQL, etc.), version control software and/or the shell?",frequency_usage_before
+I have not been using tools like these.,frequency_usage_after_no_use
+Less than once per year.,frequency_usage_after_less_yearly
+Several times per year.,frequency_usage_after_yearly
+Monthly.,frequency_usage_after_monthly
+Weekly.,frequency_usage_after_weekly
+Daily.,frequency_usage_after_daily
+Other_4,frequency_usage_open
+I'm more confident now.,change_confidence_more
+I'm equally confident now.,change_confidence_equally
+I'm less confident now.,change_confidence_less
+Other_5,change_confidence_open
+They are improving my overall efficiency.,how_tools_help_efficiency
+They are improving my ability to analyze data.,how_tools_help_analyze_data
+They are improving my ability to manage data.,how_tools_help_manage_data
+The tools I learned have not helped me with my work.,how_tools_help_does_not_how_tools_help
+I am not using the tools I learned.,how_tools_help_tool_not_used
+Other_6,how_tools_help_open
+"Has attending a Carpentries workshop contributed to your writing of a research article, thesis, dissertation, or grant proposal?",workshop_contributed_academics
+"If you answered yes to question 16, please tell us how attending a Carpentries workshop contributed to your research writing.",workshop_contributed_academics_open
+What topics could we offer that would motivate you to take another Carpentries workshop? Please describe below.,new_topics
+I have used skills I learned at the workshop to advance my career.,impact_career_advancement
+I have been motivated to seek more knowledge about the tools I learned at the workshop.,impact_motivation_learning
+I have made my analyses more reproducible as a result of completing the workshop.,impact_increase_reproducibility
+I have received professional recognition for my work as a result of using the tools I learned at the workshop.,impact_professional_recognition
+I have improved my coding practices as a result of completing the workshop.,impact_improve_coding_practice
+My research productivity has improved as a result of completing the workshop.,impact_research_productivity
+I have gained confidence in working with data as a result of completing the workshop.,impact_increase_confidence
+Please tell us the most important way you were impacted as a result of attending a Carpentries workshop.,impact_open
+Please indicate your involvement in the Carpentries community since attending a Carpentries workshop. Check all that apply.,community_involvement
+Other_7,community_involvement_open
+Which of the following learning activities (for data management and analysis) have you participated in since attending a Carpentries workshop? Check all that apply.,other_activities
+Other_8,other_activities_open
+Have you recommended a Carpentries workshop to a friend or colleague?,has_recommended
+How likely are you to recommend a Carpentries workshop to a friend or colleague?,recommendation_score
+OPTIONAL: Please tell us two outcomes you accomplished as a result of attending a Carpentries workshop.,outcomes_open
+"OPTIONAL: If you are not applying the skills you learned at a Carpentries workshop in your work, please tell us why.",why_not_applying_open
+"OPTIONAL: If you would like to make additional comments about your Carpentries workshop experience, or ways you've used the tools you learned in a Carpentries workshop, please comment below.",comments_open
+In what country is your workshop being held?,workshop_country
+To which gender identity do you most identify?,gender
+Other_9,gender_open
+"American Indian or Alaska Native (Having origins in any of the original peoples of North and South America (including Central America), and who maintains a tribal affiliation or community attachment.)",ethnicity_american_indian
+"Asian (Having origins in any of the original peoples of the Far East, Southeast Asia, or the Indian subcontinent including, for example, Cambodia, China, India, Japan, Korea, Malaysia, Pakistan, Indonesia, the Philippine Islands, Thailand, and Vietnam.)",ethnicity_asian
+Black or African American (Having origins in any of the Black racial groups of Africa – includes Caribbean Islanders and others of African origin.),ethnicity_african_american
+Hispanic or Latino(a) (A person of Spanish-speaking origin or ancestry and/or Latin American origin or ancestry – includes Portuguese and Brazilians.),ethnicity_hispanic
+"Native Hawaiian or Other Pacific Islander (Having origins in any of the original peoples of Hawaii, Guam, Samoa, or other Pacific Islands.)",ethnicity_pacific_islander
+"White (Having origins in any of the original peoples of Europe, the Middle East, or North Africa.)",ethnicity_white
+I prefer not to say.,ethnicity_prefer_not_say
+Other_10,ethnicity_open
+slug,slug_auto
+Start Date (UTC),start_datetime
+Submit Date (UTC),end_datetime
+Network ID,network_id
