@@ -1,7 +1,14 @@
 library(rmarkdown)
 
+build_2020_lc_report <- function() {
 
-build_2020_longterm_report <- function() {
+  rmarkdown::render("reports-src/2020-12-lc.Rmd",
+    output_format = "html_document",
+    output_file = "../reports/2020-12-lc-report.html")
+
+}
+
+cbuild_2020_longterm_report <- function() {
   rmarkdown::render("reports-src/2020-01-long-term-survey.Rmd",
     output_format = "html_document",
     output_file = "../reports/2020-01-long-term-report.html")

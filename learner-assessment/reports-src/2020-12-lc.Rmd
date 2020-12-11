@@ -1,0 +1,396 @@
+---
+## To build this report, run:
+## `source("build_reports.Rmd");
+## build_2020_lc_report()`
+## in the directory one level above
+title: Analysis of the Library Carpentry Workshop Survey Results
+author:
+  - François Michonneau^[http://orcid.org/0000-0002-9092-966X]
+  - Kari L. Jordan^[https://orcid.org/0000-0003-4121-2432]
+date: December xxth, 2020
+output:
+  html_document:
+    self_contained: true
+    toc: true
+    toc_float: true
+    lib_dir: "../reports/libs"
+#  pdf_document:
+#    toc: true
+#    highlight: zenburn
+#    df_print: kable
+#    includes:
+#      in_header: 2020-01-longterm-header.tex
+---
+
+```{r setup, include=FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+library(ggalt)
+library(ggrepel)
+
+
+if (knitr::opts_knit$get("rmarkdown.pandoc.to") == "latex") {
+  figout <- "\\maxwidth"
+  col_width <- "7cm"
+  table_format <- "latex"
+} else {
+  figout <- NULL
+  col_width <- "70%"
+  table_format <- "html"
+}
+
+## puts all figures in figures folder
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  fig.path='../figures/2020-01-longterm-',
+  fig.width = 10,
+  fig.retina = 2,
+  out.width = figout
+)
+
+source("../code/2020-12-lc/plots.R")
+
+base_path <- "../data/2020-12-lc"
+
+lc_pre_files <- list.files(
+  path = base_path,
+  pattern = "lc-pre",
+  full.names = TRUE
+)
+
+lc_pre <- map_dfc(
+  lc_pre_files,
+  ~ read_csv(., col_types = cols(.default = "c"))
+)
+
+
+lc_post_files <- list.files(
+  path = base_path,
+  pattern = "lc-post",
+  full.names = TRUE
+)
+
+lc_post <- map_dfc(
+  lc_post_files,
+  ~ read_csv(., col_types = cols(.default = "c"))
+) %>%
+  mutate(
+    recommendation_score = round(as.numeric(recommendation_score))
+  ) 
+```
+
+## Domains
+
+```{r domains, fig.height=18}
+plot_multi(
+  lc_pre,
+  domain
+)
+```
+
+## Occupation
+
+```{r occupation, fig.height=12}
+plot_multi(
+  lc_pre,
+  occupation
+)
+```
+
+## Frequency
+
+```{r frequency, fig.height=17}
+plot_group(
+  lc_pre,
+  prefix = "frequency",
+  y_levels = c(
+    "Never",
+    "Less than once per year",
+    "Several times per year",
+    "Monthly",
+    "Weekly",
+    "Daily"
+  ),
+  title = "How often do you use the following?"
+)
+```
+
+## Satisfaction
+
+
+```{r satisfaction}
+plot_single(
+  lc_pre,
+  current_satisfaction_level,
+  label_levels = c(
+        "Never thought about this",
+        "Not applicable",
+        "Not sure",
+        "Very unsatisfied",
+        "Unsatisfied",
+        "Neutral",
+        "Satisfied",
+        "Very satisfied"
+      )
+)
+```
+
+## Why attending?
+
+```{r why_attending, fig.height=12}
+plot_multi(
+  lc_pre,
+  why_attending
+)
+```
+
+## How did you hear about this workshop?
+
+```{r acquisition, fig.height=12}
+plot_multi(
+  lc_pre,
+ acquisition 
+)
+```
+
+## Gender (US participants only)
+
+```{r gender}
+plot_single(
+  lc_pre,
+  gender,
+  label_levels = rev(c(
+    "Female",
+    "Male",
+    "Gender variant/non-conforming",
+    "Prefer not to answer",
+    "Not listed (please specify)"
+  ))
+)
+```
+
+## Ethnicity (US participants only)
+
+```{r ethnicity, fig.height=8}
+
+ethnicity_short <- tibble::tribble(
+  ~short, ~full_name,
+  
+  "Asian", "Asian (Having origins in any of the original peoples of the Far East, Southeast Asia, or the Indian subcontinent including, for example, Cambodia, China, India, Japan, Korea, Malaysia, Pakistan, Indonesia, the Philippine Islands, Thailand, and Vietnam.)",
+  
+  "Black or African American", "Black or African American (Having origins in any of the Black racial groups of Africa – includes Caribbean Islanders and others of African origin.)",
+ 
+  
+  "Hispanic/Latino(a)", "Hispanic or Latino(a) (A person of Spanish-speaking origin or ancestry and/or Latin American origin or ancestry – includes Portuguese and Brazilians.)",
+  
+  
+  "American Indian or Alaska Native", "American Indian or Alaska Native (Having origins in any of the original peoples of North and South America (including Central America), and who maintains a tribal affiliation or community attachment.)",
+  
+  "Native Hawaiian or Other Pacific Islander", "Native Hawaiian or Other Pacific Islander (Having origins in any of the original peoples of Hawaii, Guam, Samoa, or other Pacific Islands.)",
+  
+  "White", "White (Having origins in any of the original peoples of Europe, the Middle East, or North Africa.)",
+
+  "I prefer not to say", "I prefer not to say."
+)
+
+ethnicity_short <- ethnicity_short[rev(seq_len(nrow(ethnicity_short))), ]
+
+plot_multi(
+  lc_pre,
+  var = ethnicity
+) +
+  scale_y_discrete(
+    labels =  set_names(
+      str_wrap(ethnicity_short$short, 20),
+      ethnicity_short$full_name
+    )
+  )
+```
+
+## Post
+
+### Change in skills
+
+
+```{r skills_pre_workshop, fig.height=12}
+lc_pre_skills <- lc_pre %>%
+  select(learner_id, starts_with("skill_")) %>%
+  rename_with(~ paste0(., "_pre"), .cols = starts_with("skill")) %>%
+  distinct(learner_id, .keep_all = TRUE)
+    
+plot_group(
+  lc_pre_skills,
+  prefix = "skill_",
+  y_levels = as.character(1:5),
+  title = "distribution pre workshop"
+  )
+```
+
+```{r skills_post_workshop, fig.height=12}
+lc_post_skills <- lc_post %>%
+  select(learner_id, starts_with("skill_"))  %>%
+  rename_with(~ paste0(., "_post"), .cols = starts_with("skill")) %>%
+  distinct(learner_id, .keep_all = TRUE)
+
+plot_group(
+  lc_post_skills,
+  prefix = "skill_",
+  y_levels = as.character(1:5),
+  title = "distribution post workshop"
+)
+```
+
+```{r skill_comparison, fig.height=8}
+lc_comp <- inner_join(
+  lc_pre_skills,
+  lc_post_skills,
+  by = "learner_id"
+)
+
+
+n_lc_comp <- nrow(lc_comp)
+
+lc_comp <- lc_comp %>%
+  pivot_longer(
+    - learner_id,
+    names_to = c("skill", "pre_post"),
+    names_pattern = "(.+)_(pre|post)", 
+    values_to = "score"
+  ) %>%
+  pivot_wider(
+    names_from = pre_post,
+    values_from = score
+  ) %>%  
+  mutate(
+    pre = as.numeric(pre),
+    post = as.numeric(post), 
+    change = post - pre
+  ) %>%
+  filter(
+    skill != "skill_reproducibility_programming",
+    skill != "skill_easier_programming"
+  ) %>%  
+  group_by(skill) %>%
+  summarize(
+    pre = mean(pre, na.rm = TRUE),
+    post = mean(post, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+
+comp_labels <- pre_post_labels(lc_comp)
+
+
+lc_comp %>%
+  pivot_longer(
+    - skill,
+    names_to = "pre_post",
+    values_to = "mean"
+  ) %>% 
+  ggplot(
+    aes(
+      x = factor(pre_post, levels = c("pre", "post")),
+      y = mean, color = skill
+    )
+  ) +
+  geom_point() +
+  geom_line(aes(group = skill)) +
+  geom_text_repel(
+    data = comp_labels, 
+    aes(
+      x = pre_post,
+      y = post,
+      label = labels_with_diff
+    ),
+    color = "black", hjust = 0, direction = "y",
+    segment.size = .3, nudge_x = .1,
+    xlim = c(0, 2.7),
+    inherit.aes = FALSE
+    ) +
+  scale_color_viridis_d(
+    name = "",
+    breaks = c("pre", "post"),
+    labels = c("Pre-workshop Score", "Post-workshop Score"),
+    end = .7) +
+  theme_minimal() +
+  coord_cartesian(clip = "off") +
+  scale_x_discrete(expand = expansion(add = c(-.2))) +
+  ylim(c(1, 5)) +
+  labs(
+    title = strwrap(
+      paste0(
+        "Change in self-reported skill and confidence levels pre- and ",
+          "post-workshop (n = ", n_lc_comp, ")"
+      ),
+      50
+    ),
+    x = "",
+    y = "Mean score"
+  ) +
+    theme(
+      text = element_text(size = 16),
+      panel.grid.minor  = element_blank(),
+      panel.spacing.x = unit(30, "pt"),
+      axis.line.y = element_line(color="#2b2b2b"),
+      plot.margin = unit(c(1, 8, 1, 2), "cm"),
+      plot.title = element_text(margin = margin(r = 150, b = 10),
+        face="bold"),
+      plot.subtitle = element_text(margin = margin(b = 10)),
+      plot.caption = element_text(size = 10, margin = margin(t = 10))
+    )
+```
+
+### Perception safe environment
+
+```{r perception_safe_environment}
+plot_single(
+  lc_post,
+  var = perception_safe_environment
+)
+```
+
+### Perception applicability
+
+```{r perception_applicability}
+plot_single(
+  lc_post,
+  var = perception_skill_applicability
+)
+```
+
+### Instructors
+
+```{r instructors, fig.height=12}
+plot_group(
+  lc_post,
+  prefix = "instructors_",
+  y_levels = as.character(1:5),
+  title = "Please rate your level of agreement with the following statements"  
+)
+```
+
+### Recommendation scores
+
+```{r recommendation_score}
+plot_single(
+  lc_post, 
+  recommendation_score,
+  label_levels = 0:10
+)
+```
+
+### Net promoter score
+
+```{r nps, fig.height=2}
+lc_nps <- nps(lc_post)
+nps_plot(lc_nps)
+```
+
+
+The [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter) (NPS) for
+our LC workshops is `r lc_nps`. The NPS varies between -100 and +100. It is
+calculated by substracting the percentage of respondents who are considered
+"Promoters" (rating of 9 or 10) and the percentage of respondents who are
+considered "Detractors" (rating equal or below 6). A positive NPS is deemed
+good, a NPS above 50 is deemed excellent, and an NPS above 70 is exceptional.
+

@@ -1,0 +1,46 @@
+original_name,short_name,which
+Were there any accessibility issues that affected your ability to participate in this workshop? ,accessibility_issues,post
+"If you answered yes to the question above, please describe what the issues were.",accessibility_open,post
+Do you have accessibility requirements? ,accessibility_requirements,post
+How did you find out about this workshop?,acquisition,both
+Do you consent to taking this survey?,consent,both
+"Please rate your level of satisfaction with your current data management and analysis workflow (i.e. how you collect, organize, store and analyze your data).",current_satisfaction_level,pre
+Please indicate your relevant fields or disciplines.,domain,pre
+How would you describe yourself? Choose one or more of the following groups.,ethnicity,pre
+A command shell (usually accessed through Terminal on Mac OS X or PowerShell on Windows),frequency_command_line,pre
+"Databases (SQL, Access, etc.)",frequency_databases,pre
+"Programming languages (R, Python, etc.)",frequency_programming_language,pre
+"Statistical analysis programs with a graphical user interface (SPSS, SAS, etc.)",frequency_statistical_gui,pre
+"Version control software (Git, Subversion (SVN), Mercurial, etc.)",frequency_version_control,pre
+With what gender do you most identify?,gender,pre
+Please share what you most hope to learn from attending this workshop.,hope_open,pre
+I was able to get clear answers to my questions from the instructors.,instructors_clear_answers,post
+I felt comfortable interacting with the instructors.,instructors_comfortable,post
+The instructors were enthusiastic about the workshop.,instructors_enthusiastic,post
+Please provide an example of how an instructor or helper affected your learning experience. ,instructors_impact_open,post
+The instructors were knowledgeable about the material being taught.,instructors_knowledgeable,post
+Please enter a unique identifier as follows: Number of siblings (as numeric) + First two letters of the city you were born in (lowercase) + First three letters of your current street (lowercase).,learner_id,both
+What is your current occupation/career stage?,occupation,pre
+What operating system is on the computer you are bringing to the workshop?,os,pre
+Are you 18 years of age or above?,over_18,both
+I can immediately apply what I learned at this workshop.,perception_skill_applicability,post
+I felt comfortable learning in this workshop environment.,perception_safe_environment,post
+How likely are you to recommend this workshop to a friend or colleague? ,recommendation_score,post
+I am confident in my ability to make use of programming software to work with data.,skill_confidence_programming,both
+"Having access to the original, raw data is important to be able to repeat an analysis.",skill_data_raw,both
+Using a programming language (like R or Python) can make me more efficient at working with data.,skill_efficient_programming,both
+"While working on a programming project, if I got stuck, I can find ways of overcoming the problem.",skill_overcome_problem,both
+Using a programming language (like R or Python) can make my analyses easier to reproduce.,skill_reproducibility_programming,both
+I know how to search for answers to my technical questions online.,skill_search_answers,both
+"I can write a small program, script, or macro to address a problem in my own work.",skill_write_program,both
+slug,slug_auto,both
+"What is the identifier for your workshop? It is in the YYYY-MM-DD-sitename format and is used in the URL for the workshop website or the Etherpad you used.
+
+Please copy and paste the workshop id into the text box below.
+",slug_manual,both
+Please list the major strengths of this workshop. ,strengths_open,post
+Submitted At,submitted_at,both
+Token,token,both
+Why are you attending this workshop?,why_attending,pre
+In what country is your workshop being held?,workshop_country,both
+Which of the following workshops are you attending?,workshop_type,pre
