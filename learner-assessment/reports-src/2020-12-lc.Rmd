@@ -7,7 +7,7 @@ title: Analysis of the Library Carpentry Workshop Survey Results
 author:
   - François Michonneau^[http://orcid.org/0000-0002-9092-966X]
   - Kari L. Jordan^[https://orcid.org/0000-0003-4121-2432]
-date: December xxth, 2020
+date: December 11th, 2020
 output:
   html_document:
     self_contained: true
