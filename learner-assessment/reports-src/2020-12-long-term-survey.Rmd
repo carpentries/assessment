@@ -7,7 +7,7 @@ title: Analysis of The Carpentries Long-Term Surveys
 author:
   - François Michonneau^[http://orcid.org/0000-0002-9092-966X]
   - Kari L. Jordan^[https://orcid.org/0000-0003-4121-2432]
-date: December xx, 2020
+date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
   html_document:
     self_contained: true   ## <--- change this
@@ -22,7 +22,7 @@ output:
       in_header: 2020-12-longterm-header.tex
 ---
 
-```{r TODO}
+```{r TODO, include = FALSE}
 ### - [ ] re-export data to remove network_id, consent, over_18, start_ and
 ###   end__datetime
 
@@ -127,7 +127,7 @@ We released [our first long-term
 survey results](https://datacarpentry.org/blog/2017/10/long-term-survey-results)
 in October 2017. You can find [the report](https://github.com/carpentries/assessment/blob/master/learner-assessment/archives/2017/reports/longtermreport_October2017.pdf) and [its source](https://github.com/carpentries/assessment/blob/master/learner-assessment/archives/2017/code/longtermreport_October2017.rmd) in the [assessment GitHub repository](https://github.com/carpentries/assessment/blob/master/learner-assessment/).
 
-We released [our second long-term survey results]() ....
+We released our latest long-term survey results in April 2020. You can find [the report](https://github.com/carpentries/assessment/blob/master/learner-assessment/reports/2020-01-long-term-report.pdf) and [its source](https://github.com/carpentries/assessment/blob/master/learner-assessment/reports-src/2020-01-long-term-survey.Rmd) in the [assessment GitHub repository](https://github.com/carpentries/assessment/blob/master/learner-assessment/).
 
 The results included in this report only cover the data collected in 2020 (between September 28th, 2020 and November 1st, 2020). This report includes the analysis of `r nrow(lt_data)` responses but most questions are optional and specific questions have less answers.
 
@@ -147,6 +147,8 @@ plot_multi(
 
 ## Respondents Field of Research, Work, or Study
 
+The largest percentages of long-term survey respondents were from the Life Sciences (19%) followed by Library and Information  Science (17%).
+
 ```{r domain, fig.height=15}
 plot_multi(
   lt_data,
@@ -157,6 +159,8 @@ plot_multi(
 
 ## Number of Carpentries Workshops Completed
 
+The majority of long-term survey respondents have completed just one Carpentries (Software, Data, or Library) workshop. The percentage of those who have completed only one workshop is up from the previous year.
+
 ```{r workshop_attended_amount}
 plot_single(
   lt_data,
@@ -166,6 +170,8 @@ plot_single(
 
 ## Time Since Completing a Carpentries Workshop
 
+The majority of long-term survey respondents last completed a Carpentries workshop between 0 and 6 months ago. In 2019, there was a higher percentage of responses from those who had completed a workshop more than a year ago. 
+
 ```{r workshop_attended_age}
 plot_single(
   lt_data,
@@ -174,6 +180,8 @@ plot_single(
 ```
 
 ## Last Carpentries Workshop Attended
+
+Long-term survey respondents were almost evenly split on whether their last Carpentries workshop was a Data or Software Carpentry workshop with Software Carpentry being slightly more common than Data Carpentry. A much smaller percentage of respondents said their last Carpentries workshop was a Library Carpentry workshop. 
 
 ```{r workshop_attended_type}
 plot_single(
@@ -190,6 +198,8 @@ plot_single(
 
 ## Content Covered at Last Carpentries Workshop
 
+In 2020, the most common content taught (as reported by long-term survey respondents) was Git followed by the Unix Shell and Python. A much lower percentage of respondents reported their workshop covered R compared with 2019. 
+
 ```{r workshop_attended_content, fig.height=8}
 plot_multi(
   lt_data,
@@ -199,6 +209,8 @@ plot_multi(
 ```
 
 ## Behaviors Adopted
+
+Long-term survey respondents reported that they were most likely to adopt _using version control to manage code_ followed by _Other_ behaviors. 
 
 ```{r behavior_adopted, fig.height=12}
 clean_labels <- structure(
@@ -237,6 +249,8 @@ plot_multi(
 ```
 
 ## Comparison of Programming Usage Pre- and Post-Carpentries Workshop
+
+Long-term survey respondents reported using programming languages, databases, version control and/or the shell more frequently after taking a Carpentries workshop. Of particular note is the increase in people who now use these tools daily or weekly as well as the drastic decrease in those reporting they don't use these tools.
 
 ```{r change_usage_frequency, fig.height=6}
 
@@ -320,6 +334,8 @@ lt_data %>%
 
 ## Change in Confidence in Tools Covered at Workshop
 
+The vast majority of long-term survey respondents reported that they are more confident using tools covered in the workshop after compared to before. 
+
 ```{r change_confidence}
 plot_single(
   lt_data,
@@ -335,6 +351,8 @@ plot_single(
 
 ## How Tools Help Respondents
 
+Long-term survey respondents report that using the tools they learned in a Carpentries workshop are improving their overall efficiency as well as their ability to analyze and manage data. 
+
 ```{r how_tools_help, fig.height=8}
 plot_multi(
   lt_data,
@@ -343,6 +361,8 @@ plot_multi(
 ```
 
 ## Carpentries Workshop Contributing to Research
+
+For about a quarter of long-term survey respondents, attending a Carpentries workshop has contributed to their writing of a research article, thesis, dissertation, or grant proposal. 
 
 ```{r workshop_contributed_academics}
 
@@ -359,6 +379,14 @@ plot_single(
 
 ## Potential Impact on Respondents
 
+As a result of taking a Carpentries workshop, the majority of long-term survey respondents agree that they:
+
+* have used skills learned at the workshop to advance their career; 
+* improved their coding practices;
+* have gained confidence in working with data;
+* made their analyses more reproducible; and 
+* been motivated to seek more knowledge about the tools learned.
+
 ```{r workshop_impact, fig.height=17}
 lt_data %>%
   plot_group(
@@ -372,6 +400,8 @@ lt_data %>%
 
 ## Involvement in Carpentries Community Post-Workshop
 
+Following the workshop, the majority of long-term survey respondents have subscribed to the Carpentries newsletter. Smaller numbers of respondents have gotten involved in the Carpentries community in other ways, include attending a community discussion, engaging on Twitter, and becoming a workshop helper.
+
 ```{r community_involvement, fig.height=8}
 plot_multi(
   lt_data,
@@ -381,6 +411,8 @@ plot_multi(
 ```
 
 ## Respondents Participating in Learning Activities
+
+Many long-term survey respondents have continued learning after taking a Carpentries workshop. The most common ways they continued learning were by using both Carpentries and non-Carpentries self-guided lesson material. Smaller numbers participated in additional courses (e.g., online short courses, in-person short courses, or semester-long courses).
 
 ```{r other_activities, fig.height=8}
 plot_multi(
@@ -392,6 +424,7 @@ plot_multi(
 
 ## Respondents Who Recommended a Carpentries Workshop
 
+The vast majority of long-term survey respondents reported that they have recommended a Carpentries workshop to a friend or colleague. 
 
 ```{r has_recommended}
 plot_single(
@@ -435,6 +468,8 @@ NPS above 70 is exceptional.
 
 Note: Gender identity responses apply to U.S. survey respondents only.
 
+A higher percentage of US-based long-term survey respondents are females compared with males or those who are gender variant/non-conforming.
+
 ```{r demographics_gender}
 plot_single(
   lt_data,
@@ -453,6 +488,8 @@ plot_single(
 ## Respondents' Racial/Ethnic Identity
 
 Note: Racial/ethnic identity responses apply to U.S. survey respondents only.
+
+The highest percentage of US-based long-term survey respondents self-identify as White with smaller percentages identifying as Hispanic or Latino/a, Black or African American, and Asian. 
 
 
 ```{r demographics_ethnicity, warning = FALSE}
