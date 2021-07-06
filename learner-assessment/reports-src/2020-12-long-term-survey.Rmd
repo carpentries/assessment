@@ -22,12 +22,6 @@ output:
       in_header: 2020-12-longterm-header.tex
 ---
 
-```{r TODO, include = FALSE}
-### - [ ] re-export data to remove network_id, consent, over_18, start_ and
-###   end__datetime
-
-```
-
 
 ```{r setup, include=FALSE}
 suppressPackageStartupMessages(library(tidyverse))
