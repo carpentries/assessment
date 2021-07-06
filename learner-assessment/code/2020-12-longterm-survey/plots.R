@@ -53,7 +53,7 @@ ggassessment_lolli <- function(data, mapping, legend_labels, wrap_width = 20,
       gg +
         scale_colour_manual(
           values = c("#071159", "#ea9220"),
-          guide = FALSE
+          guide = "none"
         )
     )
   }
@@ -423,12 +423,16 @@ nps_plot <- function(nps) {
       aes(x = x, y = 0, fill = x), height = .2
     ) +
     scale_fill_viridis_c(option = "plasma") +
-    geom_polygon(data = tibble::tibble(
-      id = rep(1, 3),
-      x = c(nps, nps - 2, nps + 2),
-      y = c(.1, .2, .2)
-    ),
-    aes(x = x, y = y, group = id)
+    geom_polygon(
+      data = tibble::tibble(
+        id = rep(1, 3),
+        x = c(nps, nps - 2, nps + 2),
+        y = c(.1, .2, .2)
+      ),
+      aes(x = x, y = y, group = id)
+    ) +
+    geom_text(
+      aes(x = nps, y = .25, label = nps)
     ) +
     theme_minimal(base_size = 16) +
     xlim(c(-100, 100)) +
