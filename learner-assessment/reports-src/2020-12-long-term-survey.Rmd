@@ -5,7 +5,8 @@
 ## in the directory one level above
 title: Analysis of The Carpentries Long-Term Surveys
 author:
-  - François Michonneau^[http://orcid.org/0000-0002-9092-966X]
+  - Kelly Barnes^[https://orcid.org/0000-0001-5797-5181]
+  - François Michonneau^[https://orcid.org/0000-0002-9092-966X]
   - Kari L. Jordan^[https://orcid.org/0000-0003-4121-2432]
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
