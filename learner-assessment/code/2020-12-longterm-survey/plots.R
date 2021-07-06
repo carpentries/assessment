@@ -53,7 +53,7 @@ ggassessment_lolli <- function(data, mapping, legend_labels, wrap_width = 20,
       gg +
         scale_colour_manual(
           values = c("#071159", "#ea9220"),
-          guide = FALSE
+          guide = "none"
         )
     )
   }
