@@ -11,7 +11,7 @@ author:
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
   html_document:
-    self_contained: true   ## <--- change this
+    self_contained: false
     toc: true
     toc_float: true
     lib_dir: "../reports/libs"
