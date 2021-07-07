@@ -1,0 +1,85 @@
+column,verbatim,short
+occupation,Administrative Staff,admin
+occupation,Analyst,analyst
+occupation,Commercial Software Developer,dev
+occupation,Faculty,faculty
+occupation,Government Employee,gov
+occupation,Graduate Student,grad
+occupation,Industry Employee,industry
+occupation,Librarian or Archivist,librarian
+occupation,Management,management
+occupation,Postdoctoral Researcher,postdoc
+occupation,Research Staff (including Research Programmer),research_staff
+occupation,Retired or Not Employed,no_activity
+occupation,Support Staff (including Technical Support),support
+occupation,Undergraduate Student,undergrad
+occupation,Other,other
+domain,Agricultural or Environmental Sciences,envsci
+domain,Biomedical or Health Sciences,biomed
+domain,Chemistry,chem
+domain,"Civil, Mechanical, Chemical, or Nuclear Engineering",eng
+domain,Computer Science or Electrical Engineering,cs
+domain,Earth Sciences,earth
+domain,Economics or Business,eco
+domain,Education,edu
+domain,"Genetics, Genomics, or Bioinformatics",gen
+domain,High Performance Computing,hpc
+domain,Humanities,huma
+domain,Library and Information Science,lib
+domain,Life Sciences,lifesci
+domain,Mathematics or Statistics,maths
+domain,Medicine,med
+domain,"Organismal Biology (Ecology, Botany, Zoology, Microbiology, etc.)",orgbio
+domain,Physical Sciences,physci
+domain,"Planetary Sciences (Geology, Climatology, Oceanography, etc.)",planetary
+domain,Psychology or Neuroscience,psych
+domain,Social Sciences,socsci
+domain,Space Sciences,space
+domain,Other,other
+workshop_attended_content,Cloud Computing,cloud
+workshop_attended_content,Git,git
+workshop_attended_content,MATLAB,matlab
+workshop_attended_content,Mercurial,hg
+workshop_attended_content,OpenRefine,or
+workshop_attended_content,Python,py
+workshop_attended_content,R,r
+workshop_attended_content,Spreadsheets,spreads
+workshop_attended_content,SQL,sql
+workshop_attended_content,Unix Shell,unix
+workshop_attended_content,I don’t remember,dontknow
+behavior_adopted,Improving data management and project organization,projorg
+behavior_adopted,Developing a data management and analysis plan,plan
+behavior_adopted,"Using databases, scripts and queries to manage large data sets",db
+behavior_adopted,Transforming step-by-step workflows into scripts or functions,scripts
+behavior_adopted,"Using programming languages like R or Python, or the command line to automate repetitive tasks",repetitive
+behavior_adopted,Reusing code,reuse
+behavior_adopted,Using version control to manage code.Using version control to collaborate online (in public or private repositories),vcsshare
+behavior_adopted,Sharing code or data publicly on places like GitHub or FigShare,datashare
+behavior_adopted,Other,other
+how_tools_help,They are improving my overall efficiency,efficiency
+how_tools_help,They are improving my ability to analyze data,analysis
+how_tools_help,They are improving my ability to manage data,mgt
+how_tools_help,The tools I learned have not helped me with my work,nohelp
+how_tools_help,I am not using the tools I learned,nouse
+how_tools_help,Other,other
+community_involvement,Subscribed to the newsletter,newsletter
+community_involvement,Attended at least one community discussion,commcall
+community_involvement,Became a workshop helper,helper
+community_involvement,Joined a committee,comm
+community_involvement,Joined a mentoring group,mentor
+community_involvement,Participated in a Twitter chat,twitter
+community_involvement,Contributed to a Carpentries lesson,contrib
+community_involvement,Became a Carpentries instructor,instructor
+other_activities,Participated in an in-person short course,inperson
+other_activities,Participated in an online short course,online
+other_activities,Participated in a Meetup,meetup
+other_activities,Participated in a semester long course,semester
+other_activities,Used self-guided Carpentries lesson material,carp-sg
+other_activities,Used non-Carpentries self-guided material,other-sg
+ethnicity,"American Indian or Alaska Native (A person having origins in any of the original peoples of North and South America (including Central America), and who maintains a tribal affiliation or community attachment.)",amindian
+ethnicity,"Asian (Having origins in any of the original peoples of the Far East, Southeast Asia, or the Indian subcontinent including, for example, Cambodia, China, India, Japan, Korea, Malaysia, Pakistan, Indonesia, the Philippine Islands, Thailand, and Vietnam.)",asian
+ethnicity,Black or African American (Having origins in any of the Black racial groups of Africa – includes Caribbean Islanders and others of African origin.),black
+ethnicity,Hispanic or Latino(a) (A person of Spanish-speaking origin or ancestry and/or Latin American origin or ancestry – includes Portuguese and Brazilians.),latinx
+ethnicity,"Native Hawaiian or Other Pacific Islander (A person having origins in any of the original peoples of Hawaii, Guam, Samoa, or other Pacific Islands.)",islander
+ethnicity,"White (Having origins in any of the original peoples of Europe, the Middle East, or North Africa.)",white
+ethnicity,I prefer not to say,noanswer
