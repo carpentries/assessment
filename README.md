@@ -18,6 +18,9 @@ Additionally, the repository contains minutes from the [assessment-network](http
 
 The published reports are listed below
 
+## Instructor Training  
+- [2021 Instructor Training Report](https://carpentries.github.io/2021_IT_report/index.html) [![DOI](https://zenodo.org/badge/400281931.svg)](https://zenodo.org/badge/latestdoi/400281931)
+
 ## Software Carpentry
 
   + [2017-July](https://carpentries.github.io/assessment/learner-assessment/archives/2017/code/2017-July-post.html) Post-Workshop Survey Report  
