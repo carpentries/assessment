@@ -1,0 +1,71 @@
+session_name,session_type,start_day_utc,start_time_utc,num_attendees
+CarpentriesOffline,Breakout Session,"4 August, 2022",9:30:00,11
+Incorporating data literacy topics into Carpentry lessons,Breakout Session,"3 August, 2022",14:00:00,81
+Library Carpentry Curriculum Discussion,Breakout Session,"4 August, 2022",16:00:00,76
+Livestreaming massive courses,Breakout Session,"3 August, 2022",16:00:00,22
+Machine Learning Lesson Development Coordination,Breakout Session,"2 August, 2022",9:00:00,21
+Machine Learning Lesson Development Coordination,Breakout Session,"5 August, 2022",12:00:00,16
+Online to In-Person,Breakout Session,"2 August, 2022",15:00:00,50
+Online to In-Person,Breakout Session,"11 August, 2022",22:00:00,22
+Planning HPC Carpentry's Route to Joining The Carpentries,Breakout Session,"4 August, 2022",14:00:00,22
+Strategies for teaching in times of crises,Breakout Session,"8 August, 2022",17:00:00,58
+"The Carpentries Toolkit of IDEAS (Inclusion, Diversity, Equity, and Accessibility Strategies)",Breakout Session,"9 August, 2022",14:00:00,35
+"The Carpentries Toolkit of IDEAS (Inclusion, Diversity, Equity, and Accessibility Strategies)",Breakout Session,"5 August, 2022",0:00:00,12
+Conference Closing Ceremony,Closing Ceremony,"12 August, 2022",18:30:00,32
+Conference Closing Ceremony,Closing Ceremony,"12 August, 2022",0:00:00,11
+Conference Closing Ceremony,Closing Ceremony,"11 August, 2022",8:30:00,6
+Conference Welcome,Conference Welcome,"1 August, 2022",14:00:00,40
+Conference Welcome,Conference Welcome,"1 August, 2022",7:00:00,26
+Conference Welcome,Conference Welcome,"1 August, 2022",23:10:00,23
+A Conversation with The Carpentries Core Team,Informal Meetup,"1 August, 2022",15:30:00,37
+A Conversation with The Carpentries Core Team,Informal Meetup,"3 August, 2022",22:00:00,16
+A Conversation with The Carpentries Core Team,Informal Meetup,"11 August, 2022",12:30:00,9
+Australia / New Zealand Communities,Informal Meetup,"1 August, 2022",0:15:00,15
+Building a Carpentries Community,Informal Meetup,"9 August, 2022",16:30:00,20
+Building a Carpentries Community,Informal Meetup,"2 August, 2022",22:00:00,14
+KickAbs,Informal Meetup,"5 August, 2022",10:00:00,6
+KickAbs,Informal Meetup,"11 August, 2022",0:00:00,5
+"Meet, Greet, and Draw",Informal Meetup,"3 August, 2022",9:00:00,10
+"Meet, Greet, and Draw",Informal Meetup,"3 August, 2022",18:00:00,8
+"Meet, Greet, and Draw",Informal Meetup,"9 August, 2022",23:15:00,6
+"Meet, Greet, and Draw",Informal Meetup,"8 August, 2022",0:30:00,3
+Data literacy - the key to a broad adaptation of Open Science and the FAIR principles,Keynote,"1 August, 2022",7:30:00,41
+Logrando el cambio que queremos de a una conferencia a la vez,Keynote,"1 August, 2022",14:30:00,47
+Radical Self-Care,Keynote,"8 August, 2022",14:00:00,43
+The CARE Principles for Indigenous Data Governance,Keynote,"1 August, 2022",23:30:00,31
+Community and more,Lightning Presentations,"8 August, 2022",9:00:00,17
+Community and more,Lightning Presentations,"9 August, 2022",8:30:00,14
+Community and more,Lightning Presentations,"7 August, 2022",23:00:00,8
+Organising a workshop,Lightning Presentations,"1 August, 2022",22:00:00,20
+Organising a workshop,Lightning Presentations,"5 August, 2022",7:00:00,18
+Organising a workshop,Lightning Presentations,"5 August, 2022",16:00:00,14
+Teaching tips and tricks,Lightning Presentations,"5 August, 2022",14:00:00,56
+Teaching tips and tricks,Lightning Presentations,"1 August, 2022",8:30:00,49
+Teaching tips and tricks,Lightning Presentations,"31 July, 2022",23:00:00,24
+"Activities, Challenges, and Opportunities (Oceania)",Other,"3 August, 2022",1:00:00,9
+African Carpentries Monthly Meetup,Other,"11 August, 2022",7:00:00,17
+The Carpentries Regional Subcommunities,Other,"8 August, 2022",7:00:00,19
+Translation at The Carpentries,Other,"2 August, 2022",7:00:00,23
+Translation at The Carpentries,Other,"10 August, 2022",0:30:00,16
+Using African Libraries for Carpentries Training to Expand Digital Frontiers,Other,"3 August, 2022",7:00:00,37
+Beyond the SWC Git Lesson,Skill Up,"4 August, 2022",2:00:00,8
+Building Lessons with The Carpentries Workbench,Skill Up,"12 August, 2022",14:00:00,20
+Building Lessons with The Carpentries Workbench,Skill Up,"10 August, 2022",9:30:00,14
+Building Lessons with The Carpentries Workbench,Skill Up,"10 August, 2022",22:00:00,13
+Disability Inclusion,Skill Up,"8 August, 2022",15:00:00,27
+Disability Inclusion,Skill Up,"4 August, 2022",22:00:00,20
+Git Good,Skill Up,"10 August, 2022",14:00:00,70
+Git Good,Skill Up,"4 August, 2022",7:00:00,43
+Instructor Onboarding for Data Carpentry,Skill Up,"10 August, 2022",7:00:00,18
+Learning to Analyze Intersectionality using R,Skill Up,"11 August, 2022",14:00:00,26
+Learning to Analyze Intersectionality using R,Skill Up,"3 August, 2022",23:30:00,15
+What's all the GitHubub about? Contributing to Lessons directly on GitHub,Skill Up,"10 August, 2022",16:30:00,20
+What's all the GitHubub about? Contributing to Lessons directly on GitHub,Skill Up,"8 August, 2022",23:00:00,4
+A Handbook for The Carpentries Community Coordinators,Sprint,"2 August, 2022",17:00:00,14
+A Handbook for The Carpentries Community Coordinators,Sprint,"2 August, 2022",1:30:00,9
+A Handbook for The Carpentries Community Coordinators,Sprint,"11 August, 2022",1:30:00,4
+GIT lesson repo wrangler utility demonstration and development sprint,Sprint,"2 August, 2022",23:15:00,6
+High Performance Workflows with Snakemake,Sprint,"12 August, 2022",16:30:00,26
+High Performance Workflows with Snakemake,Sprint,"9 August, 2022",17:30:00,15
+High Performance Workflows with Snakemake,Sprint,"4 August, 2022",18:00:00,8
+HPC Workflows with Snakemake,Sprint,"1 August, 2022",17:00:00,31
