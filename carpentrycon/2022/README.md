@@ -1,4 +1,4 @@
-CarpentryCon 2022 Evaluation Report
+# CarpentryCon 2022 Evaluation Report
 This folder contains three files:
 
 The R script used to analyse the results of the CarpentryCon 2022 typeform post-survey and create the figures for the CarpentryCon 2022 Evaluation Report
