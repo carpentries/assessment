@@ -47,10 +47,11 @@ WITH THE MATERIAL IN THIS REPOSITORY.
 
 ## Trademark
 
-"Software Carpentry" and "Data Carpentry" and their respective logos
-are registered trademarks of Community Initiatives.
+"The Carpentries", "Software Carpentry", "Library Carpentry", "Data Carpentry" and their respective logos are
+registered trademarks of [The Carpentries Inc][the-carpentries].
 
 [cc-by-human]: https://creativecommons.org/licenses/by/4.0/
 [cc-by-legal]: https://creativecommons.org/licenses/by/4.0/legalcode
-[mit-license]: http://opensource.org/licenses/mit-license.html
-[osi]: http://opensource.org
+[mit-license]: https://opensource.org/licenses/mit-license.html
+[osi]: https://opensource.org
+[the-carpentries]: https://carpentries.org/
